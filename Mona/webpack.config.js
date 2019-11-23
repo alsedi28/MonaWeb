@@ -1,0 +1,37 @@
+'use strict';
+
+const webpack = require('webpack');
+const path = require('path');
+
+const bundleFolder = "./public/assets/";
+const srcFolder = "./src/"
+
+module.exports = {
+    entry: [
+        srcFolder + "index.jsx" 
+    ], 
+    devtool: "source-map",
+    output: {
+        filename: "bundle.js",
+        publicPath: 'assets/',
+        path: path.resolve(__dirname, bundleFolder),
+        sourceMapFilename: "bundle.map"
+    },
+    module: {
+        rules: [
+            {
+                test: /\.(js|jsx)$/,
+                exclude: /(node_modules)/,
+                loader: "babel-loader",
+                query: {
+                    presets: ["es2015", "stage-0", "react"]
+                }
+            }
+        ]
+    },
+    resolve: {
+        extensions: ['.js', '.jsx']
+    },
+    plugins: [
+    ]
+};
