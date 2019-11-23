@@ -1,0 +1,44 @@
+﻿html, body {
+    height: 100%;
+    margin: 0px;
+}
+
+#content {
+    height: 100%;
+    background-color: #fafafa;
+}
+
+header {
+    height: 70px;
+    width: 100%;
+    background-color: white;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+.header-fixed {
+    position: fixed;
+    top: 0;
+    z-index: 1;
+}
+
+.post-block {
+    background-color: white;
+    border-radius: 3px;
+    border: 1px solid #e6e6e6;
+    width: 900px;
+    height: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.section-block {
+    height: auto;
+}
+
+.posts-feed-external {
+
+}
+
+.post-external {
+    margin-top: 40px;
+}
