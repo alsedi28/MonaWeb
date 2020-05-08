@@ -1,11 +1,12 @@
 ﻿html, body {
     height: 100%;
+    padding: 0pc;
     margin: 0px;
+    background-color: #fafafa;
 }
 
 #content {
     height: 100%;
-    background-color: #fafafa;
 }
 
 header {
@@ -15,7 +16,7 @@ header {
     border-bottom: 1px solid #dbdbdb;
 }
 
-.header-fixed {
+.header-external {
     position: fixed;
     top: 0;
     z-index: 1;
@@ -36,7 +37,7 @@ header {
 }
 
 .posts-feed-external {
-
+    margin-top: 90px;
 }
 
 .post-external {

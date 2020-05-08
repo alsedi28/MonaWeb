@@ -7,7 +7,7 @@ export default class App extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <Header/>
+                <Header externalClass="header-external"/>
                 <PostsFeed externalClass="posts-feed-external">
                     <Post externalClass="post-external" />
                 </PostsFeed>
