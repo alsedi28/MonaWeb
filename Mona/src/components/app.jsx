@@ -1,7 +1,7 @@
-import React from 'react'
-import Header from './header'
-import PostsFeed from './postsFeed'
-import Post from './post'
+import React from 'react';
+import Header from './header/header';
+import PostsFeed from './postsFeed/postsFeed';
+import Post from './post/post';
 
 export default class App extends React.Component {
     render() {
@@ -14,4 +14,4 @@ export default class App extends React.Component {
             </React.Fragment>
         );
     }
-};
+}

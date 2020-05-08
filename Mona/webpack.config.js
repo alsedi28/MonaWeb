@@ -4,7 +4,7 @@ const webpack = require('webpack');
 const path = require('path');
 
 const bundleFolder = "./public/assets/";
-const srcFolder = "./src/"
+const srcFolder = "./src/";
 
 module.exports = {
     entry: [
@@ -26,6 +26,22 @@ module.exports = {
                 query: {
                     presets: ["es2015", "stage-0", "react"]
                 }
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: 1,
+                            modules: {
+                                auto: true,
+                                localIdentName: '[name]__[local]--[hash:base64:5]'
+                            }
+                        }
+                    }
+                ]
             }
         ]
     },
