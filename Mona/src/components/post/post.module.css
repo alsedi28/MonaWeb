@@ -4,7 +4,7 @@
     border: 1px solid #e6e6e6;
     max-width: 790px;
     min-width: 650px;
-    height: 700px;
+    height: auto;
 }
 
 .header {
@@ -116,6 +116,10 @@
     margin-left: 5px;
 }
 
+.movieRaiting {
+    margin-top: 15px;
+}
+
 .movieRaiting > p {
     margin: 0px;
 }
@@ -177,4 +181,36 @@
 
 .movieStatusForUser img {
     margin-left: 10px;
+}
+
+.buttonsBlock {
+    height: 45px;
+}
+
+.buttonsBlock > img {
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.commentsBlock {
+    height: auto;
+    font-size: 16px;
+    font-family: "MontserratRegular";
+    color: rgb(49, 54, 60);
+}
+
+.commentsBlock span {
+    font-family: "MontserratSemiBold";
+}
+
+.commentsBlock > p {
+    padding-left: 20px;
+}
+
+.commentsBlock > p:first-of-type{
+    margin-top: 0px;
+}
+
+.showAllComments {
+    color: rgb(155, 155, 155);
 }

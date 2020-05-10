@@ -1,0 +1,17 @@
+.container {
+    height: 45px;
+    width: 100%;
+}
+
+.centerContainer {
+    max-width: 790px;
+    min-width: 650px;
+    height: 100%;
+    margin: auto;
+    color: #8e8e8e;
+    font-family: "MontserratBold";
+}
+
+.centerContainer p {
+    padding-left: 20px;
+}

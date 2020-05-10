@@ -2,6 +2,8 @@ import React from 'react';
 import styles from './post.module.css';
 import shapeIcon from '../../../public/icons/shape.png';
 import checkMarkIcon from '../../../public/icons/checkMark.png';
+import heartIcon from '../../../public/icons/heart.png';
+import commentsIcon from '../../../public/icons/comments.png';
 
 const Post = ({ externalClass = "" }) => (
     <article className={`${styles.container} ${externalClass}`}>
@@ -50,6 +52,15 @@ const Post = ({ externalClass = "" }) => (
                     </p>
                 </div>
             </div>
+        </div>
+        <div className={styles.buttonsBlock}>
+            <img src={heartIcon} width="30px" />
+            <img src={commentsIcon} width="30px" /> 
+        </div>
+        <div className={styles.commentsBlock}>
+            <p>Нравится <span>alsedi</span> и <span>ещё</span> 2 пользователям</p>
+            <p><span>alsedi</span> Ну ооочень сомнительно. Не очень зашло, слишком мало активностей. Да, формат необычный, очень бюджетно думаю получилось. Хорошо, что он довольно короткий, 1.25. Немного напряжено, но так. Лучше посмотреть «Тревожный вызов».</p>
+            <p className={styles.showAllComments}>Посмотреть 3 комментария</p>
         </div>
     </article>
 );

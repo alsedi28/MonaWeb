@@ -25,6 +25,11 @@
     margin-top: 40px;
 }
 
+.footer-external {
+    margin-bottom: 0px;
+    margin-top: 30px;
+}
+
 @font-face {
     font-family: "MontserratLight";
     src: url("../fonts/Montserrat-Light.ttf");
