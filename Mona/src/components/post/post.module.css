@@ -2,6 +2,179 @@
     background-color: white;
     border-radius: 3px;
     border: 1px solid #e6e6e6;
-    width: 900px;
+    max-width: 790px;
+    min-width: 650px;
+    height: 700px;
+}
+
+.header {
+    height: 60px;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.postUserIcon {
+    border-radius: 50%;
+    width: 60px;
+    height: 100%;
+    float: left;
+}
+
+.postUserIcon img {
+    border-radius: 50%;
+    margin-top: 14px;
+    margin-left: 15px;
+}
+
+.postInfoHeader {
+    float: left;
+    width: 400px;
+    height: 100%;
+}
+
+.datePost {
+    float: right;
+    width: 150px;
+    height: 100%;
+    text-align: right;
+    color: #31363c;
+    font-size: 14px;
+    margin-top: 22px;
+    margin-right: 10px;
+    font-family: "MontserratLight";
+}
+
+.postUserInfo {
+    color: #31363c;
+    font-size: 14px;
+    float: left;
+    width: 300px;
+    padding-top: 20px;
+}
+
+.postUserInfo > span:last-child {
+    font-family: "MontserratMedium";
+}
+
+.postUserInfo > span:first-child {
+    font-family: "MontserratBold";
+}
+
+.main {
     height: 600px;
+    background-size: cover !important;
+}
+
+.main > div {
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.posterBlock {
+    float: left;
+    width: 400px;
+    height: 540px;
+}
+
+.movieInfoBlock {
+    margin-left: 400px;
+    height: 540px;
+    color: white;
+}
+
+.posterBlock > div {
+    height: 460px;
+    width: 340px;
+    margin: auto;
+    margin-top: 50px;
+    border-radius: 15px;
+    overflow: hidden;
+    border: 1px black solid;
+}
+
+.movieTitle {
+    margin: 0px;
+    padding-top: 50px;
+    font-size: 25px;
+    font-family: "MontserratSemiBold";
+}
+
+.movieTitle > span {
+    font-family: "MontserratRegular";
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.userRaiting {
+    font-family: "MontserratRegular";
+    font-size: 18px;
+}
+
+.userRaiting > span {
+    font-family: "MontserratSemiBold";
+    background-color: rgb(253, 87, 57);
+    padding: 5px 17px;
+    border-radius: 5px;
+    margin-left: 5px;
+}
+
+.movieRaiting > p {
+    margin: 0px;
+}
+
+.movieRaiting > p:first-of-type {
+    font-size: 28px;
+    font-family: "MontserratSemiBold";
+}
+
+.movieRaiting > p:last-of-type {
+    font-size: 17px;
+    font-family: "MontserratRegular";
+}
+
+.numberUsers {
+    margin-top: 70px;
+    width: 210px;
+}
+
+.numberUsers > p {
+    margin: 0px;
+}
+
+.numberUsers > p:first-of-type {
+    font-size: 28px;
+    font-family: "MontserratSemiBold";
+}
+
+.numberUsers > p:last-of-type {
+    font-size: 17px;
+    font-family: "MontserratRegular";
+}
+
+.numberUsers > img {
+    float: right;
+    margin-top: 11px;
+}
+
+.movieInfoBlock > .numberUsers:last-of-type {
+    margin-top: 30px;
+}
+
+.movieStatusForUser {
+    clear: both;
+    height: 40px;
+    width: 80%;
+    margin: auto;
+    border: 2px solid rgb(253, 87, 57);
+    border-radius: 10px;
+    text-align: center;
+    font-family: "MontserratSemiBold";
+    color: white;
+}
+
+.movieStatusForUser > p {
+    margin: 0;
+    margin-top: 10px;
+}
+
+.movieStatusForUser img {
+    margin-left: 10px;
 }

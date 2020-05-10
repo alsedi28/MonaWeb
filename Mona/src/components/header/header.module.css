@@ -1,6 +1,17 @@
 .container {
-    height: 70px;
+    height: 60px;
     width: 100%;
-    background-color: white;
+    background-color: #FF571A;
     border-bottom: 1px solid #dbdbdb;
+}
+
+.centerContainer {
+    max-width: 790px;
+    min-width: 650px;
+    height: 100%;
+    margin: auto;
+}
+
+.icon{
+    margin-top: 10px;
 }
