@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styles from './post.module.css';
 import shapeIcon from '../../../public/icons/shape.png';
 import checkMarkIcon from '../../../public/icons/checkMark.png';
@@ -24,8 +24,23 @@ const Post = ({ post, externalClass = "" }) => {
             blockWithInfoAboutLikes = <p>Нравится <span>{userNameWhoLikesPost}</span></p>;
     }
 
+    const showAllCommentsTextElement = useRef(null);
+
+    function showAllComments() {
+        let currentElement = showAllCommentsTextElement.current;
+        let parent = currentElement.parentElement;
+
+        for (var i = 1; i < post.Comments.length; i++) {
+            let element = document.createElement('p');
+            element.innerHTML = `<span>${post.Comments[i].Username}</span> ${post.Comments[i].Text}`;
+            parent.append(element);
+        }
+
+        currentElement.remove();
+    }
+
     return (
-        <article className={`${styles.container} ${externalClass}`}>
+        <article className={`${styles.container} ${externalClass}`} id={`post-${post.EventId}`}>
             <header className={styles.header}>
                 <div className={styles.postInfoHeader}>
                     <div className={styles.postUserIcon}>
@@ -44,7 +59,7 @@ const Post = ({ post, externalClass = "" }) => {
                 <div>
                     <div className={styles.posterBlock}>
                         <div>
-                            <img src={`https://image.tmdb.org/t/p/w342${post.MoviePosterPath}`} width="342px" />
+                            <img src={`https://image.tmdb.org/t/p/w342${post.MoviePosterPath}`} height="460px" />
                         </div>
                     </div>
                     <div className={styles.movieInfoBlock}>
@@ -81,7 +96,10 @@ const Post = ({ post, externalClass = "" }) => {
             <div className={styles.commentsBlock}>
                 {blockWithInfoAboutLikes}
                 {blockWithMainComment}
-                <p className={styles.showAllComments} style={{ display: post.AmountEventComments > 1 ? "display" : "none" }}>Посмотреть {post.AmountEventComments} комментария</p>
+                <p className={styles.showAllComments} onClick={showAllComments} ref={showAllCommentsTextElement}
+                    style={{ display: post.AmountEventComments > 1 ? "display" : "none" }}>
+                    Посмотреть {post.AmountEventComments} комментария
+                </p>
             </div>
         </article>
     );

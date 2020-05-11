@@ -83,7 +83,7 @@
 
 .posterBlock > div {
     height: 460px;
-    width: 340px;
+    width: 304px;
     margin: auto;
     margin-top: 50px;
     border-radius: 15px;
@@ -214,6 +214,10 @@
 
 .showAllComments {
     color: rgb(155, 155, 155);
+}
+
+.showAllComments:hover {
+    cursor: pointer;
 }
 
 .viewUsersBlock {

@@ -12,8 +12,9 @@ export default class App extends React.Component {
 
         this.state = {
             posts: [],
-            hasMore: true,
-            lastPostItemId: 0
+            hasMore: false,
+            lastPostItemId: 0,
+            isLoading: true
         };
 
         this.getPosts = this.getPosts.bind(this);
@@ -35,13 +36,15 @@ export default class App extends React.Component {
         .then(response => response.json())
         .then(items => {
             if (items.length === 0) {
-                this.setState({ hasMore: false });
+                this.setState({ hasMore: false, isLoading: false });
                 return;
             }
 
             this.setState({
                 lastPostItemId: items[items.length - 1].EventId,
-                posts: this.state.posts.concat(items)
+                posts: this.state.posts.concat(items),
+                hasMore: true,
+                isLoading: false
             });
         });
     }
@@ -51,6 +54,7 @@ export default class App extends React.Component {
             <React.Fragment>
                 <Header externalClass="header-external"/>
                 <PostsFeed externalClass="posts-feed-external">
+                    <Loader show={this.state.isLoading} />
                     <InfiniteScroll
                         dataLength={this.state.posts.length}
                         next={this.getPosts}
