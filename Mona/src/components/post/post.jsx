@@ -10,6 +10,11 @@ const Post = ({ post, externalClass = "" }) => {
     let movieRaiting = post.ImdbRaiting === null ? post.VoteAverage : post.ImdbRaiting;
     let userRaiting = post.EventType === 0 ? post.UserRaiting : null;
 
+    let movieReleaseDate = post.MovieReleaseDate !== null ? new Date(Date.parse(post.MovieReleaseDate)) : null;
+    let blockMovieReleaseDate = "";
+    if (movieReleaseDate !== null)
+        blockMovieReleaseDate = <span>({movieReleaseDate.getFullYear()})</span>;
+
     let comment = post.Comments.length > 0 ? post.Comments[0] : null;
     let blockWithMainComment = "";
     if (comment !== null)
@@ -63,7 +68,7 @@ const Post = ({ post, externalClass = "" }) => {
                         </div>
                     </div>
                     <div className={styles.movieInfoBlock}>
-                        <p className={styles.movieTitle}>{post.MovieTitle} <span>({post.MovieReleaseDate.substring(0, 4)})</span></p>
+                        <p className={styles.movieTitle}>{post.MovieTitle} {blockMovieReleaseDate}</p>
                         <p className={styles.userRaiting} style={{ display: userRaiting === null ? "none" : "display" }}>Оценка: <span>{userRaiting}</span></p>
                         <div className={styles.movieRaiting}>
                             <p>{movieRaiting}</p>
