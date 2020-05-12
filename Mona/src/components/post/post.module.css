@@ -91,6 +91,12 @@
     border: 1px black solid;
 }
 
+.posterBlock > div > img:last-of-type{
+    position: relative;
+    top: -465px;
+    left: 240px;
+}
+
 .movieTitle {
     margin: 0px;
     padding-top: 50px;

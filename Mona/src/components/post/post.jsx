@@ -6,8 +6,12 @@ import checkMarkIcon from '../../../public/icons/checkMark.png';
 import heartIcon from '../../../public/icons/heart.png';
 import heartFilledIcon from '../../../public/icons/heartFilled.png';
 import commentsIcon from '../../../public/icons/comments.png';
+import bookMarkIcon from '../../../public/icons/bookMark.png';
 
 const Post = ({ post, externalClass = "" }) => {
+    const MovieStatusWillWatchForUser = "WillWatch";
+    const MovieStatusNoViewedForUser = "NoViewed";
+
     let movieRaiting = post.ImdbRaiting === null ? post.VoteAverage : post.ImdbRaiting;
     let userRaiting = post.EventType === 0 ? post.UserRaiting : null;
 
@@ -94,6 +98,7 @@ const Post = ({ post, externalClass = "" }) => {
                     <div className={styles.posterBlock}>
                         <div>
                             <img src={`https://image.tmdb.org/t/p/w342${post.MoviePosterPath}`} height="460px" />
+                            <img src={bookMarkIcon} width="50px" style={{ display: post.StatusOfMovieForUser === MovieStatusWillWatchForUser ? "display" : "none" }}/>
                         </div>
                     </div>
                     <div className={styles.movieInfoBlock}>
@@ -114,8 +119,8 @@ const Post = ({ post, externalClass = "" }) => {
                             <p>посмотрели</p>
                         </div>
                     </div>
-                    <div className={styles.movieStatusForUser} style={{ display: post.StatusOfMovieForUser === "NoViewed" ? "none" : "display" }}>
-                        <p>{post.StatusOfMovieForUser === "WillWatch" ? "В закладках" : "Просмотрен"}
+                    <div className={styles.movieStatusForUser} style={{ display: post.StatusOfMovieForUser === MovieStatusNoViewedForUser ? "none" : "display" }}>
+                        <p>{post.StatusOfMovieForUser === MovieStatusWillWatchForUser ? "В закладках" : "Просмотрен"}
                             <img src={checkMarkIcon} width="20px" />
                         </p>
                     </div>
