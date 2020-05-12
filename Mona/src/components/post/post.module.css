@@ -219,14 +219,3 @@
 .showAllComments:hover {
     cursor: pointer;
 }
-
-.viewUsersBlock {
-    height: 600px;
-    width: 55%;
-    margin-left: 45%;
-    margin-top: -584px;
-    background-color: white;
-    position: relative;
-    border-left: 2px solid #e6e6e6;
-    display: none;
-}

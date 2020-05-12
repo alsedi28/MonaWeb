@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import moment from 'moment';
 import styles from './post.module.css';
 import shapeIcon from '../../../public/icons/shape.png';
 import checkMarkIcon from '../../../public/icons/checkMark.png';
@@ -31,7 +32,7 @@ const Post = ({ post, externalClass = "" }) => {
 
     const showAllCommentsTextElement = useRef(null);
 
-    function showAllComments() {
+    function clickShowAllComments() {
         let currentElement = showAllCommentsTextElement.current;
         let parent = currentElement.parentElement;
 
@@ -42,6 +43,34 @@ const Post = ({ post, externalClass = "" }) => {
         }
 
         currentElement.remove();
+    }
+
+    function getDateOfPost() {
+        let postDate = Date.parse(post.DateOfCreation);
+        let dateNow = Date.now();
+        let duration = moment.duration(dateNow - postDate);
+
+        let resultString = "";
+
+        let [years, months, days, hours, minutes, seconds] =
+            [duration.years(), duration.months(), duration.days(), duration.hours(), duration.minutes(), duration.seconds()];
+
+        if (years > 0)
+            resultString = `${years} г.`;
+        else if (months > 0)
+            resultString = `${months} мес.`;
+        else if (days > 0)
+            resultString = `${days} д.`;
+        else if (hours > 0)
+            resultString = `${hours} ч.`;
+        else if (minutes > 0)
+            resultString = `${minutes} мин.`;
+        else if (seconds > 0)
+            resultString = `${seconds} сек.`;
+        else
+            return "Только что";
+
+        return resultString + " назад";
     }
 
     return (
@@ -57,7 +86,7 @@ const Post = ({ post, externalClass = "" }) => {
                     </div>
                 </div>
                 <div className={styles.datePost}>
-                    <span>8 ч. назад</span>
+                    <span>{getDateOfPost()}</span>
                 </div>
             </header>
             <div className={styles.main} style={{ background: `url(https://image.tmdb.org/t/p/w780${post.MovieBackdropPath}) 100% 100% no-repeat` }}>
@@ -90,8 +119,6 @@ const Post = ({ post, externalClass = "" }) => {
                             <img src={checkMarkIcon} width="20px" />
                         </p>
                     </div>
-                    <div className={styles.viewUsersBlock}>
-                    </div>
                 </div>
             </div>
             <div className={styles.buttonsBlock}>
@@ -101,7 +128,7 @@ const Post = ({ post, externalClass = "" }) => {
             <div className={styles.commentsBlock}>
                 {blockWithInfoAboutLikes}
                 {blockWithMainComment}
-                <p className={styles.showAllComments} onClick={showAllComments} ref={showAllCommentsTextElement}
+                <p className={styles.showAllComments} onClick={clickShowAllComments} ref={showAllCommentsTextElement}
                     style={{ display: post.AmountEventComments > 1 ? "display" : "none" }}>
                     Посмотреть {post.AmountEventComments} комментария
                 </p>
