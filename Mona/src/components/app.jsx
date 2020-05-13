@@ -10,10 +10,12 @@ class App extends React.Component {
         super(props);
 
         this.state = {
-            posts: [],
-            hasMore: false,
-            lastPostItemId: 0,
-            isLoading: true
+            feed: {
+                posts: [],
+                hasMore: false, // Флаг, который показывает есть ли еще посты для загрузки
+                lastPostItemId: 0, // Id последнего Event, который загрузили
+                isLoading: true // Флаг, который отвечает за отображение/скрытие loader'а при начальной инициализации
+            }
         };
 
         this.getPosts = this.getPosts.bind(this);
@@ -24,7 +26,7 @@ class App extends React.Component {
     }
 
     getPosts() {
-        let url = "http://monamobileapp.ru/MovieMe/api/v2/users/eventfeed?start=" + this.state.lastPostItemId;
+        let url = "http://monamobileapp.ru/MovieMe/api/v2/users/eventfeed?start=" + this.state.feed.lastPostItemId;
 
         fetch(url, {
             headers: {
@@ -35,15 +37,23 @@ class App extends React.Component {
         .then(response => response.json())
         .then(items => {
             if (items.length === 0) {
-                this.setState({ hasMore: false, isLoading: false });
+                this.setState({
+                    feed: {
+                        ...this.state.feed,
+                        hasMore: false,
+                        isLoading: false
+                    }
+                });
                 return;
             }
 
             this.setState({
-                lastPostItemId: items[items.length - 1].EventId,
-                posts: this.state.posts.concat(items),
-                hasMore: true,
-                isLoading: false
+                feed: {
+                    lastPostItemId: items[items.length - 1].EventId,
+                    posts: this.state.feed.posts.concat(items),
+                    hasMore: true,
+                    isLoading: false
+                }
             });
         });
     }
@@ -57,7 +67,7 @@ class App extends React.Component {
                 <Switch>
                     <Redirect exact from='/' to='/feed' />
                     <Route path='/feed' history={history} render={(routeProps) =>
-                        <PostsFeedPage {...routeProps} isLoading={this.state.isLoading} posts={this.state.posts} hasMorePosts={this.state.hasMore} getPosts={this.getPosts} />}
+                        <PostsFeedPage {...routeProps} isLoading={this.state.feed.isLoading} posts={this.state.feed.posts} hasMorePosts={this.state.feed.hasMore} getPosts={this.getPosts} />}
                     />
                     <Route component={NotFoundPage} />
                 </Switch>
