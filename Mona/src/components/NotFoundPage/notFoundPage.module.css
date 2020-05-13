@@ -1,0 +1,10 @@
+.container {
+    height: 90%;
+    width: 100%;
+}
+
+.container img {
+position: absolute;
+    top: 35%;
+    left: 40%;
+}

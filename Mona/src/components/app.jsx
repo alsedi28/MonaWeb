@@ -1,12 +1,11 @@
 import React from 'react';
-import InfiniteScroll from "react-infinite-scroll-component";
+import { Route, Switch, Redirect, withRouter } from "react-router-dom";
 import Header from './header/header';
 import Footer from './footer/footer';
-import PostsFeed from './postsFeed/postsFeed';
-import Post from './post/post';
-import Loader from './loader/loader';
+import PostsFeedPage from './postsFeedPage/postsFeedPage';
+import NotFoundPage from './notFoundPage/notFoundPage';
 
-export default class App extends React.Component {
+class App extends React.Component {
     constructor(props) {
         super(props);
 
@@ -50,22 +49,22 @@ export default class App extends React.Component {
     }
 
     render() {
+        const { history } = this.props;
+
         return (
             <React.Fragment>
-                <Header externalClass="header-external"/>
-                <PostsFeed externalClass="posts-feed-external">
-                    <Loader show={this.state.isLoading} />
-                    <InfiniteScroll
-                        dataLength={this.state.posts.length}
-                        next={this.getPosts}
-                        hasMore={this.state.hasMore}
-                        loader={<Loader />}
-                    >
-                        {this.state.posts.map(post => <Post post={post} externalClass="post-external" />)}
-                    </InfiniteScroll>
-                </PostsFeed>
+                <Header externalClass="header-external" />
+                <Switch>
+                    <Redirect exact from='/' to='/feed' />
+                    <Route path='/feed' history={history} render={(routeProps) =>
+                        <PostsFeedPage {...routeProps} isLoading={this.state.isLoading} posts={this.state.posts} hasMorePosts={this.state.hasMore} getPosts={this.getPosts} />}
+                    />
+                    <Route component={NotFoundPage} />
+                </Switch>
                 <Footer externalClass="footer-external"/>
             </React.Fragment>
         );
     }
 }
+
+export default withRouter(App);
