@@ -106,3 +106,16 @@ button:active,
 button:focus {
     outline: none;
 }
+
+.error {
+    position: relative;
+    top: 100px;
+}
+
+.error > p {
+    width: 260px;
+    color: red;
+    font-size: 14px;
+    font-family: "MontserratRegular";
+    margin: auto;
+}

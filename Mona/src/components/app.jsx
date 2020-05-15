@@ -6,7 +6,6 @@ import Header from './header/header';
 import Footer from './footer/footer';
 import PostsFeedPage from './postsFeedPage/postsFeedPage';
 import NotFoundPage from './notFoundPage/notFoundPage';
-import LoginPage from './loginPage/loginPage';
 
 class App extends React.Component {
     constructor(props) {
@@ -21,10 +20,12 @@ class App extends React.Component {
                 hasMore: false, // ‘лаг, который показывает есть ли еще посты дл€ загрузки
                 lastPostItemId: 0, // Id последнего Event, который загрузили
                 isLoading: true // ‘лаг, который отвечает за отображение/скрытие loader'а при начальной инициализации
-            }
+            },
+            showLoginError: false // ѕоказать ошибку на странице Login
         };
 
         this.userHasAuthorization = this.userHasAuthorization.bind(this);
+        this.showLoginError = this.showLoginError.bind(this);
         this.getPosts = this.getPosts.bind(this);
         this.login = this.login.bind(this);
     }
@@ -35,6 +36,10 @@ class App extends React.Component {
 
     userHasAuthorization(status) {
         this.setState({ hasAuthorization: status });
+    }
+
+    showLoginError(show) {
+        this.setState({ showLoginError: show });
     }
 
     login(login, password) {
@@ -49,13 +54,23 @@ class App extends React.Component {
             },
             body: body
         })
+            .then(response => {
+                if (response.ok)
+                    return Promise.resolve(response);
+
+                return Promise.reject();
+            })
             .then(response => response.json())
             .then(response => {
                 this.userHasAuthorization(true);
                 sessionStorage.setItem(this.tokenCookieKey, response.access_token);
+
+                this.showLoginError(false);
+
                 this.props.history.push("/feed");
                 this.getPosts();
-            });
+            })
+            .catch(() => this.showLoginError(true));
     }
 
     getPosts() {
@@ -76,7 +91,7 @@ class App extends React.Component {
         })
             .then(response => {
                 if (response.ok)
-                    return response.json();
+                    return Promise.resolve(response);
 
                 if (response.status === 401) {
                     this.userHasAuthorization(false);
@@ -88,6 +103,7 @@ class App extends React.Component {
 
                 return Promise.reject(new Error("ѕроизошла ошибка при загрузке данных."));
             })
+            .then(response => response.json())
             .then(items => {
                 if (items.length === 0) {
                     this.setState({
@@ -109,7 +125,7 @@ class App extends React.Component {
                     }
                 });
             })
-            .catch(function (error) {
+            .catch((error) => {
                 if (error)
                     alert(error);
             });
@@ -123,7 +139,7 @@ class App extends React.Component {
                 <Header externalClass="header-external" />
                 <Switch>
                     <Redirect exact from='/' to='/feed' />
-                    <LoginRoute path='/login' history={history} component={PostsFeedPage} hasAuthorization={this.state.hasAuthorization} login={this.login}
+                    <LoginRoute path='/login' history={history} component={PostsFeedPage} hasAuthorization={this.state.hasAuthorization} login={this.login} showError={this.state.showLoginError}
                         componentProps={{ isLoading: this.state.feed.isLoading, posts: this.state.feed.posts, hasMorePosts: this.state.feed.hasMore, getPosts: this.getPosts }} />
                     <PrivateRoute path='/feed' history={history} component={PostsFeedPage} hasAuthorization={this.state.hasAuthorization}
                         componentProps={{ isLoading: this.state.feed.isLoading, posts: this.state.feed.posts, hasMorePosts: this.state.feed.hasMore, getPosts: this.getPosts }} />
