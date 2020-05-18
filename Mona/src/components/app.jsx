@@ -6,15 +6,14 @@ import Header from './header/header';
 import Footer from './footer/footer';
 import PostsFeedPage from './postsFeedPage/postsFeedPage';
 import NotFoundPage from './notFoundPage/notFoundPage';
+import Constants from '../constants';
 
 class App extends React.Component {
     constructor(props) {
         super(props);
 
-        this.tokenCookieKey = "tokenInfo";
-
         this.state = {
-            hasAuthorization: sessionStorage.getItem(this.tokenCookieKey) ? true : false, // ≈сли cookie с токеном есть, то считаем, что авторизован
+            hasAuthorization: sessionStorage.getItem(Constants.TOKEN_COOKIE_KEY) ? true : false, // ≈сли cookie с токеном есть, то считаем, что авторизован
             feed: {
                 posts: [],
                 hasMore: false, // ‘лаг, который показывает есть ли еще посты дл€ загрузки
@@ -43,7 +42,7 @@ class App extends React.Component {
     }
 
     login(login, password) {
-        let url = "http://monamobileapp.ru/MovieMe/token";
+        let url = `${Constants.DOMAIN}/token`;
 
         let body = `username=${encodeURIComponent(login)}&password=${encodeURIComponent(password)}&grant_type=password`;
 
@@ -63,7 +62,7 @@ class App extends React.Component {
             .then(response => response.json())
             .then(response => {
                 this.userHasAuthorization(true);
-                sessionStorage.setItem(this.tokenCookieKey, response.access_token);
+                sessionStorage.setItem(Constants.TOKEN_COOKIE_KEY, response.access_token);
 
                 this.showLoginError(false);
 
@@ -80,12 +79,12 @@ class App extends React.Component {
             return;
         }
 
-        let url = "http://monamobileapp.ru/MovieMe/api/v2/users/eventfeed?start=" + this.state.feed.lastPostItemId;
+        let url = `${Constants.DOMAIN}/api/v2/users/eventfeed?start=${this.state.feed.lastPostItemId}`;
 
         fetch(url, {
             method: 'GET',
             headers: {
-                Authorization: 'Bearer ' + sessionStorage.getItem(this.tokenCookieKey),
+                Authorization: 'Bearer ' + sessionStorage.getItem(Constants.TOKEN_COOKIE_KEY),
                 'Content-Type': 'application/json'
             }
         })
@@ -95,7 +94,7 @@ class App extends React.Component {
 
                 if (response.status === 401) {
                     this.userHasAuthorization(false);
-                    sessionStorage.removeItem(this.tokenCookieKey);
+                    sessionStorage.removeItem(Constants.TOKEN_COOKIE_KEY);
                     this.props.history.push("/login");
 
                     return Promise.reject();

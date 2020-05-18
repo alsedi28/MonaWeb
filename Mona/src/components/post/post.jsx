@@ -1,7 +1,11 @@
 import React from 'react';
 import moment from 'moment';
+
 import ModalDialog from '../modalDialog/modalDialog';
+import Constants from '../../constants';
+
 import styles from './post.module.css';
+
 import shapeIcon from '../../../public/icons/shape.png';
 import checkMarkIcon from '../../../public/icons/checkMark.png';
 import heartIcon from '../../../public/icons/heart.png';
@@ -15,7 +19,6 @@ class Post extends React.Component {
 
         this.MovieStatusWillWatchForUser = "WillWatch";
         this.MovieStatusNoViewedForUser = "NoViewed";
-        this.tokenCookieKey = "tokenInfo";
 
         this.state = {
             modalDialog: {
@@ -49,12 +52,12 @@ class Post extends React.Component {
 
         this.setModalDialogState(true, true, title, []);
 
-        let url = `http://monamobileapp.ru/MovieMe/api/movies/${movieId}/viewed`;
+        let url = `${Constants.DOMAIN}/api/movies/${movieId}/viewed`;
 
         fetch(url, {
             method: 'GET',
             headers: {
-                Authorization: 'Bearer ' + sessionStorage.getItem(this.tokenCookieKey),
+                Authorization: 'Bearer ' + sessionStorage.getItem(Constants.TOKEN_COOKIE_KEY),
                 'Content-Type': 'application/json'
             }
         })
