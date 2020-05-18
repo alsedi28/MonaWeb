@@ -145,6 +145,10 @@
     width: 210px;
 }
 
+.numberUsers:hover {
+    cursor: pointer;
+}
+
 .numberUsers > p {
     margin: 0px;
 }

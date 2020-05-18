@@ -3,7 +3,7 @@ import styles from './loader.module.css';
 import loaderIcon from '../../../public/icons/loader.gif';
 
 const Loader = ({ show = true, externalClass = "" }) => (
-    <div className={`${styles.container} ${externalClass}`} style={{ display: show ? "display" : "none" }}>
+    <div className={`${styles.container} ${externalClass}`} style={{ display: show ? "block" : "none" }}>
         <img src={loaderIcon} height="40px" />
     </div>
 );

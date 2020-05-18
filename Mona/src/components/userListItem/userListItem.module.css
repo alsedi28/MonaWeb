@@ -1,0 +1,35 @@
+.container {
+    height: 65px;
+}
+
+.userIcon {
+    float:left;
+    height: 100%;
+}
+
+.userIcon img {
+    border-radius: 50%;
+    margin-top: 10px;
+    margin-left: 15px;
+}
+
+.userInfo {
+    font-size: 14px;
+    padding-left: 10px;
+    float: left;
+}
+
+.userInfo > p {
+    margin: 0px;
+    font-size: 14px;
+}
+
+.userInfo > p:first-child {
+    font-family: "MontserratSemiBold";
+    padding-top: 15px;
+    color: #31363c;
+}
+
+.userInfo > p:last-child {
+    font-family: "MontserratRegular";
+}
