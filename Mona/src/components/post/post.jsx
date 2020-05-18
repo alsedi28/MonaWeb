@@ -29,30 +29,52 @@ class Post extends React.Component {
             }
         };
 
-        this.usersWhoViewedMovie = null;
+        this.usersWhoViewedMovie = {
+            isLoaded: false,
+            items: []
+        };
+
+        this.usersWhoWillWatchMovie = {
+            isLoaded: false,
+            items: []
+        };
 
         this.showAllCommentsTextElement = React.createRef(null);
 
         this.clickShowAllComments = this.clickShowAllComments.bind(this);
         this.clickShowUsersWhoViewedMovie = this.clickShowUsersWhoViewedMovie.bind(this);
+        this.clickShowUsersWhoWillWatchMovie = this.clickShowUsersWhoWillWatchMovie.bind(this);
         this.setModalDialogState = this.setModalDialogState.bind(this);
+        this.showModalDialog = this.showModalDialog.bind(this);
         this.hideModalDialog = this.hideModalDialog.bind(this);
         this.getDateOfPost = this.getDateOfPost.bind(this);
     }
 
+    clickShowUsersWhoWillWatchMovie(movieId) {
+        let title = "Будут смотреть";
+        let urlPath = `/${movieId}/willwatch`;
+
+        this.showModalDialog(title, this.usersWhoWillWatchMovie, urlPath);
+    }
+
     clickShowUsersWhoViewedMovie(movieId) {
         let title = "Уже смотрели";
+        let urlPath = `/${movieId}/viewed`;
 
+        this.showModalDialog(title, this.usersWhoViewedMovie, urlPath);
+    }
+
+    showModalDialog(title, storage, urlPath) {
         // Данные уже загружали
-        if (this.usersWhoViewedMovie !== null) {
-            this.setModalDialogState(true, false, title, this.usersWhoViewedMovie);
+        if (storage.isLoaded) {
+            this.setModalDialogState(true, false, title, storage.items);
 
             return;
         }
 
         this.setModalDialogState(true, true, title, []);
 
-        let url = `${Constants.DOMAIN}/api/movies/${movieId}/viewed`;
+        let url = `${Constants.DOMAIN}/api/movies${urlPath}`;
 
         fetch(url, {
             method: 'GET',
@@ -69,13 +91,15 @@ class Post extends React.Component {
             })
             .then(response => response.json())
             .then(items => {
-                this.usersWhoViewedMovie = items.map(item => ({
+                storage.items = items.map(item => ({
                     icon: item.AvatarPath,
                     login: item.Login,
-                    name: item.Name    
+                    name: item.Name
                 }));
 
-                this.setModalDialogState(true, false, title, this.usersWhoViewedMovie);
+                storage.isLoaded = true;
+
+                this.setModalDialogState(true, false, title, storage.items);
             })
             .catch((error) => {
                 if (error)
@@ -197,7 +221,7 @@ class Post extends React.Component {
                                 <p>{movieRaiting}</p>
                                 <p>рейтинг</p>
                             </div>
-                            <div className={styles.numberUsers}>
+                            <div className={styles.numberUsers} onClick={this.clickShowUsersWhoWillWatchMovie.bind(this, post.MovieId)}>
                                 <img src={shapeIcon} width="20px" />
                                 <p>{post.AmountUsersWhoWillWatchMovie}</p>
                                 <p>будут смотреть</p>
