@@ -13,14 +13,14 @@ class App extends React.Component {
         super(props);
 
         this.state = {
-            hasAuthorization: sessionStorage.getItem(Constants.TOKEN_COOKIE_KEY) ? true : false, // Åñëè cookie ñ òîêåíîì åñòü, òî ñ÷èòàåì, ÷òî àâòîðèçîâàí
+            hasAuthorization: sessionStorage.getItem(Constants.TOKEN_COOKIE_KEY) ? true : false, // Ð•ÑÐ»Ð¸ cookie Ñ Ñ‚Ð¾ÐºÐµÐ½Ð¾Ð¼ ÐµÑÑ‚ÑŒ, Ñ‚Ð¾ ÑÑ‡Ð¸Ñ‚Ð°ÐµÐ¼, Ñ‡Ñ‚Ð¾ Ð°Ð²Ñ‚Ð¾Ñ€Ð¸Ð·Ð¾Ð²Ð°Ð½
             feed: {
                 posts: [],
-                hasMore: false, // Ôëàã, êîòîðûé ïîêàçûâàåò åñòü ëè åùå ïîñòû äëÿ çàãðóçêè
-                lastPostItemId: 0, // Id ïîñëåäíåãî Event, êîòîðûé çàãðóçèëè
-                isLoading: true // Ôëàã, êîòîðûé îòâå÷àåò çà îòîáðàæåíèå/ñêðûòèå loader'à ïðè íà÷àëüíîé èíèöèàëèçàöèè
+                hasMore: false, // Ð¤Ð»Ð°Ð³, ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ð¹ Ð¿Ð¾ÐºÐ°Ð·Ñ‹Ð²Ð°ÐµÑ‚ ÐµÑÑ‚ÑŒ Ð»Ð¸ ÐµÑ‰Ðµ Ð¿Ð¾ÑÑ‚Ñ‹ Ð´Ð»Ñ Ð·Ð°Ð³Ñ€ÑƒÐ·ÐºÐ¸
+                lastPostItemId: 0, // Id Ð¿Ð¾ÑÐ»ÐµÐ´Ð½ÐµÐ³Ð¾ Event, ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ð¹ Ð·Ð°Ð³Ñ€ÑƒÐ·Ð¸Ð»Ð¸
+                isLoading: true // Ð¤Ð»Ð°Ð³, ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ð¹ Ð¾Ñ‚Ð²ÐµÑ‡Ð°ÐµÑ‚ Ð·Ð° Ð¾Ñ‚Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸Ðµ/ÑÐºÑ€Ñ‹Ñ‚Ð¸Ðµ loader'Ð° Ð¿Ñ€Ð¸ Ð½Ð°Ñ‡Ð°Ð»ÑŒÐ½Ð¾Ð¹ Ð¸Ð½Ð¸Ñ†Ð¸Ð°Ð»Ð¸Ð·Ð°Ñ†Ð¸Ð¸
             },
-            showLoginError: false // Ïîêàçàòü îøèáêó íà ñòðàíèöå Login
+            showLoginError: false // ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ Ð¾ÑˆÐ¸Ð±ÐºÑƒ Ð½Ð° ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ðµ Login
         };
 
         this.userHasAuthorization = this.userHasAuthorization.bind(this);
@@ -73,7 +73,7 @@ class App extends React.Component {
     }
 
     getPosts() {
-        // Åñëè íå àâòîðèçîâàí, òî ïåðåíàïðàâëÿåì íà ñòðàíèöó Login
+        // Ð•ÑÐ»Ð¸ Ð½Ðµ Ð°Ð²Ñ‚Ð¾Ñ€Ð¸Ð·Ð¾Ð²Ð°Ð½, Ñ‚Ð¾ Ð¿ÐµÑ€ÐµÐ½Ð°Ð¿Ñ€Ð°Ð²Ð»ÑÐµÐ¼ Ð½Ð° ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñƒ Login
         if (!this.state.hasAuthorization) {
             this.props.history.push("/login");
             return;
@@ -100,7 +100,7 @@ class App extends React.Component {
                     return Promise.reject();
                 }
 
-                return Promise.reject(new Error("Ïðîèçîøëà îøèáêà ïðè çàãðóçêå äàííûõ."));
+                return Promise.reject(new Error("ÐŸÑ€Ð¾Ð¸Ð·Ð¾ÑˆÐ»Ð° Ð¾ÑˆÐ¸Ð±ÐºÐ° Ð¿Ñ€Ð¸ Ð·Ð°Ð³Ñ€ÑƒÐ·ÐºÐµ Ð´Ð°Ð½Ð½Ñ‹Ñ…."));
             })
             .then(response => response.json())
             .then(items => {
