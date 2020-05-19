@@ -29,6 +29,11 @@ class Post extends React.Component {
             }
         };
 
+        this.usersWhoLikesPost = {
+            isLoaded: false,
+            items: []
+        };
+
         this.usersWhoViewedMovie = {
             isLoaded: false,
             items: []
@@ -50,16 +55,23 @@ class Post extends React.Component {
         this.getDateOfPost = this.getDateOfPost.bind(this);
     }
 
+    clickShowUsersWhoLikesPost(eventId, movieId) {
+        let title = "Лайкнули публикацию";
+        let urlPath = `/movies/${movieId}/events/${eventId}/likes`;
+
+        this.showModalDialog(title, this.usersWhoLikesPost, urlPath);
+    }
+
     clickShowUsersWhoWillWatchMovie(movieId) {
         let title = "Будут смотреть";
-        let urlPath = `/${movieId}/willwatch`;
+        let urlPath = `/movies/${movieId}/willwatch`;
 
         this.showModalDialog(title, this.usersWhoWillWatchMovie, urlPath);
     }
 
     clickShowUsersWhoViewedMovie(movieId) {
         let title = "Уже смотрели";
-        let urlPath = `/${movieId}/viewed`;
+        let urlPath = `/movies/${movieId}/viewed`;
 
         this.showModalDialog(title, this.usersWhoViewedMovie, urlPath);
     }
@@ -74,7 +86,7 @@ class Post extends React.Component {
 
         this.setModalDialogState(true, true, title, []);
 
-        let url = `${Constants.DOMAIN}/api/movies${urlPath}`;
+        let url = `${Constants.DOMAIN}/api${urlPath}`;
 
         fetch(url, {
             method: 'GET',
@@ -185,7 +197,7 @@ class Post extends React.Component {
         let blockWithInfoAboutLikes = "";
         if (userNameWhoLikesPost !== null) {
             if (post.AmountEventLikes > 1)
-                blockWithInfoAboutLikes = <p>Нравится <span>{userNameWhoLikesPost}</span> и <span>ещё</span> {post.AmountEventLikes - 1} пользователям</p>;
+                blockWithInfoAboutLikes = <p>Нравится <span>{userNameWhoLikesPost}</span> и <span className={styles.moreLikes} onClick={this.clickShowUsersWhoLikesPost.bind(this, post.EventId, post.MovieId)}>ещё</span> {post.AmountEventLikes - 1} пользователям</p>;
             else
                 blockWithInfoAboutLikes = <p>Нравится <span>{userNameWhoLikesPost}</span></p>;
         }
