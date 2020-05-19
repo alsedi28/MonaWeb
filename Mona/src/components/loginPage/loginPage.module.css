@@ -1,6 +1,5 @@
 .container {
-    height: 75%;
-    padding-top: 100px;
+    height: 88%;
 }
 
 input {
@@ -14,7 +13,9 @@ input {
     border-radius: 10px;
     overflow: hidden;
     height: 500px;
-    margin: auto;
+    position: absolute;
+    left: calc(50% - 215px);
+    top: calc(50% - 250px);
     box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
     -webkit-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
