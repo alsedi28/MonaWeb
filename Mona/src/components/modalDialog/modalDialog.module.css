@@ -39,6 +39,7 @@
 .dialog > header img {
     float: right;
     margin-top: 6px;
+    margin-right: 5px;
 }
 
 .dialog > header img:hover {
