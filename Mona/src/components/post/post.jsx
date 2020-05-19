@@ -12,6 +12,8 @@ import heartIcon from '../../../public/icons/heart.png';
 import heartFilledIcon from '../../../public/icons/heartFilled.png';
 import commentsIcon from '../../../public/icons/comments.png';
 import bookMarkIcon from '../../../public/icons/bookMark.png';
+import blankProfileIcon from '../../../public/icons/blankProfileIcon.png';
+import framePlaceholder from '../../../public/icons/framePlaceholder.png';
 
 class Post extends React.Component {
     constructor(props) {
@@ -207,7 +209,7 @@ class Post extends React.Component {
                 <header className={styles.header}>
                     <div className={styles.postInfoHeader}>
                         <div className={styles.postUserIcon}>
-                            <img src={post.AvatarPath} width="32px" height="32px" />
+                            <img src={post.AvatarPath ? post.AvatarPath : blankProfileIcon} width="32px" height="32px" />
                         </div>
                         <div className={styles.postUserInfo}>
                             <span>{post.Login}</span>
@@ -222,7 +224,7 @@ class Post extends React.Component {
                     <div>
                         <div className={styles.posterBlock}>
                             <div>
-                                <img src={`https://image.tmdb.org/t/p/w342${post.MoviePosterPath}`} height="460px" />
+                                <img src={post.MoviePosterPath ? `https://image.tmdb.org/t/p/w342${post.MoviePosterPath}` : framePlaceholder} height="460px" />
                                 <img src={bookMarkIcon} width="50px" style={{ display: post.StatusOfMovieForUser === this.MovieStatusWillWatchForUser ? "block" : "none" }} />
                             </div>
                         </div>
