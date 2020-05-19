@@ -15,3 +15,7 @@
 .icon{
     margin-top: 10px;
 }
+
+.icon:hover {
+    cursor: pointer;
+}
