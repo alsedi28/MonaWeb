@@ -5,6 +5,12 @@ import styles from './modalDialog.module.css';
 import closeIcon from '../../../public/icons/close.png';
 
 const ModalDialog = ({ show, isLoading, title, items, clickClose, externalClass = "" }) => {
+    // Необходимо, чтобы убрать скролл у окна
+    if (show)
+        document.body.style.overflow = "hidden";
+    else
+        document.body.style.overflow = "auto";
+
     function clickBackground(event) {
         let target = event.target;
 
