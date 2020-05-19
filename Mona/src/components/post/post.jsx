@@ -221,12 +221,12 @@ class Post extends React.Component {
                                 <p>{movieRaiting}</p>
                                 <p>рейтинг</p>
                             </div>
-                            <div className={styles.numberUsers} onClick={this.clickShowUsersWhoWillWatchMovie.bind(this, post.MovieId)}>
+                            <div className={styles.numberUsers} onClick={post.AmountUsersWhoWillWatchMovie > 0 ? this.clickShowUsersWhoWillWatchMovie.bind(this, post.MovieId) : () => ({})}>
                                 <img src={shapeIcon} width="20px" />
                                 <p>{post.AmountUsersWhoWillWatchMovie}</p>
                                 <p>будут смотреть</p>
                             </div>
-                            <div className={styles.numberUsers} onClick={this.clickShowUsersWhoViewedMovie.bind(this, post.MovieId)}>
+                            <div className={styles.numberUsers} onClick={post.AmountUsersWhoViewedMovie > 0 ? this.clickShowUsersWhoViewedMovie.bind(this, post.MovieId) : () => ({})}>
                                 <img src={shapeIcon} width="20px" />
                                 <p>{post.AmountUsersWhoViewedMovie}</p>
                                 <p>посмотрели</p>
