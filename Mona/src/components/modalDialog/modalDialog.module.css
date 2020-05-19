@@ -17,6 +17,7 @@
     background-color: #fff;
     border-radius: 12px;
     overflow: hidden;
+    z-index: 300;
 }
 
 .dialog > header {
