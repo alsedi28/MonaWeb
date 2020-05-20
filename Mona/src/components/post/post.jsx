@@ -2,15 +2,13 @@ import React from 'react';
 import moment from 'moment';
 
 import ModalDialog from '../modalDialog/modalDialog';
+import PostButtonBar from '../postButtonBar/postButtonBar';
 import Constants from '../../constants';
 
 import styles from './post.module.css';
 
 import shapeIcon from '../../../public/icons/shape.png';
 import checkMarkIcon from '../../../public/icons/checkMark.png';
-import heartIcon from '../../../public/icons/heart.png';
-import heartFilledIcon from '../../../public/icons/heartFilled.png';
-import commentsIcon from '../../../public/icons/comments.png';
 import bookMarkIcon from '../../../public/icons/bookMark.png';
 import blankProfileIcon from '../../../public/icons/blankProfileIcon.png';
 import framePlaceholder from '../../../public/icons/framePlaceholder.png';
@@ -253,10 +251,7 @@ class Post extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div className={styles.buttonsBlock}>
-                    <img src={post.IsCurrentUserLiked ? heartFilledIcon : heartIcon} width="30px" />
-                    <img src={commentsIcon} width="30px" />
-                </div>
+                <PostButtonBar isActiveLike={post.IsCurrentUserLiked} />
                 <div className={styles.commentsBlock}>
                     {blockWithInfoAboutLikes}
                     {blockWithMainComment}

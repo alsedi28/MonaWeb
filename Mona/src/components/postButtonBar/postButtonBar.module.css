@@ -1,0 +1,8 @@
+.container {
+    height: 45px;
+}
+
+.container > img {
+    margin-top: 10px;
+    margin-left: 20px;
+}
