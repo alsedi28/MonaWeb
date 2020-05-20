@@ -20,12 +20,14 @@ class Post extends React.Component {
         this.MovieStatusNoViewedForUser = "NoViewed";
 
         this.state = {
-            modalDialog: {
-                show: false,
-                isLoading: false,
-                title: "",
-                items: []
-            }
+            post: props.post, // Текущий пост
+            modalDialog: { // Состояние объекта модального окна для текущего поста
+                show: false, // Показывать или нет модальное окно
+                isLoading: false, // Отображать Loader в модальном окне или нет
+                title: "", // Заголовок модального окна
+                items: [] // Данные, которые необходимо отобразить в модальном окне
+            },
+            handleClickLike: this.clickLikePost // Обработчик события click по "Сердцу"
         };
 
         this.usersWhoLikesPost = {
@@ -48,9 +50,11 @@ class Post extends React.Component {
         this.clickShowAllComments = this.clickShowAllComments.bind(this);
         this.clickShowUsersWhoViewedMovie = this.clickShowUsersWhoViewedMovie.bind(this);
         this.clickShowUsersWhoWillWatchMovie = this.clickShowUsersWhoWillWatchMovie.bind(this);
+        this.clickLikePost = this.clickLikePost.bind(this);
         this.setModalDialogState = this.setModalDialogState.bind(this);
         this.showModalDialog = this.showModalDialog.bind(this);
         this.hideModalDialog = this.hideModalDialog.bind(this);
+        this.updatePost = this.updatePost.bind(this);
     }
 
     clickShowUsersWhoLikesPost(eventId, movieId) {
@@ -134,6 +138,57 @@ class Post extends React.Component {
         currentElement.remove();
     }
 
+    clickLikePost(eventId, movieId) {
+        let url = `${Constants.DOMAIN}/api/movies/${movieId}/events/${eventId}/likes`;
+
+        // Снимаем обработчик click, пока не обновится состояние после текущего клика
+        this.setState({ handleClickLike: () => ({})});
+
+        fetch(url, {
+            method: this.state.post.IsCurrentUserLiked ? 'DELETE' : 'POST',
+            headers: {
+                Authorization: 'Bearer ' + sessionStorage.getItem(Constants.TOKEN_COOKIE_KEY),
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(_ => {
+                this.updatePost(eventId, movieId);
+                // Возвращаем обработчик click
+                this.setState({ handleClickLike: this.clickLikePost });
+            });
+    }
+
+    updatePost(eventId, movieId) {
+        let url = `${Constants.DOMAIN}/api/v2/movies/${movieId}/events/${eventId}`;
+
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                Authorization: 'Bearer ' + sessionStorage.getItem(Constants.TOKEN_COOKIE_KEY),
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => {
+                if (response.ok)
+                    return Promise.resolve(response);
+
+                return Promise.reject(new Error());
+            })
+            .then(response => response.json())
+            .then(item => {
+                this.setState({ post: item });
+
+                // Сбрасываем значения. После обновления могло измениться количество.
+                this.usersWhoLikesPost.isLoaded = false;
+                this.usersWhoViewedMovie.isLoaded = false;
+                this.usersWhoWillWatchMovie.isLoaded = false;
+            })
+            .catch((error) => {
+                if (error)
+                    alert("Произошла ошибка при загрузке данных.");
+            });
+    }
+
     setModalDialogState(show, isLoading, title, items) {
         this.setState({
             ...this.state,
@@ -148,7 +203,9 @@ class Post extends React.Component {
     }
 
     render() {
-        const { post, externalClass = "" } = this.props;
+        const { externalClass = "" } = this.props;
+
+        let post = this.state.post;
 
         let movieRaiting = post.ImdbRaiting === null ? post.VoteAverage : post.ImdbRaiting;
         let userRaiting = post.EventType === 0 ? post.UserRaiting : null;
@@ -208,14 +265,14 @@ class Post extends React.Component {
                         </div>
                     </div>
                 </div>
-                <PostButtonBar isActiveLike={post.IsCurrentUserLiked} />
+                <PostButtonBar isActiveLike={post.IsCurrentUserLiked} clickLike={this.state.handleClickLike.bind(this, post.EventId, post.MovieId)} />
                 <div className={styles.commentsBlock}>
                     {blockWithInfoAboutLikes}
                     {blockWithMainComment}
                     <p className={styles.showAllComments} onClick={this.clickShowAllComments.bind(this, post.Comments)} ref={this.showAllCommentsTextElement}
                         style={{ display: post.AmountEventComments > 1 ? "block" : "none" }}>
                         Посмотреть {post.AmountEventComments} комментария
-                </p>
+                    </p>
                 </div>
                 <ModalDialog show={this.state.modalDialog.show} title={this.state.modalDialog.title} isLoading={this.state.modalDialog.isLoading}
                     items={this.state.modalDialog.items} clickClose={this.hideModalDialog}/>

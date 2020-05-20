@@ -100,7 +100,7 @@ class App extends React.Component {
                     return Promise.reject();
                 }
 
-                return Promise.reject(new Error("Произошла ошибка при загрузке данных."));
+                return Promise.reject(new Error());
             })
             .then(response => response.json())
             .then(items => {
@@ -126,7 +126,7 @@ class App extends React.Component {
             })
             .catch((error) => {
                 if (error)
-                    alert(error);
+                    alert("Произошла ошибка при загрузке данных.");
             });
     }
 
