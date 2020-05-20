@@ -4,7 +4,7 @@
 }
 
 .container img {
-position: absolute;
-    top: 35%;
-    left: 40%;
+    position: absolute;
+    top: calc(50% - 125px);
+    left: calc(50% - 125px);
 }
