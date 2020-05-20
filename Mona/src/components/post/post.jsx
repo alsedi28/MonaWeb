@@ -1,8 +1,8 @@
 import React from 'react';
-import moment from 'moment';
 
 import ModalDialog from '../modalDialog/modalDialog';
 import PostButtonBar from '../postButtonBar/postButtonBar';
+import PostHeader from '../postHeader/postHeader';
 import Constants from '../../constants';
 
 import styles from './post.module.css';
@@ -10,7 +10,6 @@ import styles from './post.module.css';
 import shapeIcon from '../../../public/icons/shape.png';
 import checkMarkIcon from '../../../public/icons/checkMark.png';
 import bookMarkIcon from '../../../public/icons/bookMark.png';
-import blankProfileIcon from '../../../public/icons/blankProfileIcon.png';
 import framePlaceholder from '../../../public/icons/framePlaceholder.png';
 
 class Post extends React.Component {
@@ -52,7 +51,6 @@ class Post extends React.Component {
         this.setModalDialogState = this.setModalDialogState.bind(this);
         this.showModalDialog = this.showModalDialog.bind(this);
         this.hideModalDialog = this.hideModalDialog.bind(this);
-        this.getDateOfPost = this.getDateOfPost.bind(this);
     }
 
     clickShowUsersWhoLikesPost(eventId, movieId) {
@@ -149,34 +147,6 @@ class Post extends React.Component {
         });
     }
 
-    getDateOfPost(dateOfCreationPost) {
-        let postDate = Date.parse(dateOfCreationPost);
-        let dateNow = Date.now();
-        let duration = moment.duration(dateNow - postDate);
-
-        let resultString = "";
-
-        let [years, months, days, hours, minutes, seconds] =
-            [duration.years(), duration.months(), duration.days(), duration.hours(), duration.minutes(), duration.seconds()];
-
-        if (years > 0)
-            resultString = `${years} г.`;
-        else if (months > 0)
-            resultString = `${months} мес.`;
-        else if (days > 0)
-            resultString = `${days} д.`;
-        else if (hours > 0)
-            resultString = `${hours} ч.`;
-        else if (minutes > 0)
-            resultString = `${minutes} мин.`;
-        else if (seconds > 0)
-            resultString = `${seconds} сек.`;
-        else
-            return "Только что";
-
-        return resultString + " назад";
-    }
-
     render() {
         const { post, externalClass = "" } = this.props;
 
@@ -204,20 +174,7 @@ class Post extends React.Component {
 
         return (
             <article className={`${styles.container} ${externalClass}`} id={`post-${post.EventId}`}>
-                <header className={styles.header}>
-                    <div className={styles.postInfoHeader}>
-                        <div className={styles.postUserIcon}>
-                            <img src={post.AvatarPath ? post.AvatarPath : blankProfileIcon} width="32px" height="32px" />
-                        </div>
-                        <div className={styles.postUserInfo}>
-                            <span>{post.Login}</span>
-                            <span> {post.EventType === 0 ? "посмотрел" : "хочет посмотреть"}</span>
-                        </div>
-                    </div>
-                    <div className={styles.datePost}>
-                        <span>{this.getDateOfPost(post.DateOfCreation)}</span>
-                    </div>
-                </header>
+                <PostHeader userAvatarPath={post.AvatarPath} login={post.Login} postType={post.EventType} postDateOfCreation={post.DateOfCreation}/>
                 <div className={styles.main} style={{ background: `url(https://image.tmdb.org/t/p/w780${post.MovieBackdropPath}) 100% 100% no-repeat` }}>
                     <div>
                         <div className={styles.posterBlock}>

@@ -1,0 +1,51 @@
+.container {
+    height: 60px;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.info {
+    float: left;
+    width: 400px;
+    height: 100%;
+}
+
+.userIcon {
+    border-radius: 50%;
+    width: 60px;
+    height: 100%;
+    float: left;
+}
+
+.userIcon img {
+    border-radius: 50%;
+    margin-top: 14px;
+    margin-left: 15px;
+}
+
+.userInfo {
+    color: #31363c;
+    font-size: 14px;
+    float: left;
+    width: 300px;
+    padding-top: 20px;
+}
+
+.userInfo > span:last-child {
+    font-family: "MontserratMedium";
+}
+
+.userInfo > span:first-child {
+    font-family: "MontserratBold";
+}
+
+.date {
+    float: right;
+    width: 150px;
+    height: 100%;
+    text-align: right;
+    color: #31363c;
+    font-size: 14px;
+    margin-top: 22px;
+    margin-right: 10px;
+    font-family: "MontserratLight";
+}
