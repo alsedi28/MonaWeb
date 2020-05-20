@@ -13,7 +13,7 @@ class App extends React.Component {
         super(props);
 
         this.state = {
-            hasAuthorization: sessionStorage.getItem(Constants.TOKEN_COOKIE_KEY) ? true : false, // Если cookie с токеном есть, то считаем, что авторизован
+            isAuthenticated: sessionStorage.getItem(Constants.TOKEN_COOKIE_KEY) ? true : false, // Если cookie с токеном есть, то считаем, что авторизован
             feed: {
                 posts: [],
                 hasMore: false, // Флаг, который показывает есть ли еще посты для загрузки
@@ -23,7 +23,7 @@ class App extends React.Component {
             showLoginError: false // Показать ошибку на странице Login
         };
 
-        this.userHasAuthorization = this.userHasAuthorization.bind(this);
+        this.userHasAuthenticated = this.userHasAuthenticated.bind(this);
         this.showLoginError = this.showLoginError.bind(this);
         this.getPosts = this.getPosts.bind(this);
         this.login = this.login.bind(this);
@@ -33,8 +33,8 @@ class App extends React.Component {
         this.getPosts();
     }
 
-    userHasAuthorization(status) {
-        this.setState({ hasAuthorization: status });
+    userHasAuthenticated(status) {
+        this.setState({ isAuthenticated: status });
     }
 
     showLoginError(show) {
@@ -61,7 +61,7 @@ class App extends React.Component {
             })
             .then(response => response.json())
             .then(response => {
-                this.userHasAuthorization(true);
+                this.userHasAuthenticated(true);
                 sessionStorage.setItem(Constants.TOKEN_COOKIE_KEY, response.access_token);
 
                 this.showLoginError(false);
@@ -74,7 +74,7 @@ class App extends React.Component {
 
     getPosts() {
         // Если не авторизован, то перенаправляем на страницу Login
-        if (!this.state.hasAuthorization) {
+        if (!this.state.isAuthenticated) {
             this.props.history.push("/login");
             return;
         }
@@ -93,7 +93,7 @@ class App extends React.Component {
                     return Promise.resolve(response);
 
                 if (response.status === 401) {
-                    this.userHasAuthorization(false);
+                    this.userHasAuthenticated(false);
                     sessionStorage.removeItem(Constants.TOKEN_COOKIE_KEY);
                     this.props.history.push("/login");
 
@@ -138,9 +138,9 @@ class App extends React.Component {
                 <Header externalClass="header-external" />
                 <Switch>
                     <Redirect exact from='/' to='/feed' />
-                    <LoginRoute path='/login' history={history} component={PostsFeedPage} hasAuthorization={this.state.hasAuthorization} login={this.login} showError={this.state.showLoginError}
+                    <LoginRoute path='/login' history={history} component={PostsFeedPage} isAuthenticated={this.state.isAuthenticated} login={this.login} showError={this.state.showLoginError}
                         componentProps={{ isLoading: this.state.feed.isLoading, posts: this.state.feed.posts, hasMorePosts: this.state.feed.hasMore, getPosts: this.getPosts }} />
-                    <PrivateRoute path='/feed' history={history} component={PostsFeedPage} hasAuthorization={this.state.hasAuthorization}
+                    <PrivateRoute path='/feed' history={history} component={PostsFeedPage} isAuthenticated={this.state.isAuthenticated}
                         componentProps={{ isLoading: this.state.feed.isLoading, posts: this.state.feed.posts, hasMorePosts: this.state.feed.hasMore, getPosts: this.getPosts }} />
                     <Route history={history} component={NotFoundPage} />
                 </Switch>
