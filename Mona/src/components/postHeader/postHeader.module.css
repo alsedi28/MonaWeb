@@ -49,3 +49,12 @@
     margin-right: 10px;
     font-family: "MontserratLight";
 }
+
+.userLink > a {
+    text-decoration: none;
+    color: #31363c;
+}
+
+.userLink > a:visited {
+    color: #31363c;
+}

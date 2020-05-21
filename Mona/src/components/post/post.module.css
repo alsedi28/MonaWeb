@@ -172,3 +172,12 @@
 .showAllComments:hover {
     cursor: pointer;
 }
+
+.userLink > a {
+    text-decoration: none;
+    color: rgb(49, 54, 60);
+}
+
+.userLink > a:visited {
+    color: rgb(49, 54, 60);
+}

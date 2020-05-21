@@ -1,0 +1,24 @@
+.container {
+    margin-top: 90px;
+    max-width: 790px;
+    min-width: 650px;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.userBlock {
+    height: 350px;
+}
+
+.loader {
+    padding-top: 35px;
+}
+
+.postsTitle {
+    font-size: 30px;
+    margin: 0px;
+    font-family: "MontserratBold";
+    color: rgb(49, 54, 60);
+    border-bottom: 3px solid #e6e6e6;
+}

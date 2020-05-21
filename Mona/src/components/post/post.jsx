@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import ModalDialog from '../modalDialog/modalDialog';
 import PostButtonBar from '../postButtonBar/postButtonBar';
@@ -27,6 +28,7 @@ class Post extends React.Component {
                 title: "", // Заголовок модального окна
                 items: [] // Данные, которые необходимо отобразить в модальном окне
             },
+            showAllComments: false, // Показать все комментарии
             handleClickLike: this.clickLikePost // Обработчик события click по "Сердцу"
         };
 
@@ -44,8 +46,6 @@ class Post extends React.Component {
             isLoaded: false,
             items: []
         };
-
-        this.showAllCommentsTextElement = React.createRef(null);
 
         this.clickShowAllComments = this.clickShowAllComments.bind(this);
         this.clickShowUsersWhoViewedMovie = this.clickShowUsersWhoViewedMovie.bind(this);
@@ -125,17 +125,11 @@ class Post extends React.Component {
         this.setModalDialogState(false, false, "", []);
     }
 
-    clickShowAllComments(comments) {
-        let currentElement = this.showAllCommentsTextElement.current;
-        let parent = currentElement.parentElement;
-
-        for (var i = 1; i < comments.length; i++) {
-            let element = document.createElement('p');
-            element.innerHTML = `<span>${comments[i].Username}</span> ${comments[i].Text}`;
-            parent.append(element);
-        }
-
-        currentElement.remove();
+    clickShowAllComments() {
+        this.setState({
+            ...this.state,
+            showAllComments: true
+        });
     }
 
     clickLikePost(eventId, movieId) {
@@ -218,20 +212,22 @@ class Post extends React.Component {
         let comment = post.Comments.length > 0 ? post.Comments[0] : null;
         let blockWithMainComment = "";
         if (comment !== null)
-            blockWithMainComment = <p><span>{comment.Username}</span> {comment.Text}</p>;
+            blockWithMainComment = <p><span className={styles.userLink}><Link to={`/profile/${comment.UserId}`}>{comment.Username}</Link></span> {comment.Text}</p>;
 
-        let userNameWhoLikesPost = post.UserInfoWhoLikesEvent !== null ? post.UserInfoWhoLikesEvent.split('#')[0] : null;
+        // UserInfoWhoLikesEvent cодержит userName#userId
+        let userInfoWhoLikesPost = post.UserInfoWhoLikesEvent !== null ? post.UserInfoWhoLikesEvent.split('#') : null;
+
         let blockWithInfoAboutLikes = "";
-        if (userNameWhoLikesPost !== null) {
+        if (userInfoWhoLikesPost !== null) {
             if (post.AmountEventLikes > 1)
-                blockWithInfoAboutLikes = <p>Нравится <span>{userNameWhoLikesPost}</span> и <span className={styles.moreLikes} onClick={this.clickShowUsersWhoLikesPost.bind(this, post.EventId, post.MovieId)}>ещё</span> {post.AmountEventLikes - 1} пользователям</p>;
+                blockWithInfoAboutLikes = <p>Нравится <span className={styles.userLink}><Link to={`/profile/${userInfoWhoLikesPost[1]}`}>{userInfoWhoLikesPost[0]}</Link></span> и <span className={styles.moreLikes} onClick={this.clickShowUsersWhoLikesPost.bind(this, post.EventId, post.MovieId)}>ещё</span> {post.AmountEventLikes - 1} пользователям</p>;
             else
-                blockWithInfoAboutLikes = <p>Нравится <span>{userNameWhoLikesPost}</span></p>;
+                blockWithInfoAboutLikes = <p>Нравится <span className={styles.userLink}><Link to={`/profile/${userInfoWhoLikesPost[1]}`}>{userInfoWhoLikesPost[0]}</Link></span></p>;
         }
 
         return (
             <article className={`${styles.container} ${externalClass}`} id={`post-${post.EventId}`}>
-                <PostHeader userAvatarPath={post.AvatarPath} login={post.Login} postType={post.EventType} postDateOfCreation={post.DateOfCreation}/>
+                <PostHeader userId={post.UserId} userAvatarPath={post.AvatarPath} login={post.Login} postType={post.EventType} postDateOfCreation={post.DateOfCreation}/>
                 <div className={styles.main} style={{ background: `url(https://image.tmdb.org/t/p/w780${post.MovieBackdropPath}) 100% 100% no-repeat` }}>
                     <div>
                         <div className={styles.posterBlock}>
@@ -269,10 +265,11 @@ class Post extends React.Component {
                 <div className={styles.commentsBlock}>
                     {blockWithInfoAboutLikes}
                     {blockWithMainComment}
-                    <p className={styles.showAllComments} onClick={this.clickShowAllComments.bind(this, post.Comments)} ref={this.showAllCommentsTextElement}
-                        style={{ display: post.AmountEventComments > 1 ? "block" : "none" }}>
+                    <p className={styles.showAllComments} onClick={this.clickShowAllComments.bind(this)} 
+                        style={{ display: post.AmountEventComments > 1 && !this.state.showAllComments ? "block" : "none" }}>
                         Посмотреть {post.AmountEventComments} комментария
                     </p>
+                    {post.Comments.filter((comment, i) => i !== 0).map(comment => <p style={{ display: this.state.showAllComments ? "block" : "none" }}><span className={styles.userLink}><Link to={`/profile/${comment.UserId}`}>{comment.Username}</Link></span> {comment.Text}</p>)}
                 </div>
                 <ModalDialog show={this.state.modalDialog.show} title={this.state.modalDialog.title} isLoading={this.state.modalDialog.isLoading}
                     items={this.state.modalDialog.items} clickClose={this.hideModalDialog}/>

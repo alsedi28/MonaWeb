@@ -5,6 +5,7 @@ import LoginRoute from './loginRoute';
 import Header from './header/header';
 import Footer from './footer/footer';
 import PostsFeedPage from './postsFeedPage/postsFeedPage';
+import ProfilePage from './profilePage/profilePage';
 import NotFoundPage from './notFoundPage/notFoundPage';
 import Constants from '../constants';
 
@@ -142,6 +143,7 @@ class App extends React.Component {
                         componentProps={{ isLoading: this.state.feed.isLoading, posts: this.state.feed.posts, hasMorePosts: this.state.feed.hasMore, getPosts: this.getPosts }} />
                     <PrivateRoute path='/feed' history={history} component={PostsFeedPage} isAuthenticated={this.state.isAuthenticated}
                         componentProps={{ isLoading: this.state.feed.isLoading, posts: this.state.feed.posts, hasMorePosts: this.state.feed.hasMore, getPosts: this.getPosts }} />
+                    <PrivateRoute path='/profile/:userId' history={history} component={ProfilePage} isAuthenticated={this.state.isAuthenticated} />
                     <Route history={history} component={NotFoundPage} />
                 </Switch>
                 <Footer externalClass="footer-external"/>

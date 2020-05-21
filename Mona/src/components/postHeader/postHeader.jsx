@@ -1,11 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
 
 import styles from './postHeader.module.css';
 
 import blankProfileIcon from '../../../public/icons/blankProfileIcon.png';
 
-const PostHeader = ({ userAvatarPath, login, postType, postDateOfCreation, externalClass = "" }) => {
+const PostHeader = ({ userId, userAvatarPath, login, postType, postDateOfCreation, externalClass = "" }) => {
 
     function getHumanDateOfPost(dateOfCreationPost) {
         let postDate = Date.parse(dateOfCreationPost);
@@ -39,10 +40,12 @@ const PostHeader = ({ userAvatarPath, login, postType, postDateOfCreation, exter
         <header className={`${styles.container} ${externalClass}`}>
             <div className={styles.info}>
                 <div className={styles.userIcon}>
-                    <img src={userAvatarPath ? userAvatarPath : blankProfileIcon} width="32px" height="32px" />
+                    <Link to={`/profile/${userId}`}>
+                        <img src={userAvatarPath ? userAvatarPath : blankProfileIcon} className={styles.userLink} width="32px" height="32px" />
+                    </Link>
                 </div>
-                <div className={styles.userInfo}>
-                    <span>{login}</span>
+                <div className={styles.userInfo}>                   
+                    <span className={styles.userLink}><Link to={`/profile/${userId}`}>{login}</Link></span>                
                     <span> {postType === 0 ? "посмотрел" : "хочет посмотреть"}</span>
                 </div>
             </div>
