@@ -7,6 +7,8 @@ import PostsFeed from '../postsFeed/postsFeed';
 import Post from '../post/post';
 import Loader from '../loader/loader';
 import ProfileUserInfo from '../profileUserInfo/profileUserInfo';
+import Header from '../header/header';
+import Footer from '../footer/footer';
 import Constants from '../../constants';
 
 class ProfilePage extends React.Component {
@@ -135,26 +137,32 @@ class ProfilePage extends React.Component {
             });
     }
 
-    render() {      
+    render() {
+        const { location, currentUserId } = this.props;
+
         return (
-            <div className={styles.container}>
-                <div className={styles.userBlock}>
-                    <Loader show={this.state.isLoading} externalClass={styles.loader} />
-                    <ProfileUserInfo profile={this.state.profile} style={{ display: this.state.isLoading ? "none" : "block" }}/>
+            <React.Fragment>
+                <Header externalClass="header-external" location={location.pathname} />
+                <div className={styles.container}>
+                    <div className={styles.userBlock}>
+                        <Loader show={this.state.isLoading} externalClass={styles.loader} />
+                        <ProfileUserInfo profile={this.state.profile} style={{ display: this.state.isLoading ? "none" : "block" }}/>
+                    </div>
+                    <p className={styles.postsTitle}>Публикации</p>
+                    <PostsFeed>
+                        <Loader show={this.state.feed.isLoading} />
+                        <InfiniteScroll
+                            dataLength={this.state.feed.posts.length}
+                            next={this.getUserPosts}
+                            hasMore={this.state.feed.hasMore}
+                            loader={<Loader />}
+                        >
+                            {this.state.feed.posts.map(post => <Post post={post} externalClass="post-external" />)}
+                        </InfiniteScroll>
+                    </PostsFeed>
                 </div>
-                <p className={styles.postsTitle}>Публикации</p>
-                <PostsFeed>
-                    <Loader show={this.state.feed.isLoading} />
-                    <InfiniteScroll
-                        dataLength={this.state.feed.posts.length}
-                        next={this.getUserPosts}
-                        hasMore={this.state.feed.hasMore}
-                        loader={<Loader />}
-                    >
-                        {this.state.feed.posts.map(post => <Post post={post} externalClass="post-external" />)}
-                    </InfiniteScroll>
-                </PostsFeed>
-            </div>
+                <Footer externalClass="footer-external" />
+            </React.Fragment>
         );
     }
 }

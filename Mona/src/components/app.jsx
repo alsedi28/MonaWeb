@@ -2,8 +2,6 @@ import React from 'react';
 import { Route, Switch, Redirect, withRouter } from "react-router-dom";
 import PrivateRoute from './privateRoute';
 import LoginRoute from './loginRoute';
-import Header from './header/header';
-import Footer from './footer/footer';
 import PostsFeedPage from './postsFeedPage/postsFeedPage';
 import ProfilePage from './profilePage/profilePage';
 import NotFoundPage from './notFoundPage/notFoundPage';
@@ -25,6 +23,8 @@ class App extends React.Component {
         };
 
         this.userHasAuthenticated = this.userHasAuthenticated.bind(this);
+        this.setUserCookie = this.setUserCookie.bind(this);
+        this.resetUserCookie = this.resetUserCookie.bind(this);
         this.showLoginError = this.showLoginError.bind(this);
         this.getPosts = this.getPosts.bind(this);
         this.login = this.login.bind(this);
@@ -36,6 +36,16 @@ class App extends React.Component {
 
     userHasAuthenticated(status) {
         this.setState({ isAuthenticated: status });
+    }
+
+    setUserCookie(token, userId) {
+        sessionStorage.setItem(Constants.TOKEN_COOKIE_KEY, token);
+        sessionStorage.setItem(Constants.USER_ID_COOKIE_KEY, userId);
+    }
+
+    resetUserCookie() {
+        sessionStorage.removeItem(Constants.TOKEN_COOKIE_KEY);
+        sessionStorage.removeItem(Constants.USER_ID_COOKIE_KEY);
     }
 
     showLoginError(show) {
@@ -63,7 +73,7 @@ class App extends React.Component {
             .then(response => response.json())
             .then(response => {
                 this.userHasAuthenticated(true);
-                sessionStorage.setItem(Constants.TOKEN_COOKIE_KEY, response.access_token);
+                this.setUserCookie(response.access_token, response.userId);
 
                 this.showLoginError(false);
 
@@ -95,7 +105,7 @@ class App extends React.Component {
 
                 if (response.status === 401) {
                     this.userHasAuthenticated(false);
-                    sessionStorage.removeItem(Constants.TOKEN_COOKIE_KEY);
+                    this.resetUserCookie();
                     this.props.history.push("/login");
 
                     return Promise.reject();
@@ -136,17 +146,15 @@ class App extends React.Component {
 
         return (
             <React.Fragment>
-                <Header externalClass="header-external" />
                 <Switch>
                     <Redirect exact from='/' to='/feed' />
                     <LoginRoute path='/login' history={history} component={PostsFeedPage} isAuthenticated={this.state.isAuthenticated} login={this.login} showError={this.state.showLoginError}
                         componentProps={{ isLoading: this.state.feed.isLoading, posts: this.state.feed.posts, hasMorePosts: this.state.feed.hasMore, getPosts: this.getPosts }} />
                     <PrivateRoute path='/feed' history={history} component={PostsFeedPage} isAuthenticated={this.state.isAuthenticated}
-                        componentProps={{ isLoading: this.state.feed.isLoading, posts: this.state.feed.posts, hasMorePosts: this.state.feed.hasMore, getPosts: this.getPosts }} />
-                    <PrivateRoute path='/profile/:userId' history={history} component={ProfilePage} isAuthenticated={this.state.isAuthenticated} />
-                    <Route history={history} component={NotFoundPage} />
+                        componentProps={{ isLoading: this.state.feed.isLoading, posts: this.state.feed.posts, hasMorePosts: this.state.feed.hasMore, getPosts: this.getPosts}} />
+                    <PrivateRoute path='/profile/:userId' history={history} component={ProfilePage} isAuthenticated={this.state.isAuthenticated}/>
+                    <Route history={history} render={(props) => <NotFoundPage {...props}/>} />
                 </Switch>
-                <Footer externalClass="footer-external"/>
             </React.Fragment>
         );
     }

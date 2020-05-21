@@ -1,7 +1,7 @@
 .container {
     height: 60px;
     width: 100%;
-    background-color: #FF571A;
+    background-color: white;
     border-bottom: 1px solid #dbdbdb;
 }
 
@@ -12,10 +12,86 @@
     margin: auto;
 }
 
-.icon{
-    margin-top: 10px;
+.centerContainer > p {
+    width: 100px;
+    float: left;
+    color: rgb(49, 54, 60);
+    font-family: "MontserratSemiBold";
+    font-size: 30px;
+    margin-bottom: 0px;
+    margin-top: 11px;
+    margin-left: 15px;
+}
+
+.icon {
+    margin-top: 15px;
+    float: left;
 }
 
 .icon:hover {
     cursor: pointer;
+}
+
+nav {
+    float: right;
+    height: 100%;
+    width: 300px;
+}
+
+ul {
+    list-style-type: none;
+    float: right;
+    width: 100%;
+    text-align: right;
+    margin-top: 13px;
+}
+
+li {
+    display: inline;
+}
+
+li span {
+    color: rgb(49, 54, 60);
+    font-family: "MontserratSemiBold";
+    font-size: 14px;
+    padding-left: 10px;
+    padding-top: 2px;
+    width: 50px;
+    float: left;
+}
+
+li a {
+    text-decoration: none;
+    color: rgb(49, 54, 60);
+}
+
+li > a > div {
+    width: 90px;
+    float: right;
+    margin-top: 8px;
+}
+
+li img {
+    float: left;
+}
+
+li a:visited {
+    color: rgb(49, 54, 60);
+}
+
+.userIcon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: inline-block;
+    float: right;
+    margin-left: 30px;
+    margin-top: 0px;
+    overflow: hidden;
+    background-size: cover !important;
+    border: 2px solid rgb(193, 205, 222);
+}
+
+.userIconBorder {
+    border: 2px solid rgb(255, 86, 26);
 }
