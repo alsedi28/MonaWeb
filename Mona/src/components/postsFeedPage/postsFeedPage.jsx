@@ -8,6 +8,8 @@ import Header from '../header/header';
 import Footer from '../footer/footer';
 import HeaderFeedTabs from '../headerFeedTabs/headerFeedTabs';
 
+import styles from './postsFeedPage.module.css';
+
 const PostsFeedPage = ({ feed, feedPopular, getPosts, getPopularPosts, ...props }) => {
 
     const [showMainTab, setShowMainTab] = useState(true);
@@ -24,11 +26,11 @@ const PostsFeedPage = ({ feed, feedPopular, getPosts, getPopularPosts, ...props 
 
     return (
         <React.Fragment>
-            <Header externalClass="header-external header-feed-external" location={props.location.pathname}>
+            <Header externalClass={`header-external ${styles.headerFeed}`} location={props.location.pathname}>
                 <HeaderFeedTabs clickTabFeed={() => clickTab(true)} clickTabFeedPopular={() => clickTab(false)}/>
             </Header>
-            <PostsFeed externalClass={`posts-feed-external ${showMainTab ? 'show-external' : 'hide-external'}`}>
-                <Loader show={feed.isLoading} />
+            <PostsFeed externalClass={`posts-feed-external ${showMainTab ? styles.showExternal : styles.hideExternal}`}>
+                <Loader show={feed.isLoading} externalClass={styles.loader}/>
                 <InfiniteScroll
                     dataLength={feed.posts.length}
                     next={getPosts}
@@ -38,8 +40,8 @@ const PostsFeedPage = ({ feed, feedPopular, getPosts, getPopularPosts, ...props 
                     {feed.posts.map(post => <Post post={post} externalClass="post-external" />)}
                 </InfiniteScroll>
             </PostsFeed>
-            <PostsFeed externalClass={`posts-feed-external ${!showMainTab ? 'show-external' : 'hide-external'}`}>
-                <Loader show={feedPopular.isLoading} />
+            <PostsFeed externalClass={`posts-feed-external ${!showMainTab ? styles.showExternal : styles.hideExternal}`}>
+                <Loader show={feedPopular.isLoading} externalClass={styles.loader}/>
                 <InfiniteScroll
                     dataLength={feedPopular.posts.length}
                     next={getPopularPosts}

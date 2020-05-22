@@ -1,0 +1,15 @@
+.loader {
+    margin-top: 35px;
+}
+
+.showExternal {
+    display: block !important;
+}
+
+.hideExternal {
+    display: none !important;
+}
+
+.headerFeed {
+    height: 120px !important;
+}

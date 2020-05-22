@@ -1,7 +1,10 @@
 import React from 'react';
+
 import UserListItem from '../userListItem/userListItem';
 import Loader from '../loader/loader';
+
 import styles from './modalDialog.module.css';
+
 import closeIcon from '../../../public/icons/close.png';
 
 const ModalDialog = ({ show, isLoading, title, items, clickClose, externalClass = "" }) => {

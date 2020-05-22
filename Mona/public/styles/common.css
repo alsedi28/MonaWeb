@@ -15,10 +15,6 @@
     z-index: 1;
 }
 
-.header-feed-external {
-    height: 120px !important;
-}
-
 .posts-feed-external {
     margin-top: 135px;
 }
@@ -32,14 +28,6 @@
 .footer-external {
     margin-bottom: 0px;
     margin-top: 30px;
-}
-
-.show-external {
-    display: block !important;
-}
-
-.hide-external {
-    display: none !important;
 }
 
 @font-face {

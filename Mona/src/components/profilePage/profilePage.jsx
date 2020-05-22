@@ -141,7 +141,7 @@ class ProfilePage extends React.Component {
     }
 
     render() {
-        const { location, currentUserId } = this.props;
+        const { location } = this.props;
 
         return (
             <React.Fragment>
@@ -153,7 +153,7 @@ class ProfilePage extends React.Component {
                     </div>
                     <p className={styles.postsTitle}>Публикации</p>
                     <PostsFeed>
-                        <Loader show={this.state.feed.isLoading} />
+                        <Loader show={this.state.feed.isLoading} externalClass={styles.loader}/>
                         <InfiniteScroll
                             dataLength={this.state.feed.posts.length}
                             next={this.getUserPosts}

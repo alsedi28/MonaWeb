@@ -59,12 +59,12 @@ header {
 
 .tab1tab.active ~ span.yellowBar {
     left: 0;
-    width: 125px;
+    width: 120px;
 }
 
 .tab2tab.active ~ span.yellowBar {
-    left: 138px;
-    width: 141px;
+    left: 119px;
+    width: 135px;
 }
 .active {
     color: rgb(255, 86, 26) !important;
