@@ -3,6 +3,7 @@ import React from 'react';
 import styles from './profileUserInfo.module.css';
 
 import blankProfileIcon from '../../../public/icons/blankProfileIcon.png';
+import shapeDark from '../../../public/icons/shapeDark.png';
 
 const ProfileUserInfo = ({ profile, externalClass = "" }) => (
     <div className={`${styles.container} ${externalClass}`}>
@@ -17,20 +18,14 @@ const ProfileUserInfo = ({ profile, externalClass = "" }) => (
             <p className={styles.userName}>{profile.name}</p>
             <div className={styles.userCounters}>
                 <div>
-                    <p>{profile.amountViewedMovies}</p>
-                    <p>фильмов просмотрено</p>
-                </div>
-                <div>
-                    <p>{profile.amountWillWatchMovies}</p>
-                    <p>фильмов в закладках</p>
-                </div>
-                <div>
                     <p>{profile.amountFollowing}</p>
-                    <p>подписки</p>
+                    <p>подписчик</p>
+                    <img src={shapeDark} width="35px" />
                 </div>
                 <div>
                     <p>{profile.amountFollowers}</p>
-                    <p>подписчиков</p>
+                    <p>подписок</p>
+                    <img src={shapeDark} width="35px" />
                 </div>
             </div>
         </div>

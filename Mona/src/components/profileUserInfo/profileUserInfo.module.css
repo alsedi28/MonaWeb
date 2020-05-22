@@ -12,58 +12,76 @@
     width: 170px;
     height: 170px;
     border-radius: 50%;
-    border: 2px solid #e6e6e6;
+    border: 3px solid #e6e6e6;
     margin-left: 35px;
 }
 
 .userIconBlock > div > div{
-    width: 162px;
-    height: 162px;
+    width: 170px;
+    height: 170px;
     border-radius: 50%;
     overflow: hidden;
-    margin-top: 4px;
-    margin-left: 4px;
     background-size: cover!important;
 }
 
 .userInfoBlock {
     height: 100%;
-    margin-left: 240px;
-    color: #31363c;
+    margin-left: 290px;
+    color: rgb(49, 54, 60);
 }
 
 .userCounters {
-    margin-top: 20px;
+    margin-top: 50px;
 }
 
 .userCounters > div {
     float: left;
-    width: 120px;
-    height: 85px;
+    width: 140px;
+    height: 60px;
+    border-radius: 8px;
+    background-color: white;
+    margin-right: 20px;
+    box-shadow: 2px 8px 16px 0px rgba(105, 105, 105, 0.3);
 }
 
 .userCounters > div > p:first-of-type {
     font-family: "MontserratSemiBold";
-    margin-bottom: 5px;
-    font-size: 18px;
+    margin-bottom: 0;
+    margin-top: 9px;
+    margin-left: 13px;
+    font-size: 20px;
     text-align: left;
+    float: left;
 }
 
 .userCounters > div > p:last-of-type {
-    font-size: 14px;
+    font-size: 16px;
     margin: 0px;
+    margin-left: 13px;
     font-family: "MontserratRegular";
     text-align: left;
+    float: left;
+}
+
+.userCounters > div > img {
+    float: right;
+    margin-top: -15px;
+    margin-right: -5px;
+}
+
+.userCounters > div:hover {
+    cursor: pointer;
 }
 
 .login {
-    font-size: 28px;
-    font-family: "MontserratLight";
-    padding-top: 20px;
+    font-size: 30px;
+    font-family: "MontserratSemiBold";
+    padding-top: 5px;
     margin-bottom: 0px;
 }
 
 .userName {
-    font-size: 16px;
-    font-family: "MontserratSemiBold";
+    margin-top: 5px;
+    font-size: 18px;
+    font-family: "MontserratRegular";
 }
