@@ -26,7 +26,7 @@ const ModalDialog = ({ show, isLoading, title, items, clickClose, externalClass 
         <div className={`${styles.background} ${externalClass}`} style={{ display: show ? "block" : "none" }} onClick={clickBackground}>
             <div className={`${styles.dialog} dialog-ev`}>
                 <header>
-                    <img src={closeIcon} width="35px" title="Закрыть" onClick={clickClose} />
+                    <img src={closeIcon} width="24px" title="Закрыть" onClick={clickClose} />
                     <p>
                         {title}
                     </p>

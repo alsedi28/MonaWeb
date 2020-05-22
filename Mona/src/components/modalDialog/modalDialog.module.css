@@ -9,37 +9,36 @@
 }
 
 .dialog {
-    width: 400px;
-    height: 400px;
+    width: 600px;
+    height: 590px;
     position: relative;
-    left: calc(50% - 200px);
-    top: calc(50% - 200px);
+    left: calc(50% - 300px);
+    top: calc(50% - 295px);
     background-color: #fff;
-    border-radius: 12px;
+    border-radius: 20px;
     overflow: hidden;
     z-index: 300;
 }
 
 .dialog > header {
-    height: 45px;
-    border-bottom: 1px solid #dbdbdb;
+    height: 70px;
+    background-color:rgb(249, 241, 241);
 }
 
 .dialog > header > p {
     text-align: center;
-    color: rgb(38, 38, 38);
-    font-family: "MontserratRegular";
+    color: rgb(49, 54, 60);
+    font-family: "MontserratSemiBold";
     height: 100%;
     margin: 0;
-    padding-top: 13px;
-    font-size: 16px;
-    font-weight: 600;
+    padding-top: 24px;
+    font-size: 20px;
 }
 
 .dialog > header img {
-    float: right;
-    margin-top: 6px;
-    margin-right: 5px;
+    position: absolute;
+    right: 30px;
+    top: 23px;
 }
 
 .dialog > header img:hover {
@@ -48,7 +47,7 @@
 
 .itemsContainer {
     overflow-y: auto;
-    height: 355px;
+    height: 522px;
 }
 
 .loader {
