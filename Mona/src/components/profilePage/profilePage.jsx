@@ -40,6 +40,9 @@ class ProfilePage extends React.Component {
     }
 
     componentDidMount() {
+        // Прокручиваем страницу в самое начало
+        window.scrollTo(0, 0);
+
         this.getProfileInfo();
         this.getUserPosts();
     }

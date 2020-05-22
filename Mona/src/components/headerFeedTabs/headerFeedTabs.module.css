@@ -1,0 +1,72 @@
+header {
+    position: relative;
+}
+
+.materialTabs {
+    position: relative;
+    max-width: 790px;
+    min-width: 650px;
+    margin: auto;
+    display: block;
+    padding: 0;
+}
+
+.materialTabs > a {
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+    padding: 22px;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgb(49, 54, 60);
+    text-align: center;
+    font-family: "MontserratRegular";
+}
+
+.materialTabs > a:visited {
+    color: rgb(49, 54, 60);
+}
+
+.materialTabs > a.active:visited {
+    color: rgb(255, 86, 26) !important;
+}
+
+.materialTabs > a.active {
+    font-weight: 700;
+    outline: none;
+}
+
+.materialTabs > a:hover {
+    cursor: pointer;
+}
+
+.materialTabs > a:not(.active):hover {
+    background-color: inherit;
+    color: #7c848a;
+}
+
+.yellowBar {
+    position: absolute;
+    z-index: 10;
+    bottom: 0;
+    height: 3px;
+    background: rgb(255, 86, 26);
+    display: block;
+    left: 0;
+    transition: left .2s ease;
+    -webkit-transition: left .2s ease;
+}
+
+.tab1tab.active ~ span.yellowBar {
+    left: 0;
+    width: 125px;
+}
+
+.tab2tab.active ~ span.yellowBar {
+    left: 138px;
+    width: 141px;
+}
+.active {
+    color: rgb(255, 86, 26) !important;
+}

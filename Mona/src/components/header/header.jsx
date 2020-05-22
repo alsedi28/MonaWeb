@@ -10,7 +10,7 @@ import feedIconNav from '../../../public/icons/feedIconNav.png';
 import feedIconNavActive from '../../../public/icons/feedIconNavActive.png';
 import blankProfileIcon from '../../../public/icons/blankProfileIcon.png';
 
-const Header = ({ location = "", externalClass = "" }) => {
+const Header = ({ location = "", externalClass = "", children }) => {
     let scrollPageUp = () => window.scrollTo(0, 0);
     let userId = sessionStorage.getItem(Constants.USER_ID_COOKIE_KEY);
 
@@ -38,6 +38,7 @@ const Header = ({ location = "", externalClass = "" }) => {
                     </ul>
                 </nav>
             </div>
+            {children}
         </header>
     );
 };
