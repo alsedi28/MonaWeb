@@ -12,7 +12,9 @@ import blankProfileIcon from '../../../public/icons/blankProfileIcon.png';
 
 const Header = ({ location = "", externalClass = "", children }) => {
     let scrollPageUp = () => window.scrollTo(0, 0);
+
     let userId = sessionStorage.getItem(Constants.USER_ID_COOKIE_KEY);
+    let userAvatar = sessionStorage.getItem(Constants.USER_AVATAR_COOKIE_KEY);
 
     return (
         <header className={`${styles.container} ${externalClass}`}>
@@ -23,7 +25,7 @@ const Header = ({ location = "", externalClass = "", children }) => {
                     <ul>
                         <li>
                             <Link to={`/profile/${userId}`}>
-                                <div style={{ background: `url(${blankProfileIcon}) 50% 10% no-repeat` }} className={`${styles.userIcon} ${location.startsWith(`/profile/${userId}`) ? styles.userIconBorder : ''}`}>
+                                <div style={{ background: `url(${userAvatar ? userAvatar : blankProfileIcon}) 50% 10% no-repeat` }} className={`${styles.userIcon} ${location.startsWith(`/profile/${userId}`) ? styles.userIconBorder : ''}`}>
                                 </div>
                             </Link>
                         </li>

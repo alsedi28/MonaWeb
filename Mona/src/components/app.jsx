@@ -46,14 +46,18 @@ class App extends React.Component {
         this.setState({ isAuthenticated: status });
     }
 
-    setUserCookie(token, userId) {
+    setUserCookie(token, userId, userAvatar) {
         sessionStorage.setItem(Constants.TOKEN_COOKIE_KEY, token);
         sessionStorage.setItem(Constants.USER_ID_COOKIE_KEY, userId);
+
+        if (userAvatar)
+            sessionStorage.setItem(Constants.USER_AVATAR_COOKIE_KEY, userAvatar);
     }
 
     resetUserCookie() {
         sessionStorage.removeItem(Constants.TOKEN_COOKIE_KEY);
         sessionStorage.removeItem(Constants.USER_ID_COOKIE_KEY);
+        sessionStorage.removeItem(Constants.USER_AVATAR_COOKIE_KEY);
     }
 
     showLoginError(show) {
@@ -81,7 +85,7 @@ class App extends React.Component {
             .then(response => response.json())
             .then(response => {
                 this.userHasAuthenticated(true);
-                this.setUserCookie(response.access_token, response.userId);
+                this.setUserCookie(response.access_token, response.userId, response.userAvatar);
 
                 this.showLoginError(false);
 
