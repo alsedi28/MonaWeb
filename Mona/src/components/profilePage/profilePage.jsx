@@ -9,7 +9,7 @@ import Loader from '../loader/loader';
 import ProfileUserInfo from '../profileUserInfo/profileUserInfo';
 import Header from '../header/header';
 import Footer from '../footer/footer';
-import Constants from '../../constants';
+import { DataService } from '../../dataService';
 
 class ProfilePage extends React.Component {
     constructor(props) {
@@ -36,7 +36,7 @@ class ProfilePage extends React.Component {
         };
 
         this.getProfileInfo = this.getProfileInfo.bind(this);
-        this.getUserPosts = this.getUserPosts.bind(this);
+        this.getUsersPosts = this.getUsersPosts.bind(this);
     }
 
     componentDidMount() {
@@ -44,7 +44,7 @@ class ProfilePage extends React.Component {
         window.scrollTo(0, 0);
 
         this.getProfileInfo();
-        this.getUserPosts();
+        this.getUsersPosts();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -56,88 +56,52 @@ class ProfilePage extends React.Component {
     }
 
     getProfileInfo() {
-        let url = `${Constants.DOMAIN}/api/v2/users/${this.state.profile.id}`;
-
-        fetch(url, {
-            method: 'GET',
-            headers: {
-                Authorization: 'Bearer ' + sessionStorage.getItem(Constants.TOKEN_COOKIE_KEY),
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(response => {
-                if (response.ok)
-                    return Promise.resolve(response);
-
-                return Promise.reject(new Error());
-            })
-            .then(response => response.json())
-            .then(profile => {
-                this.setState({
-                    ...this.state,
-                    isLoading: false,
-                    profile: {
-                        ...this.state.profile,
-                        name: profile.Name,
-                        login: profile.Login,
-                        avatar: profile.AvatarPath,
-                        amountFollowers: profile.AmountFollowers,
-                        amountFollowing: profile.AmountFollowing,
-                        amountViewedMovies: profile.AmountViewedMovies,
-                        amountWillWatchMovies: profile.AmountWillWatchMovies
-                    }
-                });
-            })
-            .catch((error) => {
-                if (error)
-                    alert("Произошла ошибка при загрузке данных.");
+        let callback = (profile) => {
+            this.setState({
+                ...this.state,
+                isLoading: false,
+                profile: {
+                    ...this.state.profile,
+                    name: profile.Name,
+                    login: profile.Login,
+                    avatar: profile.AvatarPath,
+                    amountFollowers: profile.AmountFollowers,
+                    amountFollowing: profile.AmountFollowing,
+                    amountViewedMovies: profile.AmountViewedMovies,
+                    amountWillWatchMovies: profile.AmountWillWatchMovies
+                }
             });
+        };
+
+        DataService.getProfileInfo(this.state.profile.id, callback);
     }
 
-    getUserPosts() {
-        let url = `${Constants.DOMAIN}/api/users/${this.state.profile.id}/eventfeed?start=${this.state.feed.lastPostItemId}`;
-
-        fetch(url, {
-            method: 'GET',
-            headers: {
-                Authorization: 'Bearer ' + sessionStorage.getItem(Constants.TOKEN_COOKIE_KEY),
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(response => {
-                if (response.ok)
-                    return Promise.resolve(response);
-
-                return Promise.reject(new Error());
-            })
-            .then(response => response.json())
-            .then(items => {
-                if (items.length === 0) {
-                    this.setState({
-                        ...this.state,
-                        feed: {
-                            ...this.state.feed,
-                            hasMore: false,
-                            isLoading: false
-                        }
-                    });
-                    return;
-                }
-
+    getUsersPosts() {
+        let callback = (items) => {
+            if (items.length === 0) {
                 this.setState({
                     ...this.state,
                     feed: {
-                        lastPostItemId: items[items.length - 1].EventId,
-                        posts: this.state.feed.posts.concat(items),
-                        hasMore: true,
+                        ...this.state.feed,
+                        hasMore: false,
                         isLoading: false
                     }
                 });
-            })
-            .catch((error) => {
-                if (error)
-                    alert("Произошла ошибка при загрузке данных.");
+                return;
+            }
+
+            this.setState({
+                ...this.state,
+                feed: {
+                    lastPostItemId: items[items.length - 1].EventId,
+                    posts: this.state.feed.posts.concat(items),
+                    hasMore: true,
+                    isLoading: false
+                }
             });
+        };
+
+        DataService.getUsersPosts(this.state.profile.id, this.state.feed.lastPostItemId, callback);
     }
 
     render() {
@@ -156,7 +120,7 @@ class ProfilePage extends React.Component {
                         <Loader show={this.state.feed.isLoading} externalClass={styles.loader}/>
                         <InfiniteScroll
                             dataLength={this.state.feed.posts.length}
-                            next={this.getUserPosts}
+                            next={this.getUsersPosts}
                             hasMore={this.state.feed.hasMore}
                             loader={<Loader />}
                         >

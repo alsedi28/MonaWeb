@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import ModalDialog from '../modalDialog/modalDialog';
 import PostButtonBar from '../postButtonBar/postButtonBar';
 import PostHeader from '../postHeader/postHeader';
-import Constants from '../../constants';
 
 import styles from './post.module.css';
 
@@ -12,6 +11,7 @@ import shapeIcon from '../../../public/icons/shape.png';
 import checkMarkIcon from '../../../public/icons/checkMark.png';
 import bookMarkIcon from '../../../public/icons/bookMark.png';
 import framePlaceholder from '../../../public/icons/framePlaceholder.png';
+import { DataService } from '../../dataService';
 
 class Post extends React.Component {
     constructor(props) {
@@ -59,26 +59,23 @@ class Post extends React.Component {
 
     clickShowUsersWhoLikesPost(eventId, movieId) {
         let title = "Лайкнули публикацию";
-        let urlPath = `/movies/${movieId}/events/${eventId}/likes`;
 
-        this.showModalDialog(title, this.usersWhoLikesPost, urlPath);
+        this.showModalDialog(title, this.usersWhoLikesPost, DataService.getUsersWhoLikesPost.bind(DataService), eventId, movieId);
     }
 
     clickShowUsersWhoWillWatchMovie(movieId) {
         let title = "Будут смотреть";
-        let urlPath = `/movies/${movieId}/willwatch`;
 
-        this.showModalDialog(title, this.usersWhoWillWatchMovie, urlPath);
+        this.showModalDialog(title, this.usersWhoWillWatchMovie, DataService.getUsersWhoWillWatchMovie.bind(DataService), movieId);
     }
 
     clickShowUsersWhoViewedMovie(movieId) {
         let title = "Уже смотрели";
-        let urlPath = `/movies/${movieId}/viewed`;
 
-        this.showModalDialog(title, this.usersWhoViewedMovie, urlPath);
+        this.showModalDialog(title, this.usersWhoViewedMovie, DataService.getUsersWhoViewedMovie.bind(DataService), movieId);
     }
 
-    showModalDialog(title, storage, urlPath) {
+    showModalDialog(title, storage, getter, ...args) {
         // Данные уже загружали
         if (storage.isLoaded) {
             this.setModalDialogState(true, false, title, storage.items);
@@ -88,37 +85,19 @@ class Post extends React.Component {
 
         this.setModalDialogState(true, true, title, []);
 
-        let url = `${Constants.DOMAIN}/api${urlPath}`;
+        let callback = (items) => {
+            storage.items = items.map(item => ({
+                icon: item.AvatarPath,
+                login: item.Login,
+                name: item.Name
+            }));
 
-        fetch(url, {
-            method: 'GET',
-            headers: {
-                Authorization: 'Bearer ' + sessionStorage.getItem(Constants.TOKEN_COOKIE_KEY),
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(response => {
-                if (response.ok)
-                    return Promise.resolve(response);
+            storage.isLoaded = true;
 
-                return Promise.reject(new Error("Произошла ошибка при загрузке данных."));
-            })
-            .then(response => response.json())
-            .then(items => {
-                storage.items = items.map(item => ({
-                    icon: item.AvatarPath,
-                    login: item.Login,
-                    name: item.Name
-                }));
+            this.setModalDialogState(true, false, title, storage.items);
+        };
 
-                storage.isLoaded = true;
-
-                this.setModalDialogState(true, false, title, storage.items);
-            })
-            .catch((error) => {
-                if (error)
-                    alert(error);
-            });
+        getter(...args, callback);        
     }
 
     hideModalDialog() {
@@ -133,54 +112,32 @@ class Post extends React.Component {
     }
 
     clickLikePost(eventId, movieId) {
-        let url = `${Constants.DOMAIN}/api/movies/${movieId}/events/${eventId}/likes`;
-
         // Снимаем обработчик click, пока не обновится состояние после текущего клика
         this.setState({ handleClickLike: () => ({})});
 
-        fetch(url, {
-            method: this.state.post.IsCurrentUserLiked ? 'DELETE' : 'POST',
-            headers: {
-                Authorization: 'Bearer ' + sessionStorage.getItem(Constants.TOKEN_COOKIE_KEY),
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(_ => {
-                this.updatePost(eventId, movieId);
-                // Возвращаем обработчик click
-                this.setState({ handleClickLike: this.clickLikePost });
-            });
+        let callback = _ => {
+            this.updatePost(eventId, movieId);
+            // Возвращаем обработчик click
+            this.setState({ handleClickLike: this.clickLikePost });
+        };
+
+        if (this.state.post.IsCurrentUserLiked)
+            DataService.deleteLikeToPost(eventId, movieId, callback);
+        else
+            DataService.addLikeToPost(eventId, movieId, callback);
     }
 
     updatePost(eventId, movieId) {
-        let url = `${Constants.DOMAIN}/api/v2/movies/${movieId}/events/${eventId}`;
+        let callback = (item) => {
+            this.setState({ post: item });
 
-        fetch(url, {
-            method: 'GET',
-            headers: {
-                Authorization: 'Bearer ' + sessionStorage.getItem(Constants.TOKEN_COOKIE_KEY),
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(response => {
-                if (response.ok)
-                    return Promise.resolve(response);
+            // Сбрасываем значения. После обновления могло измениться количество.
+            this.usersWhoLikesPost.isLoaded = false;
+            this.usersWhoViewedMovie.isLoaded = false;
+            this.usersWhoWillWatchMovie.isLoaded = false;
+        };
 
-                return Promise.reject(new Error());
-            })
-            .then(response => response.json())
-            .then(item => {
-                this.setState({ post: item });
-
-                // Сбрасываем значения. После обновления могло измениться количество.
-                this.usersWhoLikesPost.isLoaded = false;
-                this.usersWhoViewedMovie.isLoaded = false;
-                this.usersWhoWillWatchMovie.isLoaded = false;
-            })
-            .catch((error) => {
-                if (error)
-                    alert("Произошла ошибка при загрузке данных.");
-            });
+        DataService.getPost(eventId, movieId, callback);
     }
 
     setModalDialogState(show, isLoading, title, items) {

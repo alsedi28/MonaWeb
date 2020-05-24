@@ -6,6 +6,7 @@ import PostsFeedPage from './postsFeedPage/postsFeedPage';
 import ProfilePage from './profilePage/profilePage';
 import NotFoundPage from './notFoundPage/notFoundPage';
 import Constants from '../constants';
+import { DataService } from '../dataService';
 
 class App extends React.Component {
     constructor(props) {
@@ -65,41 +66,30 @@ class App extends React.Component {
     }
 
     login(login, password) {
-        let url = `${Constants.DOMAIN}/token`;
+        let successCallback = (response) => {
+            this.userHasAuthenticated(true);
+            this.setUserCookie(response.access_token, response.userId, response.userAvatar);
 
-        let body = `username=${encodeURIComponent(login)}&password=${encodeURIComponent(password)}&grant_type=password`;
+            this.showLoginError(false);
 
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: body
-        })
-            .then(response => {
-                if (response.ok)
-                    return Promise.resolve(response);
+            this.props.history.push("/feed");
+            this.getPosts();
+            this.getPopularPosts();
+        };
 
-                return Promise.reject();
-            })
-            .then(response => response.json())
-            .then(response => {
-                this.userHasAuthenticated(true);
-                this.setUserCookie(response.access_token, response.userId, response.userAvatar);
+        let failedCallback = () => this.showLoginError(true);
 
-                this.showLoginError(false);
-
-                this.props.history.push("/feed");
-                this.getPosts();
-                this.getPopularPosts();
-            })
-            .catch(() => this.showLoginError(true));
+        DataService.login(login, password, successCallback, failedCallback); 
     }
 
     getPopularPosts() {
-        let url = `${Constants.DOMAIN}/api/users/eventfeedpopular?start=${this.state.feedPopular.lastPostItemId}`;
+        // Если не авторизован, то перенаправляем на страницу Login
+        if (!this.state.isAuthenticated) {
+            this.props.history.push("/login");
+            return;
+        }
 
-        let callBack = (items) => {
+        let callback = (items) => {
             if (items.length === 0) {
                 this.setState({
                     ...this.state,
@@ -123,13 +113,17 @@ class App extends React.Component {
             });
         };
 
-        this.getPostsInternal(url, callBack);
+        DataService.getPopularPosts(this.state.feedPopular.lastPostItemId, callback);
     }
 
     getPosts() {
-        let url = `${Constants.DOMAIN}/api/v2/users/eventfeed?start=${this.state.feed.lastPostItemId}`;
+        // Если не авторизован, то перенаправляем на страницу Login
+        if (!this.state.isAuthenticated) {
+            this.props.history.push("/login");
+            return;
+        }
 
-        let callBack = (items) => {
+        let callback = (items) => {
             if (items.length === 0) {
                 this.setState({
                     ...this.state,
@@ -153,43 +147,7 @@ class App extends React.Component {
             });
         };
 
-        this.getPostsInternal(url, callBack);
-    }
-
-    getPostsInternal(url, callback) {
-        // Если не авторизован, то перенаправляем на страницу Login
-        if (!this.state.isAuthenticated) {
-            this.props.history.push("/login");
-            return;
-        }
-
-        fetch(url, {
-            method: 'GET',
-            headers: {
-                Authorization: 'Bearer ' + sessionStorage.getItem(Constants.TOKEN_COOKIE_KEY),
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(response => {
-                if (response.ok)
-                    return Promise.resolve(response);
-
-                if (response.status === 401) {
-                    this.userHasAuthenticated(false);
-                    this.resetUserCookie();
-                    this.props.history.push("/login");
-
-                    return Promise.reject();
-                }
-
-                return Promise.reject(new Error());
-            })
-            .then(response => response.json())
-            .then(items => callback(items))
-            .catch((error) => {
-                if (error)
-                    alert("Произошла ошибка при загрузке данных.");
-            });
+        DataService.getPosts(this.state.feed.lastPostItemId, callback);
     }
 
     render() {

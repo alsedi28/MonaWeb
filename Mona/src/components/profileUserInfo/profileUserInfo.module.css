@@ -52,6 +52,7 @@
     font-size: 20px;
     text-align: left;
     float: left;
+    width: 95px;
 }
 
 .userCounters > div > p:last-of-type {

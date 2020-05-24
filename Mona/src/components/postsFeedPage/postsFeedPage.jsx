@@ -21,9 +21,6 @@ const PostsFeedPage = ({ feed, feedPopular, getPosts, getPopularPosts, ...props 
         window.scrollTo(0, 0);
     }
 
-    // ѕрокручиваем страницу в самое начало
-    window.scrollTo(0, 0);
-
     return (
         <React.Fragment>
             <Header externalClass={`header-external ${styles.headerFeed}`} location={props.location.pathname}>
