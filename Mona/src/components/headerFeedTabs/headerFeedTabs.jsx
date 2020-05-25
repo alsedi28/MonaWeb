@@ -4,10 +4,10 @@ import styles from './headerFeedTabs.module.css';
 
 const HeaderFeedTabs = ({ clickTabFeed, clickTabFeedPopular, externalClass = "" }) => {
     function clickTab(event, callback) {
-        let tabs = document.getElementsByClassName(styles.materialTabs)[0].children;
+        let tabs = document.getElementsByClassName(styles.materialTabs)[0].getElementsByTagName("a");
 
-        tabs[0].classList.remove(styles.active);
-        tabs[1].classList.remove(styles.active);
+        for (var i = 0; i < tabs.length; i++)
+            tabs[i].classList.remove(styles.active);
 
         event.target.classList.add(styles.active);
 

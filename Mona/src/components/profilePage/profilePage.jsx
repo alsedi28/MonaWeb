@@ -10,6 +10,7 @@ import ProfileUserInfo from '../profileUserInfo/profileUserInfo';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import ModalDialog from '../modalDialog/modalDialog';
+import NotPostsBanner from '../notPostsBanner/notPostsBanner';
 import { DataService } from '../../dataService';
 
 class ProfilePage extends React.Component {
@@ -26,7 +27,8 @@ class ProfilePage extends React.Component {
                 amountFollowers: 0,
                 amountFollowing: 0,
                 amountViewedMovies: 0,
-                amountWillWatchMovies: 0
+                amountWillWatchMovies: 0,
+                amountPosts: 0
             },
             feed: {
                 posts: [],
@@ -92,7 +94,8 @@ class ProfilePage extends React.Component {
                     amountFollowers: profile.AmountFollowers,
                     amountFollowing: profile.AmountFollowing,
                     amountViewedMovies: profile.AmountViewedMovies,
-                    amountWillWatchMovies: profile.AmountWillWatchMovies
+                    amountWillWatchMovies: profile.AmountWillWatchMovies,
+                    amountPosts: profile.AmountEvents
                 }
             });
         };
@@ -183,6 +186,15 @@ class ProfilePage extends React.Component {
         });
     }
 
+    clickTab(event) {
+        let tabs = document.getElementsByClassName(styles.tabs)[0].getElementsByTagName("a");
+
+        for (var i = 0; i < tabs.length; i++)
+            tabs[i].classList.remove(styles.active);
+
+        event.target.classList.add(styles.active);
+    }
+
     render() {
         const { location } = this.props;
 
@@ -195,18 +207,26 @@ class ProfilePage extends React.Component {
                         <ProfileUserInfo profile={this.state.profile} clickFollowers={this.clickShowFollowers} clickFollowing={this.clickShowFollowing}
                             style={{ display: this.state.isLoading ? "none" : "block" }} />
                     </div>
-                    <p className={styles.postsTitle}>Публикации</p>
-                    <PostsFeed>
-                        <Loader show={this.state.feed.isLoading} externalClass={styles.loader}/>
-                        <InfiniteScroll
-                            dataLength={this.state.feed.posts.length}
-                            next={this.getUsersPosts}
-                            hasMore={this.state.feed.hasMore}
-                            loader={<Loader />}
-                        >
-                            {this.state.feed.posts.map(post => <Post post={post} externalClass="post-external" />)}
-                        </InfiniteScroll>
-                    </PostsFeed>
+                    <div className={styles.tabs}>
+                        <a className={`${styles.tabPosts} ${styles.active}`} onClick={(e) => this.clickTab(e)}>Публикации ({this.state.profile.amountPosts})</a>
+                        <a className={styles.tabMoviesWillWatch} onClick={(e) => this.clickTab(e)}>В закладках ({this.state.profile.amountWillWatchMovies})</a>
+                        <a className={styles.tabMoviesViewed} onClick={(e) => this.clickTab(e)}>Просмотрено ({this.state.profile.amountViewedMovies})</a>
+                        <span className={styles.tabBar}></span>
+                    </div>
+                    <div className={styles.postsContainer}>
+                        <NotPostsBanner username={this.state.profile.login} show={!this.state.feed.hasMore && this.state.feed.posts.length === 0} externalClass={styles.notPostsBannerExternal} />
+                        <PostsFeed>
+                            <Loader show={this.state.feed.isLoading} externalClass={styles.loader}/>
+                            <InfiniteScroll
+                                dataLength={this.state.feed.posts.length}
+                                next={this.getUsersPosts}
+                                hasMore={this.state.feed.hasMore}
+                                loader={<Loader />}
+                            >
+                                {this.state.feed.posts.map(post => <Post post={post} externalClass="post-external" />)}
+                            </InfiniteScroll>
+                        </PostsFeed>
+                    </div>
                     <ModalDialog show={this.state.modalDialog.show} title={this.state.modalDialog.title} isLoading={this.state.modalDialog.isLoading}
                         items={this.state.modalDialog.items} clickClose={this.hideModalDialog} />
                 </div>
