@@ -87,6 +87,7 @@ class Post extends React.Component {
 
         let callback = (items) => {
             storage.items = items.map(item => ({
+                id: item.UserId,
                 icon: item.AvatarPath,
                 login: item.Login,
                 name: item.Name

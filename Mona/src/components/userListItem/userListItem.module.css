@@ -8,10 +8,14 @@
     height: 100%;
 }
 
-.userIcon img {
+.userIcon div {
     border-radius: 50%;
     margin-top: 10px;
     margin-left: 15px;
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    background-size: cover!important;
 }
 
 .userInfo {
@@ -34,4 +38,13 @@
 .userInfo > p:last-child {
     font-family: "MontserratRegular";
     padding-top: 7px;
+}
+
+.userInfo a {
+    text-decoration: none;
+    color:rgb(49, 54, 60);
+}
+
+.userInfo a:visited {
+    color: rgb(49, 54, 60);
 }

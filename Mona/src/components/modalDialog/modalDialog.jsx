@@ -36,11 +36,11 @@ const ModalDialog = ({ show, isLoading, title, items, clickClose, externalClass 
                 </header>
                 <div className={styles.itemsContainer}>
                     <Loader show={isLoading} externalClass={styles.loader} />
-                    {items.map(item => <UserListItem userIcon={item.icon} userLogin={item.login} userName={item.name} />)}
+                    {items.map(item => <UserListItem userIcon={item.icon} userLogin={item.login} userName={item.name} userId={item.id}/>)}
                 </div>
             </div>
         </div>
-    )
+    );
 };
 
 export default ModalDialog;
