@@ -51,6 +51,18 @@ export class DataService {
         this._get(url, callback);
     }
 
+    static getFollowers(userId, callback) {
+        let url = `${Constants.DOMAIN}/api/users/${userId}/followers`;
+
+        this._get(url, callback);
+    }
+
+    static getFollowing(userId, callback) {
+        let url = `${Constants.DOMAIN}/api/users/${userId}/following`;
+
+        this._get(url, callback);
+    }
+
     static addLikeToPost(eventId, movieId, callback) {
         let url = `${Constants.DOMAIN}/api/movies/${movieId}/events/${eventId}/likes`;
 
