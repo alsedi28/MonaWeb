@@ -143,14 +143,10 @@ class Post extends React.Component {
 
       let comment = this.state.post.Comments.find(item => item.CommentId==commentId)
 
-      console.error(comment);
-
       if (comment != null) {
         if (comment.IsCurrentUserLiked) {
-          console.error("IsCurrentUserLiked = true");
           DataService.deleteLikeFromComment(eventId, movieId, commentId, callback);
         } else {
-          console.error("IsCurrentUserLiked = false");
           DataService.addLikeToComment(eventId, movieId, commentId, callback);
         }
       }
@@ -198,7 +194,7 @@ class Post extends React.Component {
         let comment = post.Comments.length > 0 ? post.Comments[0] : null;
         let blockWithMainComment = "";
         if (comment !== null)
-            blockWithMainComment = <p><span className={styles.userLink}><Link to={`/profile/${comment.UserId}`}>{comment.Username}</Link></span> {comment.Text}</p>;
+            blockWithMainComment = <PostComment comment={comment} clickLike={this.state.handleClickLikeComment.bind(this, post.EventId, post.MovieId, comment.CommentId)} />
 
         // UserInfoWhoLikesEvent cодержит userName#userId
         let userInfoWhoLikesPost = post.UserInfoWhoLikesEvent !== null ? post.UserInfoWhoLikesEvent.split('#') : null;

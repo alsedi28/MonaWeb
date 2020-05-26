@@ -16,14 +16,10 @@ const PostComment = ({ comment, clickLike, externalClass = "" }) => {
       setTimeout(() => imgLike.current.classList.remove(styles.likeClickActive), 1000);
   }
 
-  console.error("PostComment:");
-  console.error(comment);
-
   return (
-    <div class="row">
-      <p><span className={styles.userLink}><Link to={`/profile/${comment.UserId}`}>{comment.Username}</Link></span> {comment.Text}</p>
-
-      <img src={comment.IsCurrentUserLiked ? heartFilledIcon : heartIcon} className={styles.like} onClick={clickLikeWithAnimation} ref={imgLike} width="16px" />
+    <div className={`${styles.box} ${styles.commentsBlock}`}>
+    <p><span className={styles.userLink}><Link to={`/profile/${comment.UserId}`}>{comment.Username}</Link></span> {comment.Text} </p>
+    <img src={comment.IsCurrentUserLiked ? heartFilledIcon : heartIcon} className={styles.like} onClick={clickLikeWithAnimation} ref={imgLike} width="16px" height="16px" />
     </div>
   );
 };
