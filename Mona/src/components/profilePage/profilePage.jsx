@@ -43,7 +43,8 @@ class ProfilePage extends React.Component {
                 isLoading: false, // Отображать Loader в модальном окне или нет
                 title: "", // Заголовок модального окна
                 items: [] // Данные, которые необходимо отобразить в модальном окне
-            }
+            },
+            tabNumberActive: 1 // Номер Tab'а, который активный. 1 - Tab "Публикации", 2 - Tab "В закладках", 3 - Tab "Просмотрено"
         };
 
         // Подписки
@@ -188,13 +189,15 @@ class ProfilePage extends React.Component {
         });
     }
 
-    clickTab(event) {
+    clickTab(event, tabNumber) {
         let tabs = document.getElementsByClassName(styles.tabs)[0].getElementsByTagName("a");
 
         for (var i = 0; i < tabs.length; i++)
             tabs[i].classList.remove(styles.active);
 
         event.target.classList.add(styles.active);
+
+        this.setState({ ...this.state, tabNumberActive: tabNumber });
     }
 
     render() {
@@ -212,12 +215,12 @@ class ProfilePage extends React.Component {
                             style={{ display: this.state.isLoading ? "none" : "block" }} />
                     </div>
                     <div className={styles.tabs}>
-                        <a className={`${styles.tabPosts} ${styles.active}`} onClick={(e) => this.clickTab(e)}>Публикации ({this.state.profile.amountPosts})</a>
-                        <a className={styles.tabMoviesWillWatch} onClick={(e) => this.clickTab(e)}>В закладках ({this.state.profile.amountWillWatchMovies})</a>
-                        <a className={styles.tabMoviesViewed} onClick={(e) => this.clickTab(e)}>Просмотрено ({this.state.profile.amountViewedMovies})</a>
+                        <a className={`${styles.tabPosts} ${styles.active}`} onClick={(e) => this.clickTab(e, 1)}>Публикации ({this.state.profile.amountPosts})</a>
+                        <a className={styles.tabMoviesWillWatch} onClick={(e) => this.clickTab(e, 2)}>В закладках ({this.state.profile.amountWillWatchMovies})</a>
+                        <a className={styles.tabMoviesViewed} onClick={(e) => this.clickTab(e, 3)}>Просмотрено ({this.state.profile.amountViewedMovies})</a>
                         <span className={styles.tabBar}></span>
                     </div>
-                    <div className={styles.postsContainer}>
+                    <div className={`${styles.postsContainer} ${styles.tabDataContainer}`} style={{ display: this.state.tabNumberActive === 1 ? "block" : "none" }}>
                         <NotPostsBanner username={this.state.profile.login} show={currentUserId !== this.state.profile.id && !this.state.feed.hasMore && this.state.feed.posts.length === 0} externalClass={styles.bannerExternal} />
                         <NotPostsInMyOwnProfileBanner show={currentUserId === this.state.profile.id && !this.state.feed.hasMore && this.state.feed.posts.length === 0} externalClass={styles.bannerExternal} />
                         <PostsFeed>
@@ -231,6 +234,10 @@ class ProfilePage extends React.Component {
                                 {this.state.feed.posts.map(post => <Post post={post} externalClass="post-external" />)}
                             </InfiniteScroll>
                         </PostsFeed>
+                    </div>
+                    <div className={`${styles.moviesWillWatchContainer} ${styles.tabDataContainer}`} style={{ display: this.state.tabNumberActive === 2 ? "block" : "none" }}>
+                    </div>
+                    <div className={`${styles.moviesWillWatchContainer} ${styles.tabDataContainer}`} style={{ display: this.state.tabNumberActive === 3 ? "block" : "none" }}>
                     </div>
                     <ModalDialog show={this.state.modalDialog.show} title={this.state.modalDialog.title} isLoading={this.state.modalDialog.isLoading}
                         items={this.state.modalDialog.items} clickClose={this.hideModalDialog} />

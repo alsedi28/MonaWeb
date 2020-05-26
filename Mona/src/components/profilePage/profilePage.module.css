@@ -90,10 +90,10 @@
     color: rgb(255, 86, 26) !important;
 }
 
-.postsContainer {
-    margin-top: 30px;
-}
-
 .bannerExternal {
     margin: auto;
+}
+
+.tabDataContainer {
+    margin-top: 30px;
 }
