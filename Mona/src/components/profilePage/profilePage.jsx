@@ -11,7 +11,9 @@ import Header from '../header/header';
 import Footer from '../footer/footer';
 import ModalDialog from '../modalDialog/modalDialog';
 import NotPostsBanner from '../notPostsBanner/notPostsBanner';
+import NotPostsInMyOwnProfileBanner from '../notPostsInMyOwnProfileBanner/notPostsInMyOwnProfileBanner';
 import { DataService } from '../../dataService';
+import Constants from '../../constants';
 
 class ProfilePage extends React.Component {
     constructor(props) {
@@ -198,6 +200,8 @@ class ProfilePage extends React.Component {
     render() {
         const { location } = this.props;
 
+        let currentUserId = sessionStorage.getItem(Constants.USER_ID_COOKIE_KEY);
+
         return (
             <React.Fragment>
                 <Header externalClass="header-external" location={location.pathname} />
@@ -214,7 +218,8 @@ class ProfilePage extends React.Component {
                         <span className={styles.tabBar}></span>
                     </div>
                     <div className={styles.postsContainer}>
-                        <NotPostsBanner username={this.state.profile.login} show={!this.state.feed.hasMore && this.state.feed.posts.length === 0} externalClass={styles.notPostsBannerExternal} />
+                        <NotPostsBanner username={this.state.profile.login} show={currentUserId !== this.state.profile.id && !this.state.feed.hasMore && this.state.feed.posts.length === 0} externalClass={styles.bannerExternal} />
+                        <NotPostsInMyOwnProfileBanner show={currentUserId === this.state.profile.id && !this.state.feed.hasMore && this.state.feed.posts.length === 0} externalClass={styles.bannerExternal} />
                         <PostsFeed>
                             <Loader show={this.state.feed.isLoading} externalClass={styles.loader}/>
                             <InfiniteScroll
