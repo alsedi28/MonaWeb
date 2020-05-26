@@ -31,12 +31,14 @@
 }
 
 .userInfo > p:first-child {
-    font-family: "MontserratSemiBold";
+    font-family: "Montserrat";
+    font-weight: 300;
     padding-top: 22px;
 }
 
 .userInfo > p:last-child {
-    font-family: "MontserratRegular";
+    font-family: "Montserrat";
+    font-weight: normal;
     padding-top: 7px;
 }
 

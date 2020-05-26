@@ -33,7 +33,8 @@
     font-weight: 600;
     color: rgb(49, 54, 60);
     text-align: center;
-    font-family: "MontserratRegular";
+    font-family: "Montserrat";
+    font-weight: normal;
     width: 180px;
 }
 

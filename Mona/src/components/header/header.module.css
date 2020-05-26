@@ -16,7 +16,8 @@
     width: 100px;
     float: left;
     color: rgb(49, 54, 60);
-    font-family: "MontserratSemiBold";
+    font-family: "Montserrat";
+    font-weight: 300;
     font-size: 30px;
     margin-bottom: 0px;
     margin-top: 11px;
@@ -52,7 +53,8 @@ li {
 
 li span {
     color: rgb(49, 54, 60);
-    font-family: "MontserratSemiBold";
+    font-family: "Montserrat";
+    font-weight: 300;
     font-size: 14px;
     padding-left: 10px;
     padding-top: 2px;
