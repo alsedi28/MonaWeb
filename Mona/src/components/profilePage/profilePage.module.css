@@ -97,3 +97,15 @@
 .tabDataContainer {
     margin-top: 30px;
 }
+
+.movieBlockExternal {
+    float: left;
+}
+
+.moviesContainer {
+    height: 280px;
+}
+
+.tabMovies {
+    margin-top: 70px !important;
+}
