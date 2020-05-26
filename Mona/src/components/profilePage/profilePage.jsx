@@ -9,6 +9,7 @@ import Loader from '../loader/loader';
 import ProfileUserInfo from '../profileUserInfo/profileUserInfo';
 import Header from '../header/header';
 import Footer from '../footer/footer';
+import MovieItemOnUserProfile from '../movieItemOnUserProfile/movieItemOnUserProfile';
 import ModalDialog from '../modalDialog/modalDialog';
 import NotPostsBanner from '../notPostsBanner/notPostsBanner';
 import NotPostsInMyOwnProfileBanner from '../notPostsInMyOwnProfileBanner/notPostsInMyOwnProfileBanner';
@@ -38,6 +39,16 @@ class ProfilePage extends React.Component {
                 lastPostItemId: 0, // Id последнего Event, который загрузили
                 isLoading: true // Флаг, который отвечает за отображение/скрытие loader'а при начальной инициализации ленты постов
             },
+            moviesWillWatch: {
+                items: [],
+                hasMore: false, // Флаг, который показывает есть ли еще фильмы для загрузки
+                page: 1 // Номер страницы
+            },
+            moviesViewed: {
+                items: [],
+                hasMore: false, // Флаг, который показывает есть ли еще фильмы для загрузки
+                page: 1 // Номер страницы
+            },
             modalDialog: { // Состояние объекта модального окна
                 show: false, // Показывать или нет модальное окно
                 isLoading: false, // Отображать Loader в модальном окне или нет
@@ -61,11 +72,14 @@ class ProfilePage extends React.Component {
 
         this.getProfileInfo = this.getProfileInfo.bind(this);
         this.getUsersPosts = this.getUsersPosts.bind(this);
+        this.getWillWatchMovies = this.getWillWatchMovies.bind(this);
+        this.getViewedMovies = this.getViewedMovies.bind(this);
         this.clickShowFollowers = this.clickShowFollowers.bind(this);
         this.clickShowFollowing = this.clickShowFollowing.bind(this);
         this.setModalDialogState = this.setModalDialogState.bind(this);
         this.showModalDialog = this.showModalDialog.bind(this);
-        this.hideModalDialog = this.hideModalDialog.bind(this);
+        this.hideModalDialog = this.hideModalDialog.bind(this); 
+        this.renderMoviesForView = this.renderMoviesForView.bind(this);
     }
 
     componentDidMount() {
@@ -74,6 +88,8 @@ class ProfilePage extends React.Component {
 
         this.getProfileInfo();
         this.getUsersPosts();
+        this.getWillWatchMovies();
+        this.getViewedMovies();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -132,6 +148,62 @@ class ProfilePage extends React.Component {
         };
 
         DataService.getUsersPosts(this.state.profile.id, this.state.feed.lastPostItemId, callback);
+    }
+
+    getWillWatchMovies() {
+        let callback = (items) => {
+            if (items.length === 0) {
+                this.setState({
+                    ...this.state,
+                    moviesWillWatch: {
+                        ...this.state.moviesWillWatch,
+                        hasMore: false,
+                        isLoading: false
+                    }
+                });
+                return;
+            }
+
+            this.setState({
+                ...this.state,
+                moviesWillWatch: {
+                    page: this.state.moviesWillWatch.page + 1,
+                    items: this.state.moviesWillWatch.items.concat(items),
+                    hasMore: true,
+                    isLoading: false
+                }
+            });
+        };
+
+        DataService.getWillWatchMovies(this.state.profile.id, this.state.moviesWillWatch.page, callback);
+    }
+
+    getViewedMovies() {
+        let callback = (items) => {
+            if (items.length === 0) {
+                this.setState({
+                    ...this.state,
+                    moviesViewed: {
+                        ...this.state.moviesViewed,
+                        hasMore: false,
+                        isLoading: false
+                    }
+                });
+                return;
+            }
+
+            this.setState({
+                ...this.state,
+                moviesViewed: {
+                    page: this.state.moviesViewed.page + 1,
+                    items: this.state.moviesViewed.items.concat(items),
+                    hasMore: true,
+                    isLoading: false
+                }
+            });
+        };
+
+        DataService.getViewedMovies(this.state.profile.id, this.state.moviesViewed.page, callback);
     }
 
     clickShowFollowers() {
@@ -200,6 +272,27 @@ class ProfilePage extends React.Component {
         this.setState({ ...this.state, tabNumberActive: tabNumber });
     }
 
+    renderMoviesForView(movies, isViewed) {
+        let result = [];
+
+        // Группируем фильмы в блок по два для вывода на страницу
+        for (var i = 0; i < movies.items.length; i += 2) {
+            if (i === movies.items.length - 1)
+                result.push(
+                    <div className={styles.moviesContainer}>
+                        <MovieItemOnUserProfile movie={movies.items[i]} isViewed={isViewed} externalClass={styles.movieBlockExternal} />
+                    </div>);
+            else
+                result.push(
+                    <div className={styles.moviesContainer}>
+                        <MovieItemOnUserProfile movie={movies.items[i]} isViewed={isViewed} externalClass={styles.movieBlockExternal} />
+                        <MovieItemOnUserProfile movie={movies.items[i + 1]} isViewed={isViewed} externalClass={styles.movieBlockExternal} />
+                    </div>);
+        }
+
+        return result;
+    }
+
     render() {
         const { location } = this.props;
 
@@ -220,7 +313,7 @@ class ProfilePage extends React.Component {
                         <a className={styles.tabMoviesViewed} onClick={(e) => this.clickTab(e, 3)}>Просмотрено ({this.state.profile.amountViewedMovies})</a>
                         <span className={styles.tabBar}></span>
                     </div>
-                    <div className={`${styles.postsContainer} ${styles.tabDataContainer}`} style={{ display: this.state.tabNumberActive === 1 ? "block" : "none" }}>
+                    <div className={styles.tabDataContainer} style={{ display: this.state.tabNumberActive === 1 ? "block" : "none" }}>
                         <NotPostsBanner username={this.state.profile.login} show={currentUserId !== this.state.profile.id && !this.state.feed.hasMore && this.state.feed.posts.length === 0} externalClass={styles.bannerExternal} />
                         <NotPostsInMyOwnProfileBanner show={currentUserId === this.state.profile.id && !this.state.feed.hasMore && this.state.feed.posts.length === 0} externalClass={styles.bannerExternal} />
                         <PostsFeed>
@@ -235,9 +328,25 @@ class ProfilePage extends React.Component {
                             </InfiniteScroll>
                         </PostsFeed>
                     </div>
-                    <div className={`${styles.moviesWillWatchContainer} ${styles.tabDataContainer}`} style={{ display: this.state.tabNumberActive === 2 ? "block" : "none" }}>
+                    <div className={`${styles.tabDataContainer} ${styles.tabMovies}`} style={{ display: this.state.tabNumberActive === 2 ? "block" : "none" }}>
+                        <InfiniteScroll
+                            dataLength={this.state.moviesWillWatch.items.length}
+                            next={this.getWillWatchMovies}
+                            hasMore={this.state.moviesWillWatch.hasMore}
+                            loader={<Loader />}
+                        >
+                            {this.renderMoviesForView(this.state.moviesWillWatch, false)}
+                        </InfiniteScroll>
                     </div>
-                    <div className={`${styles.moviesWillWatchContainer} ${styles.tabDataContainer}`} style={{ display: this.state.tabNumberActive === 3 ? "block" : "none" }}>
+                    <div className={`${styles.tabDataContainer} ${styles.tabMovies}`} style={{ display: this.state.tabNumberActive === 3 ? "block" : "none" }}>
+                        <InfiniteScroll
+                            dataLength={this.state.moviesViewed.items.length}
+                            next={this.getViewedMovies}
+                            hasMore={this.state.moviesViewed.hasMore}
+                            loader={<Loader />}
+                        >
+                            {this.renderMoviesForView(this.state.moviesViewed, true)}
+                        </InfiniteScroll>
                     </div>
                     <ModalDialog show={this.state.modalDialog.show} title={this.state.modalDialog.title} isLoading={this.state.modalDialog.isLoading}
                         items={this.state.modalDialog.items} clickClose={this.hideModalDialog} />

@@ -1,0 +1,102 @@
+.container {
+    width: 390px;
+}
+
+.posterContainer {
+    width: 188px;
+    height: 100%;
+    float: left;
+}
+
+.infoContainer {
+    height: 100%;
+    margin-left: 175px;
+    color: rgb(49, 54, 60);
+}
+
+.posterContainer > div {
+    height: 100%;
+    width: 100%;
+    margin: auto;
+    position: relative;
+}
+
+.posterContainer > div > img:last-of-type {
+    position: absolute;
+    left: 125px;
+    top: 0px;
+}
+
+.posterContainer > div > img:first-of-type {
+    border-radius: 8px;
+}
+
+.movieTitle {
+    margin: 0px;
+    font-size: 16px;
+    font-family: "Montserrat";
+    font-weight: 300;
+}
+
+.movieTitle > span {
+    color: rgba(49, 54, 60, 0.3);
+}
+
+.productionCountries {
+    font-size: 12px;
+    font-family: "Montserrat";
+    font-weight: normal;
+}
+
+.movieRaiting {
+    font-size: 12px;
+    font-family: "Montserrat";
+    font-weight: normal;
+}
+
+.movieRaiting > span{
+    font-size: 16px;
+    padding-left: 6px;
+    font-family: "Montserrat";
+    font-weight: 300;
+}
+
+.counterContainer {
+    height: 40px;
+    width: 70px;
+    display: inline-block;
+}
+
+.counterContainer > img {
+    float: left;
+}
+
+.counterContainer > p {
+    margin: 0px;
+    font-size: 16px;
+    font-family: "Montserrat";
+    font-weight: 300;
+    padding-top: 3px;
+    margin-left: 22px;
+}
+
+.viewIcon {
+    margin-top: 7px;
+}
+
+.userRaiting {
+    font-family: "Montserrat";
+    font-weight: normal;
+    font-size: 12px;
+}
+
+.userRaiting > span {
+    font-family: "Montserrat";
+    font-weight: 300;
+    background-color: rgb(253, 87, 57);
+    color: white;
+    padding: 1px 12px;
+    border-radius: 5px;
+    margin-left: 5px;
+    font-size: 16px;
+}
