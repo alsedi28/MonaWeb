@@ -17,10 +17,12 @@
 
 .container > p:first-of-type {
     font-size: 20px;
-    font-family: "MontserratSemiBold";
+    font-family: "Montserrat";
+    font-weight: 300;
 }
 
 .container > p:last-of-type {
     font-size: 18px;
-    font-family: "MontserratRegular";
+    font-family: "Montserrat";
+    font-weight: normal;
 }

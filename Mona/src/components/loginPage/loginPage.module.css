@@ -34,7 +34,8 @@ input {
     left: 45px;
     border-bottom: 2px solid #adadad;
     width: 260px;
-    font-family: "MontserratMedium";
+    font-family: "Montserrat";
+    font-weight: 200;
     color: #31363c;
 }
 
@@ -66,7 +67,8 @@ input {
 }
 
 .formLabel > p {
-    font-family: "MontserratBold";
+    font-family: "Montserrat";
+    font-weight: bold;
     font-size: 30px;
     margin-top: 70px;
     margin-bottom: 10px;
@@ -89,7 +91,8 @@ input {
     border-radius: 10px;
     color: white;
     background-color: rgba(255, 87, 26, 0.9);
-    font-family: "MontserratBold";
+    font-family: "Montserrat";
+    font-weight: bold;
     width: 200px;
     height: 36px;
     position: relative;
@@ -117,6 +120,7 @@ button:focus {
     width: 260px;
     color: red;
     font-size: 14px;
-    font-family: "MontserratRegular";
+    font-family: "Montserrat";
+    font-weight: normal;
     margin: auto;
 }

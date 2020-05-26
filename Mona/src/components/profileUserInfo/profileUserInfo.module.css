@@ -45,7 +45,8 @@
 }
 
 .userCounters > div > p:first-of-type {
-    font-family: "MontserratSemiBold";
+    font-family: "Montserrat";
+    font-weight: 300;
     margin-bottom: 0;
     margin-top: 9px;
     margin-left: 13px;
@@ -59,7 +60,8 @@
     font-size: 16px;
     margin: 0px;
     margin-left: 13px;
-    font-family: "MontserratRegular";
+    font-family: "Montserrat";
+    font-weight: normal;
     text-align: left;
     float: left;
 }
@@ -76,7 +78,8 @@
 
 .login {
     font-size: 30px;
-    font-family: "MontserratSemiBold";
+    font-family: "Montserrat";
+    font-weight: 300;
     padding-top: 5px;
     margin-bottom: 0px;
 }
@@ -84,5 +87,6 @@
 .userName {
     margin-top: 5px;
     font-size: 18px;
-    font-family: "MontserratRegular";
+    font-family: "Montserrat";
+    font-weight: normal;
 }

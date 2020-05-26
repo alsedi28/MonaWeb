@@ -49,21 +49,25 @@
     margin: 0px;
     padding-top: 50px;
     font-size: 25px;
-    font-family: "MontserratSemiBold";
+    font-family: "Montserrat";
+    font-weight: 300;
 }
 
 .movieTitle > span {
-    font-family: "MontserratRegular";
+    font-family: "Montserrat";
+    font-weight: normal;
     color: rgba(255, 255, 255, 0.8);
 }
 
 .userRaiting {
-    font-family: "MontserratRegular";
+    font-family: "Montserrat";
+    font-weight: normal;
     font-size: 18px;
 }
 
 .userRaiting > span {
-    font-family: "MontserratSemiBold";
+    font-family: "Montserrat";
+    font-weight: 300;
     background-color: rgb(253, 87, 57);
     padding: 5px 17px;
     border-radius: 5px;
@@ -80,12 +84,14 @@
 
 .movieRaiting > p:first-of-type {
     font-size: 28px;
-    font-family: "MontserratSemiBold";
+    font-family: "Montserrat";
+    font-weight: 300;
 }
 
 .movieRaiting > p:last-of-type {
     font-size: 17px;
-    font-family: "MontserratRegular";
+    font-family: "Montserrat";
+    font-weight: normal;
 }
 
 .numberUsers {
@@ -103,12 +109,14 @@
 
 .numberUsers > p:first-of-type {
     font-size: 28px;
-    font-family: "MontserratSemiBold";
+    font-family: "Montserrat";
+    font-weight: 300;
 }
 
 .numberUsers > p:last-of-type {
     font-size: 17px;
-    font-family: "MontserratRegular";
+    font-family: "Montserrat";
+    font-weight: normal;
 }
 
 .numberUsers > img {
@@ -128,7 +136,8 @@
     border: 2px solid rgb(253, 87, 57);
     border-radius: 10px;
     text-align: center;
-    font-family: "MontserratSemiBold";
+    font-family: "Montserrat";
+    font-weight: 300;
     color: white;
 }
 
@@ -144,12 +153,14 @@
 .commentsBlock {
     height: auto;
     font-size: 16px;
-    font-family: "MontserratRegular";
+    font-family: "Montserrat";
+    font-weight: normal;
     color: rgb(49, 54, 60);
 }
 
 .commentsBlock span {
-    font-family: "MontserratSemiBold";
+    font-family: "Montserrat";
+    font-weight: 300;
 }
 
 .commentsBlock > p {

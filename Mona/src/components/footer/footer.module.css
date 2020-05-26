@@ -9,7 +9,8 @@
     height: 100%;
     margin: auto;
     color: #8e8e8e;
-    font-family: "MontserratBold";
+    font-family: "Montserrat";
+    font-weight: bold;
 }
 
 .centerContainer p {

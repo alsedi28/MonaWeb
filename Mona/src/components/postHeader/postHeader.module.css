@@ -31,11 +31,13 @@
 }
 
 .userInfo > span:last-child {
-    font-family: "MontserratMedium";
+    font-family: "Montserrat";
+    font-weight: 200;
 }
 
 .userInfo > span:first-child {
-    font-family: "MontserratBold";
+    font-family: "Montserrat";
+    font-weight: bold;
 }
 
 .date {
@@ -47,7 +49,8 @@
     font-size: 14px;
     margin-top: 22px;
     margin-right: 10px;
-    font-family: "MontserratLight";
+    font-family: "Montserrat";
+    font-weight: 100;
 }
 
 .userLink > a {
