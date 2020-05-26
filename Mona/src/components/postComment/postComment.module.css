@@ -1,0 +1,82 @@
+.container {
+    height: 32px;
+}
+
+.container > img {
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.likeClickActive {
+    -webkit-animation: pulse 1s ease-in-out;
+    -moz-animation: pulse 1s ease-in-out;
+    -o-animation: pulse 1s ease-in-out;
+    animation: pulse 1s ease-in-out;
+}
+
+.userLink > a {
+    text-decoration: none;
+    color: rgb(49, 54, 60);
+}
+
+.userLink > a:visited {
+    color: rgb(49, 54, 60);
+}
+
+.commentsBlock {
+    height: auto;
+    font-size: 16px;
+    font-family: "Montserrat";
+    font-weight: normal;
+    color: rgb(49, 54, 60);
+}
+
+.commentsBlock span {
+    font-family: "Montserrat";
+    font-weight: 300;
+}
+
+.commentsBlock > p {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.commentsBlock > p:first-of-type{
+    margin-top: 0px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+/* Create three unequal columns that floats next to each other */
+.column {
+  float: left;
+  padding: 10px;
+}
+
+/* Left and right column */
+.column.side {
+  width: 50%;
+}
+
+/* Middle column */
+.column.middle {
+  width: 50%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+@-webkit-keyframes pulse { from { transform: scale(1); } 50% { transform: scale(1.15); } to { transform: scale(1); }  }
+   @-moz-keyframes pulse { from { transform: scale(1); } 50% { transform: scale(1.15); } to { transform: scale(1); }  }
+     @-o-keyframes pulse { from { transform: scale(1); } 50% { transform: scale(1.15); } to { transform: scale(1); }  }
+        @keyframes pulse { from { transform: scale(1); } 50% { transform: scale(1.15); } to { transform: scale(1); }  }

@@ -88,6 +88,31 @@ export class DataService {
         })
             .then(_ => callback());
     }
+    static addLikeToComment(eventId, movieId, commentId, callback) {
+        let url = `${Constants.DOMAIN}/api/movies/${movieId}/events/${eventId}/comments/${commentId}/likes`;
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                Authorization: 'Bearer ' + sessionStorage.getItem(Constants.TOKEN_COOKIE_KEY),
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(_ => callback());
+    }
+
+    static deleteLikeFromComment(eventId, movieId, commentId, callback) {
+        let url = `${Constants.DOMAIN}/api/movies/${movieId}/events/${eventId}/comments/${commentId}/likes`;
+
+        fetch(url, {
+            method: 'DELETE',
+            headers: {
+                Authorization: 'Bearer ' + sessionStorage.getItem(Constants.TOKEN_COOKIE_KEY),
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(_ => callback());
+    }
 
     static login(login, password, successCallback, failedCallback) {
         let url = `${Constants.DOMAIN}/token`;
@@ -141,7 +166,7 @@ export class DataService {
             .then(response => callback(response))
             .catch((error) => {
                 if (error)
-                    alert("Произошла ошибка при загрузке данных.");
+                    alert("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.");
             });
     }
 }
