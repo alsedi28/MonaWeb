@@ -1,15 +1,16 @@
 import React from 'react';
 
-import styles from './notPostsBanner.module.css';
+import Banner from '../banner/banner';
 
 import errorColored from '../../../public/icons/errorColored.png';
 
-const NotPostsBanner = ({ username, show, externalClass = "" }) => (
-    <div className={`${styles.container} ${externalClass}`} style={{ display: show ? "block" : "none" }}>
-        <img src={errorColored} width="195px" />
-        <p>Пока нет публикаций</p>
-        <p>У {username} пока нет ни одной публикации.</p>
-    </div>
-);
+const NotPostsBanner = ({ username, show, externalClass = "" }) => {
+    let headerText = <p>Пока нет публикаций</p>;
+    let text = <p>У {username} пока нет ни одной публикации.</p>;
+
+    return (
+        <Banner image={errorColored} headerText={headerText} text={text} show={show} externalClass={externalClass} />
+    );
+};
 
 export default NotPostsBanner;

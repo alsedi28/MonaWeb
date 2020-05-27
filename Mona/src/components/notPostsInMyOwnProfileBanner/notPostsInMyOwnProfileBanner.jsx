@@ -1,15 +1,16 @@
 import React from 'react';
 
-import styles from './notPostsInMyOwnProfileBanner.module.css';
+import Banner from '../banner/banner';
 
 import blogging from '../../../public/icons/blogging.png';
 
-const NotPostsInMyOwnProfileBanner = ({ show, externalClass = "" }) => (
-    <div className={`${styles.container} ${externalClass}`} style={{ display: show ? "block" : "none" }}>
-        <img src={blogging} width="195px" />
-        <p>Делитесь фильмами!</p>
-        <p>Публикуйте фильмы, которые посмотрели или собираетесь посмотреть!</p>
-    </div>
-);
+const NotPostsInMyOwnProfileBanner = ({ show, externalClass = "" }) => {
+    let headerText = <p>Делитесь фильмами!</p>;
+    let text = <p>Публикуйте фильмы, которые посмотрели или собираетесь посмотреть!</p>;
+
+    return (
+        <Banner image={blogging} headerText={headerText} text={text} show={show} externalClass={externalClass} />
+    );
+};
 
 export default NotPostsInMyOwnProfileBanner;
