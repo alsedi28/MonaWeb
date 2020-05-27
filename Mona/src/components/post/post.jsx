@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import ModalDialog from '../modalDialog/modalDialog';
 import PostButtonBar from '../postButtonBar/postButtonBar';
 import PostHeader from '../postHeader/postHeader';
+import PostComment from '../postComment/postComment';
 
 import styles from './post.module.css';
 
@@ -29,7 +30,8 @@ class Post extends React.Component {
                 items: [] // Данные, которые необходимо отобразить в модальном окне
             },
             showAllComments: false, // Показать все комментарии
-            handleClickLike: this.clickLikePost // Обработчик события click по "Сердцу"
+            handleClickLike: this.clickLikePost, // Обработчик события click по "Сердцу"
+            handleClickLikeComment: this.clickLikeComment // Обработчик события click по "Сердцу" в комментарии
         };
 
         this.usersWhoLikesPost = {
@@ -51,6 +53,7 @@ class Post extends React.Component {
         this.clickShowUsersWhoViewedMovie = this.clickShowUsersWhoViewedMovie.bind(this);
         this.clickShowUsersWhoWillWatchMovie = this.clickShowUsersWhoWillWatchMovie.bind(this);
         this.clickLikePost = this.clickLikePost.bind(this);
+        this.clickLikeComment = this.clickLikeComment.bind(this);
         this.setModalDialogState = this.setModalDialogState.bind(this);
         this.showModalDialog = this.showModalDialog.bind(this);
         this.hideModalDialog = this.hideModalDialog.bind(this);
@@ -98,7 +101,7 @@ class Post extends React.Component {
             this.setModalDialogState(true, false, title, storage.items);
         };
 
-        getter(...args, callback);        
+        getter(...args, callback);
     }
 
     hideModalDialog() {
@@ -126,6 +129,27 @@ class Post extends React.Component {
             DataService.deleteLikeToPost(eventId, movieId, callback);
         else
             DataService.addLikeToPost(eventId, movieId, callback);
+    }
+
+    clickLikeComment(eventId, movieId, commentId) {
+      // Снимаем обработчик click, пока не обновится состояние после текущего клика
+      this.setState({ handleClickLikeComment: () => ({})});
+
+      let callback = _ => {
+          this.updatePost(eventId, movieId);
+          // Возвращаем обработчик click
+          this.setState({ handleClickLikeComment: this.clickLikeComment });
+      };
+
+      let comment = this.state.post.Comments.find(item => item.CommentId==commentId)
+
+      if (comment != null) {
+        if (comment.IsCurrentUserLiked) {
+          DataService.deleteLikeFromComment(eventId, movieId, commentId, callback);
+        } else {
+          DataService.addLikeToComment(eventId, movieId, commentId, callback);
+        }
+      }
     }
 
     updatePost(eventId, movieId) {
@@ -170,7 +194,7 @@ class Post extends React.Component {
         let comment = post.Comments.length > 0 ? post.Comments[0] : null;
         let blockWithMainComment = "";
         if (comment !== null)
-            blockWithMainComment = <p><span className={styles.userLink}><Link to={`/profile/${comment.UserId}`}>{comment.Username}</Link></span> {comment.Text}</p>;
+            blockWithMainComment = <PostComment comment={comment} clickLike={this.state.handleClickLikeComment.bind(this, post.EventId, post.MovieId, comment.CommentId)} />
 
         // UserInfoWhoLikesEvent cодержит userName#userId
         let userInfoWhoLikesPost = post.UserInfoWhoLikesEvent !== null ? post.UserInfoWhoLikesEvent.split('#') : null;
@@ -223,11 +247,12 @@ class Post extends React.Component {
                 <div className={styles.commentsBlock}>
                     {blockWithInfoAboutLikes}
                     {blockWithMainComment}
-                    <p className={styles.showAllComments} onClick={this.clickShowAllComments.bind(this)} 
+                    <p className={styles.showAllComments} onClick={this.clickShowAllComments.bind(this)}
                         style={{ display: post.AmountEventComments > 1 && !this.state.showAllComments ? "block" : "none" }}>
                         Посмотреть {post.AmountEventComments} комментария
                     </p>
-                    {post.Comments.filter((comment, i) => i !== 0).map(comment => <p style={{ display: this.state.showAllComments ? "block" : "none" }}><span className={styles.userLink}><Link to={`/profile/${comment.UserId}`}>{comment.Username}</Link></span> {comment.Text}</p>)}
+
+                    {post.Comments.filter((comment, i) => i !==0).map(comment => <PostComment comment={comment} clickLike={this.state.handleClickLikeComment.bind(this, post.EventId, post.MovieId, comment.CommentId)} />)}
                 </div>
                 <ModalDialog show={this.state.modalDialog.show} title={this.state.modalDialog.title} isLoading={this.state.modalDialog.isLoading}
                     items={this.state.modalDialog.items} clickClose={this.hideModalDialog}/>
