@@ -37,7 +37,7 @@ const MovieItemOnUserProfile = ({ movie, isViewed, externalClass = "" }) => {
                     <img src={bookMarkMiniIcon} width="18px" />
                     <p>{movie.AmountUsersWhoWillWatchMovie}</p>
                 </div>
-                <div className={styles.counterContainer}>
+                <div className={`${styles.counterContainer} ${styles.counterContainerRight}`}>
                     <img src={viewIcon} className={styles.viewIcon} width="18px" />
                     <p>{movie.AmountUsersWhoViewedMovie}</p>
                 </div>

@@ -178,7 +178,7 @@ export class DataService {
             .then(response => callback(response))
             .catch((error) => {
                 if (error)
-                    alert("��������� ������ ��� �������� ������.");
+                    alert("Произошла ошибка при загрузке данных.");
             });
     }
 }

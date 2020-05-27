@@ -63,7 +63,7 @@
 
 .counterContainer {
     height: 40px;
-    width: 70px;
+    width: auto;
     display: inline-block;
 }
 
@@ -78,6 +78,10 @@
     font-weight: 300;
     padding-top: 3px;
     margin-left: 22px;
+}
+
+.counterContainerRight {
+    margin-left: 10px;
 }
 
 .viewIcon {
