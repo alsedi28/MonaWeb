@@ -8,20 +8,20 @@ import heartFilledIcon from '../../../public/icons/heartFilled.png';
 
 const PostComment = ({ comment, clickLike, externalClass = "" }) => {
 
-  const imgLike = useRef(null);
+    const imgLike = useRef(null);
 
-  function clickLikeWithAnimation() {
-      clickLike();
-      imgLike.current.classList.add(styles.likeClickActive);
-      setTimeout(() => imgLike.current.classList.remove(styles.likeClickActive), 1000);
-  }
+    function clickLikeWithAnimation() {
+        clickLike();
+        imgLike.current.classList.add(styles.likeClickActive);
+        setTimeout(() => imgLike.current.classList.remove(styles.likeClickActive), 1000);
+    }
 
-  return (
-    <div className={`${styles.box} ${styles.commentsBlock}`}>
-    <p><span className={styles.userLink}><Link to={`/profile/${comment.UserId}`}>{comment.Username}</Link></span> {comment.Text} </p>
-    <img src={comment.IsCurrentUserLiked ? heartFilledIcon : heartIcon} className={styles.like} onClick={clickLikeWithAnimation} ref={imgLike} width="16px" height="16px" />
-    </div>
-  );
+    return (
+        <div className={`${styles.box} ${styles.commentsBlock} ${externalClass}`}>
+            <p><span className={styles.userLink}><Link to={`/profile/${comment.UserId}`}>{comment.Username}</Link></span> {comment.Text} </p>
+            <img src={comment.IsCurrentUserLiked ? heartFilledIcon : heartIcon} className={styles.like} onClick={clickLikeWithAnimation} ref={imgLike} width="16px" height="16px" />
+        </div>
+    );
 };
 
 export default PostComment;

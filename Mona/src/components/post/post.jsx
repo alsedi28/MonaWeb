@@ -132,24 +132,24 @@ class Post extends React.Component {
     }
 
     clickLikeComment(eventId, movieId, commentId) {
-      // Снимаем обработчик click, пока не обновится состояние после текущего клика
-      this.setState({ handleClickLikeComment: () => ({})});
+        // Снимаем обработчик click, пока не обновится состояние после текущего клика
+        this.setState({ handleClickLikeComment: () => ({}) });
 
-      let callback = _ => {
-          this.updatePost(eventId, movieId);
-          // Возвращаем обработчик click
-          this.setState({ handleClickLikeComment: this.clickLikeComment });
-      };
+        let callback = _ => {
+            this.updatePost(eventId, movieId);
+            // Возвращаем обработчик click
+            this.setState({ handleClickLikeComment: this.clickLikeComment });
+        };
 
-      let comment = this.state.post.Comments.find(item => item.CommentId==commentId)
+        let comment = this.state.post.Comments.find(item => item.CommentId === commentId);
 
-      if (comment != null) {
-        if (comment.IsCurrentUserLiked) {
-          DataService.deleteLikeFromComment(eventId, movieId, commentId, callback);
-        } else {
-          DataService.addLikeToComment(eventId, movieId, commentId, callback);
+        if (comment !== null) {
+            if (comment.IsCurrentUserLiked) {
+                DataService.deleteLikeFromComment(eventId, movieId, commentId, callback);
+            } else {
+                DataService.addLikeToComment(eventId, movieId, commentId, callback);
+            }
         }
-      }
     }
 
     updatePost(eventId, movieId) {
@@ -252,7 +252,7 @@ class Post extends React.Component {
                         Посмотреть {post.AmountEventComments} комментария
                     </p>
 
-                    {post.Comments.filter((comment, i) => i !==0).map(comment => <PostComment comment={comment} clickLike={this.state.handleClickLikeComment.bind(this, post.EventId, post.MovieId, comment.CommentId)} />)}
+                    {post.Comments.filter((comment, i) => i !== 0).map(comment => <PostComment comment={comment} clickLike={this.state.handleClickLikeComment.bind(this, post.EventId, post.MovieId, comment.CommentId)} />)}
                 </div>
                 <ModalDialog show={this.state.modalDialog.show} title={this.state.modalDialog.title} isLoading={this.state.modalDialog.isLoading}
                     items={this.state.modalDialog.items} clickClose={this.hideModalDialog}/>
