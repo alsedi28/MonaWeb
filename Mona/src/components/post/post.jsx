@@ -5,6 +5,7 @@ import ModalDialog from '../modalDialog/modalDialog';
 import PostButtonBar from '../postButtonBar/postButtonBar';
 import PostHeader from '../postHeader/postHeader';
 import PostComment from '../postComment/postComment';
+import { DataService } from '../../dataService';
 
 import styles from './post.module.css';
 
@@ -12,7 +13,6 @@ import shapeIcon from '../../../public/icons/shape.png';
 import checkMarkIcon from '../../../public/icons/checkMark.png';
 import bookMarkIcon from '../../../public/icons/bookMark.png';
 import framePlaceholder from '../../../public/icons/framePlaceholder.png';
-import { DataService } from '../../dataService';
 
 class Post extends React.Component {
     constructor(props) {

@@ -80,6 +80,10 @@
     margin-left: 22px;
 }
 
+.counterContainer:hover {
+    cursor: pointer;
+}
+
 .counterContainerRight {
     margin-left: 10px;
 }
