@@ -13,6 +13,10 @@ import MovieItemOnUserProfile from '../movieItemOnUserProfile/movieItemOnUserPro
 import ModalDialog from '../modalDialog/modalDialog';
 import NotPostsBanner from '../notPostsBanner/notPostsBanner';
 import NotPostsInMyOwnProfileBanner from '../notPostsInMyOwnProfileBanner/notPostsInMyOwnProfileBanner';
+import NotMoviesWillWatchBanner from '../notMoviesWillWatchBanner/notMoviesWillWatchBanner';
+import NotMoviesWillWatchInMyOwnProfileBanner from '../notMoviesWillWatchInMyOwnProfileBanner/notMoviesWillWatchInMyOwnProfileBanner';
+import NotMoviesViewedBanner from '../notMoviesViewedBanner/notMoviesViewedBanner';
+import NotMoviesViewedInMyOwnProfileBanner from '../notMoviesViewedInMyOwnProfileBanner/notMoviesViewedInMyOwnProfileBanner';
 import { DataService } from '../../dataService';
 import Constants from '../../constants';
 
@@ -314,8 +318,8 @@ class ProfilePage extends React.Component {
                         <span className={styles.tabBar}></span>
                     </div>
                     <div className={styles.tabDataContainer} style={{ display: this.state.tabNumberActive === 1 ? "block" : "none" }}>
-                        <NotPostsBanner username={this.state.profile.login} show={currentUserId !== this.state.profile.id && !this.state.feed.hasMore && this.state.feed.posts.length === 0} externalClass={styles.bannerExternal} />
-                        <NotPostsInMyOwnProfileBanner show={currentUserId === this.state.profile.id && !this.state.feed.hasMore && this.state.feed.posts.length === 0} externalClass={styles.bannerExternal} />
+                        <NotPostsBanner username={this.state.profile.login} show={currentUserId !== this.state.profile.id && this.state.profile.amountPosts === 0} externalClass={styles.bannerExternal} />
+                        <NotPostsInMyOwnProfileBanner show={currentUserId === this.state.profile.id && this.state.profile.amountPosts === 0} externalClass={styles.bannerExternal} />
                         <PostsFeed>
                             <Loader show={this.state.feed.isLoading} externalClass={styles.loader}/>
                             <InfiniteScroll
@@ -329,6 +333,8 @@ class ProfilePage extends React.Component {
                         </PostsFeed>
                     </div>
                     <div className={`${styles.tabDataContainer} ${styles.tabMovies}`} style={{ display: this.state.tabNumberActive === 2 ? "block" : "none" }}>
+                        <NotMoviesWillWatchBanner username={this.state.profile.login} show={currentUserId !== this.state.profile.id && this.state.profile.amountWillWatchMovies === 0} externalClass={styles.bannerExternal} />
+                        <NotMoviesWillWatchInMyOwnProfileBanner show={currentUserId === this.state.profile.id && this.state.profile.amountWillWatchMovies === 0} externalClass={styles.bannerExternal} />
                         <InfiniteScroll
                             dataLength={this.state.moviesWillWatch.items.length}
                             next={this.getWillWatchMovies}
@@ -339,6 +345,8 @@ class ProfilePage extends React.Component {
                         </InfiniteScroll>
                     </div>
                     <div className={`${styles.tabDataContainer} ${styles.tabMovies}`} style={{ display: this.state.tabNumberActive === 3 ? "block" : "none" }}>
+                        <NotMoviesViewedBanner username={this.state.profile.login} show={currentUserId !== this.state.profile.id && this.state.profile.amountViewedMovies === 0} externalClass={styles.bannerExternal} />
+                        <NotMoviesViewedInMyOwnProfileBanner show={currentUserId === this.state.profile.id && this.state.profile.amountViewedMovies === 0} externalClass={styles.bannerExternal} />
                         <InfiniteScroll
                             dataLength={this.state.moviesViewed.items.length}
                             next={this.getViewedMovies}
