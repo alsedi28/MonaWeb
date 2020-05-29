@@ -207,6 +207,9 @@ class Post extends React.Component {
                 blockWithInfoAboutLikes = <p>Нравится <span className={styles.userLink}><Link to={`/profile/${userInfoWhoLikesPost[1]}`}>{userInfoWhoLikesPost[0]}</Link></span></p>;
         }
 
+        let commentsExcludingMain = post.Comments.filter((comment, i) => i !== 0).map(comment => <PostComment comment={comment} clickLike={this.state.handleClickLikeComment.bind(this, post.EventId, post.MovieId, comment.CommentId)} />);
+
+
         return (
             <article className={`${styles.container} ${externalClass}`} id={`post-${post.EventId}`}>
                 <PostHeader userId={post.UserId} userAvatarPath={post.AvatarPath} login={post.Login} postType={post.EventType} postDateOfCreation={post.DateOfCreation}/>
@@ -247,12 +250,13 @@ class Post extends React.Component {
                 <div className={styles.commentsBlock}>
                     {blockWithInfoAboutLikes}
                     {blockWithMainComment}
+
                     <p className={styles.showAllComments} onClick={this.clickShowAllComments.bind(this)}
                         style={{ display: post.AmountEventComments > 1 && !this.state.showAllComments ? "block" : "none" }}>
                         Посмотреть {post.AmountEventComments} комментария
                     </p>
 
-                    {post.Comments.filter((comment, i) => i !== 0).map(comment => <PostComment comment={comment} clickLike={this.state.handleClickLikeComment.bind(this, post.EventId, post.MovieId, comment.CommentId)} />)}
+                    {commentsExcludingMain}
                 </div>
                 <ModalDialog show={this.state.modalDialog.show} title={this.state.modalDialog.title} isLoading={this.state.modalDialog.isLoading}
                     items={this.state.modalDialog.items} clickClose={this.hideModalDialog}/>

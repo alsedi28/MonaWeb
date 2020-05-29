@@ -1,54 +1,58 @@
 .container {
-    height: 60px;
-    border-bottom: 1px solid #e6e6e6;
+    /* height: 84px; */
+    display: flex;
+    padding-left: 32px;
+    padding-right: 32px;
+    padding-top: 24px;
+    padding-bottom: 24px;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.info {
-    float: left;
-    width: 400px;
+.iconWithInfoContainer {
+    display: flex;
+    justify-content: start;
     height: 100%;
+    align-items: center;
 }
 
 .userIcon {
+    /* for an unknown reason, css automatically adds padding-bottom = 4px for icon, so to fix it I added padding-top ¯\_(ツ)_/¯ */
+    padding-top: 4px;
     border-radius: 50%;
-    width: 60px;
-    height: 100%;
     float: left;
 }
 
 .userIcon img {
     border-radius: 50%;
-    margin-top: 14px;
-    margin-left: 15px;
+    object-fit: cover;
 }
 
 .userInfo {
     color: #31363c;
     font-size: 14px;
     float: left;
-    width: 300px;
-    padding-top: 20px;
+    padding-left: 16px;
 }
 
 .userInfo > span:last-child {
     font-family: "Montserrat";
-    font-weight: 200;
+    font-weight: normal;
 }
 
 .userInfo > span:first-child {
     font-family: "Montserrat";
-    font-weight: bold;
+    font-weight: 300;
 }
 
 .date {
+    margin-left: auto;
     float: right;
     width: 150px;
     height: 100%;
     text-align: right;
     color: #31363c;
-    font-size: 14px;
-    margin-top: 22px;
-    margin-right: 10px;
+    font-size: 12px;
     font-family: "Montserrat";
     font-weight: 100;
 }

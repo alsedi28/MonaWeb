@@ -19,7 +19,7 @@ const PostComment = ({ comment, clickLike, externalClass = "" }) => {
     return (
         <div className={`${styles.box} ${styles.commentsBlock} ${externalClass}`}>
             <p><span className={styles.userLink}><Link to={`/profile/${comment.UserId}`}>{comment.Username}</Link></span> {comment.Text} </p>
-            <img src={comment.IsCurrentUserLiked ? heartFilledIcon : heartIcon} className={styles.like} onClick={clickLikeWithAnimation} ref={imgLike} width="16px" height="16px" />
+            <img src={comment.IsCurrentUserLiked ? heartFilledIcon : heartIcon} className={styles.like} onClick={clickLikeWithAnimation} ref={imgLike} width="20px" height="20px" />
         </div>
     );
 };
