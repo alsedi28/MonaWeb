@@ -41,7 +41,7 @@ const PostHeader = ({ userId, userAvatarPath, login, postType, postDateOfCreatio
             <div className={styles.iconWithInfoContainer}>
                 <div className={styles.userIcon}>
                     <Link to={`/profile/${userId}`}>
-                        <img src={userAvatarPath ? userAvatarPath : blankProfileIcon} width="32px" height="32px" />
+                        <img src={userAvatarPath ? userAvatarPath : blankProfileIcon} className={styles.userLink} width="44px" height="44px" />
                     </Link>
                 </div>
                 <div className={styles.userInfo}>

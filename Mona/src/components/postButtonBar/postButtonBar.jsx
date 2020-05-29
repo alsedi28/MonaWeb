@@ -12,15 +12,15 @@ const PostButtonBar = ({ isActiveLike, clickLike, externalClass = "" }) => {
     function clickLikeWithAnimation() {
         clickLike();
 
-        // Добавляем анимацию для картинки и потом снимаем
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         imgLike.current.classList.add(styles.likeClickActive);
         setTimeout(() => imgLike.current.classList.remove(styles.likeClickActive), 1000);
     }
 
     return (
         <div className={`${styles.container} ${externalClass}`}>
-            <img src={isActiveLike ? heartFilledIcon : heartIcon} className={styles.like} onClick={clickLikeWithAnimation} ref={imgLike} width="30px" />
-            <img src={commentsIcon} width="30px" />
+            <img src={isActiveLike ? heartFilledIcon : heartIcon} className={styles.like} onClick={clickLikeWithAnimation} ref={imgLike} width="32px" />
+            <img src={commentsIcon} width="32px" />
         </div>
     );
 };
