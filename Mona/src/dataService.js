@@ -113,6 +113,13 @@ export class DataService {
         this._delete(url, callback, request);
     }
 
+    static addCommentToEvent(eventId, movieId, comment, callback) {
+        let url = `${Constants.DOMAIN}/api/movies/${movieId}/events/${eventId}/comments`;
+        let request = { Comment: comment };
+        
+        this._post(url, callback, request);
+    }
+
     static login(login, password, successCallback, failedCallback) {
         let url = `${Constants.DOMAIN}/token`;
 

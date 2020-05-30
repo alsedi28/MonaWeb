@@ -38,14 +38,14 @@ const PostHeader = ({ userId, userAvatarPath, login, postType, postDateOfCreatio
 
     return (
         <header className={`${styles.container} ${externalClass}`}>
-            <div className={styles.info}>
+            <div className={styles.iconWithInfoContainer}>
                 <div className={styles.userIcon}>
                     <Link to={`/profile/${userId}`}>
-                        <img src={userAvatarPath ? userAvatarPath : blankProfileIcon} className={styles.userLink} width="32px" height="32px" />
+                        <img src={userAvatarPath ? userAvatarPath : blankProfileIcon} className={styles.userLink} width="44px" height="44px" />
                     </Link>
                 </div>
-                <div className={styles.userInfo}>                   
-                    <span className={styles.userLink}><Link to={`/profile/${userId}`}>{login}</Link></span>                
+                <div className={styles.userInfo}>
+                    <span className={styles.userLink}><Link to={`/profile/${userId}`}>{login}</Link></span>
                     <span> {postType === 0 ? "посмотрел" : "хочет посмотреть"}</span>
                 </div>
             </div>

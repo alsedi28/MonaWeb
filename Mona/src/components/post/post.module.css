@@ -1,14 +1,14 @@
 .container {
     background-color: white;
-    border-radius: 3px;
-    border: 1px solid #e6e6e6;
+    border-radius: 8px;
     max-width: 790px;
     min-width: 650px;
     height: auto;
+    box-shadow: 0px 4px 24px rgba(161, 164, 184, 0.35);
 }
 
 .main {
-    height: 600px;
+    height: 500px;
     background-size: cover !important;
 }
 
@@ -20,20 +20,29 @@
 .posterBlock {
     float: left;
     width: 400px;
-    height: 540px;
+    height: 500px;
 }
 
 .movieInfoBlock {
-    margin-left: 400px;
-    height: 540px;
+    margin-left: 382px;
+    height: 500px;
     color: white;
 }
 
+.posterImage {
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 100%;
+    max-height: 100%;
+    object-fit: fill;
+}
+
 .posterBlock > div {
-    height: 460px;
-    width: 304px;
+    height: 452px;
+    width: 318px;
     margin: auto;
-    margin-top: 50px;
+    margin-top: 24px;
+    margin-bottom: 24px;
     border-radius: 15px;
     overflow: hidden;
     border: 1px black solid;
@@ -41,14 +50,12 @@
 
 .posterBlock > div > img:last-of-type{
     position: relative;
-    top: -465px;
-    left: 240px;
 }
 
 .movieTitle {
     margin: 0px;
-    padding-top: 50px;
-    font-size: 25px;
+    padding-top: 24px;
+    font-size: 24px;
     font-family: "Montserrat";
     font-weight: 300;
 }
@@ -62,7 +69,7 @@
 .userRaiting {
     font-family: "Montserrat";
     font-weight: normal;
-    font-size: 18px;
+    font-size: 20px;
 }
 
 .userRaiting > span {
@@ -75,7 +82,7 @@
 }
 
 .movieRaiting {
-    margin-top: 15px;
+    margin-top: 32px;
 }
 
 .movieRaiting > p {
@@ -83,19 +90,19 @@
 }
 
 .movieRaiting > p:first-of-type {
-    font-size: 28px;
+    font-size: 24px;
     font-family: "Montserrat";
     font-weight: 300;
 }
 
 .movieRaiting > p:last-of-type {
-    font-size: 17px;
+    font-size: 20px;
     font-family: "Montserrat";
     font-weight: normal;
 }
 
 .numberUsers {
-    margin-top: 70px;
+    margin-top: 32px;
     width: 210px;
 }
 
@@ -108,13 +115,13 @@
 }
 
 .numberUsers > p:first-of-type {
-    font-size: 28px;
+    font-size: 24px;
     font-family: "Montserrat";
     font-weight: 300;
 }
 
 .numberUsers > p:last-of-type {
-    font-size: 17px;
+    font-size: 20px;
     font-family: "Montserrat";
     font-weight: normal;
 }
@@ -125,32 +132,11 @@
 }
 
 .movieInfoBlock > .numberUsers:last-of-type {
-    margin-top: 30px;
-}
-
-.movieStatusForUser {
-    clear: both;
-    height: 40px;
-    width: 80%;
-    margin: auto;
-    border: 2px solid rgb(253, 87, 57);
-    border-radius: 10px;
-    text-align: center;
-    font-family: "Montserrat";
-    font-weight: 300;
-    color: white;
-}
-
-.movieStatusForUser > p {
-    margin: 0;
-    margin-top: 10px;
-}
-
-.movieStatusForUser img {
-    margin-left: 10px;
+    margin-top: 24px;
 }
 
 .commentsBlock {
+    margin-top: 16px;
     height: auto;
     font-size: 16px;
     font-family: "Montserrat";
@@ -164,12 +150,13 @@
 }
 
 .commentsBlock > p {
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 32px;
+    padding-right: 32px;
 }
 
-.commentsBlock > p:first-of-type{
-    margin-top: 0px;
+.commentsBlock p {
+    margin-top: 4px;
+    margin-bottom: 4px;
 }
 
 .moreLikes:hover {
@@ -182,6 +169,10 @@
 
 .showAllComments:hover {
     cursor: pointer;
+}
+
+.userLink {
+    margin-bottom: 16px;
 }
 
 .userLink > a {

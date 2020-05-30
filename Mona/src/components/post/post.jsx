@@ -5,21 +5,20 @@ import ModalDialog from '../modalDialog/modalDialog';
 import PostButtonBar from '../postButtonBar/postButtonBar';
 import PostHeader from '../postHeader/postHeader';
 import PostComment from '../postComment/postComment';
+import PostInputComment from '../postInputComment/postInputComment';
+import PostWatchStatusButtons from '../postWatchStatusButtons/postWatchStatusButtons';
 import { DataService } from '../../dataService';
+import Constants from '../../constants';
 
 import styles from './post.module.css';
 
 import shapeIcon from '../../../public/icons/shape.png';
-import checkMarkIcon from '../../../public/icons/checkMark.png';
 import bookMarkIcon from '../../../public/icons/bookMark.png';
 import framePlaceholder from '../../../public/icons/framePlaceholder.png';
 
 class Post extends React.Component {
     constructor(props) {
         super(props);
-
-        this.MovieStatusWillWatchForUser = "WillWatch";
-        this.MovieStatusNoViewedForUser = "NoViewed";
 
         this.state = {
             post: props.post, // Текущий пост
@@ -31,7 +30,9 @@ class Post extends React.Component {
             },
             showAllComments: false, // Показать все комментарии
             handleClickLike: this.clickLikePost, // Обработчик события click по "Сердцу"
-            handleClickLikeComment: this.clickLikeComment // Обработчик события click по "Сердцу" в комментарии
+            handleClickLikeComment: this.clickLikeComment, // Обработчик события click по "Сердцу" в комментарии
+            handleClickPublishComment: this.clickPublishComment, // Обработчик события click по кнопке «Опубликовать»
+            inputComment: ""
         };
 
         this.usersWhoLikesPost = {
@@ -49,6 +50,8 @@ class Post extends React.Component {
             items: []
         };
 
+        this.handleInputCommentChange = this.handleInputCommentChange.bind(this);
+        this.clickPublishComment = this.clickPublishComment.bind(this);
         this.clickShowAllComments = this.clickShowAllComments.bind(this);
         this.clickShowUsersWhoViewedMovie = this.clickShowUsersWhoViewedMovie.bind(this);
         this.clickShowUsersWhoWillWatchMovie = this.clickShowUsersWhoWillWatchMovie.bind(this);
@@ -58,6 +61,33 @@ class Post extends React.Component {
         this.showModalDialog = this.showModalDialog.bind(this);
         this.hideModalDialog = this.hideModalDialog.bind(this);
         this.updatePost = this.updatePost.bind(this);
+    }
+
+    handleInputCommentChange(event) {
+        const {name, value} = event.target;
+        this.setState({
+            [name]: value
+        })
+    }
+
+    clickPublishComment(eventId, movieId) {
+        let comment = this.state.inputComment;
+        let trimmedValue = comment.trim();
+        if (!trimmedValue.length)
+            return;
+
+        // Снимаем обработчик click, пока не обновится состояние после текущего клика
+        this.setState({ handleClickPublishComment: () => ({})});
+
+        let callback = _ => {
+            this.updatePost(eventId, movieId);
+            // Возвращаем обработчик click
+            this.setState({
+                handleClickPublishComment: this.clickPublishComment,
+                inputComment: ""
+            });
+        };
+        DataService.addCommentToEvent(eventId, movieId, comment, callback);
     }
 
     clickShowUsersWhoLikesPost(eventId, movieId) {
@@ -207,6 +237,11 @@ class Post extends React.Component {
                 blockWithInfoAboutLikes = <p>Нравится <span className={styles.userLink}><Link to={`/profile/${userInfoWhoLikesPost[1]}`}>{userInfoWhoLikesPost[0]}</Link></span></p>;
         }
 
+        let commentsExcludingMain = post.Comments.filter((comment, i) => i !== 0).map(comment => <PostComment comment={comment} clickLike={this.state.handleClickLikeComment.bind(this, post.EventId, post.MovieId, comment.CommentId)} />);
+        let displayBookmarkBlock = { display: post.StatusOfMovieForUser === Constants.MOVIE_STATUS_WILL_WATCH ? "block" : "none" };
+        let displayBookmarkIconBlock = { display: userRaiting === null ? "none" : "block" };
+        let displayAllCommentsBlock = { display: post.AmountEventComments > 1 && !this.state.showAllComments ? "block" : "none" };
+
         return (
             <article className={`${styles.container} ${externalClass}`} id={`post-${post.EventId}`}>
                 <PostHeader userId={post.UserId} userAvatarPath={post.AvatarPath} login={post.Login} postType={post.EventType} postDateOfCreation={post.DateOfCreation}/>
@@ -214,46 +249,53 @@ class Post extends React.Component {
                     <div>
                         <div className={styles.posterBlock}>
                             <div>
-                                <img src={post.MoviePosterPath ? `https://image.tmdb.org/t/p/w342${post.MoviePosterPath}` : framePlaceholder} height="460px" />
-                                <img src={bookMarkIcon} width="50px" style={{ display: post.StatusOfMovieForUser === this.MovieStatusWillWatchForUser ? "block" : "none" }} />
+                                <img src={post.MoviePosterPath ? `https://image.tmdb.org/t/p/w342${post.MoviePosterPath}` : framePlaceholder} className={styles.posterImage} height="452px" />
+                                <img src={bookMarkIcon} width="50px" style={displayBookmarkBlock} />
                             </div>
                         </div>
                         <div className={styles.movieInfoBlock}>
                             <p className={styles.movieTitle}>{post.MovieTitle} {blockMovieReleaseDate}</p>
-                            <p className={styles.userRaiting} style={{ display: userRaiting === null ? "none" : "block" }}>Оценка: <span>{userRaiting}</span></p>
+
+                            <PostWatchStatusButtons status={post.StatusOfMovieForUser}/>
+
+                            <p className={styles.userRaiting} style={displayBookmarkIconBlock}>Оценка: <span>{userRaiting}</span></p>
                             <div className={styles.movieRaiting}>
                                 <p>{movieRaiting}</p>
                                 <p>рейтинг</p>
                             </div>
                             <div className={styles.numberUsers} onClick={post.AmountUsersWhoWillWatchMovie > 0 ? this.clickShowUsersWhoWillWatchMovie.bind(this, post.MovieId) : () => ({})}>
-                                <img src={shapeIcon} width="20px" />
+                                <img src={shapeIcon} width="16px" />
                                 <p>{post.AmountUsersWhoWillWatchMovie}</p>
                                 <p>будут смотреть</p>
                             </div>
                             <div className={styles.numberUsers} onClick={post.AmountUsersWhoViewedMovie > 0 ? this.clickShowUsersWhoViewedMovie.bind(this, post.MovieId) : () => ({})}>
-                                <img src={shapeIcon} width="20px" />
+                                <img src={shapeIcon} width="16px" />
                                 <p>{post.AmountUsersWhoViewedMovie}</p>
                                 <p>посмотрели</p>
                             </div>
                         </div>
-                        <div className={styles.movieStatusForUser} style={{ display: post.StatusOfMovieForUser === this.MovieStatusNoViewedForUser ? "none" : "block" }}>
-                            <p>{post.StatusOfMovieForUser === this.MovieStatusWillWatchForUser ? "В закладках" : "Просмотрен"}
-                                <img src={checkMarkIcon} width="20px" />
-                            </p>
-                        </div>
                     </div>
                 </div>
+
                 <PostButtonBar isActiveLike={post.IsCurrentUserLiked} clickLike={this.state.handleClickLike.bind(this, post.EventId, post.MovieId)} />
+
                 <div className={styles.commentsBlock}>
                     {blockWithInfoAboutLikes}
                     {blockWithMainComment}
-                    <p className={styles.showAllComments} onClick={this.clickShowAllComments.bind(this)}
-                        style={{ display: post.AmountEventComments > 1 && !this.state.showAllComments ? "block" : "none" }}>
+
+                    <p className={styles.showAllComments} onClick={this.clickShowAllComments.bind(this)} style={displayAllCommentsBlock}>
                         Посмотреть {post.AmountEventComments} комментария
                     </p>
 
-                    {post.Comments.filter((comment, i) => i !== 0).map(comment => <PostComment comment={comment} clickLike={this.state.handleClickLikeComment.bind(this, post.EventId, post.MovieId, comment.CommentId)} />)}
+                    {commentsExcludingMain}
                 </div>
+
+                <PostInputComment
+                    value={this.state.inputComment}
+                    handleChange={this.handleInputCommentChange}
+                    handleClick={this.state.handleClickPublishComment.bind(this, post.EventId, post.MovieId)}
+                />
+
                 <ModalDialog show={this.state.modalDialog.show} title={this.state.modalDialog.title} isLoading={this.state.modalDialog.isLoading}
                     items={this.state.modalDialog.items} clickClose={this.hideModalDialog}/>
             </article>
