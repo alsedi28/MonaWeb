@@ -156,7 +156,7 @@ class Post extends React.Component {
         };
 
         if (this.state.post.IsCurrentUserLiked)
-            DataService.deleteLikeToPost(eventId, movieId, callback);
+            DataService.deleteLikeFromPost(eventId, movieId, callback);
         else
             DataService.addLikeToPost(eventId, movieId, callback);
     }

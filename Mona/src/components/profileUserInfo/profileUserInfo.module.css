@@ -80,8 +80,9 @@
     font-size: 30px;
     font-family: "Montserrat";
     font-weight: 300;
-    padding-top: 5px;
     margin-bottom: 0px;
+    margin-top: 0px;
+    float: left;
 }
 
 .userName {
@@ -89,4 +90,13 @@
     font-size: 18px;
     font-family: "Montserrat";
     font-weight: normal;
+}
+
+.buttonFollowExternal {
+    float: left;
+    margin-left: 20px;
+}
+
+.userInfoBlock > div:first-of-type {
+    height: 37px;
 }
