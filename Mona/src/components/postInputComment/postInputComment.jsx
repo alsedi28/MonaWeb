@@ -7,7 +7,7 @@ function PostInputComment(props) {
 
     useEffect(() => {
             textareaRef.current.style.height = "0px";
-            const scrollHeight = textareaRef.current.scrollHeight;
+            const scrollHeight = textareaRef.current.scrollHeight + 1;
             textareaRef.current.style.height = scrollHeight + "px";
     }, [props.value]);
 
@@ -16,7 +16,7 @@ function PostInputComment(props) {
 
     return (
         <div className={`${styles.container} ${props.externalClass}`}>
-    	    <textarea
+            <textarea
                 ref={textareaRef}
                 aria-label="Напишите комментарий…"
                 placeholder="Напишите комментарий…"
@@ -27,7 +27,7 @@ function PostInputComment(props) {
                 value={props.value}
                 onChange={props.handleChange}
             />
-    	    <button className={styles.sendButton} disabled={isDisabled} type="submit" onClick={props.handleClick}>Опубликовать</button>
+            <button className={styles.sendButton} disabled={isDisabled} type="submit" onClick={props.handleClick}>Опубликовать</button>
         </div>
     );
 }
