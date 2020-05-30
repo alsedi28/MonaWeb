@@ -10,7 +10,6 @@ import ProfileUserInfo from '../profileUserInfo/profileUserInfo';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import MovieItemOnUserProfile from '../movieItemOnUserProfile/movieItemOnUserProfile';
-import ModalDialog from '../modalDialog/modalDialog';
 import NotPostsBanner from '../notPostsBanner/notPostsBanner';
 import NotPostsInMyOwnProfileBanner from '../notPostsInMyOwnProfileBanner/notPostsInMyOwnProfileBanner';
 import NotMoviesWillWatchBanner from '../notMoviesWillWatchBanner/notMoviesWillWatchBanner';
@@ -54,26 +53,8 @@ class ProfilePage extends React.Component {
                 hasMore: false, // Флаг, который показывает есть ли еще фильмы для загрузки
                 page: 1 // Номер страницы
             },
-            modalDialog: { // Состояние объекта модального окна
-                show: false, // Показывать или нет модальное окно
-                isLoading: false, // Отображать Loader в модальном окне или нет
-                title: "", // Заголовок модального окна
-                items: [] // Данные, которые необходимо отобразить в модальном окне
-            },
             tabNumberActive: 1, // Номер Tab'а, который активный. 1 - Tab "Публикации", 2 - Tab "В закладках", 3 - Tab "Просмотрено"
             handleClickFollowUser: this.clickFollowUser // Обработчик события click по кнопке Подписаться/Подписки
-        };
-
-        // Подписки
-        this.followers = {
-            isLoaded: false,
-            items: []
-        };
-
-        // Подписчики
-        this.following = {
-            isLoaded: false,
-            items: []
         };
 
         this.getProfileInfo = this.getProfileInfo.bind(this);
@@ -81,12 +62,7 @@ class ProfilePage extends React.Component {
         this.getUsersPosts = this.getUsersPosts.bind(this);
         this.getWillWatchMovies = this.getWillWatchMovies.bind(this);
         this.getViewedMovies = this.getViewedMovies.bind(this);
-        this.clickShowFollowers = this.clickShowFollowers.bind(this);
-        this.clickShowFollowing = this.clickShowFollowing.bind(this);
         this.clickFollowUser = this.clickFollowUser.bind(this);
-        this.setModalDialogState = this.setModalDialogState.bind(this);
-        this.showModalDialog = this.showModalDialog.bind(this);
-        this.hideModalDialog = this.hideModalDialog.bind(this); 
         this.renderMoviesForView = this.renderMoviesForView.bind(this);
     }
 
@@ -235,18 +211,6 @@ class ProfilePage extends React.Component {
         DataService.getViewedMovies(this.state.profile.id, this.state.moviesViewed.page, callback);
     }
 
-    clickShowFollowers() {
-        let title = "Подписки";
-
-        this.showModalDialog(title, this.followers, DataService.getFollowers.bind(DataService), this.state.profile.id);
-    }
-
-    clickShowFollowing() {
-        let title = "Подписчики";
-
-        this.showModalDialog(title, this.following, DataService.getFollowing.bind(DataService), this.state.profile.id);
-    }
-
     clickFollowUser() {
         // Снимаем обработчик click, пока не обновится состояние после текущего клика
         this.setState({ handleClickFollowUser: () => ({}) });
@@ -261,49 +225,6 @@ class ProfilePage extends React.Component {
             DataService.deleteFollowing(this.state.profile.id, callback);
         else
             DataService.addFollowing(this.state.profile.id, callback);
-    }
-
-    showModalDialog(title, storage, getter, ...args) {
-        // Данные уже загружали
-        if (storage.isLoaded) {
-            this.setModalDialogState(true, false, title, storage.items);
-
-            return;
-        }
-
-        this.setModalDialogState(true, true, title, []);
-
-        let callback = (items) => {
-            storage.items = items.map(item => ({
-                id: item.UserId,
-                icon: item.AvatarPath,
-                login: item.Login,
-                name: item.Name
-            }));
-
-            storage.isLoaded = true;
-
-            this.setModalDialogState(true, false, title, storage.items);
-        };
-
-        getter(...args, callback);
-    }
-
-    hideModalDialog() {
-        this.setModalDialogState(false, false, "", []);
-    }
-
-    setModalDialogState(show, isLoading, title, items) {
-        this.setState({
-            ...this.state,
-            modalDialog: {
-                ...this.state.modalDialog,
-                show,
-                isLoading,
-                title,
-                items
-            }
-        });
     }
 
     clickTab(event, tabNumber) {
@@ -397,8 +318,6 @@ class ProfilePage extends React.Component {
                             {this.renderMoviesForView(this.state.moviesViewed, true)}
                         </InfiniteScroll>
                     </div>
-                    <ModalDialog show={this.state.modalDialog.show} title={this.state.modalDialog.title} isLoading={this.state.modalDialog.isLoading}
-                        items={this.state.modalDialog.items} clickClose={this.hideModalDialog} />
                 </div>
                 <Footer externalClass="footer-external" />
             </React.Fragment>

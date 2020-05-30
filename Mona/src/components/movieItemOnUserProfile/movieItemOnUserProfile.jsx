@@ -24,16 +24,6 @@ class MovieItemOnUserProfile extends React.Component {
             }
         };
 
-        this.usersWhoViewedMovie = {
-            isLoaded: false,
-            items: []
-        };
-
-        this.usersWhoWillWatchMovie = {
-            isLoaded: false,
-            items: []
-        };
-
         this.clickShowUsersWhoViewedMovie = this.clickShowUsersWhoViewedMovie.bind(this);
         this.clickShowUsersWhoWillWatchMovie = this.clickShowUsersWhoWillWatchMovie.bind(this);
         this.setModalDialogState = this.setModalDialogState.bind(this);
@@ -44,36 +34,28 @@ class MovieItemOnUserProfile extends React.Component {
     clickShowUsersWhoWillWatchMovie(movieId) {
         let title = "Будут смотреть";
 
-        this.showModalDialog(title, this.usersWhoWillWatchMovie, DataService.getUsersWhoWillWatchMovie.bind(DataService), movieId);
+        this.showModalDialog(title, DataService.getUsersWhoWillWatchMovie.bind(DataService), movieId);
     }
 
     clickShowUsersWhoViewedMovie(movieId) {
         let title = "Уже смотрели";
 
-        this.showModalDialog(title, this.usersWhoViewedMovie, DataService.getUsersWhoViewedMovie.bind(DataService), movieId);
+        this.showModalDialog(title, DataService.getUsersWhoViewedMovie.bind(DataService), movieId);
     }
 
-    showModalDialog(title, storage, getter, ...args) {
-        // Данные уже загружали
-        if (storage.isLoaded) {
-            this.setModalDialogState(true, false, title, storage.items);
-
-            return;
-        }
-
+    showModalDialog(title, getter, ...args) {
         this.setModalDialogState(true, true, title, []);
 
-        let callback = (items) => {
-            storage.items = items.map(item => ({
+        let callback = (response) => {
+            let items = response.map(item => ({
                 id: item.UserId,
                 icon: item.AvatarPath,
                 login: item.Login,
-                name: item.Name
+                name: item.Name,
+                isFollowing: item.IsFollowing
             }));
 
-            storage.isLoaded = true;
-
-            this.setModalDialogState(true, false, title, storage.items);
+            this.setModalDialogState(true, false, title, items);
         };
 
         getter(...args, callback);

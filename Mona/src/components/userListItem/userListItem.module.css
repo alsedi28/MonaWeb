@@ -1,5 +1,5 @@
 .container {
-    height: 100px;
+    height: 110px;
 }
 
 .userIcon {
@@ -34,6 +34,7 @@
     font-family: "Montserrat";
     font-weight: 300;
     padding-top: 22px;
+    width: 245px;
 }
 
 .userInfo > p:last-child {
@@ -49,4 +50,10 @@
 
 .userInfo a:visited {
     color: rgb(49, 54, 60);
+}
+
+.buttonFollowExternal {
+    float: right;
+    margin-top: 33px;
+    margin-right: 20px;
 }
