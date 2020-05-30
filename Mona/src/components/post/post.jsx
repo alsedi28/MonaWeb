@@ -33,7 +33,8 @@ class Post extends React.Component {
             showAllComments: false, // Показать все комментарии
             handleClickLike: this.clickLikePost, // Обработчик события click по "Сердцу"
             handleClickLikeComment: this.clickLikeComment, // Обработчик события click по "Сердцу" в комментарии
-            inputComment: "",
+            handleClickPublishComment: this.clickPublishComment, // Обработчик события click по кнопке «Опубликовать»
+            inputComment: ""
         };
 
         this.usersWhoLikesPost = {
@@ -52,6 +53,7 @@ class Post extends React.Component {
         };
 
         this.handleInputCommentChange = this.handleInputCommentChange.bind(this);
+        this.clickPublishComment = this.clickPublishComment.bind(this);
         this.clickShowAllComments = this.clickShowAllComments.bind(this);
         this.clickShowUsersWhoViewedMovie = this.clickShowUsersWhoViewedMovie.bind(this);
         this.clickShowUsersWhoWillWatchMovie = this.clickShowUsersWhoWillWatchMovie.bind(this);
@@ -68,6 +70,24 @@ class Post extends React.Component {
         this.setState({
             [name]: value
         })
+    }
+
+    clickPublishComment(eventId, movieId) {
+        // Снимаем обработчик click, пока не обновится состояние после текущего клика
+        this.setState({ handleClickPublishComment: () => ({})});
+
+        let callback = _ => {
+            this.updatePost(eventId, movieId);
+            // Возвращаем обработчик click
+            this.setState({
+                handleClickPublishComment: this.clickPublishComment,
+                inputComment: ""
+            });
+        };
+
+        let comment = this.state.inputComment;
+        console.error(comment, movieId, eventId);
+        DataService.addCommentToEvent(eventId, movieId, comment, callback);
     }
 
     clickShowUsersWhoLikesPost(eventId, movieId) {
@@ -268,7 +288,11 @@ class Post extends React.Component {
                     {commentsExcludingMain}
                 </div>
 
-                <PostInputComment value={this.state.inputComment} handleChange={this.handleInputCommentChange} />
+                <PostInputComment
+                    value={this.state.inputComment}
+                    handleChange={this.handleInputCommentChange}
+                    handleClick={this.state.handleClickPublishComment.bind(this, post.EventId, post.MovieId)}
+                />
 
                 <ModalDialog show={this.state.modalDialog.show} title={this.state.modalDialog.title} isLoading={this.state.modalDialog.isLoading}
                     items={this.state.modalDialog.items} clickClose={this.hideModalDialog}/>
