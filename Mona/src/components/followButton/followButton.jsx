@@ -1,10 +1,10 @@
 import React from 'react';
 
-import styles from './buttonFollow.module.css';
+import styles from './followButton.module.css';
 
 import plusIcon from '../../../public/icons/plus.png';
 
-const ButtonFollow = ({ active, click, externalClass = "" }) => {
+const FollowButton = ({ active, click, externalClass = "" }) => {
     let content = active ?
         <p>Подписки</p> :
         <React.Fragment><img src={plusIcon} width="18px" /><p>Подписаться</p></React.Fragment>;
@@ -16,4 +16,4 @@ const ButtonFollow = ({ active, click, externalClass = "" }) => {
     );
 };
 
-export default ButtonFollow;
+export default FollowButton;
