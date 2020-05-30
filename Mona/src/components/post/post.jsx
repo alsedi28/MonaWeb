@@ -8,7 +8,7 @@ import PostComment from '../postComment/postComment';
 import PostInputComment from '../postInputComment/postInputComment';
 import PostWatchStatusButtons from '../postWatchStatusButtons/postWatchStatusButtons';
 import { DataService } from '../../dataService';
-import Constants from './constants';
+import Constants from '../../constants';
 
 import styles from './post.module.css';
 
@@ -72,8 +72,7 @@ class Post extends React.Component {
 
     clickPublishComment(eventId, movieId) {
         let comment = this.state.inputComment;
-
-        if !(comment.trim().lenght > 0)
+        if (!(comment.trim().lenght > 0))
             return;
 
         // Снимаем обработчик click, пока не обновится состояние после текущего клика

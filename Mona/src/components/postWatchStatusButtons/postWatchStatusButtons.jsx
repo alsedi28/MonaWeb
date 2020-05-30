@@ -1,16 +1,13 @@
 import React, { useRef } from 'react';
+import Constants from '../../constants';
 
 import styles from './postWatchStatusButtons.module.css';
 import checkMarkIcon from '../../../public/icons/checkMark.png';
 
 function PostWatchStatusButtons(props) {
-    let willWatch = "WillWatch";
-    let noViewed = "NoViewed";
-    let viewed = "Viewed";
-
     let statusBlock = "";
     switch (props.status) {
-        case willWatch:
+        case Constants.MOVIE_STATUS_WILL_WATCH:
             statusBlock =
                 <div className={`${styles.selected} ${styles.common}`}>
                     <p>В закладках
@@ -18,7 +15,7 @@ function PostWatchStatusButtons(props) {
                     </p>
                 </div>
             break;
-        case viewed:
+        case Constants.MOVIE_STATUS_VIEWED:
             statusBlock =
                 <div className={`${styles.selected} ${styles.common}`}>
                     <p>Просмотрен
@@ -28,7 +25,7 @@ function PostWatchStatusButtons(props) {
             break;
     }
 
-    let noViewedStatus = { display: props.status === noViewed ? "block" : "none" };
+    let noViewedStatus = { display: props.status === Constants.MOVIE_STATUS_NO_VIEWED ? "block" : "none" };
 
     return (
         <div className={`${styles.box} ${props.externalClass}`}>

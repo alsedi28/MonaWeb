@@ -11,7 +11,7 @@ function PostInputComment(props) {
             textareaRef.current.style.height = scrollHeight + "px";
     }, [props.value]);
 
-    let trimmedValue = props.value.trim()
+    let trimmedValue = props.value.trim();
     const isDisabled = !(trimmedValue.length > 0);
 
     return (
