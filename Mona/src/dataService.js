@@ -78,52 +78,39 @@ export class DataService {
     static addLikeToPost(eventId, movieId, callback) {
         let url = `${Constants.DOMAIN}/api/movies/${movieId}/events/${eventId}/likes`;
 
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                Authorization: 'Bearer ' + sessionStorage.getItem(Constants.TOKEN_COOKIE_KEY),
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(_ => callback());
+        this._post(url, callback);
     }
 
-    static deleteLikeToPost(eventId, movieId, callback) {
+    static deleteLikeFromPost(eventId, movieId, callback) {
         let url = `${Constants.DOMAIN}/api/movies/${movieId}/events/${eventId}/likes`;
 
-        fetch(url, {
-            method: 'DELETE',
-            headers: {
-                Authorization: 'Bearer ' + sessionStorage.getItem(Constants.TOKEN_COOKIE_KEY),
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(_ => callback());
+        this._delete(url, callback);
     }
+
     static addLikeToComment(eventId, movieId, commentId, callback) {
         let url = `${Constants.DOMAIN}/api/movies/${movieId}/events/${eventId}/comments/${commentId}/likes`;
 
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                Authorization: 'Bearer ' + sessionStorage.getItem(Constants.TOKEN_COOKIE_KEY),
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(_ => callback());
+        this._post(url, callback);
     }
 
     static deleteLikeFromComment(eventId, movieId, commentId, callback) {
         let url = `${Constants.DOMAIN}/api/movies/${movieId}/events/${eventId}/comments/${commentId}/likes`;
 
-        fetch(url, {
-            method: 'DELETE',
-            headers: {
-                Authorization: 'Bearer ' + sessionStorage.getItem(Constants.TOKEN_COOKIE_KEY),
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(_ => callback());
+        this._delete(url, callback);
+    }
+
+    static addFollowing(userId, callback) {
+        let url = `${Constants.DOMAIN}/api/user/following`;
+        let request = { UserId: userId };
+
+        this._post(url, callback, request);
+    }
+
+    static deleteFollowing(userId, callback) {
+        let url = `${Constants.DOMAIN}/api/user/following`;
+        let request = { UserId: userId };
+
+        this._delete(url, callback, request);
     }
 
     static login(login, password, successCallback, failedCallback) {
@@ -180,5 +167,29 @@ export class DataService {
                 if (error)
                     alert("Произошла ошибка при загрузке данных.");
             });
+    }
+
+    static _post(url, callback, request = null) {
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                Authorization: 'Bearer ' + sessionStorage.getItem(Constants.TOKEN_COOKIE_KEY),
+                'Content-Type': 'application/json'
+            },
+            body: request ? JSON.stringify(request) : null
+        })
+            .then(_ => callback());
+    }
+
+    static _delete(url, callback, request = null) {
+        fetch(url, {
+            method: 'DELETE',
+            headers: {
+                Authorization: 'Bearer ' + sessionStorage.getItem(Constants.TOKEN_COOKIE_KEY),
+                'Content-Type': 'application/json'
+            },
+            body: request ? JSON.stringify(request) : null
+        })
+            .then(_ => callback());
     }
 }

@@ -31,6 +31,7 @@ class ProfilePage extends React.Component {
                 name: "",
                 login: "",
                 avatar: null,
+                isFollowing: false,
                 amountFollowers: 0,
                 amountFollowing: 0,
                 amountViewedMovies: 0,
@@ -59,7 +60,8 @@ class ProfilePage extends React.Component {
                 title: "", // Заголовок модального окна
                 items: [] // Данные, которые необходимо отобразить в модальном окне
             },
-            tabNumberActive: 1 // Номер Tab'а, который активный. 1 - Tab "Публикации", 2 - Tab "В закладках", 3 - Tab "Просмотрено"
+            tabNumberActive: 1, // Номер Tab'а, который активный. 1 - Tab "Публикации", 2 - Tab "В закладках", 3 - Tab "Просмотрено"
+            handleClickFollowUser: this.clickFollowUser // Обработчик события click по кнопке Подписаться/Подписки
         };
 
         // Подписки
@@ -75,11 +77,13 @@ class ProfilePage extends React.Component {
         };
 
         this.getProfileInfo = this.getProfileInfo.bind(this);
+        this.updatePartlyProfileInfo = this.updatePartlyProfileInfo.bind(this);
         this.getUsersPosts = this.getUsersPosts.bind(this);
         this.getWillWatchMovies = this.getWillWatchMovies.bind(this);
         this.getViewedMovies = this.getViewedMovies.bind(this);
         this.clickShowFollowers = this.clickShowFollowers.bind(this);
         this.clickShowFollowing = this.clickShowFollowing.bind(this);
+        this.clickFollowUser = this.clickFollowUser.bind(this);
         this.setModalDialogState = this.setModalDialogState.bind(this);
         this.showModalDialog = this.showModalDialog.bind(this);
         this.hideModalDialog = this.hideModalDialog.bind(this); 
@@ -114,6 +118,7 @@ class ProfilePage extends React.Component {
                     name: profile.Name,
                     login: profile.Login,
                     avatar: profile.AvatarPath,
+                    isFollowing: profile.IsFollowing,
                     amountFollowers: profile.AmountFollowers,
                     amountFollowing: profile.AmountFollowing,
                     amountViewedMovies: profile.AmountViewedMovies,
@@ -121,6 +126,26 @@ class ProfilePage extends React.Component {
                     amountPosts: profile.AmountEvents
                 }
             });
+        };
+
+        DataService.getProfileInfo(this.state.profile.id, callback);
+    }
+
+    updatePartlyProfileInfo() {
+        let callback = (profile) => {
+            this.setState({
+                ...this.state,
+                profile: {
+                    ...this.state.profile,
+                    isFollowing: profile.IsFollowing,
+                    amountFollowers: profile.AmountFollowers,
+                    amountFollowing: profile.AmountFollowing
+                }
+            });
+
+            // Сбрасываем значения. После обновления могло измениться количество.
+            this.followers.isLoaded = false;
+            this.following.isLoaded = false;
         };
 
         DataService.getProfileInfo(this.state.profile.id, callback);
@@ -222,6 +247,22 @@ class ProfilePage extends React.Component {
         this.showModalDialog(title, this.following, DataService.getFollowing.bind(DataService), this.state.profile.id);
     }
 
+    clickFollowUser() {
+        // Снимаем обработчик click, пока не обновится состояние после текущего клика
+        this.setState({ handleClickFollowUser: () => ({}) });
+
+        let callback = _ => {
+            this.updatePartlyProfileInfo();
+            // Возвращаем обработчик click
+            this.setState({ handleClickFollowUser: this.clickFollowUser });
+        };
+
+        if (this.state.profile.isFollowing)
+            DataService.deleteFollowing(this.state.profile.id, callback);
+        else
+            DataService.addFollowing(this.state.profile.id, callback);
+    }
+
     showModalDialog(title, storage, getter, ...args) {
         // Данные уже загружали
         if (storage.isLoaded) {
@@ -308,8 +349,8 @@ class ProfilePage extends React.Component {
                 <div className={styles.container}>
                     <div className={styles.userBlock}>
                         <Loader show={this.state.isLoading} externalClass={styles.loader} />
-                        <ProfileUserInfo profile={this.state.profile} clickFollowers={this.clickShowFollowers} clickFollowing={this.clickShowFollowing}
-                            style={{ display: this.state.isLoading ? "none" : "block" }} />
+                        <ProfileUserInfo profile={this.state.profile} clickFollowButton={this.state.handleClickFollowUser.bind(this)}
+                            clickFollowers={this.clickShowFollowers} clickFollowing={this.clickShowFollowing} style={{ display: this.state.isLoading ? "none" : "block" }} />
                     </div>
                     <div className={styles.tabs}>
                         <a className={`${styles.tabPosts} ${styles.active}`} onClick={(e) => this.clickTab(e, 1)}>Публикации ({this.state.profile.amountPosts})</a>

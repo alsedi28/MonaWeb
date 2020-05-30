@@ -1,0 +1,39 @@
+.container {
+    width: 170px;
+    height: 35px;
+    border-radius: 8px;
+    border: 1px solid rgb(255, 86, 26);
+    font-size: 14px;
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: bold;
+}
+
+.container:hover {
+    cursor: pointer;
+}
+
+.container > p {
+    margin: 0px;
+    line-height: 35px;
+    text-align: center;
+}
+
+.active {
+    background-color: rgb(255, 86, 26);
+    color: white;
+}
+
+.notActive {
+    color: rgb(255, 86, 26);
+}
+.notActive > p {
+    text-align: unset;
+    padding-left: 40px;
+}
+
+.notActive img {
+    float: left;
+    margin-left: 10px;
+    margin-top: 9px;
+}
