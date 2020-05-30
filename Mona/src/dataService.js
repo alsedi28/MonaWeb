@@ -115,16 +115,8 @@ export class DataService {
 
     static addCommentToEvent(eventId, movieId, comment, callback) {
         let url = `${Constants.DOMAIN}/api/movies/${movieId}/events/${eventId}/comments`;
-        let body = `comment=${comment}`;
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                Authorization: 'Bearer ' + sessionStorage.getItem(Constants.TOKEN_COOKIE_KEY),
-                'Content-Type': 'application/json'
-            },
-            body: body
-        })
-            .then(_ => callback());
+        let request = { Comment: comment };
+        this._post(url, callback, request);
     }
 
     static login(login, password, successCallback, failedCallback) {
