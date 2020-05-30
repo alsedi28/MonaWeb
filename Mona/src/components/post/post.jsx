@@ -8,6 +8,7 @@ import PostComment from '../postComment/postComment';
 import PostInputComment from '../postInputComment/postInputComment';
 import PostWatchStatusButtons from '../postWatchStatusButtons/postWatchStatusButtons';
 import { DataService } from '../../dataService';
+import Constants from './constants';
 
 import styles from './post.module.css';
 
@@ -18,9 +19,6 @@ import framePlaceholder from '../../../public/icons/framePlaceholder.png';
 class Post extends React.Component {
     constructor(props) {
         super(props);
-
-        this.MovieStatusWillWatchForUser = "WillWatch";
-        this.MovieStatusNoViewedForUser = "NoViewed";
 
         this.state = {
             post: props.post, // Текущий пост
@@ -240,7 +238,7 @@ class Post extends React.Component {
         }
 
         let commentsExcludingMain = post.Comments.filter((comment, i) => i !== 0).map(comment => <PostComment comment={comment} clickLike={this.state.handleClickLikeComment.bind(this, post.EventId, post.MovieId, comment.CommentId)} />);
-        let displayBookmarkBlock = { display: post.StatusOfMovieForUser === this.MovieStatusWillWatchForUser ? "block" : "none" };
+        let displayBookmarkBlock = { display: post.StatusOfMovieForUser === Constants.MOVIE_STATUS_WILL_WATCH ? "block" : "none" };
         let displayBookmarkIconBlock = { display: userRaiting === null ? "none" : "block" };
         let displayAllCommentsBlock = { display: post.AmountEventComments > 1 && !this.state.showAllComments ? "block" : "none" };
 
