@@ -35,21 +35,6 @@ class Post extends React.Component {
             inputComment: ""
         };
 
-        this.usersWhoLikesPost = {
-            isLoaded: false,
-            items: []
-        };
-
-        this.usersWhoViewedMovie = {
-            isLoaded: false,
-            items: []
-        };
-
-        this.usersWhoWillWatchMovie = {
-            isLoaded: false,
-            items: []
-        };
-
         this.handleInputCommentChange = this.handleInputCommentChange.bind(this);
         this.clickPublishComment = this.clickPublishComment.bind(this);
         this.clickShowAllComments = this.clickShowAllComments.bind(this);
@@ -57,10 +42,10 @@ class Post extends React.Component {
         this.clickShowUsersWhoWillWatchMovie = this.clickShowUsersWhoWillWatchMovie.bind(this);
         this.clickLikePost = this.clickLikePost.bind(this);
         this.clickLikeComment = this.clickLikeComment.bind(this);
+        this.updatePost = this.updatePost.bind(this);
         this.setModalDialogState = this.setModalDialogState.bind(this);
         this.showModalDialog = this.showModalDialog.bind(this);
         this.hideModalDialog = this.hideModalDialog.bind(this);
-        this.updatePost = this.updatePost.bind(this);
     }
 
     handleInputCommentChange(event) {
@@ -93,49 +78,19 @@ class Post extends React.Component {
     clickShowUsersWhoLikesPost(eventId, movieId) {
         let title = "Лайкнули публикацию";
 
-        this.showModalDialog(title, this.usersWhoLikesPost, DataService.getUsersWhoLikesPost.bind(DataService), eventId, movieId);
+        this.showModalDialog(title, DataService.getUsersWhoLikesPost.bind(DataService), eventId, movieId);
     }
 
     clickShowUsersWhoWillWatchMovie(movieId) {
         let title = "Будут смотреть";
 
-        this.showModalDialog(title, this.usersWhoWillWatchMovie, DataService.getUsersWhoWillWatchMovie.bind(DataService), movieId);
+        this.showModalDialog(title, DataService.getUsersWhoWillWatchMovie.bind(DataService), movieId);
     }
 
     clickShowUsersWhoViewedMovie(movieId) {
         let title = "Уже смотрели";
 
-        this.showModalDialog(title, this.usersWhoViewedMovie, DataService.getUsersWhoViewedMovie.bind(DataService), movieId);
-    }
-
-    showModalDialog(title, storage, getter, ...args) {
-        // Данные уже загружали
-        if (storage.isLoaded) {
-            this.setModalDialogState(true, false, title, storage.items);
-
-            return;
-        }
-
-        this.setModalDialogState(true, true, title, []);
-
-        let callback = (items) => {
-            storage.items = items.map(item => ({
-                id: item.UserId,
-                icon: item.AvatarPath,
-                login: item.Login,
-                name: item.Name
-            }));
-
-            storage.isLoaded = true;
-
-            this.setModalDialogState(true, false, title, storage.items);
-        };
-
-        getter(...args, callback);
-    }
-
-    hideModalDialog() {
-        this.setModalDialogState(false, false, "", []);
+        this.showModalDialog(title, DataService.getUsersWhoViewedMovie.bind(DataService), movieId);
     }
 
     clickShowAllComments() {
@@ -185,14 +140,31 @@ class Post extends React.Component {
     updatePost(eventId, movieId) {
         let callback = (item) => {
             this.setState({ post: item });
-
-            // Сбрасываем значения. После обновления могло измениться количество.
-            this.usersWhoLikesPost.isLoaded = false;
-            this.usersWhoViewedMovie.isLoaded = false;
-            this.usersWhoWillWatchMovie.isLoaded = false;
         };
 
         DataService.getPost(eventId, movieId, callback);
+    }
+
+    showModalDialog(title, getter, ...args) {
+        this.setModalDialogState(true, true, title, []);
+
+        let callback = (response) => {
+            let items = response.map(item => ({
+                id: item.UserId,
+                icon: item.AvatarPath,
+                login: item.Login,
+                name: item.Name,
+                isFollowing: item.IsFollowing
+            }));
+
+            this.setModalDialogState(true, false, title, items);
+        };
+
+        getter(...args, callback);
+    }
+
+    hideModalDialog() {
+        this.setModalDialogState(false, false, "", []);
     }
 
     setModalDialogState(show, isLoading, title, items) {
