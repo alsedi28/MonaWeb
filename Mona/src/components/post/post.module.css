@@ -135,27 +135,6 @@
     margin-top: 24px;
 }
 
-.movieStatusForUser {
-    clear: both;
-    height: 50px;
-    margin: auto;
-    border: 2px solid rgb(253, 87, 57);
-    border-radius: 12px;
-    text-align: center;
-    font-family: "Montserrat";
-    font-weight: 300;
-    color: white;
-}
-
-.movieStatusForUser > p {
-    margin: 0;
-    margin-top: 10px;
-}
-
-.movieStatusForUser img {
-    margin-left: 10px;
-}
-
 .commentsBlock {
     margin-top: 16px;
     height: auto;

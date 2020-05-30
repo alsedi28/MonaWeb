@@ -6,12 +6,12 @@ import PostButtonBar from '../postButtonBar/postButtonBar';
 import PostHeader from '../postHeader/postHeader';
 import PostComment from '../postComment/postComment';
 import PostInputComment from '../postInputComment/postInputComment';
+import PostWatchStatusButtons from '../postWatchStatusButtons/postWatchStatusButtons';
 import { DataService } from '../../dataService';
 
 import styles from './post.module.css';
 
 import shapeIcon from '../../../public/icons/shape.png';
-import checkMarkIcon from '../../../public/icons/checkMark.png';
 import bookMarkIcon from '../../../public/icons/bookMark.png';
 import framePlaceholder from '../../../public/icons/framePlaceholder.png';
 
@@ -255,6 +255,8 @@ class Post extends React.Component {
                         </div>
                         <div className={styles.movieInfoBlock}>
                             <p className={styles.movieTitle}>{post.MovieTitle} {blockMovieReleaseDate}</p>
+
+                            <PostWatchStatusButtons status={post.StatusOfMovieForUser}/>
 
                             <p className={styles.userRaiting} style={bookmarkIconBlock}>Оценка: <span>{userRaiting}</span></p>
                             <div className={styles.movieRaiting}>
