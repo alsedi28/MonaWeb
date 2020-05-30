@@ -73,6 +73,12 @@ class Post extends React.Component {
     }
 
     clickPublishComment(eventId, movieId) {
+        let comment = this.state.inputComment;
+
+        if !(comment.trim().lenght > 0) {
+            return
+        }
+
         // Снимаем обработчик click, пока не обновится состояние после текущего клика
         this.setState({ handleClickPublishComment: () => ({})});
 
@@ -84,9 +90,6 @@ class Post extends React.Component {
                 inputComment: ""
             });
         };
-
-        let comment = this.state.inputComment;
-        console.error(comment, movieId, eventId);
         DataService.addCommentToEvent(eventId, movieId, comment, callback);
     }
 
@@ -239,8 +242,8 @@ class Post extends React.Component {
 
         let commentsExcludingMain = post.Comments.filter((comment, i) => i !== 0).map(comment => <PostComment comment={comment} clickLike={this.state.handleClickLikeComment.bind(this, post.EventId, post.MovieId, comment.CommentId)} />);
         let displayBookmarkBlock = { display: post.StatusOfMovieForUser === this.MovieStatusWillWatchForUser ? "block" : "none" };
-        let bookmarkIconBlock = { display: userRaiting === null ? "none" : "block" };
-        let allCommentsBlock = { display: post.AmountEventComments > 1 && !this.state.showAllComments ? "block" : "none" };
+        let displayBookmarkIconBlock = { display: userRaiting === null ? "none" : "block" };
+        let displayAllCommentsBlock = { display: post.AmountEventComments > 1 && !this.state.showAllComments ? "block" : "none" };
 
         return (
             <article className={`${styles.container} ${externalClass}`} id={`post-${post.EventId}`}>
@@ -258,7 +261,7 @@ class Post extends React.Component {
 
                             <PostWatchStatusButtons status={post.StatusOfMovieForUser}/>
 
-                            <p className={styles.userRaiting} style={bookmarkIconBlock}>Оценка: <span>{userRaiting}</span></p>
+                            <p className={styles.userRaiting} style={displayBookmarkIconBlock}>Оценка: <span>{userRaiting}</span></p>
                             <div className={styles.movieRaiting}>
                                 <p>{movieRaiting}</p>
                                 <p>рейтинг</p>
@@ -283,7 +286,7 @@ class Post extends React.Component {
                     {blockWithInfoAboutLikes}
                     {blockWithMainComment}
 
-                    <p className={styles.showAllComments} onClick={this.clickShowAllComments.bind(this)} style={allCommentsBlock}>
+                    <p className={styles.showAllComments} onClick={this.clickShowAllComments.bind(this)} style={displayAllCommentsBlock}>
                         Посмотреть {post.AmountEventComments} комментария
                     </p>
 

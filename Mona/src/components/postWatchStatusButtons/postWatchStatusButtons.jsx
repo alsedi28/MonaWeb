@@ -1,5 +1,4 @@
 import React, { useRef } from 'react';
-import { Link } from 'react-router-dom';
 
 import styles from './postWatchStatusButtons.module.css';
 import checkMarkIcon from '../../../public/icons/checkMark.png';
@@ -19,7 +18,7 @@ function PostWatchStatusButtons(props) {
                     </p>
                 </div>
             break;
-            case viewed:
+        case viewed:
             statusBlock =
                 <div className={`${styles.selected} ${styles.common}`}>
                     <p>Просмотрен

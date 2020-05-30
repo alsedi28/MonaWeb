@@ -1,5 +1,4 @@
 import React, { useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 
 import styles from './postInputComment.module.css';
 
@@ -12,7 +11,8 @@ function PostInputComment(props) {
             textareaRef.current.style.height = scrollHeight + "px";
     }, [props.value]);
 
-    const isDisabled = !(props.value.length > 0);
+    let trimmedValue = props.value.trim()
+    const isDisabled = !(trimmedValue.length > 0);
 
     return (
         <div className={`${styles.container} ${props.externalClass}`}>
