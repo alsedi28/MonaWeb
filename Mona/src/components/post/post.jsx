@@ -75,9 +75,8 @@ class Post extends React.Component {
     clickPublishComment(eventId, movieId) {
         let comment = this.state.inputComment;
 
-        if !(comment.trim().lenght > 0) {
-            return
-        }
+        if !(comment.trim().lenght > 0)
+            return;
 
         // Снимаем обработчик click, пока не обновится состояние после текущего клика
         this.setState({ handleClickPublishComment: () => ({})});
