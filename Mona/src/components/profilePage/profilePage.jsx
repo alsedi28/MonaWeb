@@ -107,7 +107,7 @@ class ProfilePage extends React.Component {
         DataService.getProfileInfo(this.state.profile.id, callback);
     }
 
-    updatePartlyProfileInfo() {
+    updatePartlyProfileInfo(callFromModalDialog = false) {
         let callback = (profile) => {
             this.setState({
                 ...this.state,
@@ -119,9 +119,9 @@ class ProfilePage extends React.Component {
                 }
             });
 
-            // Сбрасываем значения. После обновления могло измениться количество.
-            this.followers.isLoaded = false;
-            this.following.isLoaded = false;
+            // Если вызываем из модального окна, то необходимо после обновления убрать скролл у страницы
+            if (callFromModalDialog)
+                document.body.style.overflow = "hidden";
         };
 
         DataService.getProfileInfo(this.state.profile.id, callback);
@@ -246,13 +246,13 @@ class ProfilePage extends React.Component {
             if (i === movies.items.length - 1)
                 result.push(
                     <div className={styles.moviesContainer}>
-                        <MovieItemOnUserProfile movie={movies.items[i]} isViewed={isViewed} externalClass={styles.movieBlockExternal} />
+                        <MovieItemOnUserProfile movie={movies.items[i]} isViewed={isViewed} externalClass={styles.movieBlockExternal} handlerExternal={this.updatePartlyProfileInfo.bind(this, true)} />
                     </div>);
             else
                 result.push(
                     <div className={styles.moviesContainer}>
-                        <MovieItemOnUserProfile movie={movies.items[i]} isViewed={isViewed} externalClass={styles.movieBlockExternal} />
-                        <MovieItemOnUserProfile movie={movies.items[i + 1]} isViewed={isViewed} externalClass={styles.movieBlockExternal} />
+                        <MovieItemOnUserProfile movie={movies.items[i]} isViewed={isViewed} externalClass={styles.movieBlockExternal} handlerExternal={this.updatePartlyProfileInfo.bind(this, true)}/>
+                        <MovieItemOnUserProfile movie={movies.items[i + 1]} isViewed={isViewed} externalClass={styles.movieBlockExternal} handlerExternal={this.updatePartlyProfileInfo.bind(this, true)}/>
                     </div>);
         }
 
@@ -290,7 +290,7 @@ class ProfilePage extends React.Component {
                                 hasMore={this.state.feed.hasMore}
                                 loader={<Loader />}
                             >
-                                {this.state.feed.posts.map(post => <Post post={post} externalClass="post-external" />)}
+                                {this.state.feed.posts.map(post => <Post post={post} externalClass="post-external" handlerExternal={this.updatePartlyProfileInfo.bind(this, true)}/>)}
                             </InfiniteScroll>
                         </PostsFeed>
                     </div>

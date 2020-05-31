@@ -181,7 +181,7 @@ class Post extends React.Component {
     }
 
     render() {
-        const { externalClass = "" } = this.props;
+        const { externalClass = "", handlerExternal = () => ({}) } = this.props;
 
         let post = this.state.post;
 
@@ -269,7 +269,7 @@ class Post extends React.Component {
                 />
 
                 <ModalDialog show={this.state.modalDialog.show} title={this.state.modalDialog.title} isLoading={this.state.modalDialog.isLoading}
-                    items={this.state.modalDialog.items} clickClose={this.hideModalDialog}/>
+                    items={this.state.modalDialog.items} clickClose={this.hideModalDialog} handlerExternal={handlerExternal} />
             </article>
         );
     }

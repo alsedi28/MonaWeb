@@ -14,11 +14,12 @@ class UserListItem extends React.Component {
         super(props);
 
         this.state = {
-            userId: props.userId,
-            isFollowing: props.isFollowing,
-            clickFollowButton: this.clickFollowButton.bind(this)
+            userId: props.userId, 
+            isFollowing: props.isFollowing, // Признак подписан текущий пользователь на данного или нет
+            clickFollowButton: this.clickFollowButton.bind(this) // Обработчик click по кнопке Подписаться/Подписка
         };
 
+        this.updateProfilePage = props.handlerExternal ? props.handlerExternal : () => ({});
         this.clickFollowButton = this.clickFollowButton.bind(this);
         this.updateInfoAboutFollowing = this.updateInfoAboutFollowing.bind(this);
     }
@@ -42,13 +43,15 @@ class UserListItem extends React.Component {
                 // Возвращаем обработчик click
                 clickFollowButton: this.clickFollowButton.bind(this)
             });
+
+            this.updateProfilePage();
         };
 
         DataService.getProfileInfo(this.state.userId, callback);
     }
 
     render() {
-        const { userIcon, userLogin, userName, userId, externalClass = "" } = this.props;
+        const { userIcon, userLogin, userName, userId, externalClass = ""} = this.props;
 
         return (
             <div className={`${styles.container} ${externalClass}`}>
