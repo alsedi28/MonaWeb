@@ -1,0 +1,302 @@
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modalContent {
+  background-color: #fefefe;
+  margin: auto;
+  border: 1px solid #888;
+  width: 80%;
+  max-height: 511px;
+  display: flex;
+  justify-content: start;
+}
+
+/* The Close Button */
+.close {
+  color: #ffffff;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 300px;
+}
+
+.close:hover, .close:focus {
+  color: #000000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Left side */
+
+.posterBox {
+    height: 511px;
+    width: 447px;
+    background-size: cover !important;
+}
+
+.posterBox > div {
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.poster {
+    margin: auto;
+    width: 75%;
+    height: 80%;
+    padding-top: 10%;
+}
+
+.posterImage {
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+/* Right side */
+
+.rightSideBox {
+    position: relative;
+}
+
+.infoBox {
+    display: flex;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+.iconWithInfoContainer {
+    display: flex;
+    justify-content: start;
+    height: 100%;
+    align-items: center;
+}
+
+.userIcon {
+    padding-top: 4px;
+    border-radius: 50%;
+    float: left;
+}
+
+.userIcon img {
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.userInfo {
+    color: #31363c;
+    font-size: 14px;
+    float: left;
+    padding-left: 16px;
+}
+
+.userInfo > span:last-child {
+    font-weight: normal;
+}
+
+.userInfo > span:first-child {
+    font-weight: bold;
+}
+
+.userLink > a {
+    text-decoration: none;
+    color: #31363c;
+}
+
+.userLink > a:visited {
+    color: #31363c;
+}
+
+/* Comments */
+
+.commentBox {
+  display: flex;
+  padding-top: 8px;
+  padding-left: 0px;
+  padding-right: 16px;
+  padding-bottom: 8px;
+  justify-content: space-between;
+  align-items: top;
+}
+
+.commentsBlock {
+  display: flex;
+  flex-flow: row wrap;
+  height: auto;
+  font-size: 16px;
+  font-weight: normal;
+  color: rgb(49, 54, 60);
+}
+
+.commentsBlock span {
+    font-weight: bold;
+}
+
+.commentsBlock > p {
+    padding-left: 8px;
+    padding-right: 16px;
+}
+
+.timeAgo {
+    font-size: 10px;
+    margin-top: 4px;
+    text-align: left;
+}
+
+.commentsDiv {
+    order: 1;
+    overflow-x: hidden;
+    flex-grow: 1;
+    flex-shrink: 1;
+    margin-bottom: 4px;
+    min-height: 0;
+    overflow: auto;
+}
+
+.commentsSection {
+    box-sizing: content-box;
+    flex-grow: 1;
+    overflow-y: scroll;
+    left: 0;
+    padding-left: 16px;
+    margin-top: 0;
+    padding-top: 8px;
+    height: 288px; /* calculate correct size */
+}
+
+.commentListItem {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.commentListItem:last-child {
+    margin-bottom: 0;
+}
+
+/* Post Info */
+
+.postInfoContainer {
+    align-items: center;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    margin-top: 0px;
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    flex-shrink: 1;
+
+    border-top: 1px solid #dbdbdb;
+    position: absolute;
+    bottom: 40px;
+    right: 0;
+    left: 0;
+}
+
+.userLink {
+    font-weight: bold;
+}
+
+.buttonsContainer {
+    height: 32px;
+}
+
+.like:hover {
+    cursor: pointer;
+}
+
+/* Input field */
+
+.inputFieldContainer {
+    align-items: center;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    margin-top: 0px;
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    flex-shrink: 1;
+
+    border-top: 1px solid #dbdbdb;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+.textArea {
+    background: 0 0;
+    border: 0;
+    color: #31363c;
+    display: flex;
+    flex-grow: 1;
+    height: 20px;
+    max-height: 80px;
+    outline: 0;
+    padding: 0;
+    resize: none;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.textArea:disabled {
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.textArea::placeholder, .textArea:focus::placeholder {
+    color: #adafb1;
+    font-weight: bold;
+}
+
+.sendButton {
+    appearance: none;
+    background: 0 0;
+    border: 0;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: block;
+    padding: 5px 9px;
+    text-align: right;
+    text-transform: inherit;
+    text-overflow: ellipsis;
+    user-select: none;
+    width: auto;
+    color: rgb(253, 87, 57);
+    position: relative;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.sendButton[disabled] {
+    opacity: 0.7;
+    color: #adafb1;
+    pointer-events: none;
+}

@@ -7,6 +7,7 @@ import PostHeader from '../postHeader/postHeader';
 import PostComment from '../postComment/postComment';
 import PostInputComment from '../postInputComment/postInputComment';
 import PostWatchStatusButtons from '../postWatchStatusButtons/postWatchStatusButtons';
+import PostDetails from '../postDetails/postDetails';
 import { DataService } from '../../dataService';
 import Constants from '../../constants';
 
@@ -94,8 +95,8 @@ class Post extends React.Component {
     }
 
     clickShowAllComments() {
+        console.error(this.state.showAllComments);
         this.setState({
-            ...this.state,
             showAllComments: true
         });
     }
@@ -268,6 +269,7 @@ class Post extends React.Component {
                     handleClick={this.state.handleClickPublishComment.bind(this, post.EventId, post.MovieId)}
                 />
 
+                <PostDetails isDisplay={this.state.showAllComments} />
                 <ModalDialog show={this.state.modalDialog.show} title={this.state.modalDialog.title} isLoading={this.state.modalDialog.isLoading}
                     items={this.state.modalDialog.items} clickClose={this.hideModalDialog}/>
             </article>
