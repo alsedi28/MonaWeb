@@ -160,7 +160,6 @@
     padding-left: 16px;
     margin-top: 0;
     padding-top: 8px;
-    height: 288px; /* calculate correct size */
 }
 
 .loader {

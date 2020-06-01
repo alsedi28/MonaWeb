@@ -28,7 +28,6 @@
     display: flex;
     flex-grow: 1;
     height: 20px;
-    max-height: 80px;
     outline: 0;
     padding: 0;
     resize: none;

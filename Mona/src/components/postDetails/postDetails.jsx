@@ -30,9 +30,11 @@ class PostDetails extends React.Component {
             handleClickLikeComment: this.clickLikeComment, // Обработчик события click по "Сердцу" в комментарии
             handleClickPublishComment: this.clickPublishComment, // Обработчик события click по кнопке «Опубликовать»
             inputComment: "",
-            isLoading: true
+            isLoading: true,
+            paddingForInputField: 0
         };
 
+        this.handleInputHeightChange = this.handleInputHeightChange.bind(this);
         this.handleInputCommentChange = this.handleInputCommentChange.bind(this);
         this.clickPublishComment = this.clickPublishComment.bind(this);
         this.clickLikePost = this.clickLikePost.bind(this);
@@ -42,10 +44,8 @@ class PostDetails extends React.Component {
         this.showModalDialog = this.showModalDialog.bind(this);
         this.hideModalDialog = this.hideModalDialog.bind(this);
 
-        if (props.isDisplay)
-            document.body.style.overflow = "hidden";
-        else
-            document.body.style.overflow = "auto";
+        this.containerRef = React.createRef();
+        this.postDetailsRef = React.createRef();
     }
 
     componentDidMount() {
@@ -70,6 +70,12 @@ class PostDetails extends React.Component {
         const {name, value} = event.target;
         this.setState({
             [name]: value
+        })
+    }
+
+    handleInputHeightChange(height) {
+        this.setState({
+            paddingForInputField: height
         })
     }
 
@@ -200,12 +206,17 @@ class PostDetails extends React.Component {
             commentsBlock = this.state.comments.map(comment => <PostDetailsComment comment={comment} clickLike={this.state.handleClickLikeComment.bind(this, post.EventId, post.MovieId, comment.CommentId)} />);
         }
 
+        let containerHeight = this.containerRef.clientHeight > 0 ? this.containerRef.clientHeight : 511;
+        let postDetailsHeight = this.postDetailsRef.clientHeight > 0 ? this.postDetailsRef.clientHeight : 100;
+        let paddingBottomHeight = this.state.paddingForInputField > 0 ? this.state.paddingForInputField : 46;
+        let scrollHeightForComments = containerHeight - 58 - postDetailsHeight - paddingBottomHeight - 8;
+
         return (
             <React.Fragment>
             <div id="myModal" className={styles.modal} style={{ display: this.props.isDisplay ? "block" : "none" }} onClick={this.clickBackground}>
 
             <arcticle className={`dialog-ev`}>
-            <div className={styles.modalContent}>
+            <div className={styles.modalContent} ref={(elem) => this.containerRef = elem}>
 
             <div className={styles.posterBox} style={{ background: `${getBackdropUrl(post.MovieBackdropPath)}` }}>
                 <div>
@@ -232,24 +243,28 @@ class PostDetails extends React.Component {
                 </header>
 
                 <div className={styles.commentsDiv}>
-                    <ul className={styles.commentsSection}>
+                    <ul className={styles.commentsSection} style={{ height: `${scrollHeightForComments}px` }}>
                         {commentsBlock}
                     </ul>
                 </div>
 
                 <PostDetailsInfo
+                    componentRef={(elem) => this.postDetailsRef = elem}
                     isLiked={post.IsCurrentUserLiked}
                     clickLike={this.state.handleClickLike.bind(this, post.EventId, post.MovieId)}
                     userInfoWhoLikesEvent={post.UserInfoWhoLikesEvent}
                     amountEventLikes={post.AmountEventLikes}
                     clickShowUsersWhoLikesPost={this.clickShowUsersWhoLikesPost.bind(this, post.EventId, post.MovieId)}
                     dateOfCreation={post.DateOfCreation}
+                    paddingBottom={this.state.paddingForInputField}
                 />
 
                 <PostDetailsInputField
+                    id={post.EventId}
                     value={this.state.inputComment}
                     handleChange={this.handleInputCommentChange}
                     handleClick={this.state.handleClickPublishComment.bind(this, post.EventId, post.MovieId)}
+                    handleHeightChange={this.handleInputHeightChange.bind(this)}
                 />
 
             </div>

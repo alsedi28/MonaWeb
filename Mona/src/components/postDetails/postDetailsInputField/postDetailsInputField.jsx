@@ -1,5 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 
+import Constants from '../../../constants';
+
 import styles from './postDetailsInputField.module.css';
 
 function PostDetailsInputField(props) {
@@ -13,13 +15,16 @@ function PostDetailsInputField(props) {
             } else {
                 textareaRef.current.style.height = scrollHeight + "px";
             }
+
+            let height = document.getElementById(props.id).clientHeight;
+            props.handleHeightChange(height);
     }, [props.value]);
 
     let trimmedValue = props.value.trim();
     const isDisabled = !(trimmedValue.length > 0);
 
     return (
-        <div className={styles.inputFieldContainer}>
+        <div id={props.id} className={styles.inputFieldContainer}>
             <textarea
                 ref={textareaRef}
                 aria-label="Комментарий…"
@@ -30,6 +35,7 @@ function PostDetailsInputField(props) {
                 autocorrect="off"
                 value={props.value}
                 onChange={props.handleChange}
+                style={{ maxHeight: `${Constants.MAX_INPUT_FIELD_HEIGHT}px` }}
             />
             <button className={styles.sendButton} disabled={isDisabled} type="submit" onClick={props.handleClick}>Опубликовать</button>
         </div>
