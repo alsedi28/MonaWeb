@@ -49,10 +49,11 @@ class Post extends React.Component {
     }
 
     handleInputCommentChange(event) {
-        const {name, value} = event.target;
+        const { name, value } = event.target;
+
         this.setState({
             [name]: value
-        })
+        });
     }
 
     clickPublishComment(eventId, movieId) {

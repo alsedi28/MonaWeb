@@ -26,8 +26,9 @@
 
 .userInfo > p {
     margin: 0px;
-    font-size: 20px;
+    font-size: 18px;
     color:rgb(49, 54, 60);
+    word-wrap: break-word;
 }
 
 .userInfo > p:first-child {

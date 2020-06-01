@@ -4,6 +4,7 @@ import PrivateRoute from './privateRoute';
 import LoginRoute from './loginRoute';
 import PostsFeedPage from './postsFeedPage/postsFeedPage';
 import ProfilePage from './profilePage/profilePage';
+import FollowersPage from './followersPage/followersPage';
 import NotFoundPage from './notFoundPage/notFoundPage';
 import Constants from '../constants';
 import { DataService } from '../dataService';
@@ -161,7 +162,9 @@ class App extends React.Component {
                         componentProps={{ feed: this.state.feed, feedPopular: this.state.feedPopular, getPosts: this.getPosts, getPopularPosts: this.getPopularPosts }} />
                     <PrivateRoute path='/feed' history={history} component={PostsFeedPage} isAuthenticated={this.state.isAuthenticated}
                         componentProps={{ feed: this.state.feed, feedPopular: this.state.feedPopular, getPosts: this.getPosts, getPopularPosts: this.getPopularPosts}} />
-                    <PrivateRoute path='/profile/:userId' history={history} component={ProfilePage} isAuthenticated={this.state.isAuthenticated}/>
+                    <PrivateRoute exact path='/profile/:userId' history={history} component={ProfilePage} isAuthenticated={this.state.isAuthenticated} />
+                    <PrivateRoute exact path='/profile/:userId/followers' history={history} component={FollowersPage} isAuthenticated={this.state.isAuthenticated} />
+                    <PrivateRoute exact path='/profile/:userId/following' history={history} component={FollowersPage} isAuthenticated={this.state.isAuthenticated} />
                     <Route history={history} render={(props) => <NotFoundPage {...props}/>} />
                 </Switch>
             </React.Fragment>
