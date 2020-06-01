@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import FollowButton from '../followButton/followButton';
 import Constants from '../../constants';
@@ -25,16 +26,20 @@ const ProfileUserInfo = ({ profile, clickFollowButton, externalClass = "" }) => 
             </div>
             <p className={styles.userName}>{profile.name}</p>
             <div className={styles.userCounters}>
-                <div>
-                    <p>{profile.amountFollowers}</p>
-                    <p>подписчик</p>
-                    <img src={shapeDark} width="35px" />
-                </div>
-                <div>
-                    <p>{profile.amountFollowing}</p>
-                    <p>подписок</p>
-                    <img src={shapeDark} width="35px" />
-                </div>
+                <Link to={`/profile/${profile.id}/followers`}>
+                    <div>
+                        <p>{profile.amountFollowers}</p>
+                        <p>подписчик</p>
+                        <img src={shapeDark} width="35px" />
+                    </div>
+                </Link>
+                <Link to={`/profile/${profile.id}/following`}>
+                    <div>
+                        <p>{profile.amountFollowing}</p>
+                        <p>подписок</p>
+                        <img src={shapeDark} width="35px" />
+                    </div>
+                </Link>
             </div>
         </div>
     </div>
