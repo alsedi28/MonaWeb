@@ -8,14 +8,16 @@ import PostComment from '../postComment/postComment';
 import PostInputComment from '../postInputComment/postInputComment';
 import PostWatchStatusButtons from '../postWatchStatusButtons/postWatchStatusButtons';
 import PostDetails from '../postDetails/postDetails';
+import PostTotalLikes from '../postTotalLikes/postTotalLikes';
 import { DataService } from '../../dataService';
 import Constants from '../../constants';
+
+import { getPosterPath, getBackdropUrl } from '../../helpers/imagePathHelper';
 
 import styles from './post.module.css';
 
 import shapeIcon from '../../../public/icons/shape.png';
 import bookMarkIcon from '../../../public/icons/bookMark.png';
-import framePlaceholder from '../../../public/icons/framePlaceholder.png';
 
 class Post extends React.Component {
     constructor(props) {
@@ -95,10 +97,9 @@ class Post extends React.Component {
     }
 
     clickShowAllComments() {
-        console.error(this.state.showAllComments);
-        this.setState({
-            showAllComments: true
-        });
+        this.setState(prevState => ({
+            showAllComments: !prevState.showAllComments
+        }));
     }
 
     clickLikePost(eventId, movieId) {
@@ -199,17 +200,6 @@ class Post extends React.Component {
         if (comment !== null)
             blockWithMainComment = <PostComment comment={comment} clickLike={this.state.handleClickLikeComment.bind(this, post.EventId, post.MovieId, comment.CommentId)} />
 
-        // UserInfoWhoLikesEvent cодержит userName#userId
-        let userInfoWhoLikesPost = post.UserInfoWhoLikesEvent !== null ? post.UserInfoWhoLikesEvent.split('#') : null;
-
-        let blockWithInfoAboutLikes = "";
-        if (userInfoWhoLikesPost !== null) {
-            if (post.AmountEventLikes > 1)
-                blockWithInfoAboutLikes = <p>Нравится <span className={styles.userLink}><Link to={`/profile/${userInfoWhoLikesPost[1]}`}>{userInfoWhoLikesPost[0]}</Link></span> и <span className={styles.moreLikes} onClick={this.clickShowUsersWhoLikesPost.bind(this, post.EventId, post.MovieId)}>ещё</span> {post.AmountEventLikes - 1} пользователям</p>;
-            else
-                blockWithInfoAboutLikes = <p>Нравится <span className={styles.userLink}><Link to={`/profile/${userInfoWhoLikesPost[1]}`}>{userInfoWhoLikesPost[0]}</Link></span></p>;
-        }
-
         let commentsExcludingMain = post.Comments.filter((comment, i) => i !== 0).map(comment => <PostComment comment={comment} clickLike={this.state.handleClickLikeComment.bind(this, post.EventId, post.MovieId, comment.CommentId)} />);
         let displayBookmarkBlock = { display: post.StatusOfMovieForUser === Constants.MOVIE_STATUS_WILL_WATCH ? "block" : "none" };
         let displayBookmarkIconBlock = { display: userRaiting === null ? "none" : "block" };
@@ -218,11 +208,11 @@ class Post extends React.Component {
         return (
             <article className={`${styles.container} ${externalClass}`} id={`post-${post.EventId}`}>
                 <PostHeader userId={post.UserId} userAvatarPath={post.AvatarPath} login={post.Login} postType={post.EventType} postDateOfCreation={post.DateOfCreation}/>
-                <div className={styles.main} style={{ background: `url(https://image.tmdb.org/t/p/w780${post.MovieBackdropPath}) 100% 100% no-repeat` }}>
+                <div className={styles.main} style={{ background: `${getBackdropUrl(post.MovieBackdropPath)}` }}>
                     <div>
                         <div className={styles.posterBlock}>
                             <div>
-                                <img src={post.MoviePosterPath ? `https://image.tmdb.org/t/p/w342${post.MoviePosterPath}` : framePlaceholder} className={styles.posterImage} height="452px" />
+                                <img src={getPosterPath(post.MoviePosterPath)} className={styles.posterImage} height="452px" />
                                 <img src={bookMarkIcon} width="50px" style={displayBookmarkBlock} />
                             </div>
                         </div>
@@ -250,10 +240,20 @@ class Post extends React.Component {
                     </div>
                 </div>
 
-                <PostButtonBar isActiveLike={post.IsCurrentUserLiked} clickLike={this.state.handleClickLike.bind(this, post.EventId, post.MovieId)} />
+                <PostButtonBar
+                    isActiveLike={post.IsCurrentUserLiked}
+                    clickLike={this.state.handleClickLike.bind(this, post.EventId, post.MovieId)}
+                    clickComment={this.clickShowAllComments.bind(this)}
+                />
 
                 <div className={styles.commentsBlock}>
-                    {blockWithInfoAboutLikes}
+                    <PostTotalLikes
+                        userInfoWhoLikesEvent={post.UserInfoWhoLikesEvent}
+                        amountEventLikes={post.AmountEventLikes}
+                        clickShowUsersWhoLikesPost={this.clickShowUsersWhoLikesPost.bind(this, post.EventId, post.MovieId)}
+                        isInDetails={false}
+                    />
+
                     {blockWithMainComment}
 
                     <p className={styles.showAllComments} onClick={this.clickShowAllComments.bind(this)} style={displayAllCommentsBlock}>
@@ -269,7 +269,11 @@ class Post extends React.Component {
                     handleClick={this.state.handleClickPublishComment.bind(this, post.EventId, post.MovieId)}
                 />
 
-                <PostDetails isDisplay={this.state.showAllComments} />
+                <PostDetails
+                    isDisplay={this.state.showAllComments}
+                    post={post}
+                    clickClose={this.clickShowAllComments}
+                />
                 <ModalDialog show={this.state.modalDialog.show} title={this.state.modalDialog.title} isLoading={this.state.modalDialog.isLoading}
                     items={this.state.modalDialog.items} clickClose={this.hideModalDialog}/>
             </article>

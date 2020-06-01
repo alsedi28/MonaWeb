@@ -18,7 +18,7 @@
   background-color: #fefefe;
   margin: auto;
   border: 1px solid #888;
-  width: 80%;
+  width: 60%;
   max-height: 511px;
   display: flex;
   justify-content: start;
@@ -42,9 +42,13 @@
 /* Left side */
 
 .posterBox {
+    min-width: 447px;
     height: 511px;
     width: 447px;
     background-size: cover !important;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;
 }
 
 .posterBox > div {
@@ -108,14 +112,17 @@
     font-size: 14px;
     float: left;
     padding-left: 16px;
+    font-family: "Montserrat";
 }
 
 .userInfo > span:last-child {
-    font-weight: normal;
+    font-family: "Montserrat";
+    font-weight: 300;
 }
 
 .userInfo > span:first-child {
-    font-weight: bold;
+    font-family: "Montserrat";
+    font-weight: 300;
 }
 
 .userLink > a {
@@ -128,34 +135,6 @@
 }
 
 /* Comments */
-
-.commentBox {
-  display: flex;
-  padding-top: 8px;
-  padding-left: 0px;
-  padding-right: 16px;
-  padding-bottom: 8px;
-  justify-content: space-between;
-  align-items: top;
-}
-
-.commentsBlock {
-  display: flex;
-  flex-flow: row wrap;
-  height: auto;
-  font-size: 16px;
-  font-weight: normal;
-  color: rgb(49, 54, 60);
-}
-
-.commentsBlock span {
-    font-weight: bold;
-}
-
-.commentsBlock > p {
-    padding-left: 8px;
-    padding-right: 16px;
-}
 
 .timeAgo {
     font-size: 10px;
@@ -184,119 +163,6 @@
     height: 288px; /* calculate correct size */
 }
 
-.commentListItem {
-  padding-left: 0px;
-  padding-right: 0px;
-}
-
-.commentListItem:last-child {
-    margin-bottom: 0;
-}
-
-/* Post Info */
-
-.postInfoContainer {
-    align-items: center;
-    flex-flow: row wrap;
-    justify-content: flex-start;
-    padding-left: 16px;
-    padding-right: 16px;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    margin-top: 0px;
-    display: flex;
-    flex-direction: row;
-    flex-grow: 1;
-    flex-shrink: 1;
-
-    border-top: 1px solid #dbdbdb;
-    position: absolute;
-    bottom: 40px;
-    right: 0;
-    left: 0;
-}
-
-.userLink {
-    font-weight: bold;
-}
-
-.buttonsContainer {
-    height: 32px;
-}
-
-.like:hover {
-    cursor: pointer;
-}
-
-/* Input field */
-
-.inputFieldContainer {
-    align-items: center;
-    flex-flow: row wrap;
-    justify-content: flex-start;
-    padding-left: 16px;
-    padding-right: 16px;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    margin-top: 0px;
-    display: flex;
-    flex-direction: row;
-    flex-grow: 1;
-    flex-shrink: 1;
-
-    border-top: 1px solid #dbdbdb;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    left: 0;
-}
-
-.textArea {
-    background: 0 0;
-    border: 0;
-    color: #31363c;
-    display: flex;
-    flex-grow: 1;
-    height: 20px;
-    max-height: 80px;
-    outline: 0;
-    padding: 0;
-    resize: none;
-    font-size: 12px;
-    font-weight: normal;
-}
-
-.textArea:disabled {
-    opacity: 0.3;
-    pointer-events: none;
-}
-
-.textArea::placeholder, .textArea:focus::placeholder {
-    color: #adafb1;
-    font-weight: bold;
-}
-
-.sendButton {
-    appearance: none;
-    background: 0 0;
-    border: 0;
-    box-sizing: border-box;
-    cursor: pointer;
-    display: block;
-    padding: 5px 9px;
-    text-align: right;
-    text-transform: inherit;
-    text-overflow: ellipsis;
-    user-select: none;
-    width: auto;
-    color: rgb(253, 87, 57);
-    position: relative;
-    font-size: 12px;
-    font-weight: bold;
-}
-
-.sendButton[disabled] {
-    opacity: 0.7;
-    color: #adafb1;
-    pointer-events: none;
+.loader {
+    padding-top: 35px;
 }
