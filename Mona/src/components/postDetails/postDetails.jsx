@@ -189,6 +189,7 @@ class PostDetails extends React.Component {
 
     clickBackground(event) {
         let target = event.target;
+        console.error(target, target.closest(".dialog-ev"));
 
         if (target.closest(".dialog-ev")) {
             event.stopPropagation();
@@ -215,10 +216,10 @@ class PostDetails extends React.Component {
 
         return (
             <React.Fragment>
-            <div id="myModal" className={styles.modal} style={{ display: this.props.isDisplay ? "block" : "none" }} onClick={this.clickBackground}>
+            <div id="myModal" className={styles.modal} style={{ display: this.props.isDisplay ? "block" : "none" }} onClick={this.clickBackground.bind(this)}>
 
-            <arcticle className={`dialog-ev`}>
-            <div className={styles.modalContent} ref={(elem) => this.containerRef = elem}>
+            <arcticle>
+            <div className={`${styles.modalContent} ${`dialog-ev`}`} ref={(elem) => this.containerRef = elem}>
 
             <div className={styles.posterBox} style={{ background: `${getBackdropUrl(post.MovieBackdropPath)}` }}>
                 <div>
@@ -282,6 +283,10 @@ class PostDetails extends React.Component {
             </div>
 
             </arcticle>
+
+            <div>
+                <span className={styles.close} onClick={this.props.clickClose}>&times;</span>
+            </div>
 
             </div>
             </React.Fragment>
