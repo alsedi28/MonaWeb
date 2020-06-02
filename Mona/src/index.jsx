@@ -4,7 +4,7 @@ import { HashRouter } from "react-router-dom";
 import { createBrowserHistory } from 'history';
 import App from './components/app.jsx';
 
-// создаём кастомную историю
+// РЎРѕР·РґР°С‘Рј РєР°СЃС‚РѕРјРЅСѓСЋ РёСЃС‚РѕСЂРёСЋ
 const history = createBrowserHistory();
 
 render(
