@@ -13,10 +13,16 @@
     font-style: normal;
     font-weight: 300;
     color: rgb(49, 54, 60);
+    padding: 10px 0px;
 }
 
-.searchUsersExternal {
+.searchUsers {
     float: left;
+    width: 500px;
+    background-color: white;
+    box-shadow: 0px 4px 24px 0px rgba(161, 164, 184, 0.35);
+    height: auto;
+    border-radius: 6px;
 }
 
 .clear {
@@ -94,4 +100,18 @@
 
 .active {
     color: rgb(255, 86, 26) !important;
+}
+
+.searchGlobalUsersResultExternal {
+    box-shadow: 0px 4px 24px 0px rgba(161, 164, 184, 0.35);
+    border-radius: 6px;
+}
+
+.usersNotFound {
+    font-size: 14px;
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: normal;
+    color: rgb(49, 54, 60);
+    text-align: center;
 }

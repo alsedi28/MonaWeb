@@ -12,7 +12,7 @@ const PostButtonBar = ({ isActiveLike, clickLike, externalClass = "" }) => {
     function clickLikeWithAnimation() {
         clickLike();
 
-        // ��������� �������� ��� �������� � ����� �������
+        // Добавляем анимацию клика по лайку
         imgLike.current.classList.add(styles.likeClickActive);
         setTimeout(() => imgLike.current.classList.remove(styles.likeClickActive), 1000);
     }

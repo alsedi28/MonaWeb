@@ -1,0 +1,32 @@
+.container {
+    height: 45px;
+    border-bottom: 2px solid rgba(41, 42, 44, 0.1);
+}
+
+.container input {
+    background: 0 0;
+    border: 0;
+    color: rgb(49, 54, 60);
+    height: 100%;
+    width: 80%;
+    outline: 0;
+    padding: 0px;
+    margin-left: 20px;
+    position: relative;
+    top: -5px;
+    font-size: 16px;
+    font-family: "Montserrat";
+    font-weight: normal;
+}
+
+.container input::placeholder, .container input:focus::placeholder {
+    color: rgb(173, 175, 177);
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: normal;
+}
+
+.container img {
+    margin-top: 14px;
+    margin-left: 25px;
+}

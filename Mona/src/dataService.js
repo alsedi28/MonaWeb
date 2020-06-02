@@ -81,6 +81,12 @@ export class DataService {
         this._get(url, callback);
     }
 
+    static searchUsers(name, callback) {
+        let url = `${Constants.DOMAIN}/api/users?name=${name}`;
+
+        this._get(url, callback);
+    }
+
     static getViewedMovies(userId, pageNumber, callback) {
         let url = `${Constants.DOMAIN}/api/users/${userId}/viewedmovies?page=${pageNumber}&sortedBy=DateDesc`;
 

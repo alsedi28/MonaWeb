@@ -1,0 +1,40 @@
+.container {
+    height: auto;
+    width: 500px;
+    background-color: white;
+}
+
+.loader {
+    margin-top: 20px;
+}
+
+.userListItemExternal {
+    height: 130px !important;
+    border-bottom: 1px solid rgba(41, 42, 44, 0.1);
+}
+
+.userListItemExternal > div:nth-child(1) {
+    margin-left: auto !important;
+}
+
+.userListItemExternal > div:nth-child(1) div {
+    width: 100px !important;
+    height: 100px !important;
+}
+
+.userListItemExternal > div:nth-child(2) {
+    width: 165px !important;
+    padding-left: 20px !important;
+}
+
+.userListItemExternal > div:nth-child(2) p {
+    width: 165px !important;
+}
+
+.userListItemExternal > div:nth-child(2) p:first-of-type {
+    padding-top: 33px !important;
+}
+
+.userListItemExternal > div:nth-child(3) {
+    margin-top: 43px !important;
+}
