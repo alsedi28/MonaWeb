@@ -8,20 +8,8 @@
     height: 100%;
 }
 
-.userIconBlock > div {
-    width: 170px;
-    height: 170px;
-    border-radius: 50%;
-    border: 3px solid #e6e6e6;
+.userAvatarExternal {
     margin-left: 35px;
-}
-
-.userIconBlock > div > div{
-    width: 170px;
-    height: 170px;
-    border-radius: 50%;
-    overflow: hidden;
-    background-size: cover!important;
 }
 
 .userInfoBlock {
@@ -34,7 +22,7 @@
     margin-top: 50px;
 }
 
-.userCounters > div {
+.userCounters div {
     float: left;
     width: 140px;
     height: 60px;
@@ -44,7 +32,7 @@
     box-shadow: 2px 8px 16px 0px rgba(105, 105, 105, 0.3);
 }
 
-.userCounters > div > p:first-of-type {
+.userCounters div > p:first-of-type {
     font-family: "Montserrat";
     font-weight: 300;
     margin-bottom: 0;
@@ -56,7 +44,7 @@
     width: 95px;
 }
 
-.userCounters > div > p:last-of-type {
+.userCounters div > p:last-of-type {
     font-size: 16px;
     margin: 0px;
     margin-left: 13px;
@@ -66,14 +54,19 @@
     float: left;
 }
 
-.userCounters > div > img {
+.userCounters div > img {
     float: right;
     margin-top: -15px;
     margin-right: -5px;
 }
 
-.userCounters > div:hover {
-    cursor: pointer;
+.userCounters > a {
+    text-decoration: none;
+    color: rgb(49, 54, 60);
+}
+
+.userCounters > a:visited {
+    color: rgb(49, 54, 60);
 }
 
 .login {

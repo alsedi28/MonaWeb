@@ -2,23 +2,23 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import FollowButton from '../followButton/followButton';
+import UserAvatar from '../userAvatar/userAvatar';
 import { DataService } from '../../dataService';
 import Constants from '../../constants';
 
 import styles from './userListItem.module.css';
-
-import blankProfileIcon from '../../../public/icons/blankProfileIcon.png';
 
 class UserListItem extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            userId: props.userId,
-            isFollowing: props.isFollowing,
-            clickFollowButton: this.clickFollowButton.bind(this)
+            userId: props.userId, 
+            isFollowing: props.isFollowing, // Признак подписан текущий пользователь на данного или нет
+            clickFollowButton: this.clickFollowButton.bind(this) // Обработчик click по кнопке Подписаться/Подписка
         };
 
+        this.updateProfilePage = props.handlerExternal ? props.handlerExternal : () => ({});
         this.clickFollowButton = this.clickFollowButton.bind(this);
         this.updateInfoAboutFollowing = this.updateInfoAboutFollowing.bind(this);
     }
@@ -42,20 +42,21 @@ class UserListItem extends React.Component {
                 // Возвращаем обработчик click
                 clickFollowButton: this.clickFollowButton.bind(this)
             });
+
+            this.updateProfilePage();
         };
 
         DataService.getProfileInfo(this.state.userId, callback);
     }
 
     render() {
-        const { userIcon, userLogin, userName, userId, externalClass = "" } = this.props;
+        const { userIcon, userLogin, userName, userId, externalClass = ""} = this.props;
 
         return (
             <div className={`${styles.container} ${externalClass}`}>
                 <div className={styles.userIcon}>
                     <Link to={`/profile/${userId}`}>
-                        <div style={{ background: `url(${userIcon ? userIcon : blankProfileIcon}) 50% 10% no-repeat` }}>
-                        </div>
+                        <UserAvatar avatar={userIcon} size={80} externalClass={styles.userAvatarExternal} />
                     </Link>
                 </div>
                 <div className={styles.userInfo}>

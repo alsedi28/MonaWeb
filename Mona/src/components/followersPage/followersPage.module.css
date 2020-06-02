@@ -1,0 +1,119 @@
+.container {
+    margin-top: 90px;
+    max-width: 790px;
+    min-width: 650px;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.title {
+    font-size: 20px;
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 300;
+    color: rgb(49, 54, 60);
+    padding: 10px 0px;
+}
+
+.searchUsers {
+    float: left;
+    width: 500px;
+    background-color: white;
+    box-shadow: 0px 4px 24px 0px rgba(161, 164, 184, 0.35);
+    height: auto;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.clear {
+    clear: both;
+}
+
+.tabs {
+    position: relative;
+    height: auto;
+    display: block;
+    padding: 0;
+    background-color: white;
+    box-shadow: 0px 4px 24px 0px rgba(161, 164, 184, 0.35);
+    border-radius: 6px;
+    margin-left: 535px;
+    overflow: hidden;
+}
+
+.tabs > a {
+    display: block;
+    text-decoration: none;
+    padding: 15px 22px;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgb(49, 54, 60);
+    text-align: left;
+    font-family: "Montserrat";
+    font-weight: normal;
+}
+
+.tabs > a:visited {
+    color: rgb(49, 54, 60);
+}
+
+.tabs > a.active:visited {
+    color: rgb(255, 86, 26) !important;
+}
+
+.tabs > a.active {
+    background-color: rgba(253, 87, 57, 0.05);
+    font-weight: 700;
+    outline: none;
+}
+
+.tabs > a:hover {
+    cursor: pointer;
+}
+
+.tabs > a:not(.active):hover {
+    background-color: inherit;
+    color: #7c848a;
+}
+
+.yellowBar {
+    position: absolute;
+    width: 3px;
+    height: 46px !important;
+    z-index: 10;
+    bottom: 0px;
+    height: 3px;
+    background: rgb(255, 86, 26);
+    display: block;
+    left: 0px;
+    transition: top .2s ease;
+    -webkit-transition: top .2s ease;
+}
+
+.tabFollowing.active ~ span.yellowBar {
+    top: 0px;
+}
+
+.tabFollowers.active ~ span.yellowBar {
+    top: 47px;
+}
+
+.active {
+    color: rgb(255, 86, 26) !important;
+}
+
+.searchGlobalUsersResultExternal {
+    box-shadow: 0px 4px 24px 0px rgba(161, 164, 184, 0.35);
+    border-radius: 6px;
+}
+
+.usersNotFound {
+    font-size: 14px;
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: normal;
+    color: rgb(49, 54, 60);
+    text-align: center;
+    padding: 10px 30px;
+}

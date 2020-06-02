@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import styles from './postHeader.module.css';
+import UserAvatar from '../userAvatar/userAvatar';
 
-import blankProfileIcon from '../../../public/icons/blankProfileIcon.png';
 import { getTimeAgoString } from '../../helpers/timeHelper'
 import { getStatusString } from '../../helpers/eventHelper'
+import styles from './postHeader.module.css';
 
 const PostHeader = ({ userId, userAvatarPath, login, postType, postDateOfCreation, externalClass = "" }) => {
 
@@ -14,7 +14,7 @@ const PostHeader = ({ userId, userAvatarPath, login, postType, postDateOfCreatio
             <div className={styles.iconWithInfoContainer}>
                 <div className={styles.userIcon}>
                     <Link to={`/profile/${userId}`}>
-                        <img src={userAvatarPath ? userAvatarPath : blankProfileIcon} className={styles.userLink} width="44px" height="44px" />
+                        <UserAvatar avatar={userAvatarPath} size={44} />
                     </Link>
                 </div>
                 <div className={styles.userInfo}>

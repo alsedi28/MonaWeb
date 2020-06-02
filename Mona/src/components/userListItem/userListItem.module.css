@@ -8,14 +8,9 @@
     height: 100%;
 }
 
-.userIcon div {
-    border-radius: 50%;
+.userAvatarExternal {
     margin-top: 10px;
     margin-left: 15px;
-    width: 80px;
-    height: 80px;
-    overflow: hidden;
-    background-size: cover!important;
 }
 
 .userInfo {
@@ -26,8 +21,9 @@
 
 .userInfo > p {
     margin: 0px;
-    font-size: 20px;
+    font-size: 18px;
     color:rgb(49, 54, 60);
+    word-wrap: break-word;
 }
 
 .userInfo > p:first-child {

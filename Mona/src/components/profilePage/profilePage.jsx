@@ -107,7 +107,7 @@ class ProfilePage extends React.Component {
         DataService.getProfileInfo(this.state.profile.id, callback);
     }
 
-    updatePartlyProfileInfo() {
+    updatePartlyProfileInfo(callFromModalDialog = false) {
         let callback = (profile) => {
             this.setState({
                 ...this.state,
@@ -119,9 +119,9 @@ class ProfilePage extends React.Component {
                 }
             });
 
-            // Сбрасываем значения. После обновления могло измениться количество.
-            this.followers.isLoaded = false;
-            this.following.isLoaded = false;
+            // Если вызываем из модального окна, то необходимо после обновления убрать скролл у страницы
+            if (callFromModalDialog)
+                document.body.style.overflow = "hidden";
         };
 
         DataService.getProfileInfo(this.state.profile.id, callback);
@@ -227,15 +227,8 @@ class ProfilePage extends React.Component {
             DataService.addFollowing(this.state.profile.id, callback);
     }
 
-    clickTab(event, tabNumber) {
-        let tabs = document.getElementsByClassName(styles.tabs)[0].getElementsByTagName("a");
-
-        for (var i = 0; i < tabs.length; i++)
-            tabs[i].classList.remove(styles.active);
-
-        event.target.classList.add(styles.active);
-
-        this.setState({ ...this.state, tabNumberActive: tabNumber });
+    clickTab(tabNumber) {
+        this.setState({ tabNumberActive: tabNumber });
     }
 
     renderMoviesForView(movies, isViewed) {
@@ -246,13 +239,13 @@ class ProfilePage extends React.Component {
             if (i === movies.items.length - 1)
                 result.push(
                     <div className={styles.moviesContainer}>
-                        <MovieItemOnUserProfile movie={movies.items[i]} isViewed={isViewed} externalClass={styles.movieBlockExternal} />
+                        <MovieItemOnUserProfile movie={movies.items[i]} isViewed={isViewed} externalClass={styles.movieBlockExternal} handlerExternal={this.updatePartlyProfileInfo.bind(this, true)} />
                     </div>);
             else
                 result.push(
                     <div className={styles.moviesContainer}>
-                        <MovieItemOnUserProfile movie={movies.items[i]} isViewed={isViewed} externalClass={styles.movieBlockExternal} />
-                        <MovieItemOnUserProfile movie={movies.items[i + 1]} isViewed={isViewed} externalClass={styles.movieBlockExternal} />
+                        <MovieItemOnUserProfile movie={movies.items[i]} isViewed={isViewed} externalClass={styles.movieBlockExternal} handlerExternal={this.updatePartlyProfileInfo.bind(this, true)}/>
+                        <MovieItemOnUserProfile movie={movies.items[i + 1]} isViewed={isViewed} externalClass={styles.movieBlockExternal} handlerExternal={this.updatePartlyProfileInfo.bind(this, true)}/>
                     </div>);
         }
 
@@ -274,9 +267,9 @@ class ProfilePage extends React.Component {
                             clickFollowers={this.clickShowFollowers} clickFollowing={this.clickShowFollowing} style={{ display: this.state.isLoading ? "none" : "block" }} />
                     </div>
                     <div className={styles.tabs}>
-                        <a className={`${styles.tabPosts} ${styles.active}`} onClick={(e) => this.clickTab(e, 1)}>Публикации ({this.state.profile.amountPosts})</a>
-                        <a className={styles.tabMoviesWillWatch} onClick={(e) => this.clickTab(e, 2)}>В закладках ({this.state.profile.amountWillWatchMovies})</a>
-                        <a className={styles.tabMoviesViewed} onClick={(e) => this.clickTab(e, 3)}>Просмотрено ({this.state.profile.amountViewedMovies})</a>
+                        <a className={`${styles.tabPosts} ${this.state.tabNumberActive === 1 ? styles.active : ''}`} onClick={this.clickTab.bind(this, 1)}>Публикации ({this.state.profile.amountPosts})</a>
+                        <a className={`${styles.tabMoviesWillWatch} ${this.state.tabNumberActive === 2 ? styles.active : ''}`} onClick={this.clickTab.bind(this, 2)}>В закладках ({this.state.profile.amountWillWatchMovies})</a>
+                        <a className={`${styles.tabMoviesViewed} ${this.state.tabNumberActive === 3 ? styles.active : ''}`} onClick={this.clickTab.bind(this, 3)}>Просмотрено ({this.state.profile.amountViewedMovies})</a>
                         <span className={styles.tabBar}></span>
                     </div>
                     <div className={styles.tabDataContainer} style={{ display: this.state.tabNumberActive === 1 ? "block" : "none" }}>
@@ -290,7 +283,7 @@ class ProfilePage extends React.Component {
                                 hasMore={this.state.feed.hasMore}
                                 loader={<Loader />}
                             >
-                                {this.state.feed.posts.map(post => <Post post={post} externalClass="post-external" />)}
+                                {this.state.feed.posts.map(post => <Post post={post} externalClass="post-external" handlerExternal={this.updatePartlyProfileInfo.bind(this, true)}/>)}
                             </InfiniteScroll>
                         </PostsFeed>
                     </div>

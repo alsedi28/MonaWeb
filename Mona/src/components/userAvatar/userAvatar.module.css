@@ -1,0 +1,13 @@
+.container {
+    border-radius: 50%;
+    overflow: hidden;
+    background-size: cover !important;
+}
+
+.grayBorder {
+    border: 2px solid rgb(193, 205, 222);
+}
+
+.orangeBorder {
+    border: 2px solid rgb(255, 86, 26);
+}

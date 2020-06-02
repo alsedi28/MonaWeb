@@ -18,13 +18,7 @@
 .userIcon {
     /* for an unknown reason, css automatically adds padding-bottom = 4px for icon, so to fix it I added padding-top ¯\_(ツ)_/¯ */
     padding-top: 4px;
-    border-radius: 50%;
     float: left;
-}
-
-.userIcon img {
-    border-radius: 50%;
-    object-fit: cover;
 }
 
 .userInfo {

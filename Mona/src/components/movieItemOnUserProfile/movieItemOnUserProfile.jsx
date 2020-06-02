@@ -80,7 +80,7 @@ class MovieItemOnUserProfile extends React.Component {
     }
 
     render() {
-        const { movie, isViewed, externalClass = "" } = this.props;
+        const { movie, isViewed, externalClass = "", handlerExternal = () => ({}) } = this.props;
 
         let blockProductionCountry = movie.ProductionCountry ? <p className={styles.productionCountries}>{movie.ProductionCountry}</p> : "";
         let movieRaiting = movie.ImdbRaiting === null ? movie.VoteAverage : movie.ImdbRaiting;
@@ -118,14 +118,16 @@ class MovieItemOnUserProfile extends React.Component {
                 </div>
 
                 <RemoveScroll enabled={this.state.modalDialog.show}>
-                    <ModalDialog
-                        show={this.state.modalDialog.show}
-                        title={this.state.modalDialog.title}
+                    <ModalDialog 
+                        show={this.state.modalDialog.show} 
+                        title={this.state.modalDialog.title} 
                         isLoading={this.state.modalDialog.isLoading}
-                        items={this.state.modalDialog.items}
-                        clickClose={this.hideModalDialog}
+                        items={this.state.modalDialog.items} 
+                        clickClose={this.hideModalDialog} 
+                        handlerExternal={handlerExternal} 
                     />
                 </RemoveScroll>
+
             </article>
         );
     }

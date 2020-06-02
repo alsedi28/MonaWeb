@@ -7,7 +7,7 @@ import styles from './modalDialog.module.css';
 
 import closeIcon from '../../../public/icons/close.png';
 
-const ModalDialog = ({ show, isLoading, title, items, clickClose, externalClass = "" }) => {
+const ModalDialog = ({ show, isLoading, title, items, clickClose, externalClass = "", handlerExternal = () => ({}) }) => {
 
     function clickBackground(event) {
         let target = event.target;
@@ -32,7 +32,7 @@ const ModalDialog = ({ show, isLoading, title, items, clickClose, externalClass 
                 <div className={styles.itemsContainer}>
                     <Loader show={isLoading} externalClass={styles.loader} />
                     {items.map(item =>
-                        <UserListItem userIcon={item.icon} userLogin={item.login} userName={item.name} userId={item.id} isFollowing={item.isFollowing} />)}
+                        <UserListItem userIcon={item.icon} userLogin={item.login} userName={item.name} userId={item.id} isFollowing={item.isFollowing} handlerExternal={handlerExternal}/>)}
                 </div>
             </div>
         </div>
