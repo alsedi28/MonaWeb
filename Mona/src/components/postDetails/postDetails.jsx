@@ -46,21 +46,33 @@ class PostDetails extends React.Component {
         this.showModalDialog = this.showModalDialog.bind(this);
         this.hideModalDialog = this.hideModalDialog.bind(this);
 
+        this.updateEventHandler = props.handlerExternal ? props.handlerExternal : () => ({});
+
         this.containerRef = React.createRef();
         this.postDetailsRef = React.createRef();
     }
 
     componentDidMount() {
-        this.getCommentsList();
+        this.updateCommentsList();
     }
 
-    getCommentsList() {
+    updatePost(eventId, movieId) {
+        let callback = (item) => {
+            this.setState({ post: item });
+            this.updateEventHandler();
+        };
+
+        DataService.getPost(eventId, movieId, callback);
+    }
+
+    updateCommentsList() {
         let callback = (commentsList) => {
             this.setState({
                 ...this.state,
                 isLoading: false,
                 comments: commentsList
             });
+            this.updateEventHandler();
         };
 
         let eventId = this.state.post.EventId
@@ -91,7 +103,7 @@ class PostDetails extends React.Component {
         this.setState({ handleClickPublishComment: () => ({})});
 
         let callback = _ => {
-            this.getCommentsList();
+            this.updateCommentsList();
             // Возвращаем обработчик click
             this.setState({
                 handleClickPublishComment: this.clickPublishComment,
@@ -128,7 +140,7 @@ class PostDetails extends React.Component {
         this.setState({ handleClickLikeComment: () => ({}) });
 
         let callback = _ => {
-            this.getCommentsList();
+            this.updateCommentsList();
             // Возвращаем обработчик click
             this.setState({ handleClickLikeComment: this.clickLikeComment });
         };
@@ -142,14 +154,6 @@ class PostDetails extends React.Component {
                 DataService.addLikeToComment(eventId, movieId, commentId, callback);
             }
         }
-    }
-
-    updatePost(eventId, movieId) {
-        let callback = (item) => {
-            this.setState({ post: item });
-        };
-
-        DataService.getPost(eventId, movieId, callback);
     }
 
     showModalDialog(title, getter, ...args) {
@@ -189,7 +193,6 @@ class PostDetails extends React.Component {
 
     clickBackground(event) {
         let target = event.target;
-        console.error(target, target.closest(".dialog-ev"));
 
         if (target.closest(".dialog-ev")) {
             event.stopPropagation();

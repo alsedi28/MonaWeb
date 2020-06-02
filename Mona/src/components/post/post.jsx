@@ -218,7 +218,7 @@ class Post extends React.Component {
         let commentsExcludingMain = post.Comments.filter((comment, i) => i !== 0).map(comment => <PostComment comment={comment} clickLike={this.state.handleClickLikeComment.bind(this, post.EventId, post.MovieId, comment.CommentId)} />);
         let displayBookmarkBlock = { display: post.StatusOfMovieForUser === Constants.MOVIE_STATUS_WILL_WATCH ? "block" : "none" };
         let displayBookmarkIconBlock = { display: userRaiting === null ? "none" : "block" };
-        let displayAllCommentsBlock = { display: post.AmountEventComments > 1 && !this.state.showAllComments ? "block" : "none" };
+        let displayAllCommentsBlock = { display: post.AmountEventComments > 1 ? "block" : "none" };
 
         return (
             <article className={`${styles.container} ${externalClass}`} id={`post-${post.EventId}`}>
@@ -289,17 +289,18 @@ class Post extends React.Component {
                         isDisplay={this.state.showAllComments}
                         post={post}
                         clickClose={this.hidePostDetails}
+                        handlerExternal={this.updatePost.bind(this, post.EventId, post.MovieId)}
                     />
                 </RemoveScroll>
 
                 <RemoveScroll enabled={this.state.modalDialog.show}>
-                    <ModalDialog 
-                        show={this.state.modalDialog.show} 
-                        title={this.state.modalDialog.title} 
+                    <ModalDialog
+                        show={this.state.modalDialog.show}
+                        title={this.state.modalDialog.title}
                         isLoading={this.state.modalDialog.isLoading}
-                        items={this.state.modalDialog.items} 
-                        clickClose={this.hideModalDialog} 
-                        handlerExternal={handlerExternal} 
+                        items={this.state.modalDialog.items}
+                        clickClose={this.hideModalDialog}
+                        handlerExternal={handlerExternal}
                     />
                 </RemoveScroll>
             </article>
