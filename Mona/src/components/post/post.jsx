@@ -12,6 +12,8 @@ import PostTotalLikes from '../postTotalLikes/postTotalLikes';
 import { DataService } from '../../dataService';
 import Constants from '../../constants';
 
+import { RemoveScroll } from 'react-remove-scroll';
+
 import { getPosterPath, getBackdropUrl } from '../../helpers/imagePathHelper';
 
 import styles from './post.module.css';
@@ -49,6 +51,8 @@ class Post extends React.Component {
         this.setModalDialogState = this.setModalDialogState.bind(this);
         this.showModalDialog = this.showModalDialog.bind(this);
         this.hideModalDialog = this.hideModalDialog.bind(this);
+
+        this.hidePostDetails = this.hidePostDetails.bind(this);
     }
 
     handleInputCommentChange(event) {
@@ -94,12 +98,6 @@ class Post extends React.Component {
         let title = "Уже смотрели";
 
         this.showModalDialog(title, DataService.getUsersWhoViewedMovie.bind(DataService), movieId);
-    }
-
-    clickShowAllComments() {
-        this.setState(prevState => ({
-            showAllComments: !prevState.showAllComments
-        }));
     }
 
     clickLikePost(eventId, movieId) {
@@ -180,6 +178,22 @@ class Post extends React.Component {
                 items
             }
         });
+    }
+
+    showPostDetails() {
+        this.setState({
+            showAllComments: true
+        });
+    }
+
+    hidePostDetails() {
+        this.setState({
+            showAllComments: false
+        });
+    }
+
+    clickShowAllComments() {
+        this.showPostDetails();
     }
 
     render() {
@@ -269,13 +283,23 @@ class Post extends React.Component {
                     handleClick={this.state.handleClickPublishComment.bind(this, post.EventId, post.MovieId)}
                 />
 
-                <PostDetails
-                    isDisplay={this.state.showAllComments}
-                    post={post}
-                    clickClose={this.clickShowAllComments}
-                />
-                <ModalDialog show={this.state.modalDialog.show} title={this.state.modalDialog.title} isLoading={this.state.modalDialog.isLoading}
-                    items={this.state.modalDialog.items} clickClose={this.hideModalDialog}/>
+                <RemoveScroll enabled={this.state.showAllComments}>
+                    <PostDetails
+                        isDisplay={this.state.showAllComments}
+                        post={post}
+                        clickClose={this.hidePostDetails}
+                    />
+                </RemoveScroll>
+
+                <RemoveScroll enabled={this.state.modalDialog.show}>
+                    <ModalDialog
+                        show={this.state.modalDialog.show}
+                        title={this.state.modalDialog.title}
+                        isLoading={this.state.modalDialog.isLoading}
+                        items={this.state.modalDialog.items}
+                        clickClose={this.hideModalDialog}
+                    />
+                </RemoveScroll>
             </article>
         );
     }

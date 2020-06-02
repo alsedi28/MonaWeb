@@ -12,8 +12,10 @@ import { getStatusString } from '../../helpers/eventHelper';
 import { getPosterPath, getBackdropUrl, getAvatarPath } from '../../helpers/imagePathHelper';
 
 import { DataService } from '../../dataService';
+import { RemoveScroll } from 'react-remove-scroll';
 
 class PostDetails extends React.Component {
+
     constructor(props) {
         super(props);
 
@@ -269,9 +271,14 @@ class PostDetails extends React.Component {
 
             </div>
 
-            <ModalDialog show={this.state.modalDialog.show} title={this.state.modalDialog.title} isLoading={this.state.modalDialog.isLoading}
-                items={this.state.modalDialog.items} clickClose={this.hideModalDialog}/>
-
+            <RemoveScroll enabled={this.state.modalDialog.show}>
+                <ModalDialog
+                    show={this.state.modalDialog.show}
+                    title={this.state.modalDialog.title}
+                    isLoading={this.state.modalDialog.isLoading}
+                    items={this.state.modalDialog.items}
+                    clickClose={this.hideModalDialog}/>
+            </RemoveScroll>
             </div>
 
             </arcticle>
