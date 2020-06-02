@@ -5,7 +5,7 @@ import ModalDialog from '../modalDialog/modalDialog';
 import PostButtonBar from '../postButtonBar/postButtonBar';
 import PostHeader from '../postHeader/postHeader';
 import PostComment from '../postComment/postComment';
-import PostInputComment from '../postInputComment/postInputComment';
+import PostCommentInput from '../postCommentInput/postCommentInput';
 import PostWatchStatusButtons from '../postWatchStatusButtons/postWatchStatusButtons';
 import PostDetails from '../postDetails/postDetails';
 import PostTotalLikes from '../postTotalLikes/postTotalLikes';
@@ -263,7 +263,7 @@ class Post extends React.Component {
                     {commentsExcludingMain}
                 </div>
 
-                <PostInputComment
+                <PostCommentInput
                     value={this.state.inputComment}
                     handleChange={this.handleInputCommentChange}
                     handleClick={this.state.handleClickPublishComment.bind(this, post.EventId, post.MovieId)}

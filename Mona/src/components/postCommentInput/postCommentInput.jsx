@@ -1,8 +1,8 @@
 import React, { useRef, useEffect } from 'react';
 
-import styles from './postInputComment.module.css';
+import styles from './postCommentInput.module.css';
 
-function PostInputComment(props) {
+function PostCommentInput(props) {
     const textareaRef = useRef(null);
 
     useEffect(() => {
@@ -32,4 +32,4 @@ function PostInputComment(props) {
     );
 }
 
-export default PostInputComment;
+export default PostCommentInput;
