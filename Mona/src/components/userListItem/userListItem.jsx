@@ -2,12 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import FollowButton from '../followButton/followButton';
+import UserAvatar from '../userAvatar/userAvatar';
 import { DataService } from '../../dataService';
 import Constants from '../../constants';
 
 import styles from './userListItem.module.css';
-
-import blankProfileIcon from '../../../public/icons/blankProfileIcon.png';
 
 class UserListItem extends React.Component {
     constructor(props) {
@@ -57,8 +56,7 @@ class UserListItem extends React.Component {
             <div className={`${styles.container} ${externalClass}`}>
                 <div className={styles.userIcon}>
                     <Link to={`/profile/${userId}`}>
-                        <div style={{ background: `url(${userIcon ? userIcon : blankProfileIcon}) 50% 10% no-repeat` }}>
-                        </div>
+                        <UserAvatar avatar={userIcon} size={80} externalClass={styles.userAvatarExternal} />
                     </Link>
                 </div>
                 <div className={styles.userInfo}>

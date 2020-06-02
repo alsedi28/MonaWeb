@@ -8,20 +8,8 @@
     height: 100%;
 }
 
-.userIconBlock > div {
-    width: 170px;
-    height: 170px;
-    border-radius: 50%;
-    border: 3px solid #e6e6e6;
+.userAvatarExternal {
     margin-left: 35px;
-}
-
-.userIconBlock > div > div{
-    width: 170px;
-    height: 170px;
-    border-radius: 50%;
-    overflow: hidden;
-    background-size: cover!important;
 }
 
 .userInfoBlock {

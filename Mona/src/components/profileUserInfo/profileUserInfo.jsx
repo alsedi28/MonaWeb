@@ -2,20 +2,17 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import FollowButton from '../followButton/followButton';
+import UserAvatar from '../userAvatar/userAvatar';
 import Constants from '../../constants';
 
 import styles from './profileUserInfo.module.css';
 
-import blankProfileIcon from '../../../public/icons/blankProfileIcon.png';
 import shapeDark from '../../../public/icons/shapeDark.png';
 
 const ProfileUserInfo = ({ profile, clickFollowButton, externalClass = "" }) => (
     <div className={`${styles.container} ${externalClass}`}>
         <div className={styles.userIconBlock}>
-            <div>
-                <div style={{ background: `url(${profile.avatar ? profile.avatar : blankProfileIcon}) 50% 10% no-repeat` }}>
-                </div>
-            </div>
+            <UserAvatar avatar={profile.avatar} size={170} withGrayBorder={true} externalClass={styles.userAvatarExternal} />
         </div>
         <div className={styles.userInfoBlock}>
             <div>

@@ -81,19 +81,9 @@ li a:visited {
     color: rgb(49, 54, 60);
 }
 
-.userIcon {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
+.userAvatarExternal {
     display: inline-block;
     float: right;
     margin-left: 30px;
     margin-top: 0px;
-    overflow: hidden;
-    background-size: cover !important;
-    border: 2px solid rgb(193, 205, 222);
-}
-
-.userIconBorder {
-    border: 2px solid rgb(255, 86, 26);
 }
