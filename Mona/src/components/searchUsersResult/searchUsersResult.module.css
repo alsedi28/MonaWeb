@@ -21,6 +21,7 @@
 .userListItemExternal > div:nth-child(1) div {
     width: 100px !important;
     height: 100px !important;
+    margin-top: 15px !important;
 }
 
 .userListItemExternal > div:nth-child(2) {
