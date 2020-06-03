@@ -16,7 +16,6 @@
 /* Modal Content */
 .modalContent {
     background-color: #fefefe;
-    border: 1px solid #888;
     display: flex;
     justify-content: start;
     width: 90vw;
@@ -51,7 +50,7 @@
     min-width: 40%;
     height: 100%;
     max-width: 447px;
-    max-height: 511px;
+    max-height: 512px;
     background-size: cover !important;
     flex-grow: 1;
     flex-shrink: 1;
@@ -165,7 +164,7 @@
 .commentsSection {
     box-sizing: content-box;
     flex-grow: 1;
-    overflow-y: scroll;
+    overflow-y: auto;
     left: 0;
     padding-left: 16px;
     margin-top: 0;

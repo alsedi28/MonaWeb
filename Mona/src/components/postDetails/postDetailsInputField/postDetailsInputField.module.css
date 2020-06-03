@@ -33,6 +33,7 @@
     resize: none;
     font-size: 12px;
     font-weight: normal;
+    font-family: "Montserrat";
 }
 
 .textArea:disabled {
@@ -62,6 +63,7 @@
     position: relative;
     font-size: 12px;
     font-weight: bold;
+    font-family: "Montserrat";
 }
 
 .sendButton[disabled] {
