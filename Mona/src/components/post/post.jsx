@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { RemoveScroll } from 'react-remove-scroll';
 
 import ModalDialog from '../modalDialog/modalDialog';
 import PostButtonBar from '../postButtonBar/postButtonBar';
@@ -11,8 +12,6 @@ import PostDetails from '../postDetails/postDetails';
 import PostTotalLikes from '../postTotalLikes/postTotalLikes';
 import { DataService } from '../../dataService';
 import Constants from '../../constants';
-
-import { RemoveScroll } from 'react-remove-scroll';
 
 import { getPosterPath, getBackdropUrl } from '../../helpers/imagePathHelper';
 
@@ -51,7 +50,6 @@ class Post extends React.Component {
         this.setModalDialogState = this.setModalDialogState.bind(this);
         this.showModalDialog = this.showModalDialog.bind(this);
         this.hideModalDialog = this.hideModalDialog.bind(this);
-
         this.hidePostDetails = this.hidePostDetails.bind(this);
     }
 
