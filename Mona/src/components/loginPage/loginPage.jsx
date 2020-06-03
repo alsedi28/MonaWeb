@@ -43,7 +43,7 @@ const LoginPage = ({ login, showError = false }) => {
                         <div className={styles.error} style={{ display: showError ? "block" : "none" }}>
                             <p>Имя пользователя или пароль указаны неправильно.</p>
                         </div>
-                        <button onClick={clickLogin}>Войти</button>
+                        <button onClick={clickLogin} type="button">Войти</button>
                     </form>
                 </div>
             </div>
