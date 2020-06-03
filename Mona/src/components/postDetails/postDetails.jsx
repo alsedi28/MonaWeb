@@ -9,8 +9,9 @@ import PostDetailsInputField from './postDetailsInputField/postDetailsInputField
 import PostDetailsInfo from './postDetailsInfo/postDetailsInfo';
 import ModalDialog from '../modalDialog/modalDialog';
 import Loader from '../loader/loader';
+import UserAvatar from '../userAvatar/userAvatar';
 import { getStatusString } from '../../helpers/eventHelper';
-import { getPosterPath, getBackdropUrl, getAvatarPath } from '../../helpers/imagePathHelper';
+import { getPosterPath, getBackdropUrl } from '../../helpers/imagePathHelper';
 import { DataService } from '../../dataService';
 
 class PostDetails extends React.Component {
@@ -236,7 +237,7 @@ class PostDetails extends React.Component {
                                     <div className={styles.iconWithInfoContainer}>
                                         <div className={styles.userIcon}>
                                             <Link to={`/profile/${post.UserId}`}>
-                                                <img src={getAvatarPath(post.AvatarPath)} className={styles.userLink} width="32px" height="32px" />
+                                                <UserAvatar avatar={post.AvatarPath} size={32} />
                                             </Link>
                                         </div>
                                         <div className={styles.userInfo}>

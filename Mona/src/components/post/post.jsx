@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { RemoveScroll } from 'react-remove-scroll';
 
 import ModalDialog from '../modalDialog/modalDialog';
