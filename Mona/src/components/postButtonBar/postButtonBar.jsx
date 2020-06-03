@@ -6,7 +6,7 @@ import heartIcon from '../../../public/icons/heart.png';
 import heartFilledIcon from '../../../public/icons/heartFilled.png';
 import commentsIcon from '../../../public/icons/comments.png';
 
-const PostButtonBar = ({ isActiveLike, clickLike, externalClass = "" }) => {
+const PostButtonBar = ({ isActiveLike, clickLike, clickComment, externalClass = "" }) => {
     const imgLike = useRef(null);
 
     function clickLikeWithAnimation() {
@@ -19,8 +19,8 @@ const PostButtonBar = ({ isActiveLike, clickLike, externalClass = "" }) => {
 
     return (
         <div className={`${styles.container} ${externalClass}`}>
-            <img src={isActiveLike ? heartFilledIcon : heartIcon} className={styles.like} onClick={clickLikeWithAnimation} ref={imgLike} width="32px" />
-            <img src={commentsIcon} width="32px" />
+            <img src={isActiveLike ? heartFilledIcon : heartIcon} className={styles.button} onClick={clickLikeWithAnimation} ref={imgLike} width="32px" />
+            <img src={commentsIcon} className={styles.button} onClick={clickComment} width="32px" />
         </div>
     );
 };

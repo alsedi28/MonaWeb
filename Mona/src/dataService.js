@@ -134,8 +134,14 @@ export class DataService {
     static addCommentToEvent(eventId, movieId, comment, callback) {
         let url = `${Constants.DOMAIN}/api/movies/${movieId}/events/${eventId}/comments`;
         let request = { Comment: comment };
-        
+
         this._post(url, callback, request);
+    }
+
+    static getPostComments(eventId, movieId, callback) {
+        let url = `${Constants.DOMAIN}/api/movies/${movieId}/events/${eventId}/comments`;
+
+        this._get(url, callback);
     }
 
     static login(login, password, successCallback, failedCallback) {
