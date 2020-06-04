@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch, Redirect, withRouter } from "react-router-dom";
 import PrivateRoute from './privateRoute';
+import IntroRoute from './introRoute';
 import LoginRoute from './loginRoute';
 import PostsFeedPage from './postsFeedPage/postsFeedPage';
 import ProfilePage from './profilePage/profilePage';
@@ -80,13 +81,13 @@ class App extends React.Component {
 
         let failedCallback = () => this.showLoginError(true);
 
-        DataService.login(login, password, successCallback, failedCallback); 
+        DataService.login(login, password, successCallback, failedCallback);
     }
 
     getPopularPosts() {
         // Если не авторизован, то перенаправляем на страницу Login
         if (!this.state.isAuthenticated) {
-            this.props.history.push("/login");
+            this.props.history.push("/intro");
             return;
         }
 
@@ -158,6 +159,8 @@ class App extends React.Component {
             <React.Fragment>
                 <Switch>
                     <Redirect exact from='/' to='/feed' />
+                    <IntroRoute path='/intro' history={history} component={PostsFeedPage} isAuthenticated={this.state.isAuthenticated} login={this.login} showError={this.state.showLoginError}
+                        componentProps={{ feed: this.state.feed, feedPopular: this.state.feedPopular, getPosts: this.getPosts, getPopularPosts: this.getPopularPosts }} />
                     <LoginRoute path='/login' history={history} component={PostsFeedPage} isAuthenticated={this.state.isAuthenticated} login={this.login} showError={this.state.showLoginError}
                         componentProps={{ feed: this.state.feed, feedPopular: this.state.feedPopular, getPosts: this.getPosts, getPopularPosts: this.getPopularPosts }} />
                     <PrivateRoute path='/feed' history={history} component={PostsFeedPage} isAuthenticated={this.state.isAuthenticated}
