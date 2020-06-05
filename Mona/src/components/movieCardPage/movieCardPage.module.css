@@ -12,3 +12,10 @@
 .hide {
     display: none;
 }
+
+.tabsExternal {
+    max-width: 790px;
+    min-width: 650px;
+    margin: auto;
+    margin-top: 20px;
+}

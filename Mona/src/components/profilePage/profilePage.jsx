@@ -9,6 +9,7 @@ import Loader from '../loader/loader';
 import ProfileUserInfo from '../profileUserInfo/profileUserInfo';
 import Header from '../header/header';
 import Footer from '../footer/footer';
+import HorizontalTabs from '../horizontalTabs/horizontalTabs';
 import MovieItemOnUserProfile from '../movieItemOnUserProfile/movieItemOnUserProfile';
 import NotPostsBanner from '../notPostsBanner/notPostsBanner';
 import NotPostsInMyOwnProfileBanner from '../notPostsInMyOwnProfileBanner/notPostsInMyOwnProfileBanner';
@@ -54,7 +55,24 @@ class ProfilePage extends React.Component {
                 page: 1 // Номер страницы
             },
             tabNumberActive: 1, // Номер Tab'а, который активный. 1 - Tab "Публикации", 2 - Tab "В закладках", 3 - Tab "Просмотрено"
-            handleClickFollowUser: this.clickFollowUser // Обработчик события click по кнопке Подписаться/Подписки
+            handleClickFollowUser: this.clickFollowUser, // Обработчик события click по кнопке Подписаться/Подписки
+            tabSettings: [ // Настройки для табов. Храним в state, т.к. текст заголовка содержит данные из state.
+                {
+                    Title: 'Публикации',
+                    Width: 167,
+                    Offset: 12
+                },
+                {
+                    Title: 'В закладках',
+                    Width: 167,
+                    Offset: 199
+                },
+                {
+                    Title: 'Просмотрено',
+                    Width: 181,
+                    Offset: 382
+                }
+            ]
         };
 
         this.getProfileInfo = this.getProfileInfo.bind(this);
@@ -63,6 +81,7 @@ class ProfilePage extends React.Component {
         this.getWillWatchMovies = this.getWillWatchMovies.bind(this);
         this.getViewedMovies = this.getViewedMovies.bind(this);
         this.clickFollowUser = this.clickFollowUser.bind(this);
+        this.clickTab = this.clickTab.bind(this);
         this.renderMoviesForView = this.renderMoviesForView.bind(this);
     }
 
@@ -100,7 +119,12 @@ class ProfilePage extends React.Component {
                     amountViewedMovies: profile.AmountViewedMovies,
                     amountWillWatchMovies: profile.AmountWillWatchMovies,
                     amountPosts: profile.AmountEvents
-                }
+                },
+                tabSettings: [ // Обновляем заголовки табов
+                    { ...this.state.tabSettings[0], Title: `Публикации (${profile.AmountEvents})` },
+                    { ...this.state.tabSettings[1], Title: `В закладках (${profile.AmountWillWatchMovies})` },
+                    { ...this.state.tabSettings[2], Title: `Просмотрено (${profile.AmountViewedMovies})` }
+                ]
             });
         };
 
@@ -266,12 +290,7 @@ class ProfilePage extends React.Component {
                         <ProfileUserInfo profile={this.state.profile} clickFollowButton={this.state.handleClickFollowUser.bind(this)}
                             clickFollowers={this.clickShowFollowers} clickFollowing={this.clickShowFollowing} style={{ display: this.state.isLoading ? "none" : "block" }} />
                     </div>
-                    <div className={styles.tabs}>
-                        <a className={`${styles.tabPosts} ${this.state.tabNumberActive === 1 ? styles.active : ''}`} onClick={this.clickTab.bind(this, 1)}>Публикации ({this.state.profile.amountPosts})</a>
-                        <a className={`${styles.tabMoviesWillWatch} ${this.state.tabNumberActive === 2 ? styles.active : ''}`} onClick={this.clickTab.bind(this, 2)}>В закладках ({this.state.profile.amountWillWatchMovies})</a>
-                        <a className={`${styles.tabMoviesViewed} ${this.state.tabNumberActive === 3 ? styles.active : ''}`} onClick={this.clickTab.bind(this, 3)}>Просмотрено ({this.state.profile.amountViewedMovies})</a>
-                        <span className={styles.tabBar}></span>
-                    </div>
+                    <HorizontalTabs tabsSettings={this.state.tabSettings} tabNumberActive={this.state.tabNumberActive} clickTab={this.clickTab} externalClass={styles.tabsExternal} />
                     <div className={styles.tabDataContainer} style={{ display: this.state.tabNumberActive === 1 ? "block" : "none" }}>
                         <NotPostsBanner username={this.state.profile.login} show={currentUserId !== this.state.profile.id && this.state.profile.amountPosts === 0} externalClass={styles.bannerExternal} />
                         <NotPostsInMyOwnProfileBanner show={currentUserId === this.state.profile.id && this.state.profile.amountPosts === 0} externalClass={styles.bannerExternal} />
