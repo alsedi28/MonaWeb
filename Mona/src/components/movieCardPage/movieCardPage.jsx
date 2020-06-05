@@ -23,6 +23,7 @@ class MovieCardPage extends React.Component {
                 PosterPath: null,
                 Title: "",
                 ProductionCountry: "",
+                StatusOfMovieForUser: null,
                 PeopleViewedMovie: {
                     AmountPeople: 0,
                     Peoples: []

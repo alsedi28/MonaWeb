@@ -3,6 +3,7 @@ import React from 'react';
 import MovieCardRating from '../movieCardRating/movieCardRating';
 import MovieCardUserRating from '../movieCardUserRating/movieCardUserRating';
 import MovieCardUsersGroup from '../movieCardUsersGroup/movieCardUsersGroup';
+import PostWatchStatusButtons from '../../postWatchStatusButtons/postWatchStatusButtons';
 import { getReleaseYear, getHumanRuntime } from '../../../helpers/timeHelper';
 import { getPosterPath, getBackdropUrl } from '../../../helpers/imagePathHelper';
 import Constants from '../../../constants';
@@ -36,8 +37,11 @@ const MovieCardMainInfo = ({ movie, externalClass = "" }) => {
                         <div className={styles.ratingAndUsersBlock}>
                             <MovieCardRating movie={movie} />
                             {userRatingOrUsersWillWatchBlock}
-                            <MovieCardUsersGroup users={movie.PeopleViewedMovie.Peoples} totalNumberUsers={movie.PeopleViewedMovie.AmountPeople} label="посмотрели"/>
+                            <MovieCardUsersGroup users={movie.PeopleViewedMovie.Peoples} totalNumberUsers={movie.PeopleViewedMovie.AmountPeople} label="посмотрели" />
                         </div>
+                        <PostWatchStatusButtons status={movie.StatusOfMovieForUser} externalClass={styles.postWatchStatusButtonsExternal} />
+                        <p className={styles.overviewTitle} style={{ display: movie.Overview ? "block" : "none" }}>Описание</p>
+                        <p className={styles.overview}>{movie.Overview}</p>
                     </div>
                 </div>
             </div>
