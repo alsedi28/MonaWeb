@@ -1,0 +1,14 @@
+.container {
+    margin-top: 60px;
+    height: auto;
+    min-width: 650px;
+    max-width: 100%;
+}
+
+.loader {
+    padding-top: 35px;
+}
+
+.hide {
+    display: none;
+}

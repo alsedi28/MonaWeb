@@ -1,0 +1,79 @@
+.container {
+    width: 115px;
+    height: 65px;
+}
+
+.container > p {
+    color: white;
+    font-size: 14px;
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: normal;
+    margin: 0px;
+    margin-top: 2px;
+    text-align: center;
+}
+
+.container > div {
+    height: 34px;
+    display: flex;
+    justify-content: center;
+}
+
+.container > div > p {
+    text-align: center;
+    color: white;
+    margin: 5px 0px;
+    font-size: 14px;
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 300;
+}
+
+.leftIcon {
+    position: relative;
+    left: 6px;
+    z-index: 1;
+}
+
+.rightIcon {
+    position: relative;
+    left: -6px;
+    z-index: 3;
+}
+
+.leftIconMax {
+    position: relative;
+    left: 12px;
+    z-index: 1;
+}
+
+.rightIconMax {
+    position: relative;
+    left: -12px;
+    z-index: 3;
+}
+
+.centerIcon {
+    position: relative;
+    z-index: 2;
+}
+
+.blockCounters {
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid rgb(255, 255, 255);
+    width: 30px;
+    height: 30px;
+    background-color: rgb(239, 239, 243);
+}
+
+.blockCounters p {
+    text-align: center;
+    margin: 8px 0px;
+    font-size: 12px;
+    color: rgb(49, 54, 60);
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 300;
+}

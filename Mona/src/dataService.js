@@ -93,6 +93,18 @@ export class DataService {
         this._get(url, callback);
     }
 
+    static getPostComments(eventId, movieId, callback) {
+        let url = `${Constants.DOMAIN}/api/movies/${movieId}/events/${eventId}/comments`;
+
+        this._get(url, callback);
+    }
+
+    static getMovie(movieId, callback) {
+        let url = `${Constants.DOMAIN}/api/movies/${movieId}`;
+
+        this._get(url, callback);
+    }
+
     static addLikeToPost(eventId, movieId, callback) {
         let url = `${Constants.DOMAIN}/api/movies/${movieId}/events/${eventId}/likes`;
 
@@ -136,12 +148,6 @@ export class DataService {
         let request = { Comment: comment };
 
         this._post(url, callback, request);
-    }
-
-    static getPostComments(eventId, movieId, callback) {
-        let url = `${Constants.DOMAIN}/api/movies/${movieId}/events/${eventId}/comments`;
-
-        this._get(url, callback);
     }
 
     static login(login, password, successCallback, failedCallback) {

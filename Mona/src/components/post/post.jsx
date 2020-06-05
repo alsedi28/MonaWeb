@@ -11,7 +11,7 @@ import PostDetails from '../postDetails/postDetails';
 import PostTotalLikes from '../postTotalLikes/postTotalLikes';
 import { DataService } from '../../dataService';
 import Constants from '../../constants';
-
+import { getReleaseYear } from '../../helpers/timeHelper';
 import { getPosterPath, getBackdropUrl } from '../../helpers/imagePathHelper';
 
 import styles from './post.module.css';
@@ -202,10 +202,10 @@ class Post extends React.Component {
         let movieRaiting = post.ImdbRaiting === null ? post.VoteAverage : post.ImdbRaiting;
         let userRaiting = post.EventType === 0 ? post.UserRaiting : null;
 
-        let movieReleaseDate = post.MovieReleaseDate !== null ? new Date(Date.parse(post.MovieReleaseDate)) : null;
+        let movieReleaseDate = getReleaseYear(post.MovieReleaseDate);
         let blockMovieReleaseDate = "";
         if (movieReleaseDate !== null)
-            blockMovieReleaseDate = <span>({movieReleaseDate.getFullYear()})</span>;
+            blockMovieReleaseDate = <span>({movieReleaseDate})</span>;
 
         let comment = post.Comments.length > 0 ? post.Comments[0] : null;
         let blockWithMainComment = "";

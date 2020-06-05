@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import UserAvatar from '../userAvatar/userAvatar';
+import { getTimeAgoString } from '../../helpers/timeHelper';
+import { getStatusString } from '../../helpers/eventHelper';
 
-import { getTimeAgoString } from '../../helpers/timeHelper'
-import { getStatusString } from '../../helpers/eventHelper'
 import styles from './postHeader.module.css';
 
 const PostHeader = ({ userId, userAvatarPath, login, postType, postDateOfCreation, externalClass = "" }) => {

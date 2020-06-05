@@ -11,3 +11,7 @@
 .orangeBorder {
     border: 2px solid rgb(255, 86, 26);
 }
+
+.whiteBorder {
+    border: 2px solid rgb(255, 255, 255);
+}

@@ -9,19 +9,19 @@ function PostWatchStatusButtons(props) {
     switch (props.status) {
         case Constants.MOVIE_STATUS_WILL_WATCH:
             statusBlock =
-                <div className={`${styles.selected} ${styles.common}`}>
+                (<div className={`${styles.selected} ${styles.common}`}>
                     <p>В закладках
                     <img src={checkMarkIcon} width="20px" />
                     </p>
-                </div>
+                </div>);
             break;
         case Constants.MOVIE_STATUS_VIEWED:
             statusBlock =
-                <div className={`${styles.selected} ${styles.common}`}>
+                (<div className={`${styles.selected} ${styles.common}`}>
                     <p>Просмотрен
                     <img src={checkMarkIcon} width="16px" />
                     </p>
-                </div>
+                </div>);
             break;
     }
 
