@@ -38,6 +38,8 @@ class App extends React.Component {
         this.getPosts = this.getPosts.bind(this);
         this.getPopularPosts = this.getPopularPosts.bind(this);
         this.login = this.login.bind(this);
+        this.signInClick = this.signInClick.bind(this);
+        this.signUpClick = this.signUpClick.bind(this);
     }
 
     componentDidMount() {
@@ -152,6 +154,14 @@ class App extends React.Component {
         DataService.getPosts(this.state.feed.lastPostItemId, callback);
     }
 
+    signInClick() {
+        this.props.history.push("/login");
+    }
+
+    signUpClick() {
+        this.props.history.push("/login");
+    }
+
     render() {
         const { history } = this.props;
 
@@ -159,8 +169,7 @@ class App extends React.Component {
             <React.Fragment>
                 <Switch>
                     <Redirect exact from='/' to='/feed' />
-                    <IntroRoute path='/intro' history={history} component={PostsFeedPage} isAuthenticated={this.state.isAuthenticated} login={this.login} showError={this.state.showLoginError}
-                        componentProps={{ feed: this.state.feed, feedPopular: this.state.feedPopular, getPosts: this.getPosts, getPopularPosts: this.getPopularPosts }} />
+                    <IntroRoute path='/intro' history={history} signInClick={this.signInClick} signUpClick={this.signUpClick}  />
                     <LoginRoute path='/login' history={history} component={PostsFeedPage} isAuthenticated={this.state.isAuthenticated} login={this.login} showError={this.state.showLoginError}
                         componentProps={{ feed: this.state.feed, feedPopular: this.state.feedPopular, getPosts: this.getPosts, getPopularPosts: this.getPopularPosts }} />
                     <PrivateRoute path='/feed' history={history} component={PostsFeedPage} isAuthenticated={this.state.isAuthenticated}

@@ -11,7 +11,7 @@ import appIconNav from '../../../public/icons/appIconNav.png';
 import feedIconNav from '../../../public/icons/feedIconNav.png';
 import feedIconNavActive from '../../../public/icons/feedIconNavActive.png';
 
-const Header = ({ location = "", externalClass = "", children }) => {
+const Header = ({ location = "", externalClass = "", children, onSignIn={}, onSignUp={} }) => {
     let scrollPageUp = () => window.scrollTo(0, 0);
 
     let userId = sessionStorage.getItem(Constants.USER_ID_COOKIE_KEY);
@@ -44,10 +44,10 @@ const Header = ({ location = "", externalClass = "", children }) => {
                 <nav className={styles.buttonsNav} style={{ display: userId ? "none" : "block" }}>
                     <ul className={styles.buttonsUl}>
                         <li className={styles.buttonsLi}>
-                            <CommonButton externalClass="borderedButton" title="Войти" />
+                            <CommonButton externalClass="borderedButton" title="Войти" onClick={onSignIn} />
                         </li>
                         <li className={styles.buttonsLi}>
-                            <CommonButton externalClass="filledButton" title="Создать аккаунт" />
+                            <CommonButton externalClass="filledButton" title="Создать аккаунт" onClick={onSignUp} />
                         </li>
                     </ul>
                 </nav>
