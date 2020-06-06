@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import UserAvatar from '../userAvatar/userAvatar';
 import Constants from '../../constants';
+import CommonButton from '../buttons/commonButton/commonButton';
 
 import styles from './header.module.css';
 
@@ -23,20 +24,30 @@ const Header = ({ location = "", externalClass = "", children }) => {
             <div className={styles.centerContainer}>
                 <img className={styles.icon} src={appIconNav} width="30px" onClick={scrollPageUp} />
                 <p>MONA</p>
-                <nav style={{ display: userId ? "block" : "none" }}>
-                    <ul>
-                        <li>
+                <nav className={styles.buttonsWithIconsNav} style={{ display: userId ? "block" : "none" }}>
+                    <ul className={styles.buttonsWithIconsUl}>
+                        <li className={styles.buttonsWithIconsLi}>
                             <Link to={`/profile/${userId}`}>
                                 <UserAvatar avatar={userAvatar} size={30} withGrayBorder={!isCurrentProfileUser} withOrangeBorder={isCurrentProfileUser} externalClass={`${styles.userAvatarExternal}`} />
                             </Link>
                         </li>
-                        <li>
+                        <li className={styles.buttonsWithIconsLi}>
                             <Link to="/feed">
                                 <div>
                                     <img src={location === '/feed' ? feedIconNavActive : feedIconNav} width="20px" />
                                     <span>Лента</span>
                                 </div>
                             </Link>
+                        </li>
+                    </ul>
+                </nav>
+                <nav className={styles.buttonsNav} style={{ display: userId ? "none" : "block" }}>
+                    <ul className={styles.buttonsUl}>
+                        <li className={styles.buttonsLi}>
+                            <CommonButton externalClass="borderedButton" title="Войти" />
+                        </li>
+                        <li className={styles.buttonsLi}>
+                            <CommonButton externalClass="filledButton" title="Создать аккаунт" />
                         </li>
                     </ul>
                 </nav>
