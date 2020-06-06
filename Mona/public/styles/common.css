@@ -44,12 +44,12 @@ html, body {
     text-transform: inherit;
     text-overflow: ellipsis;
     user-select: none;
-    width: auto;
     position: relative;
     font-size: 16px;
     font-weight: 300;
     border-style: solid;
     font-family: "Montserrat";
+    margin: auto;
 }
 
 .roundedButton[disabled] {

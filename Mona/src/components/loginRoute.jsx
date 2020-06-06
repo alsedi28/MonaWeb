@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route } from "react-router-dom";
-import LoginPage from './loginPage/loginPage';
+import LoginPage from './auth/loginPage/loginPage';
 
 const LoginRoute = ({ component: Component, isAuthenticated, login, showError, componentProps = {}, ...rest }) => (
     <Route {...rest} render={(props) => (
