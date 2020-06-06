@@ -3,11 +3,10 @@ import React, { useRef } from 'react';
 import Header from '../../header/header';
 import Footer from '../../footer/footer';
 import CommonButton from '../../buttons/commonButton/commonButton';
-import IntroPageBanner from '../introPageBanner/introPageBanner';
+import IntroPageBanner from './introPageBanner/introPageBanner';
+import IntroPageDescription from './introPageDescription/introPageDescription';
 
 import styles from './introPage.module.css';
-
-import appStoreIcon from '../../../../public/icons/appStore.png';
 
 function IntroPage(props) {
     const loginInput = useRef(null);
@@ -27,6 +26,7 @@ function IntroPage(props) {
         <React.Fragment>
             <Header externalClass="header-external" />
             <IntroPageBanner />
+            <IntroPageDescription />
             <Footer externalClass="footer-external" />
         </React.Fragment>);
 };

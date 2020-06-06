@@ -1,25 +1,12 @@
-import React, { useRef } from 'react';
+import React from 'react';
 
-import CommonButton from '../../buttons/commonButton/commonButton';
+import CommonButton from '../../../buttons/commonButton/commonButton';
 
 import styles from './introPageBanner.module.css';
 
-import welcomeIcon from '../../../../public/icons/welcome.png';
+import welcomeIcon from '../../../../../public/icons/welcome.png';
 
 function IntroPageBanner(props) {
-    const loginInput = useRef(null);
-    const passwordInput = useRef(null);
-
-    function clickLogin() {
-        let loginVal = loginInput.current.value;
-        let passwordVal = passwordInput.current.value;
-
-        if (!loginVal || !passwordVal)
-            return;
-
-        props.login(loginVal, passwordVal);
-    }
-
     return (
         <React.Fragment>
             <div className={styles.banner}>
@@ -30,9 +17,9 @@ function IntroPageBanner(props) {
                         <p className={styles.bannerSubtitle}>MONA — социальная сеть про кино! Здесь вы можете найти крутые фильмы для просмотра, почитать отзывы, добавлять фильмы в закладки или делиться ими со своими подписчиками.</p>
                             <div className={styles.bannerButtonsContainer}>
                                 <div style={{ paddingRight: `24px` }}>
-                                    <CommonButton externalClass="borderedButton" onClick={clickLogin} title="Войти" />
+                                    <CommonButton externalClass="borderedButton" onClick={props.onSignIn} title="Войти" />
                                 </div>
-                                <CommonButton externalClass="filledButton" onClick={clickLogin} title="Создать аккаунт" />
+                                <CommonButton externalClass="filledButton" onClick={props.onSignUp} title="Создать аккаунт" />
                             </div>
                     </div>
 

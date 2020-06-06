@@ -1,0 +1,43 @@
+.descriptionContainer {
+  width: 100%;
+  max-width: 790px;
+  min-width: 650px;
+  margin: auto;
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+
+.descriptionList {
+  list-style-type: none;
+  list-style-position: inside;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  position: relative;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  flex-basis: 50%;
+  text-align: left;
+  margin-bottom: 32px;
+  box-sizing: border-box;
+}
+
+.descriptionListItem li > a {
+  display: block;
+}
+
+.title {
+  font-size: 20px;
+  color: rgb(49, 54, 60);
+  font-family: "Montserrat";
+  font-weight: 300;
+}
+
+.subtitle {
+  font-size: 20px;
+  color: rgb(49, 54, 60);
+  font-family: "Montserrat";
+  font-weight: normal;
+}
