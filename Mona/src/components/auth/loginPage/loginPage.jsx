@@ -24,9 +24,13 @@ const LoginPage = ({ login, showError = false }) => {
         login(loginVal, passwordVal);
     }
 
+    function showAlert() {
+        console.error("In progress");
+    }
+
     return (
         <React.Fragment>
-            <Header externalClass="header-external" />
+            <Header externalClass="header-external" onSignUp={showAlert}/>
             <div className={styles.container}>
                 <div>
                     <div className={styles.formBlock}>
@@ -61,16 +65,16 @@ const LoginPage = ({ login, showError = false }) => {
                                 <div className={styles.error} style={{ display: showError ? "block" : "none" }}>
                                     <p>Имя пользователя или пароль указаны неправильно.</p>
                                 </div>
+                            </form>
 
-                                <button className={styles.forgotPasswordButton}>Забыли пароль?</button>
+                            <button className={styles.forgotPasswordButton} onClick={showAlert}>Забыли пароль?</button>
 
-                                <CommonButton
-                                    externalClass="filledButton"
-                                    title="Войти"
-                                    style={{ width: `80%`, height: `56px` }}
-                                    onClick={clickLogin}
-                                />
-                             </form>
+                            <CommonButton
+                                externalClass="filledButton"
+                                title="Войти"
+                                style={{ width: `80%`, height: `56px` }}
+                                onClick={clickLogin}
+                            />
                         </div>
                     </div>
 

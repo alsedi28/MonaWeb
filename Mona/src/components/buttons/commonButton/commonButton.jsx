@@ -5,6 +5,7 @@ function CommonButton(props) {
         <React.Fragment>
             <button
                 style={props.style}
+                disabled={props.isDisabled}
                 className={`${props.externalClass} ${"roundedButton"}`}
                 onClick={props.onClick}
                 type="button">{props.title}
