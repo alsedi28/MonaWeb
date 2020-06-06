@@ -8,19 +8,15 @@ input {
 }
 
 .formBlock {
-    width: 430px;
+    width: 500px;
     background: #fff;
-    border-radius: 10px;
+    border-radius: 12px;
     overflow: hidden;
-    height: 500px;
+    height: 518px;
     position: absolute;
     left: calc(50% - 215px);
-    top: calc(50% - 250px);
-    box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
-    -moz-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
-    -webkit-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
-    -o-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
-    -ms-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
+    top: 164px;
+    box-shadow: 0px 8px 32px rgba(49, 54, 60, 0.3);
 }
 
 .formBlock > form {
@@ -69,13 +65,13 @@ input {
 .formLabel > p {
     font-family: "Montserrat";
     font-weight: bold;
-    font-size: 30px;
-    margin-top: 70px;
-    margin-bottom: 10px;
+    font-size: 32px;
+    margin-top: 24px;
+    margin-bottom: 24px;
 }
 
 .formLabel > img {
-    border-radius: 10px;
+    border-radius: 12px;
     color: #31363c;
 }
 
@@ -85,30 +81,6 @@ input {
 
 .passwordWrapper {
     top: 76px;
-}
-
-.formBlock button {
-    border-radius: 10px;
-    color: white;
-    background-color: rgba(255, 87, 26, 0.9);
-    font-family: "Montserrat";
-    font-weight: bold;
-    width: 200px;
-    height: 36px;
-    position: relative;
-    top: 125px;
-    left: 75px;
-}
-
-.formBlock button:hover {
-    cursor: pointer;
-    background-color: rgb(255, 87, 26);
-}
-
-button,
-button:active,
-button:focus {
-    outline: none;
 }
 
 .error {
@@ -123,4 +95,24 @@ button:focus {
     font-family: "Montserrat";
     font-weight: normal;
     margin: auto;
+}
+
+.forgotPasswordButton {
+    appearance: none;
+    background: 0 0;
+    border: 0;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: block;
+    padding-bottom: 24px;
+    text-align: left;
+    text-transform: inherit;
+    text-overflow: ellipsis;
+    user-select: none;
+    width: auto;
+    color: rgb(155, 155, 155);
+    position: relative;
+    font-size: 12px;
+    font-weight: 300;
+    font-family: "Montserrat";
 }

@@ -19,7 +19,7 @@
     display: flex;
     justify-content: start;
     width: 90vw;
-    max-width: 870px;
+    max-width: 900px;
     min-width: 540px;
     max-height: 512px;
     min-height: 350px;
@@ -84,7 +84,7 @@
 
 .rightSideBox {
     position: relative;
-    min-width: 320px;
+    width: 60%;
 }
 
 .infoBox {
