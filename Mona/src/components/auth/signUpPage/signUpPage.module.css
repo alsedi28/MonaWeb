@@ -20,12 +20,12 @@
 }
 
 .error > p {
-    width: 260px;
-    color: red;
+    width: 100%;
+    color: rgb(155, 155, 155);
     font-size: 14px;
     font-family: "Montserrat";
     font-weight: normal;
-    margin-top: 0px;
+    margin-top: -12px;
 }
 
 .forgotPasswordButton {

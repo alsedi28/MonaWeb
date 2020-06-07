@@ -17,31 +17,59 @@ class SignUpPage extends React.Component {
             nickname: "",
             name: "",
             password: "",
+            emailValid: false,
+            passwordValid: false,
+            formValid: false
         }
         this.handleInputChange = this.handleInputChange.bind(this);
     }
 
     clickRegister() {
-        if (!this.canBeSubmitted()) {
+        if (!this.state.formValid) {
             return;
         }
         this.props.register(this.state.email, this.state.nickname, this.state.name, this.state.password);
     }
 
-    canBeSubmitted() {
-        const { email, nickname, name, password } = this.state;
-        return (nickname.length > 0 && name.length > 0 && password.length >= Constants.MIN_PASSWORD_LENGHT);
-    }
-
     handleInputChange() {
         const {name, value} = event.target;
+        this.setState({[name]: value},
+                () => { this.validateField(name, value) });
+    }
+
+    validateField(fieldName, value) {
+        let emailValid = this.state.emailValid;
+        let passwordValid = this.state.passwordValid;
+        switch(fieldName) {
+            case 'email':
+                emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+                break;
+            case 'password':
+                passwordValid = value.length >= Constants.MIN_PASSWORD_LENGHT;
+                break;
+            default:
+                break;
+        }
         this.setState({
-            [name]: value
-        })
+            emailValid: emailValid,
+            passwordValid: passwordValid
+        }, this.validateForm);
+    }
+
+    validateForm() {
+        this.setState({
+            formValid: this.state.emailValid
+            && this.state.passwordValid
+            && this.state.nickname.length > 0
+            && this.state.name.length > 0
+        });
     }
 
     render() {
-        const isSignInDisabled = !this.canBeSubmitted();
+        const isSignInDisabled = !this.state.formValid;
+
+        let displayEmailError = { display: !this.state.emailValid && this.state.email.length > 0 ? "block" : "none" };
+        let displayPasswordError = { display: !this.state.passwordValid && this.state.password.length > 0 ? "block" : "none" };
 
         return (
             <React.Fragment>
@@ -71,6 +99,10 @@ class SignUpPage extends React.Component {
                                         required
                                     />
 
+                                    <div className={styles.error} style={displayEmailError}>
+                                        <p>Пример правильного email: ivan.ivanov@mail.ru</p>
+                                    </div>
+
                                     <input className={styles.formInput}
                                         type="text"
                                         name="nickname"
@@ -98,6 +130,10 @@ class SignUpPage extends React.Component {
                                         onChange={this.handleInputChange}
                                         required
                                     />
+
+                                    <div className={styles.error} style={displayPasswordError}>
+                                        <p>Пароль должен содержать минимум 8 символов</p>
+                                    </div>
                                 </form>
 
                                 <CommonButton
