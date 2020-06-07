@@ -89,7 +89,19 @@ class App extends React.Component {
     }
 
     register(email, nickname, name, password) {
+        let successCallback = (response) => {
+            console.error("SUCCESS!");
+            this.login(nickname, password);
+        };
+
+        let failedCallback = (error) => {
+            console.error("ERROR!!");
+            console.error(error);
+            this.showLoginError(true);
+        };
+
         console.error(email, nickname, name, password);
+        DataService.register(email, nickname, name, password, successCallback, failedCallback);
     }
 
     getPopularPosts() {

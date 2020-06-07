@@ -167,6 +167,27 @@ export class DataService {
             .catch(() => failedCallback());
     }
 
+    static register(email, login, name, password, successCallback, failedCallback) {
+        let url = `${Constants.DOMAIN}/api/account/register`;
+        let request = { Name: name, Login: login, Password: password, Email: email, Language: 'ru' };
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(request)
+        })
+            .then(response => {
+                if (response.ok)
+                    return Promise.resolve(response);
+
+                return Promise.reject();
+            })
+            .then(response => successCallback(response))
+            .catch((error) => failedCallback(error));
+    }
+
     static _get(url, callback) {
         fetch(url, {
             method: 'GET',
