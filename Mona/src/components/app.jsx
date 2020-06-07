@@ -3,6 +3,7 @@ import { Route, Switch, Redirect, withRouter } from "react-router-dom";
 import PrivateRoute from './privateRoute';
 import IntroRoute from './introRoute';
 import LoginRoute from './loginRoute';
+import SignUpRoute from './signUpRoute';
 import PostsFeedPage from './postsFeedPage/postsFeedPage';
 import ProfilePage from './profilePage/profilePage';
 import FollowersPage from './followersPage/followersPage';
@@ -38,6 +39,7 @@ class App extends React.Component {
         this.getPosts = this.getPosts.bind(this);
         this.getPopularPosts = this.getPopularPosts.bind(this);
         this.login = this.login.bind(this);
+        this.register = this.register.bind(this);
         this.signInClick = this.signInClick.bind(this);
         this.signUpClick = this.signUpClick.bind(this);
     }
@@ -84,6 +86,10 @@ class App extends React.Component {
         let failedCallback = () => this.showLoginError(true);
 
         DataService.login(login, password, successCallback, failedCallback);
+    }
+
+    register(email, nickname, name, password) {
+        console.error(email, nickname, name, password);
     }
 
     getPopularPosts() {
@@ -159,7 +165,7 @@ class App extends React.Component {
     }
 
     signUpClick() {
-        this.props.history.push("/login");
+        this.props.history.push("/register");
     }
 
     render() {
@@ -170,8 +176,10 @@ class App extends React.Component {
                 <Switch>
                     <Redirect exact from='/' to='/feed' />
                     <IntroRoute path='/intro' history={history} signInClick={this.signInClick} signUpClick={this.signUpClick}  />
-                    <LoginRoute path='/login' history={history} component={PostsFeedPage} isAuthenticated={this.state.isAuthenticated} login={this.login} showError={this.state.showLoginError}
-                        componentProps={{ feed: this.state.feed, feedPopular: this.state.feedPopular, getPosts: this.getPosts, getPopularPosts: this.getPopularPosts }} />
+                    <LoginRoute path='/login' history={history} component={PostsFeedPage} isAuthenticated={this.state.isAuthenticated} login={this.login} showError={this.state.showLoginError} signUpClick={this.signUpClick}
+                    componentProps={{ feed: this.state.feed, feedPopular: this.state.feedPopular, getPosts: this.getPosts, getPopularPosts: this.getPopularPosts }} />
+                    <SignUpRoute path='/register' history={history} component={PostsFeedPage} isAuthenticated={this.state.isAuthenticated} register={this.register} signInClick={this.signInClick}
+                    componentProps={{ feed: this.state.feed, feedPopular: this.state.feedPopular, getPosts: this.getPosts, getPopularPosts: this.getPopularPosts }} />
                     <PrivateRoute path='/feed' history={history} component={PostsFeedPage} isAuthenticated={this.state.isAuthenticated}
                         componentProps={{ feed: this.state.feed, feedPopular: this.state.feedPopular, getPosts: this.getPosts, getPopularPosts: this.getPopularPosts}} />
                     <PrivateRoute exact path='/profile/:userId' history={history} component={ProfilePage} isAuthenticated={this.state.isAuthenticated} />

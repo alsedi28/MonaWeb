@@ -27,10 +27,6 @@ class LoginPage extends React.Component {
         this.props.login(this.state.nickname, this.state.password);
     }
 
-    showAlert() {
-        console.error("In progress");
-    }
-
     canBeSubmitted() {
         const { nickname, password } = this.state;
         return (nickname.length > 0 && password.length > 0);
@@ -48,7 +44,7 @@ class LoginPage extends React.Component {
 
         return (
             <React.Fragment>
-                <Header externalClass="header-external" onSignUp={this.showAlert}/>
+                <Header externalClass="header-external" onSignUp={this.props.signUpClick}/>
                 <div className={styles.container}>
                     <div>
                         <div className={styles.formBlock}>
