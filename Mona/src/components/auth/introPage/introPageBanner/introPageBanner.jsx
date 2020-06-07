@@ -14,7 +14,7 @@ function IntroPageBanner(props) {
 
                     <div className={styles.bannerColumn}>
                         <p className={styles.bannerTitle}>Добро пожаловать в MONA!</p>
-                        <p className={styles.bannerSubtitle}>MONA — социальная сеть про кино! Здесь вы можете найти крутые фильмы для просмотра, почитать отзывы, добавить фильмы в закладки или делиться ими со своими подписчиками.</p>
+                        <p className={styles.bannerSubtitle}>MONA — социальная сеть про кино. Находи крутые фильмы для просмотра, добавляй их в закладки, читай отзывы и делись ими со своими подписчиками!</p>
                             <div className={styles.bannerButtonsContainer}>
                                 <div style={{ paddingRight: `24px` }}>
                                     <CommonButton externalClass="borderedButton" onClick={props.onSignIn} title="Войти" />

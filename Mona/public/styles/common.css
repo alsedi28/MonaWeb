@@ -54,7 +54,6 @@ html, body {
 
 .roundedButton[disabled] {
     opacity: 0.7;
-    color: #adafb1;
     pointer-events: none;
 }
 
