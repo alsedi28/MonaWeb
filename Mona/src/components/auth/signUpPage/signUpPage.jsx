@@ -22,6 +22,7 @@ class SignUpPage extends React.Component {
             formValid: false
         }
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleKeyPress = this.handleKeyPress.bind(this);
     }
 
     clickRegister() {
@@ -29,6 +30,12 @@ class SignUpPage extends React.Component {
             return;
         }
         this.props.register(this.state.email, this.state.nickname, this.state.name, this.state.password);
+    }
+
+    handleKeyPress(event) {
+        if (event.key === 'Enter') {
+            this.clickRegister()
+        }
     }
 
     handleInputChange() {
@@ -70,6 +77,8 @@ class SignUpPage extends React.Component {
 
         let displayEmailError = { display: !this.state.emailValid && this.state.email.length > 0 ? "block" : "none" };
         let displayPasswordError = { display: !this.state.passwordValid && this.state.password.length > 0 ? "block" : "none" };
+        let displayRegistrationError = { display: this.props.registrationError != null ? "block" : "none"  };
+        let registrationErrorText = this.props.registrationError != null ? this.props.registrationError.toString() : "неизвестная ошибка";
 
         return (
             <React.Fragment>
@@ -98,10 +107,11 @@ class SignUpPage extends React.Component {
                                         placeholder="Email"
                                         value={this.state.email}
                                         onChange={this.handleInputChange}
+                                        onKeyPress={this.handleKeyPress}
                                         required
                                     />
 
-                                    <div className={styles.error} style={displayEmailError}>
+                                    <div className={styles.warning} style={displayEmailError}>
                                         <p>Пример правильного email: ivan.ivanov@mail.ru</p>
                                     </div>
 
@@ -111,6 +121,7 @@ class SignUpPage extends React.Component {
                                         placeholder="Никнейм"
                                         value={this.state.nickname}
                                         onChange={this.handleInputChange}
+                                        onKeyPress={this.handleKeyPress}
                                         required
                                     />
 
@@ -120,6 +131,7 @@ class SignUpPage extends React.Component {
                                         placeholder="Ваше имя"
                                         value={this.state.name}
                                         onChange={this.handleInputChange}
+                                        onKeyPress={this.handleKeyPress}
                                         required
                                     />
 
@@ -130,13 +142,18 @@ class SignUpPage extends React.Component {
                                         placeholder="Пароль (мин. 8 символов)"
                                         value={this.state.password}
                                         onChange={this.handleInputChange}
+                                        onKeyPress={this.handleKeyPress}
                                         required
                                     />
 
-                                    <div className={styles.error} style={displayPasswordError}>
+                                    <div className={styles.warning} style={displayPasswordError}>
                                         <p>Пароль должен содержать минимум 8 символов</p>
                                     </div>
                                 </form>
+
+                                <div className={styles.error} style={displayRegistrationError}>
+                                    <p>Возникла ошибка при регистрации: {registrationErrorText}</p>
+                                </div>
 
                                 <CommonButton
                                     externalClass="filledButton"

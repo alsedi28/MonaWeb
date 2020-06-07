@@ -164,7 +164,7 @@ export class DataService {
             })
             .then(response => response.json())
             .then(response => successCallback(response))
-            .catch(() => failedCallback());
+            .catch((error) => failedCallback(error));
     }
 
     static register(email, login, name, password, successCallback, failedCallback) {

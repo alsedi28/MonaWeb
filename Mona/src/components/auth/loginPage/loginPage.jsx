@@ -18,6 +18,7 @@ class LoginPage extends React.Component {
             password: "",
         }
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleKeyPress = this.handleKeyPress.bind(this);
     }
 
     clickLogin() {
@@ -37,6 +38,12 @@ class LoginPage extends React.Component {
         this.setState({
             [name]: value
         })
+    }
+
+    handleKeyPress(event) {
+        if (event.key === 'Enter') {
+            this.clickLogin()
+        }
     }
 
     render() {
@@ -63,6 +70,7 @@ class LoginPage extends React.Component {
                                         placeholder="Введите никнейм"
                                         value={this.state.nickname}
                                         onChange={this.handleInputChange}
+                                        onKeyPress={this.handleKeyPress}
                                         required
                                     />
 
@@ -75,6 +83,7 @@ class LoginPage extends React.Component {
                                         placeholder="Введите пароль"
                                         value={this.state.password}
                                         onChange={this.handleInputChange}
+                                        onKeyPress={this.handleKeyPress}
                                         required
                                     />
 

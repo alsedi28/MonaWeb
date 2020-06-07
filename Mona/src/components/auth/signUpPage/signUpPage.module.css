@@ -13,13 +13,13 @@
     box-shadow: 0px 8px 32px rgba(49, 54, 60, 0.3);
 }
 
-.error {
+.warning {
     position: relative;
     display: block;
     top: 0px !important;
 }
 
-.error > p {
+.warning > p {
     width: 100%;
     color: rgb(155, 155, 155);
     font-size: 14px;
@@ -140,4 +140,19 @@
     font-family: "Montserrat";
     margin: 0 18px;
     text-transform: uppercase;
+}
+
+.error {
+    position: relative;
+    display: block;
+    top: 0px !important;
+}
+
+.error > p {
+    width: 100%;
+    color: red;
+    font-size: 14px;
+    font-family: "Montserrat";
+    font-weight: normal;
+    margin-top: -12px;
 }
