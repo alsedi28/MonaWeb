@@ -60,7 +60,7 @@ class LoginPage extends React.Component {
                                         type="text"
                                         id="nickname"
                                         name="nickname"
-                                        placeholder="Введите никнейм..."
+                                        placeholder="Введите никнейм"
                                         value={this.state.nickname}
                                         onChange={this.handleInputChange}
                                         required
@@ -72,7 +72,7 @@ class LoginPage extends React.Component {
                                         type="password"
                                         id="password"
                                         name="password"
-                                        placeholder="Введите пароль..."
+                                        placeholder="Введите пароль"
                                         value={this.state.password}
                                         onChange={this.handleInputChange}
                                         required
@@ -83,7 +83,7 @@ class LoginPage extends React.Component {
                                     </div>
                                 </form>
 
-                                <button className={styles.forgotPasswordButton} onClick={this.showAlert}>Забыли пароль?</button>
+                                {/* uncomment when the server will support this functionality <button className={styles.forgotPasswordButton} onClick={this.showAlert}>Забыли пароль?</button> */}
 
                                 <CommonButton
                                     externalClass="filledButton"

@@ -82,11 +82,13 @@ class SignUpPage extends React.Component {
                                 <p>Зарегистрируйтесь, чтобы видеть рекомендации друзей о фильмах и делиться ими самому!</p>
                             </div>
 
-                            <div className={styles.dividerContainer}>
-                                <div className={styles.dividerLine}></div>
-                                <div className={styles.dividerText}>или</div>
-                                <div className={styles.dividerLine}></div>
-                            </div>
+                            {/* uncomment when auth with social networks will be implemented
+                                <div className={styles.dividerContainer}>
+                                    <div className={styles.dividerLine}></div>
+                                    <div className={styles.dividerText}>или</div>
+                                    <div className={styles.dividerLine}></div>
+                                </div>
+                             */}
 
                             <div className={styles.formsContainer}>
                                 <form>
