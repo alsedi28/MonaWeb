@@ -81,8 +81,21 @@
 
 .buttons img {
     margin-left: 8px;
+    cursor: pointer;
 }
 
 .buttons span:last-of-type {
     margin-left: 25px;
 }
+
+.likeClickActive {
+    -webkit-animation: pulse 1s ease-in-out;
+    -moz-animation: pulse 1s ease-in-out;
+    -o-animation: pulse 1s ease-in-out;
+    animation: pulse 1s ease-in-out;
+}
+
+@-webkit-keyframes pulse { from { transform: scale(1); } 50% { transform: scale(1.15); } to { transform: scale(1); }  }
+   @-moz-keyframes pulse { from { transform: scale(1); } 50% { transform: scale(1.15); } to { transform: scale(1); }  }
+     @-o-keyframes pulse { from { transform: scale(1); } 50% { transform: scale(1.15); } to { transform: scale(1); }  }
+        @keyframes pulse { from { transform: scale(1); } 50% { transform: scale(1.15); } to { transform: scale(1); }  }

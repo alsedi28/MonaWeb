@@ -207,7 +207,7 @@ class PostDetails extends React.Component {
 
         let commentsBlock = "";
         if (this.state.isLoading) {
-            commentsBlock = <Loader show={this.state.isLoading} externalClass={styles.loader}/>
+            commentsBlock = <Loader show={this.state.isLoading} externalClass={styles.loader} />;
         } else {
             commentsBlock = this.state.comments.map(comment => <PostDetailsComment comment={comment} clickLike={this.state.handleClickLikeComment.bind(this, post.EventId, post.MovieId, comment.CommentId)} />);
         }

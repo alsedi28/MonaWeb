@@ -66,3 +66,11 @@
     margin-top: 10px;
     margin-bottom: 30px;
 }
+
+.showBlock {
+    display: block;
+}
+
+.hideBlock {
+    display: none;
+}
