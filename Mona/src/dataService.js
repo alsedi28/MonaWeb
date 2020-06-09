@@ -1,4 +1,6 @@
 import { useHistory } from "react-router-dom";
+import moment from 'moment';
+
 import Constants from './constants';
 
 export class DataService {
@@ -101,6 +103,13 @@ export class DataService {
 
     static getMovie(movieId, callback) {
         let url = `${Constants.DOMAIN}/api/movies/${movieId}`;
+
+        this._get(url, callback);
+    }
+
+    static getMoviesComments(movieId, page, date, callback) {
+        let paramDate = moment(date).format('YYYY-MM-DDTHH:mm:ss');
+        let url = `${Constants.DOMAIN}/api/movies/${movieId}/comments?page=${page}&date=${paramDate}`;
 
         this._get(url, callback);
     }

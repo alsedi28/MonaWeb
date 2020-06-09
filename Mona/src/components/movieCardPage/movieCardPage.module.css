@@ -37,14 +37,32 @@
     margin-top: 20px;
 }
 
-.tabOverview {
-    display: flex;
+.tabData {
     max-width: 840px;
     min-width: 650px;
     margin: auto;
     margin-top: 20px;
 }
 
+.tabOverview {
+    display: flex;
+}
+
 .movieCardSideBarInfoExternal {
     margin-top: 20px;
+}
+
+.titleComments {
+    font-size: 20px;
+    color: rgb(49, 54, 60);
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 300;
+}
+
+.movieCardCommentExternal {
+    width: 90% !important;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 30px;
 }

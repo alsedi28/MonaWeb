@@ -1,0 +1,88 @@
+.container {
+    width: 100%;
+    background-color: rgb(245, 245, 245);
+    border-radius: 16px;
+    box-shadow: 0px 4px 16px 0px rgba(49, 54, 60, 0.2);
+    padding: 24px;
+}
+
+.container > header {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    height: 30px;
+    color: rgb(49, 54, 60);
+}
+
+.login {
+    font-size: 20px;
+    color: rgb(49, 54, 60);
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 300;
+    margin: 0px;
+    margin-left: 20px;
+}
+
+.login span {
+    color: rgb(181, 182, 184);
+    padding: 0px 10px;
+}
+
+.login > a {
+    text-decoration: none;
+    color: rgb(49, 54, 60);
+}
+
+.login > a:visited {
+    color: rgb(49, 54, 60);
+}
+
+.rating span {
+    font-size: 20px;
+    color: rgb(49, 54, 60);
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 300;
+    margin-left: 5px;
+}
+
+.date {
+    font-size: 14px;
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 100;
+    flex-grow: 1;
+    text-align: right;
+}
+
+.text {
+    font-size: 16px;
+    color: rgb(49, 54, 60);
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: normal;
+}
+
+.buttons {
+    display: inline-flex;
+    justify-content: start;
+    align-items: center;
+    height: 28px;
+}
+
+.buttons span {
+    font-size: 20px;
+    color: rgb(49, 54, 60);
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 300;
+}
+
+.buttons img {
+    margin-left: 8px;
+}
+
+.buttons span:last-of-type {
+    margin-left: 25px;
+}

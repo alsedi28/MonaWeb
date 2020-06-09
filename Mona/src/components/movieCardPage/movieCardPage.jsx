@@ -1,4 +1,5 @@
 import React from 'react';
+import InfiniteScroll from "react-infinite-scroll-component";
 
 import Header from '../header/header';
 import Footer from '../footer/footer';
@@ -9,6 +10,7 @@ import MovieCardMainInfo from './movieCardMainInfo/movieCardMainInfo';
 import MovieCardPerson from './movieCardPerson/movieCardPerson';
 import MovieCardMiniMovie from './movieCardMiniMovie/movieCardMiniMovie';
 import MovieCardSideBarInfo from './movieCardSideBarInfo/movieCardSideBarInfo';
+import MovieCardComment from './movieCardComment/movieCardComment';
 import { DataService } from '../../dataService';
 
 import styles from './movieCardPage.module.css';
@@ -29,6 +31,7 @@ class MovieCardPage extends React.Component {
                 Title: "",
                 ProductionCountry: "",
                 StatusOfMovieForUser: null,
+                CommentsAmount: 0,
                 PeopleViewedMovie: {
                     AmountPeople: 0,
                     Peoples: []
@@ -48,6 +51,12 @@ class MovieCardPage extends React.Component {
                 Tags: [],
                 MoviesOfTopActors: [],
                 MoviesOfCurrentDirector: []
+            },
+            comments: {
+                items: [],
+                hasMore: false, // Флаг, который показывает есть ли еще комментарии для загрузки
+                page: 2, // Номер страницы (начинаем с 2-ой, потому что 1-ая приходит вместе с данными о фильме)
+                date: new Date() // Дата на которую запрашивать комментарии (текущая)
             },
             isLoading: true,
             tabNumberActive: 1
@@ -72,6 +81,7 @@ class MovieCardPage extends React.Component {
         ];
 
         this.getMovieCard = this.getMovieCard.bind(this);
+        this.getMoviesComments = this.getMoviesComments.bind(this);
         this.clickTab = this.clickTab.bind(this);
     }
 
@@ -91,11 +101,43 @@ class MovieCardPage extends React.Component {
         let callback = (movie) => {
             this.setState({
                 movie,
+                comments: {
+                    ...this.state.comments,
+                    items: movie.Comments,
+                    hasMore: true
+                },
                 isLoading: false
             });
         };
 
         DataService.getMovie(this.state.movieId, callback);
+    }
+
+    getMoviesComments() {
+        let callback = (items) => {
+            if (items.length === 0) {
+                this.setState({
+                    ...this.state,
+                    comments: {
+                        ...this.state.comments,
+                        hasMore: false
+                    }
+                });
+                return;
+            }
+
+            this.setState({
+                ...this.state,
+                comments: {
+                    ...this.state.comments,
+                    items: this.state.comments.items.concat(items),
+                    page: this.state.comments.page + 1,
+                    hasMore: true
+                }
+            });
+        };
+
+        DataService.getMoviesComments(this.state.movieId, this.state.comments.page, this.state.comments.date, callback);
     }
 
     clickTab(tabNumber) {
@@ -117,7 +159,7 @@ class MovieCardPage extends React.Component {
                     <Loader show={this.state.isLoading} externalClass={styles.loader} />
                     <MovieCardMainInfo movie={this.state.movie} externalClass={`${this.state.isLoading ? styles.hide : ''}`} />
                     <HorizontalTabs tabsSettings={this.tabSettings} tabNumberActive={this.state.tabNumberActive} clickTab={this.clickTab} externalClass={styles.tabsExternal} />
-                    <div className={styles.tabOverview}>
+                    <div className={`${styles.tabData} ${styles.tabOverview}`} style={{ display: this.state.tabNumberActive === 1 ? "flex" : "none" }}>
                         <div>
                             <HorizontalScrollContainer title="Актеры" externalClass={styles.horizontalScrollContainerExternal} style={displayCastsBlock}>
                                 {this.state.movie.Casts.Persons.map(p => <MovieCardPerson name={p.Name} role={p.Character} photoPath={p.AvatarPath} externalClass={styles.scrollContainerItemExternal} />)}
@@ -134,6 +176,20 @@ class MovieCardPage extends React.Component {
                         </div>
                         <div>
                             <MovieCardSideBarInfo movie={this.state.movie} externalClass={styles.movieCardSideBarInfoExternal} />
+                        </div>
+                    </div>
+                    <div className={styles.tabData} style={{ display: this.state.tabNumberActive === 2 ? "block" : "none" }}>
+                        <div style={{ display: this.state.comments.items.length > 0 ? "block" : "none" }}>
+                            <p className={styles.titleComments}>Всего отзывов: {this.state.movie.CommentsAmount}</p>
+
+                            <InfiniteScroll
+                                dataLength={this.state.comments.items.length}
+                                next={this.getMoviesComments}
+                                hasMore={this.state.comments.hasMore}
+                                loader={<Loader />}
+                            >
+                                {this.state.comments.items.map(comment => <MovieCardComment comment={comment} externalClass={styles.movieCardCommentExternal} />)}
+                            </InfiniteScroll>
                         </div>
                     </div>
                 </div>
