@@ -4,7 +4,7 @@ import styles from './horizontalTabs.module.css';
 
 const HorizontalTabs = ({ tabsSettings, clickTab, tabNumberActive, externalClass = "" }) => {
     let tabs = tabsSettings.map((tab, i) =>
-        <a className={`${styles.tabOverview} ${tabNumberActive === i + 1 ? styles.active : ''}`} onClick={() => clickTab(i + 1)}>{tab.Title}</a>);
+        <a className={`${tabNumberActive === i + 1 ? styles.active : ''}`} onClick={() => clickTab(i + 1)}>{tab.Title}</a>);
 
     return (
         <div className={`${styles.tabs} ${externalClass}`}>

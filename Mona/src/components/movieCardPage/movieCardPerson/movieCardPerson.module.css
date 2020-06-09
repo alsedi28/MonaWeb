@@ -1,0 +1,42 @@
+.container {
+    min-width: 200px; /* Оборачиваем в дополнительный блок, чтобы блок покрывал тень вложенного блока.*/
+}
+
+.container > div {
+    width: 160px;
+    height: 245px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 16px 20px 0px rgba(49, 54, 60, 0.3);
+    overflow: hidden;
+}
+
+.container > div > div {
+    height: 180px;
+    width: 160px;
+    overflow: hidden;
+    background-size: cover !important;
+} 
+
+.container p {
+    margin: 0px;
+    text-align: center;
+}
+
+.container p:first-of-type {
+    font-size: 14px;
+    color: rgb(49, 54, 60);
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 300;
+    margin-top: 8px;
+}
+
+.container p:last-of-type {
+    font-size: 12px;
+    color: rgb(181, 182, 184);
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: normal;
+    margin-top: 10px;
+}

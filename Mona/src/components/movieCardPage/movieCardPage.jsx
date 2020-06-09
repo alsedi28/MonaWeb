@@ -4,7 +4,11 @@ import Header from '../header/header';
 import Footer from '../footer/footer';
 import Loader from '../loader/loader';
 import HorizontalTabs from '../horizontalTabs/horizontalTabs';
+import HorizontalScrollContainer from '../horizontalScrollContainer/horizontalScrollContainer';
 import MovieCardMainInfo from './movieCardMainInfo/movieCardMainInfo';
+import MovieCardPerson from './movieCardPerson/movieCardPerson';
+import MovieCardMiniMovie from './movieCardMiniMovie/movieCardMiniMovie';
+import MovieCardSideBarInfo from './movieCardSideBarInfo/movieCardSideBarInfo';
 import { DataService } from '../../dataService';
 
 import styles from './movieCardPage.module.css';
@@ -32,7 +36,18 @@ class MovieCardPage extends React.Component {
                 PeopleWillWatchMovie: {
                     AmountPeople: 0,
                     Peoples: []
-                }
+                },
+                Casts: {
+                    Amount: 0,
+                    Persons: []
+                },
+                Crews: {
+                    Amount: 0,
+                    Persons: []
+                },
+                Tags: [],
+                MoviesOfTopActors: [],
+                MoviesOfCurrentDirector: []
             },
             isLoading: true,
             tabNumberActive: 1
@@ -41,18 +56,18 @@ class MovieCardPage extends React.Component {
         this.tabSettings = [
             {
                 Title: "Обзор",
-                Width: 140,
-                Offset: 25
+                Width: 65,
+                Offset: 0
             },
             {
                 Title: "Отзывы",
-                Width: 155,
-                Offset: 208
+                Width: 71,
+                Offset: 111
             },
             {
                 Title: "Медиа",
-                Width: 150,
-                Offset: 400
+                Width: 61,
+                Offset: 223
             }
         ];
 
@@ -62,6 +77,14 @@ class MovieCardPage extends React.Component {
 
     componentDidMount() {
         this.getMovieCard();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        // Если переходим на страницу другого фильма, то необходимо обновить страницу.
+        if (this.state.movieId !== nextProps.match.params.movieId) {
+            window.location.reload();
+            window.scrollTo(0, 0);
+        }
     }
 
     getMovieCard() {
@@ -82,7 +105,10 @@ class MovieCardPage extends React.Component {
     render() {
         const { location } = this.props;
 
-
+        let displayCastsBlock = { display: this.state.movie.Casts.Persons.length > 0 ? "block" : "none" };
+        let displayCrewsBlock = { display: this.state.movie.Crews.Persons.length > 0 ? "block" : "none" };
+        let displayMoviesOfTopActorsBlock = { display: this.state.movie.MoviesOfTopActors.length > 0 ? "block" : "none" };
+        let displayMoviesOfCurrentDirectorBlock = { display: this.state.movie.MoviesOfCurrentDirector.length > 0 ? "block" : "none" };
 
         return (
             <React.Fragment>
@@ -91,6 +117,25 @@ class MovieCardPage extends React.Component {
                     <Loader show={this.state.isLoading} externalClass={styles.loader} />
                     <MovieCardMainInfo movie={this.state.movie} externalClass={`${this.state.isLoading ? styles.hide : ''}`} />
                     <HorizontalTabs tabsSettings={this.tabSettings} tabNumberActive={this.state.tabNumberActive} clickTab={this.clickTab} externalClass={styles.tabsExternal} />
+                    <div className={styles.tabOverview}>
+                        <div>
+                            <HorizontalScrollContainer title="Актеры" externalClass={styles.horizontalScrollContainerExternal} style={displayCastsBlock}>
+                                {this.state.movie.Casts.Persons.map(p => <MovieCardPerson name={p.Name} role={p.Character} photoPath={p.AvatarPath} externalClass={styles.scrollContainerItemExternal} />)}
+                            </HorizontalScrollContainer>
+                            <HorizontalScrollContainer title="Команда" externalClass={styles.horizontalScrollContainerExternal} style={displayCrewsBlock}>
+                                {this.state.movie.Crews.Persons.map(p => <MovieCardPerson name={p.Name} role={p.Department} photoPath={p.AvatarPath} externalClass={styles.scrollContainerItemExternal} />)}
+                            </HorizontalScrollContainer>
+                            <HorizontalScrollContainer title="Фильмы с этими актерами" externalClass={styles.horizontalScrollContainerExternal} style={displayMoviesOfTopActorsBlock}>
+                                {this.state.movie.MoviesOfTopActors.map(m => <MovieCardMiniMovie movieId={m.MovieId} movieTitle={m.Title} posterPath={m.PosterPath} externalClass={styles.scrollContainerItemExternal} />)}
+                            </HorizontalScrollContainer>
+                            <HorizontalScrollContainer title="Фильмы этого режиссера" externalClass={styles.horizontalScrollContainerExternal} style={displayMoviesOfCurrentDirectorBlock}>
+                                {this.state.movie.MoviesOfCurrentDirector.map(m => <MovieCardMiniMovie movieId={m.MovieId} movieTitle={m.Title} posterPath={m.PosterPath} externalClass={styles.scrollContainerItemExternal} />)}
+                            </HorizontalScrollContainer>
+                        </div>
+                        <div>
+                            <MovieCardSideBarInfo movie={this.state.movie} externalClass={styles.movieCardSideBarInfoExternal} />
+                        </div>
+                    </div>
                 </div>
                 <Footer externalClass="footer-external" />
             </React.Fragment>

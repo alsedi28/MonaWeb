@@ -14,7 +14,7 @@
 .centerContainer {
     display: flex;
     justify-content: start;
-    max-width: 790px;
+    max-width: 840px;
     min-width: 650px;
     height: 100%;
     margin: 0 auto;

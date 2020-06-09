@@ -14,8 +14,37 @@
 }
 
 .tabsExternal {
-    max-width: 790px;
+    max-width: 840px;
     min-width: 650px;
     margin: auto;
+    margin-top: 20px;
+}
+
+/* Переопеределяем стили для табов. Текст по левому краю и ширину меняем. */
+.tabsExternal > a {
+    text-align: left !important;
+    width: 100px !important;
+}
+
+.horizontalScrollContainerExternal {
+    width: 680px;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.scrollContainerItemExternal {
+    margin-bottom: 45px;
+    margin-top: 20px;
+}
+
+.tabOverview {
+    display: flex;
+    max-width: 840px;
+    min-width: 650px;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.movieCardSideBarInfoExternal {
     margin-top: 20px;
 }
