@@ -52,7 +52,7 @@ class SignUpPage extends React.Component {
                 emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
                 break;
             case 'password':
-                passwordValid = value.length >= Constants.MIN_PASSWORD_LENGHT;
+                passwordValid = value.length >= Constants.MIN_PASSWORD_LENGTH;
                 break;
             default:
                 break;
@@ -156,7 +156,7 @@ class SignUpPage extends React.Component {
                                 </div>
 
                                 <CommonButton
-                                    externalClass="filledButton"
+                                    externalClass="filledButton formButton"
                                     title="Создать аккаунт"
                                     style={{ width: `80%`, height: `56px` }}
                                     onClick={this.clickRegister.bind(this)}

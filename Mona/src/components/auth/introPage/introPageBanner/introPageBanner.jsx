@@ -8,27 +8,26 @@ import welcomeIcon from '../../../../../public/icons/welcome.png';
 
 function IntroPageBanner(props) {
     return (
-        <React.Fragment>
-            <div className={styles.banner}>
-                <div className={styles.bannerContainer}>
+        <div className={styles.banner}>
+            <div className={styles.bannerContainer}>
 
-                    <div className={styles.bannerColumn}>
-                        <p className={styles.bannerTitle}>Добро пожаловать в MONA!</p>
-                        <p className={styles.bannerSubtitle}>MONA — социальная сеть про кино. Находи крутые фильмы для просмотра, добавляй их в закладки, читай отзывы и делись ими со своими подписчиками!</p>
-                            <div className={styles.bannerButtonsContainer}>
-                                <div style={{ paddingRight: `24px` }}>
-                                    <CommonButton externalClass="borderedButton" onClick={props.onSignIn} title="Войти" />
-                                </div>
-                                <CommonButton externalClass="filledButton" onClick={props.onSignUp} title="Создать аккаунт" />
+                <div className={styles.bannerColumn}>
+                    <p className={styles.bannerTitle}>Добро пожаловать в MONA!</p>
+                    <p className={styles.bannerSubtitle}>Добро пожаловать в MONA! Мы — социальная сеть про кино. Ищи фильмы, добавляй в закладки, ставь оценки и обсуждай кино со своими друзьями и подписчиками!</p>
+                        <div className={styles.bannerButtonsContainer}>
+                            <div className={styles.bannerSignInButtonContainer}>
+                                <CommonButton externalClass="borderedButton" onClick={props.onSignIn} title="Войти" />
                             </div>
-                    </div>
+                            <CommonButton externalClass="filledButton" onClick={props.onSignUp} title="Создать аккаунт" />
+                        </div>
+                </div>
 
-                    <div className={styles.bannerColumn}>
-                        <img src={welcomeIcon} width="340px" />
-                    </div>
+                <div className={styles.bannerColumn}>
+                    <img src={welcomeIcon} width="340px" />
                 </div>
             </div>
-        </React.Fragment>);
+        </div>
+    );
 };
 
 export default IntroPageBanner;

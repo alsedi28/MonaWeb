@@ -13,10 +13,12 @@ class LoginPage extends React.Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
             nickname: "",
             password: "",
-        }
+        };
+
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleKeyPress = this.handleKeyPress.bind(this);
     }
@@ -62,7 +64,7 @@ class LoginPage extends React.Component {
 
                             <div className={styles.formsContainer}>
                                 <form>
-                                    <label className={styles.formLabel} for="fname">Никнейм</label>
+                                    <label className={styles.formLabel}>Никнейм</label>
                                     <input className={styles.formInput}
                                         type="text"
                                         id="nickname"
@@ -74,7 +76,7 @@ class LoginPage extends React.Component {
                                         required
                                     />
 
-                                    <label className={styles.formLabel} for="lname">Пароль</label>
+                                    <label className={styles.formLabel}>Пароль</label>
                                     <input
                                         className={styles.formInput}
                                         type="password"

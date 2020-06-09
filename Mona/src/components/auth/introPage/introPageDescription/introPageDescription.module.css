@@ -24,6 +24,11 @@
   box-sizing: border-box;
 }
 
+.descriptionList > li:first-of-type {
+    padding-right: 40px;
+}
+
+
 .descriptionListItem li > a {
   display: block;
 }

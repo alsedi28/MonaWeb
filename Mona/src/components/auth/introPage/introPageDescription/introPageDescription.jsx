@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Constants from '../../../../constants';
+
 import styles from './introPageDescription.module.css';
 
 import appStoreIcon from '../../../../../public/icons/appStore.png';
@@ -9,20 +11,20 @@ function IntroPageDescription(props) {
         <div className={styles.descriptionContainer}>
 
             <ol className={styles.descriptionList}>
-                <li className={styles.descriptionListItem} style={{ paddingRight: `40px` }}>
+                <li className={styles.descriptionListItem}>
                     <p className={styles.title}>Для кого MONA</p>
-                    <p className={styles.subtitle}>Для любителей кино!</p>
+                    <p className={styles.subtitle}>Наша аудитория — это настоящие киноманы</p>
                 </li>
 
                 <li className={styles.descriptionListItem}>
-                    <p className={styles.title}>Как мне начать им пользоваться?</p>
-                    <p className={styles.subtitle}>Зарегистрируйтесь</p>
+                    <p className={styles.title}>Как мне начать пользоваться?</p>
+                    <p className={styles.subtitle}>Что надо сделать? Создай аккаунт — это  быстро и легко: просто нажми кнопку «Создать аккаунт» и заполни коротку форму. Ждём тебя в MONA!</p>
                 </li>
             </ol>
 
-            <p className={styles.title}>У MONA есть мобильное приложение?</p>
-            <p className={styles.subtitle}>Да, вы можете скачать его, нажав на кнопку ниже</p>
-            <a href="https://apps.apple.com/ru/app/mona-социальная-сеть-про-кино/id1227526659">
+            <p className={styles.title}>А приложение MONA есть на телефоне?</p>
+            <p className={styles.subtitle}>Да, ты можешь скачать его в AppStore, перейдя по ссылке. Тебе у нас понравится!</p>
+            <a href={Constants.IOS_APP_LINK}>
                 <img src={appStoreIcon} width="146px" />
             </a>
 
