@@ -98,8 +98,8 @@ class LoginPage extends React.Component {
 
                                 <CommonButton
                                     externalClass="filledButton"
+                                    secondaryExternalClass="formButton"
                                     title="Войти"
-                                    style={{ width: `80%`, height: `56px` }}
                                     onClick={this.clickLogin.bind(this)}
                                     isDisabled={isSignInDisabled}
                                 />

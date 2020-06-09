@@ -63,9 +63,14 @@ html, body {
     color: white;
 }
 
+.formButton {
+    width: 80% !important;
+     height: 56px !important;
+}
+
 .borderedButton {
     background: none;
-    border: 3;
+    border-width: 3px;
     border-color: rgb(188, 208, 229);
     color: rgb(49, 54, 60);
 }
