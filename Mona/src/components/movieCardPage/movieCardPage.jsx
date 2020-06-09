@@ -12,6 +12,7 @@ import MovieCardPerson from './movieCardPerson/movieCardPerson';
 import MovieCardMiniMovie from './movieCardMiniMovie/movieCardMiniMovie';
 import MovieCardSideBarInfo from './movieCardSideBarInfo/movieCardSideBarInfo';
 import MovieCardComment from './movieCardComment/movieCardComment';
+import MovieCardNotCommentsBanner from './movieCardNotCommentsBanner/movieCardNotCommentsBanner';
 import PostDetails from '../postDetails/postDetails';
 import { DataService } from '../../dataService';
 
@@ -241,7 +242,8 @@ class MovieCardPage extends React.Component {
                             <MovieCardSideBarInfo movie={this.state.movie} externalClass={styles.movieCardSideBarInfoExternal} />
                         </div>
                     </div>
-                    <div className={styles.tabData} style={{ display: this.state.tabNumberActive === 2 ? "block" : "none" }}>
+                    <div className={`${styles.tabData} ${styles.tabComments}`} style={{ display: this.state.tabNumberActive === 2 ? "block" : "none" }}>
+                        <MovieCardNotCommentsBanner show={this.state.comments.items.length === 0}/>
                         <div style={{ display: this.state.comments.items.length > 0 ? "block" : "none" }}>
                             <p className={styles.titleComments}>Всего отзывов: {this.state.movie.CommentsAmount}</p>
 
