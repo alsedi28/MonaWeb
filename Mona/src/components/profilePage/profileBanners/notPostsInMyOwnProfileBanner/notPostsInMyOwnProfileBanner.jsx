@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Banner from '../banner/banner';
+import Banner from '../../../banner/banner';
 
-import blogging from '../../../public/icons/blogging.png';
+import blogging from '../../../../../public/icons/blogging.png';
 
 const NotPostsInMyOwnProfileBanner = ({ show, externalClass = "" }) => {
     let headerText = "Делитесь фильмами!";

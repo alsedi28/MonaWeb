@@ -2,18 +2,18 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { RemoveScroll } from 'react-remove-scroll';
 
-import ModalDialog from '../modalDialog/modalDialog';
-import { DataService } from '../../dataService';
+import ModalDialog from '../../modalDialog/modalDialog';
+import { DataService } from '../../../dataService';
 
-import styles from './movieItemOnUserProfile.module.css';
+import styles from './profileMovieItem.module.css';
 
-import bookMarkIcon from '../../../public/icons/bookMark.png';
-import bookMarkMiniIcon from '../../../public/icons/bookMarkMini.png';
-import viewIcon from '../../../public/icons/view.png';
-import framePlaceholder from '../../../public/icons/framePlaceholder.png';
+import bookMarkIcon from '../../../../public/icons/bookMark.png';
+import bookMarkMiniIcon from '../../../../public/icons/bookMarkMini.png';
+import viewIcon from '../../../../public/icons/view.png';
+import framePlaceholder from '../../../../public/icons/framePlaceholder.png';
 
 
-class MovieItemOnUserProfile extends React.Component {
+class ProfileMovieItem extends React.Component {
     constructor(props) {
         super(props);
 
@@ -136,4 +136,4 @@ class MovieItemOnUserProfile extends React.Component {
     }
 }
 
-export default MovieItemOnUserProfile;
+export default ProfileMovieItem;

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Banner from '../banner/banner';
+import Banner from '../../../banner/banner';
 
-import seoIcon from '../../../public/icons/seo.png';
+import seoIcon from '../../../../../public/icons/seo.png';
 
 const NotMoviesViewedInMyOwnProfileBanner = ({ show, externalClass = "" }) => {
     let headerText = "Ваша коллекция фильмов пуста";

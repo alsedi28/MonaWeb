@@ -1,22 +1,22 @@
 import React from 'react';
+import InfiniteScroll from "react-infinite-scroll-component";
 
 import styles from './profilePage.module.css';
 
-import InfiniteScroll from "react-infinite-scroll-component";
 import PostsFeed from '../postsFeed/postsFeed';
 import Post from '../post/post';
 import Loader from '../loader/loader';
-import ProfileUserInfo from '../profileUserInfo/profileUserInfo';
+import ProfileUserInfo from './profileUserInfo/profileUserInfo';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import HorizontalTabs from '../horizontalTabs/horizontalTabs';
-import MovieItemOnUserProfile from '../movieItemOnUserProfile/movieItemOnUserProfile';
-import NotPostsBanner from '../notPostsBanner/notPostsBanner';
-import NotPostsInMyOwnProfileBanner from '../notPostsInMyOwnProfileBanner/notPostsInMyOwnProfileBanner';
-import NotMoviesWillWatchBanner from '../notMoviesWillWatchBanner/notMoviesWillWatchBanner';
-import NotMoviesWillWatchInMyOwnProfileBanner from '../notMoviesWillWatchInMyOwnProfileBanner/notMoviesWillWatchInMyOwnProfileBanner';
-import NotMoviesViewedBanner from '../notMoviesViewedBanner/notMoviesViewedBanner';
-import NotMoviesViewedInMyOwnProfileBanner from '../notMoviesViewedInMyOwnProfileBanner/notMoviesViewedInMyOwnProfileBanner';
+import ProfileMovieItem from './profileMovieItem/profileMovieItem';
+import NotPostsBanner from './profileBanners/notPostsBanner/notPostsBanner';
+import NotPostsInMyOwnProfileBanner from './profileBanners/notPostsInMyOwnProfileBanner/notPostsInMyOwnProfileBanner';
+import NotMoviesWillWatchBanner from './profileBanners/notMoviesWillWatchBanner/notMoviesWillWatchBanner';
+import NotMoviesWillWatchInMyOwnProfileBanner from './profileBanners/notMoviesWillWatchInMyOwnProfileBanner/notMoviesWillWatchInMyOwnProfileBanner';
+import NotMoviesViewedBanner from './profileBanners/notMoviesViewedBanner/notMoviesViewedBanner';
+import NotMoviesViewedInMyOwnProfileBanner from './profileBanners/notMoviesViewedInMyOwnProfileBanner/notMoviesViewedInMyOwnProfileBanner';
 import { DataService } from '../../dataService';
 import Constants from '../../constants';
 
@@ -263,13 +263,13 @@ class ProfilePage extends React.Component {
             if (i === movies.items.length - 1)
                 result.push(
                     <div className={styles.moviesContainer}>
-                        <MovieItemOnUserProfile movie={movies.items[i]} isViewed={isViewed} externalClass={styles.movieBlockExternal} handlerExternal={this.updatePartlyProfileInfo.bind(this, true)} />
+                        <ProfileMovieItem movie={movies.items[i]} isViewed={isViewed} externalClass={styles.movieBlockExternal} handlerExternal={this.updatePartlyProfileInfo.bind(this, true)} />
                     </div>);
             else
                 result.push(
                     <div className={styles.moviesContainer}>
-                        <MovieItemOnUserProfile movie={movies.items[i]} isViewed={isViewed} externalClass={styles.movieBlockExternal} handlerExternal={this.updatePartlyProfileInfo.bind(this, true)}/>
-                        <MovieItemOnUserProfile movie={movies.items[i + 1]} isViewed={isViewed} externalClass={styles.movieBlockExternal} handlerExternal={this.updatePartlyProfileInfo.bind(this, true)}/>
+                        <ProfileMovieItem movie={movies.items[i]} isViewed={isViewed} externalClass={styles.movieBlockExternal} handlerExternal={this.updatePartlyProfileInfo.bind(this, true)}/>
+                        <ProfileMovieItem movie={movies.items[i + 1]} isViewed={isViewed} externalClass={styles.movieBlockExternal} handlerExternal={this.updatePartlyProfileInfo.bind(this, true)}/>
                     </div>);
         }
 

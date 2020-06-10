@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import { RemoveScroll } from 'react-remove-scroll';
 
 import ModalDialog from '../modalDialog/modalDialog';
-import PostButtonBar from '../postButtonBar/postButtonBar';
-import PostHeader from '../postHeader/postHeader';
-import PostComment from '../postComment/postComment';
-import PostCommentInput from '../postCommentInput/postCommentInput';
+import PostButtonBar from './postButtonBar/postButtonBar';
+import PostHeader from './postHeader/postHeader';
+import PostComment from './postComment/postComment';
+import PostCommentInput from './postCommentInput/postCommentInput';
 import PostWatchStatusButtons from '../postWatchStatusButtons/postWatchStatusButtons';
 import PostDetails from '../postDetails/postDetails';
 import PostTotalLikes from '../postTotalLikes/postTotalLikes';

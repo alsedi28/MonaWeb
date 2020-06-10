@@ -2,9 +2,9 @@ import React, { useRef } from 'react';
 
 import styles from './postButtonBar.module.css';
 
-import heartIcon from '../../../public/icons/heart.png';
-import heartFilledIcon from '../../../public/icons/heartFilled.png';
-import commentsIcon from '../../../public/icons/comments.png';
+import heartIcon from '../../../../public/icons/heart.png';
+import heartFilledIcon from '../../../../public/icons/heartFilled.png';
+import commentsIcon from '../../../../public/icons/comments.png';
 
 const PostButtonBar = ({ isActiveLike, clickLike, clickComment, externalClass = "" }) => {
     const imgLike = useRef(null);

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Banner from '../banner/banner';
+import Banner from '../../../banner/banner';
 
-import seoIcon from '../../../public/icons/seo.png';
+import seoIcon from '../../../../../public/icons/seo.png';
 
 const NotMoviesWillWatchInMyOwnProfileBanner = ({ show, externalClass = "" }) => {
     let headerText = "Ваш список закладок пуст";

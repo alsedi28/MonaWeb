@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import FollowButton from '../followButton/followButton';
+import FollowButton from '../buttons/followButton/followButton';
 import UserAvatar from '../userAvatar/userAvatar';
 import { DataService } from '../../dataService';
 import Constants from '../../constants';

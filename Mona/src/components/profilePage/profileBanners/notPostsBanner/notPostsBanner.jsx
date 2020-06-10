@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Banner from '../banner/banner';
+import Banner from '../../../banner/banner';
 
-import errorColored from '../../../public/icons/errorColored.png';
+import errorColored from '../../../../../public/icons/errorColored.png';
 
 const NotPostsBanner = ({ username, show, externalClass = "" }) => {
     let headerText = "Пока нет публикаций";

@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from './followButton.module.css';
 
-import plusIcon from '../../../public/icons/plus.png';
+import plusIcon from '../../../../public/icons/plus.png';
 
 const FollowButton = ({ active, click, externalClass = "" }) => {
     let content = active ?

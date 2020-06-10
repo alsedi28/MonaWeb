@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 
 import styles from './postComment.module.css';
 
-import heartIcon from '../../../public/icons/heart.png';
-import heartFilledIcon from '../../../public/icons/heartFilled.png';
+import heartIcon from '../../../../public/icons/heart.png';
+import heartFilledIcon from '../../../../public/icons/heartFilled.png';
 
 const PostComment = ({ comment, clickLike, externalClass = "" }) => {
 
