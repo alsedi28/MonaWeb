@@ -8,7 +8,7 @@
 .container > div {
     min-height: 450px;
     width: 100%;
-    background-color: rgba(49, 54, 60, 0.4);
+    background-color: rgba(49, 54, 60, 0.8);
 }
 
 .centerContainer {
@@ -100,5 +100,5 @@
     font-family: "Montserrat";
     font-style: normal;
     font-weight: normal;
-    max-width: 380px;
+    margin-bottom: 26px;
 }
