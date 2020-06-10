@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import UserAvatar from '../userAvatar/userAvatar';
 import Constants from '../../constants';
+import { resetUserCookie } from '../../helpers/cookieHelper';
 import CommonButton from '../buttons/commonButton/commonButton';
 
 import styles from './header.module.css';
@@ -27,9 +28,20 @@ const Header = ({ location = "", externalClass = "", children, onSignIn, onSignU
                 <nav className={styles.buttonsWithIconsNav} style={{ display: userId ? "block" : "none" }}>
                     <ul className={styles.buttonsWithIconsUl}>
                         <li className={styles.buttonsWithIconsLi}>
-                            <Link to={`/profile/${userId}`}>
-                                <UserAvatar avatar={userAvatar} size={30} withGrayBorder={!isCurrentProfileUser} withOrangeBorder={isCurrentProfileUser} externalClass={`${styles.userAvatarExternal}`} />
-                            </Link>
+                            <UserAvatar avatar={userAvatar} size={30} withGrayBorder={!isCurrentProfileUser} withOrangeBorder={isCurrentProfileUser} externalClass={`${styles.userAvatarExternal}`} />
+                            <ul className={styles.dropdown}>
+                                <li className={styles.dropdownContent}>
+                                    <Link to={`/profile/${userId}`}>
+                                        <p className={styles.menuItemTitle}>Профиль</p>
+                                    </Link>
+                                    <div className={styles.dividerLine}></div>
+                                </li>
+                                <li className={styles.dropdownContent} onClick={resetUserCookie}>
+                                    <Link to={`/intro`}>
+                                        <p className={styles.signOutLink}>Выйти</p>
+                                    </Link>
+                                </li>
+                            </ul>
                         </li>
                         <li className={styles.buttonsWithIconsLi}>
                             <Link to="/feed">

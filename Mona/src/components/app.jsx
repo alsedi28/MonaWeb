@@ -10,6 +10,7 @@ import FollowersPage from './followersPage/followersPage';
 import MovieCardPage from './movieCardPage/movieCardPage';
 import NotFoundPage from './notFoundPage/notFoundPage';
 import Constants from '../constants';
+import { setUserCookie } from '../helpers/cookieHelper';
 import { DataService } from '../dataService';
 
 class App extends React.Component {
@@ -35,8 +36,6 @@ class App extends React.Component {
         };
 
         this.userHasAuthenticated = this.userHasAuthenticated.bind(this);
-        this.setUserCookie = this.setUserCookie.bind(this);
-        this.resetUserCookie = this.resetUserCookie.bind(this);
         this.showLoginError = this.showLoginError.bind(this);
         this.getPosts = this.getPosts.bind(this);
         this.getPopularPosts = this.getPopularPosts.bind(this);
@@ -55,20 +54,6 @@ class App extends React.Component {
         this.setState({ isAuthenticated: status });
     }
 
-    setUserCookie(token, userId, userAvatar) {
-        sessionStorage.setItem(Constants.TOKEN_COOKIE_KEY, token);
-        sessionStorage.setItem(Constants.USER_ID_COOKIE_KEY, userId);
-
-        if (userAvatar)
-            sessionStorage.setItem(Constants.USER_AVATAR_COOKIE_KEY, userAvatar);
-    }
-
-    resetUserCookie() {
-        sessionStorage.removeItem(Constants.TOKEN_COOKIE_KEY);
-        sessionStorage.removeItem(Constants.USER_ID_COOKIE_KEY);
-        sessionStorage.removeItem(Constants.USER_AVATAR_COOKIE_KEY);
-    }
-
     showLoginError(show) {
         this.setState({ showLoginError: show });
     }
@@ -76,7 +61,7 @@ class App extends React.Component {
     login(login, password, isFromRegistration = false) {
         let successCallback = (response) => {
             this.userHasAuthenticated(true);
-            this.setUserCookie(response.access_token, response.userId, response.userAvatar);
+            setUserCookie(response.access_token, response.userId, response.userAvatar);
 
             this.showLoginError(false);
 

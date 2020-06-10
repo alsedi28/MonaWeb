@@ -86,6 +86,13 @@
     float: right;
     margin-left: 30px;
     margin-top: 0px !important;
+    cursor: pointer;
+}
+
+.dividerLine {
+    background-color: rgb(216, 216, 216);
+    height: 1px;
+    position: relative;
 }
 
 .buttonsNav {
@@ -105,4 +112,65 @@
 .buttonsLi {
   float: left;
   padding-left: 24px;
+}
+
+/* Dropdown Menu */
+
+.dropdownContent {
+  display: block;
+  position: relative;
+  background-color: #ffffff;
+  z-index: 1;
+}
+
+.dropdownContent p {
+    font-family: "Montserrat";
+    font-weight: normal;
+    font-size: 16px;
+    text-align: left;
+    padding: 20px 20px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdownContent:first-child {
+    border-top-left-radius: 6px !important;
+    border-top-right-radius: 6px !important;
+}
+
+.dropdownContent:last-child {
+    border-bottom-left-radius: 6px !important;
+    border-bottom-right-radius: 6px !important;
+}
+
+.menuItemTitle {
+    color: rgb(49, 54, 60);
+}
+
+.signOutLink {
+    color: rgb(255, 86, 26);
+}
+
+ul li ul li:hover {
+  background: rgb(250, 233, 227);
+}
+
+ul li ul.dropdown {
+    min-width: 200px;
+    display: none;
+    position: absolute;
+    z-index: 1;
+    margin-top: 24px;
+    margin-left: 86px;
+    border-radius: 6px !important;
+    padding-left: 0px;
+    box-shadow: 0px 16px 24px 0px rgba(161, 164, 184, 0.35);
+}
+ul li:hover ul.dropdown{
+    display: block;
+}
+ul li ul.dropdown li {
+    display: block;
 }
