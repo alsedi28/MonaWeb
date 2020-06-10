@@ -8,8 +8,10 @@ const MovieCardPerson = ({ name, role, photoPath, externalClass = "" }) => (
     <article className={`${styles.container} ${externalClass}`}>
         <div>
             <div style={{ background: `${getPersonPhotoUrl(photoPath)}` }} />
-            <p>{name}</p>
-            <p>{role}</p>
+            <div>
+                <p>{name}</p>
+                <p>{role}</p>
+            </div>
         </div>
     </article>
 );

@@ -11,11 +11,18 @@
     overflow: hidden;
 }
 
-.container > div > div {
+.container > div > div:first-of-type {
     height: 180px;
     width: 160px;
     overflow: hidden;
     background-size: cover !important;
+} 
+
+.container > div > div:last-of-type {
+    display: flex;
+    height: 65px;
+    flex-direction: column;
+    justify-content: center;
 } 
 
 .container p {
@@ -29,7 +36,6 @@
     font-family: "Montserrat";
     font-style: normal;
     font-weight: 300;
-    margin-top: 8px;
 }
 
 .container p:last-of-type {
@@ -38,5 +44,4 @@
     font-family: "Montserrat";
     font-style: normal;
     font-weight: normal;
-    margin-top: 10px;
 }
