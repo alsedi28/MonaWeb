@@ -17,13 +17,13 @@ const PostsFeedPage = ({ feed, feedPopular, getPosts, getPopularPosts, ...props 
     const tabSettings = [
         {
             Title: "Подписки",
-            Width: 120,
+            Width: 140,
             Offset: 0
         },
         {
             Title: "Популярные",
-            Width: 135,
-            Offset: 119
+            Width: 150,
+            Offset: 140
         }
     ];
 

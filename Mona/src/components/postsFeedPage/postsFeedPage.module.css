@@ -13,3 +13,17 @@
 .headerFeed {
     height: 98px !important;
 }
+
+.tabsExternal {
+    position: relative;
+    max-width: 790px;
+    min-width: 650px;
+    margin: auto;
+    display: block;
+    padding: 0;
+}
+
+.tabsExternal > a {
+    padding: 10px 25px !important;
+    width: auto !important;
+} 
