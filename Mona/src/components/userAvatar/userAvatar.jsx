@@ -4,8 +4,15 @@ import { getAvatarPath } from '../../helpers/imagePathHelper';
 
 import styles from './userAvatar.module.css';
 
-const UserAvatar = ({ avatar, size, withGrayBorder = false, withOrangeBorder = false, externalClass = "" }) => {
-    let borderClass = `${withGrayBorder ? styles.grayBorder : ''} ${withOrangeBorder ? styles.orangeBorder : ''}`;
+const UserAvatar = ({ avatar, size, withGrayBorder = false, withOrangeBorder = false, withWhiteBorder = false, externalClass = "" }) => {
+    let borderClass = '';
+
+    if (withGrayBorder)
+        borderClass = styles.grayBorder;
+    else if (withOrangeBorder)
+        borderClass = styles.orangeBorder;
+    else if (withWhiteBorder)
+        borderClass = styles.whiteBorder;
 
     return (
         <div className={`${styles.container} ${externalClass} ${borderClass}`}

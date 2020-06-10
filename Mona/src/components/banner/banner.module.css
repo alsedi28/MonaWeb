@@ -1,5 +1,5 @@
 .container {
-    height: 340px;
+    height: 355px;
     width: 80%;
     background: white;
     border-radius: 20px;
@@ -25,4 +25,5 @@
     font-size: 18px;
     font-family: "Montserrat";
     font-weight: normal;
+    padding: 0px 43px;
 }

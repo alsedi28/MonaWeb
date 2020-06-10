@@ -27,3 +27,24 @@ export function getTimeAgoString(dateOfCreationPost) {
 
     return resultString + " назад";
 }
+
+export function getReleaseYear(date) {
+    return date !== null ? (new Date(Date.parse(date))).getFullYear() : null;
+}
+
+export function getHumanRuntime(minutes) {
+    if (minutes === null)
+        return null;
+
+    let resultString = "";
+
+    if (minutes > 60)
+        resultString += `${Math.floor(minutes / 60)} ч `;
+
+    let onlyMinutes = minutes % 60;
+
+    if (onlyMinutes > 0)
+        resultString += `${onlyMinutes} мин`;
+
+    return resultString;
+}

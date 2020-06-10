@@ -6,27 +6,40 @@ import Post from '../post/post';
 import Loader from '../loader/loader';
 import Header from '../header/header';
 import Footer from '../footer/footer';
-import HeaderFeedTabs from '../headerFeedTabs/headerFeedTabs';
+import HorizontalTabs from '../horizontalTabs/horizontalTabs';
 
 import styles from './postsFeedPage.module.css';
 
 const PostsFeedPage = ({ feed, feedPopular, getPosts, getPopularPosts, ...props }) => {
 
-    const [showMainTab, setShowMainTab] = useState(true);
+    const [tabNumberActive, setTabNumberActive] = useState(1);
 
-    function clickTab(showMainTab) {
-        setShowMainTab(showMainTab);
+    const tabSettings = [
+        {
+            Title: "РџРѕРґРїРёСЃРєРё",
+            Width: 120,
+            Offset: 0
+        },
+        {
+            Title: "РџРѕРїСѓР»СЏСЂРЅС‹Рµ",
+            Width: 135,
+            Offset: 119
+        }
+    ];
 
-        // Прокручиваем страницу в самое начало
+    function clickTab(tab) {
+        setTabNumberActive(tab);
+
+        // РџСЂРѕРєСЂСѓС‡РёРІР°РµРј СЃС‚СЂР°РЅРёС†Сѓ РІ СЃР°РјРѕРµ РЅР°С‡Р°Р»Рѕ
         window.scrollTo(0, 0);
     }
 
     return (
         <React.Fragment>
             <Header externalClass={`header-external ${styles.headerFeed}`} location={props.location.pathname}>
-                <HeaderFeedTabs clickTabFeed={() => clickTab(true)} clickTabFeedPopular={() => clickTab(false)}/>
+                <HorizontalTabs tabsSettings={tabSettings} tabNumberActive={tabNumberActive} clickTab={clickTab} externalClass={styles.tabsExternal} />
             </Header>
-            <PostsFeed externalClass={`posts-feed-external ${showMainTab ? styles.showExternal : styles.hideExternal}`}>
+            <PostsFeed externalClass={`posts-feed-external ${tabNumberActive === 1 ? styles.showExternal : styles.hideExternal}`}>
                 <Loader show={feed.isLoading} externalClass={styles.loader}/>
                 <InfiniteScroll
                     dataLength={feed.posts.length}
@@ -37,7 +50,7 @@ const PostsFeedPage = ({ feed, feedPopular, getPosts, getPopularPosts, ...props 
                     {feed.posts.map(post => <Post post={post} externalClass="post-external" />)}
                 </InfiniteScroll>
             </PostsFeed>
-            <PostsFeed externalClass={`posts-feed-external ${!showMainTab ? styles.showExternal : styles.hideExternal}`}>
+            <PostsFeed externalClass={`posts-feed-external ${tabNumberActive === 2 ? styles.showExternal : styles.hideExternal}`}>
                 <Loader show={feedPopular.isLoading} externalClass={styles.loader}/>
                 <InfiniteScroll
                     dataLength={feedPopular.posts.length}

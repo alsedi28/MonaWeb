@@ -165,7 +165,7 @@ class FollowersPage extends React.Component {
     }
 
     render() {
-        const { } = this.props;
+        const { location } = this.props;
 
         let titleBlock = "";
 

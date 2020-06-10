@@ -206,7 +206,7 @@ class PostDetails extends React.Component {
 
         let commentsBlock = "";
         if (this.state.isLoading) {
-            commentsBlock = <Loader show={this.state.isLoading} externalClass={styles.loader}/>
+            commentsBlock = <Loader show={this.state.isLoading} externalClass={styles.loader} />;
         } else {
             commentsBlock = this.state.comments.map(comment => <PostDetailsComment comment={comment} clickLike={this.state.handleClickLikeComment.bind(this, post.EventId, post.MovieId, comment.CommentId)} />);
         }
@@ -225,9 +225,11 @@ class PostDetails extends React.Component {
 
                             <div className={styles.posterBox} style={{ background: `${getBackdropUrl(post.MovieBackdropPath)}` }}>
                                 <div>
-                                    <div className={styles.poster}>
-                                        <img src={getPosterPath(post.MoviePosterPath)} className={styles.posterImage} />
-                                    </div>
+                                    <Link to={`/movies/${post.MovieId}`}>
+                                        <div className={styles.poster}>
+                                            <img src={getPosterPath(post.MoviePosterPath)} className={styles.posterImage} />
+                                        </div>
+                                    </Link>
                                 </div>
                             </div>
 
@@ -242,7 +244,7 @@ class PostDetails extends React.Component {
                                         <div className={styles.userInfo}>
                                             <span className={styles.userLink}><Link to={`/profile/${post.UserId}`}>{post.Login}</Link></span>
                                             <span> {getStatusString(post.EventType)} </span>
-                                            <span className={styles.userLink}>{post.MovieTitle}</span>
+                                            <span className={styles.userLink}><Link to={`/movies/${post.MovieId}`}>{post.MovieTitle}</Link></span>
                                         </div>
                                     </div>
                                 </header>

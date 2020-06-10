@@ -1,0 +1,60 @@
+.container {
+    height: auto;
+    position: relative;
+}
+
+.container > div {
+    display: flex;
+    justify-content: start;
+    overflow-x: auto;
+    max-width: 670px;
+    margin-left: -30px;
+}
+
+.container > div.shadow::after {
+    content: '';
+    width: 60px;
+    height: 90%;
+    position: absolute;
+    top: 36px;
+    left: 581px;
+    background-image: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+    will-change: opacity;
+    pointer-events: none;
+}
+
+.container > div > *:first-of-type {
+    margin-left: 30px; /* Для первого элемента в списке блока необходим сдвиг равный сдвигу container > div */
+}
+
+.container > p {
+    font-size: 20px;
+    color: rgb(49, 54, 60);
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 300;
+    margin: 0px;
+}
+
+
+/* The emerging W3C standard
+   that is currently Firefox-only */
+.container > div {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(128, 128, 128) rgb(240, 240, 240);
+}
+
+/* Works on Chrome/Edge/Safari */
+.container > div::-webkit-scrollbar {
+    width: 12px;
+}
+
+.container > div::-webkit-scrollbar-thumb {
+    background-color: rgb(128, 128, 128);
+    border-radius: 20px;
+    border: 2px solid rgb(240, 240, 240);
+}
+
+.container > div::-webkit-scrollbar-track {
+    background: rgb(240, 240, 240);
+}

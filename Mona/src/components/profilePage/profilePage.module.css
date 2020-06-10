@@ -15,80 +15,13 @@
     padding-top: 35px;
 }
 
-.tabs {
+.tabsExternal {
     position: relative;
     max-width: 790px;
     min-width: 650px;
     margin: auto;
     display: block;
     padding: 0;
-}
-
-.tabs > a {
-    position: relative;
-    display: inline-block;
-    text-decoration: none;
-    padding: 15px 5px;
-    font-size: 16px;
-    font-weight: 600;
-    color: rgb(49, 54, 60);
-    text-align: center;
-    font-family: "Montserrat";
-    font-weight: normal;
-    width: 180px;
-}
-
-.tabs > a:visited {
-    color: rgb(49, 54, 60);
-}
-
-.tabs > a.active:visited {
-    color: rgb(255, 86, 26) !important;
-}
-
-.tabs > a.active {
-    font-weight: 700;
-    outline: none;
-}
-
-.tabs > a:hover {
-    cursor: pointer;
-}
-
-.tabs > a:not(.active):hover {
-    background-color: inherit;
-    color: #7c848a;
-}
-
-.tabBar {
-    position: absolute;
-    z-index: 10;
-    bottom: 0;
-    height: 3px;
-    background: rgb(255, 86, 26);
-    display: block;
-    left: 0;
-    transition: left .2s ease;
-    -webkit-transition: left .2s ease;
-}
-
-.tabPosts.active ~ span.tabBar {
-    left: 12px;
-    width: 167px;
-}
-
-.tabMoviesWillWatch.active ~ span.tabBar {
-    left: 199px;
-    width: 167px;
-}
-
-.tabMoviesViewed.active ~ span.tabBar {
-    left: 382px;
-    width: 181px;
-}
-
-.active {
-    color: rgb(255, 86, 26) !important;
 }
 
 .bannerExternal {

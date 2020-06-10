@@ -7,6 +7,7 @@ import SignUpRoute from './signUpRoute';
 import PostsFeedPage from './postsFeedPage/postsFeedPage';
 import ProfilePage from './profilePage/profilePage';
 import FollowersPage from './followersPage/followersPage';
+import MovieCardPage from './movieCardPage/movieCardPage';
 import NotFoundPage from './notFoundPage/notFoundPage';
 import Constants from '../constants';
 import { DataService } from '../dataService';
@@ -200,6 +201,7 @@ class App extends React.Component {
                     <PrivateRoute exact path='/profile/:userId' history={history} component={ProfilePage} isAuthenticated={this.state.isAuthenticated} />
                     <PrivateRoute exact path='/profile/:userId/followers' history={history} component={FollowersPage} isAuthenticated={this.state.isAuthenticated} />
                     <PrivateRoute exact path='/profile/:userId/following' history={history} component={FollowersPage} isAuthenticated={this.state.isAuthenticated} />
+                    <PrivateRoute exact path='/movies/:movieId' history={history} component={MovieCardPage} isAuthenticated={this.state.isAuthenticated} />
                     <Route history={history} render={(props) => <NotFoundPage {...props}/>} />
                 </Switch>
             </React.Fragment>

@@ -1,4 +1,6 @@
 import { useHistory } from "react-router-dom";
+import moment from 'moment';
+
 import Constants from './constants';
 
 export class DataService {
@@ -93,6 +95,25 @@ export class DataService {
         this._get(url, callback);
     }
 
+    static getPostComments(eventId, movieId, callback) {
+        let url = `${Constants.DOMAIN}/api/movies/${movieId}/events/${eventId}/comments`;
+
+        this._get(url, callback);
+    }
+
+    static getMovie(movieId, callback) {
+        let url = `${Constants.DOMAIN}/api/movies/${movieId}`;
+
+        this._get(url, callback);
+    }
+
+    static getMoviesComments(movieId, page, date, callback) {
+        let paramDate = moment(date).format('YYYY-MM-DDTHH:mm:ss');
+        let url = `${Constants.DOMAIN}/api/movies/${movieId}/comments?page=${page}&date=${paramDate}`;
+
+        this._get(url, callback);
+    }
+
     static addLikeToPost(eventId, movieId, callback) {
         let url = `${Constants.DOMAIN}/api/movies/${movieId}/events/${eventId}/likes`;
 
@@ -136,12 +157,6 @@ export class DataService {
         let request = { Comment: comment };
 
         this._post(url, callback, request);
-    }
-
-    static getPostComments(eventId, movieId, callback) {
-        let url = `${Constants.DOMAIN}/api/movies/${movieId}/events/${eventId}/comments`;
-
-        this._get(url, callback);
     }
 
     static login(login, password, successCallback, failedCallback) {
