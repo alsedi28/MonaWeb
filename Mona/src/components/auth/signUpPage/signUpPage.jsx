@@ -156,8 +156,7 @@ class SignUpPage extends React.Component {
                                 </div>
 
                                 <CommonButton
-                                    externalClass="filledButton"
-                                    secondaryExternalClass="formButton"
+                                    externalClass="filledButton formButton"
                                     title="Создать аккаунт"
                                     onClick={this.clickRegister.bind(this)}
                                     isDisabled={isSignInDisabled}

@@ -100,6 +100,11 @@
   color: rgb(49, 54, 60);
 }
 
+.formInput:focus {
+  outline: none;
+  box-shadow: none;
+}
+
 .linkBlock {
     margin-top: 32px !important;
     justify-content: center;

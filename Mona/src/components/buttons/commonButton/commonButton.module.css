@@ -3,3 +3,8 @@
     border: 0;
     color: white;
 }
+
+.button:focus {
+  outline: none;
+  box-shadow: none;
+}

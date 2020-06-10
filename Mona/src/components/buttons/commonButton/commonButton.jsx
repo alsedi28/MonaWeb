@@ -4,7 +4,7 @@ function CommonButton(props) {
     return (
         <button
             disabled={props.isDisabled}
-            className={`${props.externalClass} ${props.secondaryExternalClass} roundedButton`}
+            className={`${props.externalClass} roundedButton`}
             onClick={props.onClick}
             type="button">{props.title}
         </button>

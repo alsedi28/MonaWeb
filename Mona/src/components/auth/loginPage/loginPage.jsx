@@ -97,8 +97,7 @@ class LoginPage extends React.Component {
                                 {/* uncomment when the server will support this functionality <button className={styles.forgotPasswordButton} onClick={this.showAlert}>Забыли пароль?</button> */}
 
                                 <CommonButton
-                                    externalClass="filledButton"
-                                    secondaryExternalClass="formButton"
+                                    externalClass="filledButton formButton"
                                     title="Войти"
                                     onClick={this.clickLogin.bind(this)}
                                     isDisabled={isSignInDisabled}
