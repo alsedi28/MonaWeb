@@ -4,7 +4,7 @@ import UserAvatar from '../../userAvatar/userAvatar';
 
 import styles from './movieCardUsersGroup.module.css';
 
-const MovieCardUsersGroup = ({ users, totalNumberUsers, label, externalClass = "" }) => {
+const MovieCardUsersGroup = ({ users, totalNumberUsers, label, click, externalClass = "" }) => {
     let usersBlocks = [];
     const avatarSize = 30;
 
@@ -31,7 +31,7 @@ const MovieCardUsersGroup = ({ users, totalNumberUsers, label, externalClass = "
 
     return (
         <div className={`${styles.container} ${externalClass}`}>
-            <div>
+            <div onClick={totalNumberUsers > 0 ? click : () => ({})}>
                 {usersBlocks}
             </div>
             <p>{label}</p>

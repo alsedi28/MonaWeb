@@ -18,6 +18,7 @@
     height: 34px;
     display: flex;
     justify-content: center;
+    cursor: pointer;
 }
 
 .container > div > p {

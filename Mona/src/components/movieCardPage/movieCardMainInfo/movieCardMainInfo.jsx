@@ -10,7 +10,7 @@ import Constants from '../../../constants';
 
 import styles from './movieCardMainInfo.module.css';
 
-const MovieCardMainInfo = ({ movie, externalClass = "" }) => {
+const MovieCardMainInfo = ({ movie, clickUsersWhoWillWatchMovie, clickUsersWhoViewedMovie, externalClass = "" }) => {
     let backdrop = movie.Backdrops && movie.Backdrops.length > 0 ? movie.Backdrops[0] : null;
 
     let infoJoinPointBlock =
@@ -20,7 +20,7 @@ const MovieCardMainInfo = ({ movie, externalClass = "" }) => {
     if (movie.StatusOfMovieForUser === Constants.MOVIE_STATUS_VIEWED)
         userRatingOrUsersWillWatchBlock = <MovieCardUserRating rating={movie.Raiting} externalClass={styles.movieCardUserRatingExternal} />;
     else
-        userRatingOrUsersWillWatchBlock = <MovieCardUsersGroup users={movie.PeopleWillWatchMovie.Peoples} totalNumberUsers={movie.PeopleWillWatchMovie.AmountPeople} label="будут смотреть" />;
+        userRatingOrUsersWillWatchBlock = <MovieCardUsersGroup users={movie.PeopleWillWatchMovie.Peoples} totalNumberUsers={movie.PeopleWillWatchMovie.AmountPeople} click={() => clickUsersWhoWillWatchMovie(movie.MovieId)} label="будут смотреть" />;
 
     return (
         <div className={`${styles.container} ${externalClass}`} style={{ background: `${getBackdropUrl(backdrop)}` }}>
@@ -37,7 +37,7 @@ const MovieCardMainInfo = ({ movie, externalClass = "" }) => {
                         <div className={styles.ratingAndUsersBlock}>
                             <MovieCardRating movie={movie} />
                             {userRatingOrUsersWillWatchBlock}
-                            <MovieCardUsersGroup users={movie.PeopleViewedMovie.Peoples} totalNumberUsers={movie.PeopleViewedMovie.AmountPeople} label="посмотрели" />
+                            <MovieCardUsersGroup users={movie.PeopleViewedMovie.Peoples} totalNumberUsers={movie.PeopleViewedMovie.AmountPeople} click={() => clickUsersWhoViewedMovie(movie.MovieId)} label="посмотрели" />
                         </div>
                         <PostWatchStatusButtons status={movie.StatusOfMovieForUser} externalClass={styles.postWatchStatusButtonsExternal} />
                         <p className={styles.overviewTitle} style={{ display: movie.Overview ? "block" : "none" }}>Описание</p>

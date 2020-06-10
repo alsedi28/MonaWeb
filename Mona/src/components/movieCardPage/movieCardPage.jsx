@@ -5,6 +5,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import Loader from '../loader/loader';
+import ModalDialog from '../modalDialog/modalDialog';
 import HorizontalTabs from '../horizontalTabs/horizontalTabs';
 import HorizontalScrollContainer from '../horizontalScrollContainer/horizontalScrollContainer';
 import MovieCardMainInfo from './movieCardMainInfo/movieCardMainInfo';
@@ -67,6 +68,12 @@ class MovieCardPage extends React.Component {
                 post: null,
                 show: false
             },
+            modalDialog: { // Состояние объекта модального окна
+                show: false, // Показывать или нет модальное окно
+                isLoading: false, // Отображать Loader в модальном окне или нет
+                title: "", // Заголовок модального окна
+                items: [] // Данные, которые необходимо отобразить в модальном окне
+            },
             handleClickLikeComment: this.clickLikeComment // Обработчик события click по "Сердцу" в комментарии
         };
 
@@ -91,6 +98,11 @@ class MovieCardPage extends React.Component {
         this.getMovieCard = this.getMovieCard.bind(this);
         this.getMoviesComments = this.getMoviesComments.bind(this);
         this.clickLikeComment = this.clickLikeComment.bind(this);
+        this.clickShowUsersWhoWillWatchMovie = this.clickShowUsersWhoWillWatchMovie.bind(this);
+        this.clickShowUsersWhoViewedMovie = this.clickShowUsersWhoViewedMovie.bind(this);
+        this.setModalDialogState = this.setModalDialogState.bind(this);
+        this.showModalDialog = this.showModalDialog.bind(this);
+        this.hideModalDialog = this.hideModalDialog.bind(this);
         this.showPostDetails = this.showPostDetails.bind(this);
         this.hidePostDetails = this.hidePostDetails.bind(this);
         this.clickTab = this.clickTab.bind(this);
@@ -185,6 +197,53 @@ class MovieCardPage extends React.Component {
         }
     }
 
+    clickShowUsersWhoWillWatchMovie(movieId) {
+        let title = "Будут смотреть";
+
+        this.showModalDialog(title, DataService.getUsersWhoWillWatchMovie.bind(DataService), movieId);
+    }
+
+    clickShowUsersWhoViewedMovie(movieId) {
+        let title = "Уже смотрели";
+
+        this.showModalDialog(title, DataService.getUsersWhoViewedMovie.bind(DataService), movieId);
+    }
+
+    showModalDialog(title, getter, ...args) {
+        this.setModalDialogState(true, true, title, []);
+
+        let callback = (response) => {
+            let items = response.map(item => ({
+                id: item.UserId,
+                icon: item.AvatarPath,
+                login: item.Login,
+                name: item.Name,
+                isFollowing: item.IsFollowing
+            }));
+
+            this.setModalDialogState(true, false, title, items);
+        };
+
+        getter(...args, callback);
+    }
+
+    hideModalDialog() {
+        this.setModalDialogState(false, false, "", []);
+    }
+
+    setModalDialogState(show, isLoading, title, items) {
+        this.setState({
+            ...this.state,
+            modalDialog: {
+                ...this.state.modalDialog,
+                show,
+                isLoading,
+                title,
+                items
+            }
+        });
+    }
+
     showPostDetails(eventId, movieId) {
         let callback = (item) => {
             this.setState({
@@ -221,7 +280,7 @@ class MovieCardPage extends React.Component {
                 <Header externalClass="header-external" location={location.pathname} />
                 <div className={styles.container}>
                     <Loader show={this.state.isLoading} externalClass={styles.loader} />
-                    <MovieCardMainInfo movie={this.state.movie} externalClass={`${this.state.isLoading ? styles.hide : ''}`} />
+                    <MovieCardMainInfo movie={this.state.movie} clickUsersWhoWillWatchMovie={this.clickShowUsersWhoWillWatchMovie} clickUsersWhoViewedMovie={this.clickShowUsersWhoViewedMovie} externalClass={`${this.state.isLoading ? styles.hideBlock : ''}`} />
                     <HorizontalTabs tabsSettings={this.tabSettings} tabNumberActive={this.state.tabNumberActive} clickTab={this.clickTab} externalClass={styles.tabsExternal} />
                     <div className={`${styles.tabData} ${styles.tabOverview}`} style={{ display: this.state.tabNumberActive === 1 ? "flex" : "none" }}>
                         <div>
@@ -268,6 +327,16 @@ class MovieCardPage extends React.Component {
                                 />
                             </RemoveScroll>}
                     </div>
+
+                    <RemoveScroll enabled={this.state.modalDialog.show}>
+                        <ModalDialog
+                            show={this.state.modalDialog.show}
+                            title={this.state.modalDialog.title}
+                            isLoading={this.state.modalDialog.isLoading}
+                            items={this.state.modalDialog.items}
+                            clickClose={this.hideModalDialog}
+                        />
+                    </RemoveScroll>
                 </div>
                 <Footer externalClass="footer-external" />
             </React.Fragment>
