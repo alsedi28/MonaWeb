@@ -3,7 +3,7 @@ import React from 'react';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import SearchInput from '../searchInput/searchInput';
-import SearchUsersResult from '../searchUsersResult/searchUsersResult';
+import FollowersSearchUsersResult from './followersSearchUsersResult/followersSearchUsersResult';
 import { DataService } from '../../dataService';
 
 import styles from './followersPage.module.css';
@@ -199,7 +199,7 @@ class FollowersPage extends React.Component {
 
                     <div className={styles.searchUsers}>
                         <SearchInput inputValue={this.state.inputSearchValue} handleInputChange={this.searchUsers} />
-                        <SearchUsersResult isLoading={this.state.isLoading} users={this.state.users} />
+                        <FollowersSearchUsersResult isLoading={this.state.isLoading} users={this.state.users} />
                         {usersNotFoundBlock}
                     </div>
 
@@ -212,7 +212,7 @@ class FollowersPage extends React.Component {
 
                     {this.state.globalUsers.length > 0 && <p className={styles.title}>Другие пользователи</p>}
 
-                    <SearchUsersResult isLoading={false} users={this.state.globalUsers} externalClass={styles.searchGlobalUsersResultExternal} />
+                    <FollowersSearchUsersResult isLoading={false} users={this.state.globalUsers} externalClass={styles.searchGlobalUsersResultExternal} />
                 </div>
                 <Footer externalClass="footer-external" />
             </React.Fragment>
