@@ -20,7 +20,6 @@ class PostDetails extends React.Component {
         super(props);
 
         this.state = {
-            post: props.post, // Пост
             comments: [], // Список комментариев
             modalDialog: { // Состояние объекта модального окна для текущего поста
                 show: false, // Показывать или нет модальное окно
@@ -75,8 +74,8 @@ class PostDetails extends React.Component {
             this.updateEventHandler();
         };
 
-        let eventId = this.state.post.EventId
-        let movieId = this.state.post.MovieId
+        let eventId = this.props.post.EventId
+        let movieId = this.props.post.MovieId
         DataService.getPostComments(eventId, movieId, callback);
     }
 
@@ -129,7 +128,7 @@ class PostDetails extends React.Component {
             this.setState({ handleClickLike: this.clickLikePost });
         };
 
-        if (this.state.post.IsCurrentUserLiked)
+        if (this.props.post.IsCurrentUserLiked)
             DataService.deleteLikeFromPost(eventId, movieId, callback);
         else
             DataService.addLikeToPost(eventId, movieId, callback);
@@ -203,7 +202,7 @@ class PostDetails extends React.Component {
     }
 
     render() {
-        let post = this.state.post;
+        let post = this.props.post;
 
         let commentsBlock = "";
         if (this.state.isLoading) {

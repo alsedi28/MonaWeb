@@ -1,0 +1,113 @@
+.container {
+    height: 88%;
+}
+
+.formBlock {
+    width: 500px;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    margin: auto;
+    margin-top: 160px;
+    box-shadow: 0px 8px 32px rgba(49, 54, 60, 0.3);
+}
+
+.error {
+    position: relative;
+    display: block;
+    top: 0px !important;
+}
+
+.error > p {
+    width: 260px;
+    color: red;
+    font-size: 14px;
+    font-family: "Montserrat";
+    font-weight: normal;
+    margin-top: 0px;
+}
+
+.forgotPasswordButton {
+    appearance: none;
+    background: 0 0;
+    border: 0;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: block;
+    padding-bottom: 24px;
+    text-align: left;
+    text-transform: inherit;
+    text-overflow: ellipsis;
+    user-select: none;
+    width: auto;
+    color: rgb(155, 155, 155);
+    position: relative;
+    font-size: 12px;
+    font-weight: 300;
+    font-family: "Montserrat";
+    padding-left: 0px;
+}
+
+.formTitle {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.formTitle > p {
+    font-family: "Montserrat";
+    font-weight: bold;
+    font-size: 32px;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    color: rgb(49, 54, 60);
+}
+
+.formTitle > img {
+    border-radius: 12px;
+    color: #31363c;
+}
+
+.formsContainer {
+    padding-left: 60px;
+    padding-right: 60px;
+    margin-bottom: 44px;
+}
+
+.formLabel {
+    display: block;
+    font-family: "Montserrat";
+    font-weight: 300;
+    font-size: 16px;
+    color: rgb(49, 54, 60);
+    margin-bottom: 12px;
+}
+
+.formInput {
+  width: 100%;
+  padding: 12px 16px;
+  margin-bottom: 24px;
+  display: inline-block;
+  border: 2px solid rgb(255, 202, 183);
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-size: 14px;
+  font-weight: normal;
+  font-family: "Montserrat";
+  color: rgb(49, 54, 60);
+}
+
+.linkBlock {
+    margin-top: 32px !important;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.helpText {
+    font-size: 16px;
+    font-weight: normal;
+    font-family: "Montserrat";
+    color: rgb(49, 54, 60);
+    text-align: center;
+}

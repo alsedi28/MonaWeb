@@ -284,7 +284,7 @@ class Post extends React.Component {
                 <RemoveScroll enabled={this.state.showAllComments}>
                     <PostDetails
                         isDisplay={this.state.showAllComments}
-                        post={post}
+                        post={this.state.post}
                         clickClose={this.hidePostDetails}
                         handlerExternal={this.updatePost.bind(this, post.EventId, post.MovieId)}
                     />

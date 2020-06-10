@@ -1,0 +1,61 @@
+.banner {
+  display: flex;
+  flex-direction: row;
+  max-height: 560px;
+  padding-top: 60px;
+  width: 100%;
+  background: rgba(255,86,26,0.1);
+}
+
+.bannerContainer {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  max-width: 790px;
+  min-width: 650px;
+  margin: auto;
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+
+.bannerColumn {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+}
+
+.bannerColumn:nth-of-type(1) {
+    padding-right: 80px;
+}
+
+.bannerTitle {
+  font-size: 32px;
+  color: rgb(49, 54, 60);
+  font-family: "Montserrat";
+  font-weight: 300;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.bannerSubtitle {
+  font-size: 20px;
+  max-width: 520px;
+  color: rgb(49, 54, 60);
+  font-family: "Montserrat";
+  font-weight: normal;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.bannerButtonsContainer {
+    display: flex;
+    margin: auto;
+    margin-left: 0px;
+    margin-top: 40px;
+}
+
+.bannerSignInButtonContainer {
+    padding-right: 24px;
+}

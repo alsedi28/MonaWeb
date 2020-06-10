@@ -84,7 +84,7 @@
 
 .rightSideBox {
     position: relative;
-    min-width: 320px;
+    width: 60%;
 }
 
 .infoBox {

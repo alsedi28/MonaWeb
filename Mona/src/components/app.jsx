@@ -1,7 +1,9 @@
 import React from 'react';
 import { Route, Switch, Redirect, withRouter } from "react-router-dom";
 import PrivateRoute from './privateRoute';
+import IntroRoute from './introRoute';
 import LoginRoute from './loginRoute';
+import SignUpRoute from './signUpRoute';
 import PostsFeedPage from './postsFeedPage/postsFeedPage';
 import ProfilePage from './profilePage/profilePage';
 import FollowersPage from './followersPage/followersPage';
@@ -27,7 +29,8 @@ class App extends React.Component {
                 lastPostItemId: 0, // Id последнего Event, который загрузили
                 isLoading: true // Флаг, который отвечает за отображение/скрытие loader'а при начальной инициализации
             },
-            showLoginError: false // Показать ошибку на странице Login
+            showLoginError: false, // Показать ошибку на странице Login
+            registrationError: null // Ошибка регистрации на странице SignUp
         };
 
         this.userHasAuthenticated = this.userHasAuthenticated.bind(this);
@@ -37,6 +40,9 @@ class App extends React.Component {
         this.getPosts = this.getPosts.bind(this);
         this.getPopularPosts = this.getPopularPosts.bind(this);
         this.login = this.login.bind(this);
+        this.register = this.register.bind(this);
+        this.signInClick = this.signInClick.bind(this);
+        this.signUpClick = this.signUpClick.bind(this);
     }
 
     componentDidMount() {
@@ -66,7 +72,7 @@ class App extends React.Component {
         this.setState({ showLoginError: show });
     }
 
-    login(login, password) {
+    login(login, password, isFromRegistration = false) {
         let successCallback = (response) => {
             this.userHasAuthenticated(true);
             this.setUserCookie(response.access_token, response.userId, response.userAvatar);
@@ -78,15 +84,33 @@ class App extends React.Component {
             this.getPopularPosts();
         };
 
-        let failedCallback = () => this.showLoginError(true);
+        let failedCallback = (error) => {
+            if (isFromRegistration) {
+                this.setState({ registrationError: error });
+            } else {
+                this.showLoginError(true);
+            }
+        }
 
-        DataService.login(login, password, successCallback, failedCallback); 
+        DataService.login(login, password, successCallback, failedCallback);
+    }
+
+    register(email, nickname, name, password) {
+        let successCallback = (response) => {
+            this.login(nickname, password, true);
+        };
+
+        let failedCallback = (error) => {
+            this.setState({ registrationError: error });
+        };
+
+        DataService.register(email, nickname, name, password, successCallback, failedCallback);
     }
 
     getPopularPosts() {
         // Если не авторизован, то перенаправляем на страницу Login
         if (!this.state.isAuthenticated) {
-            this.props.history.push("/login");
+            this.props.history.push("/intro");
             return;
         }
 
@@ -151,6 +175,14 @@ class App extends React.Component {
         DataService.getPosts(this.state.feed.lastPostItemId, callback);
     }
 
+    signInClick() {
+        this.props.history.push("/login");
+    }
+
+    signUpClick() {
+        this.props.history.push("/register");
+    }
+
     render() {
         const { history } = this.props;
 
@@ -158,7 +190,10 @@ class App extends React.Component {
             <React.Fragment>
                 <Switch>
                     <Redirect exact from='/' to='/feed' />
-                    <LoginRoute path='/login' history={history} component={PostsFeedPage} isAuthenticated={this.state.isAuthenticated} login={this.login} showError={this.state.showLoginError}
+                    <IntroRoute path='/intro' history={history} signInClick={this.signInClick} signUpClick={this.signUpClick}  />
+                    <LoginRoute path='/login' history={history} component={PostsFeedPage} isAuthenticated={this.state.isAuthenticated} login={this.login} showError={this.state.showLoginError} signUpClick={this.signUpClick}
+                        componentProps={{ feed: this.state.feed, feedPopular: this.state.feedPopular, getPosts: this.getPosts, getPopularPosts: this.getPopularPosts }} />
+                    <SignUpRoute path='/register' history={history} component={PostsFeedPage} isAuthenticated={this.state.isAuthenticated} register={this.register} signInClick={this.signInClick} registrationError={this.state.registrationError}
                         componentProps={{ feed: this.state.feed, feedPopular: this.state.feedPopular, getPosts: this.getPosts, getPopularPosts: this.getPopularPosts }} />
                     <PrivateRoute path='/feed' history={history} component={PostsFeedPage} isAuthenticated={this.state.isAuthenticated}
                         componentProps={{ feed: this.state.feed, feedPopular: this.state.feedPopular, getPosts: this.getPosts, getPopularPosts: this.getPopularPosts}} />

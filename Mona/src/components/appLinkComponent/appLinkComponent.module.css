@@ -1,0 +1,19 @@
+.linkBlock {
+    margin-top: 32px !important;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.helpText {
+    font-size: 16px;
+    font-weight: normal;
+    font-family: "Montserrat";
+    color: rgb(49, 54, 60);
+    text-align: center;
+}
+
+.appIcon {
+    margin: auto !important;
+    display: block !important;
+}
