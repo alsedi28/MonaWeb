@@ -109,6 +109,9 @@ class MovieCardPage extends React.Component {
     }
 
     componentDidMount() {
+        // Прокручиваем страницу в самое начало
+        window.scrollTo(0, 0);
+
         this.getMovieCard();
     }
 
@@ -116,6 +119,7 @@ class MovieCardPage extends React.Component {
         // Если переходим на страницу другого фильма, то необходимо обновить страницу.
         if (this.state.movieId !== nextProps.match.params.movieId) {
             window.location.reload();
+            this.setState({ isLoading: true });
             window.scrollTo(0, 0);
         }
     }

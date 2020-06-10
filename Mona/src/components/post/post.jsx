@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { RemoveScroll } from 'react-remove-scroll';
 
 import ModalDialog from '../modalDialog/modalDialog';
@@ -223,13 +224,15 @@ class Post extends React.Component {
                 <div className={styles.main} style={{ background: `${getBackdropUrl(post.MovieBackdropPath)}` }}>
                     <div>
                         <div className={styles.posterBlock}>
-                            <div>
-                                <img src={getPosterPath(post.MoviePosterPath)} className={styles.posterImage} height="452px" />
-                                <img src={bookMarkIcon} width="50px" style={displayBookmarkBlock} />
-                            </div>
+                            <Link to={`/movies/${post.MovieId}`}>
+                                <div>
+                                    <img src={getPosterPath(post.MoviePosterPath)} className={styles.posterImage} height="452px" />
+                                    <img src={bookMarkIcon} width="50px" style={displayBookmarkBlock} />
+                                </div>
+                            </Link>
                         </div>
                         <div className={styles.movieInfoBlock}>
-                            <p className={styles.movieTitle}>{post.MovieTitle} {blockMovieReleaseDate}</p>
+                            <p className={styles.movieTitle}><Link to={`/movies/${post.MovieId}`}>{post.MovieTitle}</Link> {blockMovieReleaseDate}</p>
 
                             <PostWatchStatusButtons status={post.StatusOfMovieForUser}/>
 

@@ -14,20 +14,20 @@
     color: rgb(49, 54, 60);
 }
 
-.posterContainer > div {
+.posterContainer div {
     height: 100%;
     width: 100%;
     margin: auto;
     position: relative;
 }
 
-.posterContainer > div > img:last-of-type {
+.posterContainer img:last-of-type {
     position: absolute;
     left: 125px;
     top: 0px;
 }
 
-.posterContainer > div > img:first-of-type {
+.posterContainer img:first-of-type {
     border-radius: 8px;
 }
 
@@ -36,6 +36,15 @@
     font-size: 16px;
     font-family: "Montserrat";
     font-weight: 300;
+}
+
+.movieTitle a {
+    text-decoration: none;
+    color: rgb(49, 54, 60);
+}
+
+.movieTitle a:visited {
+    color: rgb(49, 54, 60);
 }
 
 .movieTitle > span {

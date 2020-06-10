@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { RemoveScroll } from 'react-remove-scroll';
 
 import ModalDialog from '../modalDialog/modalDialog';
@@ -97,13 +98,15 @@ class MovieItemOnUserProfile extends React.Component {
         return (
             <article className={`${styles.container} ${externalClass}`}>
                 <div className={styles.posterContainer}>
-                    <div>
-                        <img src={movie.PosterPath ? `https://image.tmdb.org/t/p/w342${movie.PosterPath}` : framePlaceholder} width="168px" />
-                        <img src={bookMarkIcon} width="34px" style={{ display: isViewed ? "none" : "block" }} />
-                    </div>
+                    <Link to={`/movies/${movie.MovieId}`}>
+                        <div>
+                            <img src={movie.PosterPath ? `https://image.tmdb.org/t/p/w342${movie.PosterPath}` : framePlaceholder} width="168px" />
+                            <img src={bookMarkIcon} width="34px" style={{ display: isViewed ? "none" : "block" }} />
+                        </div>
+                    </Link>
                 </div>
                 <div className={styles.infoContainer}>
-                    <p className={styles.movieTitle}>{movie.Title} {blockMovieReleaseDate}</p>
+                    <p className={styles.movieTitle}><Link to={`/movies/${movie.MovieId}`}>{movie.Title}</Link> {blockMovieReleaseDate}</p>
                     {blockProductionCountry}
                     {blockUserRaiting}
                     <p className={styles.movieRaiting}>Рейтинг: <span>{movieRaiting}</span></p>
