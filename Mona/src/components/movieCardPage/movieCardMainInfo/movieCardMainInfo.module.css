@@ -77,6 +77,10 @@
     height: 70px;
 }
 
+.ratingAndUsersBlock > div {
+    margin-right: 25px;
+}
+
 .movieCardUserRatingExternal {
     margin-left: 20px;
 }
@@ -96,7 +100,7 @@
 
 .overview {
     color: white;
-    font-size: 14px;
+    font-size: 16px;
     font-family: "Montserrat";
     font-style: normal;
     font-weight: normal;

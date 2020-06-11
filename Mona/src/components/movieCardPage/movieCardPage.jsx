@@ -85,7 +85,7 @@ class MovieCardPage extends React.Component {
             },
             {
                 Title: "Отзывы",
-                Width: 71,
+                Width: 74,
                 Offset: 111
             },
             {
@@ -306,7 +306,7 @@ class MovieCardPage extends React.Component {
                         </div>
                     </div>
                     <div className={`${styles.tabData} ${styles.tabComments}`} style={{ display: this.state.tabNumberActive === 2 ? "block" : "none" }}>
-                        <MovieCardNotCommentsBanner show={this.state.comments.items.length === 0}/>
+                        <MovieCardNotCommentsBanner show={this.state.comments.items.length === 0} externalClass={styles.movieCardNotCommentsBannerExternal} />
                         <div style={{ display: this.state.comments.items.length > 0 ? "block" : "none" }}>
                             <p className={styles.titleComments}>Всего отзывов: {this.state.movie.CommentsAmount}</p>
 
