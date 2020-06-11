@@ -16,8 +16,14 @@ const PhotoGallery = ({ photos }) => {
         setViewerIsOpen(false);
     };
 
-    const photosObjects = photos.map(i => ({
-        src: `https://image.tmdb.org/t/p/w780${i}`
+    // Настройка сетки для отображения изображений
+    const settings = [{ width: 4, height: 3 }, { width: 4, height: 3 }, { width: 3, height: 2 }, { width: 3, height: 2 }, { width: 3, height: 2 },
+        { width: 4, height: 1 }];
+
+    const photosObjects = photos.map((image, index) => ({
+        src: `https://image.tmdb.org/t/p/w780${image}`,
+        width: settings[index % settings.length].width,
+        height: settings[index % settings.length].height
     }));
 
     return (
