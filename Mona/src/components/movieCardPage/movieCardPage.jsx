@@ -15,6 +15,7 @@ import MovieCardSideBarInfo from './movieCardSideBarInfo/movieCardSideBarInfo';
 import MovieCardComment from './movieCardComment/movieCardComment';
 import MovieCardNotCommentsBanner from './movieCardNotCommentsBanner/movieCardNotCommentsBanner';
 import PostDetails from '../postDetails/postDetails';
+import PhotoGallery from '../photoGallery/photoGallery';
 import { DataService } from '../../dataService';
 
 import styles from './movieCardPage.module.css';
@@ -54,7 +55,8 @@ class MovieCardPage extends React.Component {
                 },
                 Tags: [],
                 MoviesOfTopActors: [],
-                MoviesOfCurrentDirector: []
+                MoviesOfCurrentDirector: [],
+                Backdrops: []
             },
             comments: {
                 items: [],
@@ -74,26 +76,20 @@ class MovieCardPage extends React.Component {
                 title: "", // Заголовок модального окна
                 items: [] // Данные, которые необходимо отобразить в модальном окне
             },
+            tabSettings: [
+                {
+                    Title: "Обзор",
+                    Width: 65,
+                    Offset: 0
+                },
+                {
+                    Title: "Отзывы",
+                    Width: 74,
+                    Offset: 111
+                }
+            ],
             handleClickLikeComment: this.clickLikeComment // Обработчик события click по "Сердцу" в комментарии
         };
-
-        this.tabSettings = [
-            {
-                Title: "Обзор",
-                Width: 65,
-                Offset: 0
-            },
-            {
-                Title: "Отзывы",
-                Width: 74,
-                Offset: 111
-            },
-            {
-                Title: "Медиа",
-                Width: 61,
-                Offset: 223
-            }
-        ];
 
         this.getMovieCard = this.getMovieCard.bind(this);
         this.getMoviesComments = this.getMoviesComments.bind(this);
@@ -126,6 +122,16 @@ class MovieCardPage extends React.Component {
 
     getMovieCard() {
         let callback = (movie) => {
+            let tabs = [...this.state.tabSettings];
+
+            // Добавляем вкладку "Медиа", если есть хотя бы один кадр фильма.
+            if (movie.Backdrops.length > 0)
+                tabs.push({
+                    Title: "Медиа",
+                    Width: 61,
+                    Offset: 223
+                });
+
             this.setState({
                 movie,
                 comments: {
@@ -133,6 +139,7 @@ class MovieCardPage extends React.Component {
                     items: movie.Comments,
                     hasMore: true
                 },
+                tabSettings: tabs, 
                 isLoading: false
             });
         };
@@ -285,7 +292,7 @@ class MovieCardPage extends React.Component {
                 <div className={styles.container}>
                     <Loader show={this.state.isLoading} externalClass={styles.loader} />
                     <MovieCardMainInfo movie={this.state.movie} clickUsersWhoWillWatchMovie={this.clickShowUsersWhoWillWatchMovie} clickUsersWhoViewedMovie={this.clickShowUsersWhoViewedMovie} externalClass={`${this.state.isLoading ? styles.hideBlock : ''}`} />
-                    <HorizontalTabs tabsSettings={this.tabSettings} tabNumberActive={this.state.tabNumberActive} clickTab={this.clickTab} externalClass={styles.tabsExternal} />
+                    <HorizontalTabs tabsSettings={this.state.tabSettings} tabNumberActive={this.state.tabNumberActive} clickTab={this.clickTab} externalClass={styles.tabsExternal} />
                     <div className={`${styles.tabData} ${styles.tabOverview}`} style={{ display: this.state.tabNumberActive === 1 ? "flex" : "none" }}>
                         <div>
                             <HorizontalScrollContainer title="Актеры" externalClass={`${styles.horizontalScrollContainerExternal} ${this.state.movie.Casts.Persons.length > 0 ? styles.showBlock : styles.hideBlock}`}>
@@ -330,6 +337,9 @@ class MovieCardPage extends React.Component {
                                     handlerExternal={() => ({})}
                                 />
                             </RemoveScroll>}
+                    </div>
+                    <div className={`${styles.tabData}`} style={{ display: this.state.tabNumberActive === 3 ? "block" : "none" }}>
+                        <PhotoGallery photos={this.state.movie.Backdrops} />
                     </div>
 
                     <RemoveScroll enabled={this.state.modalDialog.show}>

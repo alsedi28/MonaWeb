@@ -39,6 +39,8 @@
     "babel-polyfill": "^6.26.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-images": "^1.1.7",
+    "react-photo-gallery": "^8.0.0",
     "react-redux": "^7.2.0",
     "react-remove-scroll": "^2.3.0",
     "redux": "^4.0.5"
