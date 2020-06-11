@@ -20,6 +20,16 @@ const Header = ({ location = "", externalClass = "", children, onSignIn, onSignU
 
     let isCurrentProfileUser = location.startsWith(`/profile/${userId}`);
 
+    function refreshPageIfNeeded() {
+        if (isCurrentProfileUser) {
+            window.location.reload();
+        }
+    }
+
+    function logout() {
+        window.location.reload() // stay at the same url
+    }
+
     return (
         <header className={`${styles.container} ${externalClass}`}>
             <div className={styles.centerContainer}>
@@ -31,13 +41,13 @@ const Header = ({ location = "", externalClass = "", children, onSignIn, onSignU
                             <UserAvatar avatar={userAvatar} size={30} withGrayBorder={!isCurrentProfileUser} withOrangeBorder={isCurrentProfileUser} externalClass={`${styles.userAvatarExternal}`} />
                             <ul className={styles.dropdown}>
                                 <li className={styles.dropdownContent}>
-                                    <Link to={`/profile/${userId}`}>
-                                        <p className={styles.menuItemTitle}>Профиль</p>
+                                    <Link to={`/profile/${userId}`} onClick={refreshPageIfNeeded}>
+                                        <p className={styles.menuItemTitle}>Мой профиль</p>
                                     </Link>
                                     <div className={styles.dividerLine}></div>
                                 </li>
                                 <li className={styles.dropdownContent} onClick={resetUserCookie}>
-                                    <Link to={`/intro`}>
+                                    <Link to="/intro" onClick={logout}>
                                         <p className={styles.signOutLink}>Выйти</p>
                                     </Link>
                                 </li>
