@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import FollowButton from '../../buttons/followButton/followButton';
 import UserAvatar from '../../userAvatar/userAvatar';
 import Constants from '../../../constants';
+import { getMainUserId } from '../../../helpers/cookieHelper';
 
 import styles from './profileUserInfo.module.css';
 
@@ -17,7 +18,7 @@ const ProfileUserInfo = ({ profile, clickFollowButton, externalClass = "" }) => 
         <div className={styles.userInfoBlock}>
             <div>
                 <p className={styles.login}>{profile.login}</p>
-                { sessionStorage.getItem(Constants.USER_ID_COOKIE_KEY) !== profile.id &&
+                { getMainUserId() !== profile.id &&
                     <FollowButton active={profile.isFollowing} click={clickFollowButton} externalClass={styles.buttonFollowExternal} />
                 }
             </div>

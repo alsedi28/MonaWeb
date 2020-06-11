@@ -19,6 +19,7 @@ import NotMoviesViewedBanner from './profileBanners/notMoviesViewedBanner/notMov
 import NotMoviesViewedInMyOwnProfileBanner from './profileBanners/notMoviesViewedInMyOwnProfileBanner/notMoviesViewedInMyOwnProfileBanner';
 import { DataService } from '../../dataService';
 import Constants from '../../constants';
+import { getMainUserId } from '../../helpers/cookieHelper';
 
 class ProfilePage extends React.Component {
     constructor(props) {
@@ -27,7 +28,7 @@ class ProfilePage extends React.Component {
         this.state = {
             isLoading: true, // Флаг, который отвечает за отображение/скрытие loader'а, связанного с загрузкой данных профиля
             profile: {
-                id: props.match.params.userId, 
+                id: props.match.params.userId,
                 name: "",
                 login: "",
                 avatar: null,
@@ -279,7 +280,7 @@ class ProfilePage extends React.Component {
     render() {
         const { location } = this.props;
 
-        let currentUserId = sessionStorage.getItem(Constants.USER_ID_COOKIE_KEY);
+        let currentUserId = getMainUserId();
 
         return (
             <React.Fragment>

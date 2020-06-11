@@ -10,7 +10,7 @@ import FollowersPage from './followersPage/followersPage';
 import MovieCardPage from './movieCardPage/movieCardPage';
 import NotFoundPage from './notFoundPage/notFoundPage';
 import Constants from '../constants';
-import { setUserCookie } from '../helpers/cookieHelper';
+import { setUserCookie, getUserToken } from '../helpers/cookieHelper';
 import { DataService } from '../dataService';
 
 class App extends React.Component {
@@ -18,7 +18,7 @@ class App extends React.Component {
         super(props);
 
         this.state = {
-            isAuthenticated: sessionStorage.getItem(Constants.TOKEN_COOKIE_KEY) ? true : false, // Если cookie с токеном есть, то считаем, что авторизован
+            isAuthenticated: getUserToken() ? true : false, // Если cookie с токеном есть, то считаем, что авторизован
             feed: {
                 posts: [],
                 hasMore: false, // Флаг, который показывает есть ли еще посты для загрузки

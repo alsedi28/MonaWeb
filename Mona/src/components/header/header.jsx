@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import UserAvatar from '../userAvatar/userAvatar';
 import Constants from '../../constants';
-import { resetUserCookie } from '../../helpers/cookieHelper';
+import { resetUserCookie, getMainUserId, getMainUserAvatar } from '../../helpers/cookieHelper';
 import CommonButton from '../buttons/commonButton/commonButton';
 
 import styles from './header.module.css';
@@ -15,8 +15,8 @@ import feedIconNavActive from '../../../public/icons/feedIconNavActive.png';
 const Header = ({ location = "", externalClass = "", children, onSignIn, onSignUp }) => {
     let scrollPageUp = () => window.scrollTo(0, 0);
 
-    let userId = sessionStorage.getItem(Constants.USER_ID_COOKIE_KEY);
-    let userAvatar = sessionStorage.getItem(Constants.USER_AVATAR_COOKIE_KEY);
+    let userId = getMainUserId();
+    let userAvatar = getMainUserAvatar();
 
     let isCurrentProfileUser = location.startsWith(`/profile/${userId}`);
 

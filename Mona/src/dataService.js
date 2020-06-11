@@ -2,6 +2,7 @@ import { useHistory } from "react-router-dom";
 import moment from 'moment';
 
 import Constants from './constants';
+import { resetUserCookie, getUserToken } from './helpers/cookieHelper';
 
 export class DataService {
 
@@ -207,7 +208,7 @@ export class DataService {
         fetch(url, {
             method: 'GET',
             headers: {
-                Authorization: 'Bearer ' + sessionStorage.getItem(Constants.TOKEN_COOKIE_KEY),
+                Authorization: 'Bearer ' + getUserToken(),
                 'Content-Type': 'application/json'
             }
         })
@@ -216,9 +217,7 @@ export class DataService {
                     return Promise.resolve(response);
 
                 if (response.status === 401) {
-                    sessionStorage.removeItem(Constants.TOKEN_COOKIE_KEY);
-                    sessionStorage.removeItem(Constants.USER_ID_COOKIE_KEY);
-                    sessionStorage.removeItem(Constants.USER_AVATAR_COOKIE_KEY);
+                    resetUserCookie()
 
                     let history = useHistory();
                     history.push("/login");
@@ -240,7 +239,7 @@ export class DataService {
         fetch(url, {
             method: 'POST',
             headers: {
-                Authorization: 'Bearer ' + sessionStorage.getItem(Constants.TOKEN_COOKIE_KEY),
+                Authorization: 'Bearer ' + getUserToken(),
                 'Content-Type': 'application/json'
             },
             body: request ? JSON.stringify(request) : null
@@ -252,7 +251,7 @@ export class DataService {
         fetch(url, {
             method: 'DELETE',
             headers: {
-                Authorization: 'Bearer ' + sessionStorage.getItem(Constants.TOKEN_COOKIE_KEY),
+                Authorization: 'Bearer ' + getUserToken(),
                 'Content-Type': 'application/json'
             },
             body: request ? JSON.stringify(request) : null

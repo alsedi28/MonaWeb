@@ -5,6 +5,7 @@ import FollowButton from '../buttons/followButton/followButton';
 import UserAvatar from '../userAvatar/userAvatar';
 import { DataService } from '../../dataService';
 import Constants from '../../constants';
+import { getMainUserId } from '../../helpers/cookieHelper';
 
 import styles from './userListItem.module.css';
 
@@ -13,7 +14,7 @@ class UserListItem extends React.Component {
         super(props);
 
         this.state = {
-            userId: props.userId, 
+            userId: props.userId,
             isFollowing: props.isFollowing, // Признак подписан текущий пользователь на данного или нет
             clickFollowButton: this.clickFollowButton.bind(this) // Обработчик click по кнопке Подписаться/Подписка
         };
@@ -63,7 +64,7 @@ class UserListItem extends React.Component {
                     <p><Link to={`/profile/${userId}`}>{userName}</Link></p>
                     <p><Link to={`/profile/${userId}`}>{userLogin}</Link></p>
                 </div>
-                {sessionStorage.getItem(Constants.USER_ID_COOKIE_KEY) !== userId &&
+                {getMainUserId() !== userId &&
                     <FollowButton active={this.state.isFollowing} click={this.state.clickFollowButton} externalClass={styles.buttonFollowExternal} />
                 }
             </div>
