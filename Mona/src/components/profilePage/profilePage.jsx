@@ -18,7 +18,6 @@ import NotMoviesWillWatchInMyOwnProfileBanner from './profileBanners/notMoviesWi
 import NotMoviesViewedBanner from './profileBanners/notMoviesViewedBanner/notMoviesViewedBanner';
 import NotMoviesViewedInMyOwnProfileBanner from './profileBanners/notMoviesViewedInMyOwnProfileBanner/notMoviesViewedInMyOwnProfileBanner';
 import { DataService } from '../../dataService';
-import Constants from '../../constants';
 import { getMainUserId } from '../../helpers/cookieHelper';
 
 class ProfilePage extends React.Component {

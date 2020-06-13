@@ -52,7 +52,7 @@
     margin-top: 20px;
 }
 
-.titleComments {
+.title {
     font-size: 20px;
     color: rgb(49, 54, 60);
     font-family: "Montserrat";
@@ -77,4 +77,14 @@
 
 .movieCardNotCommentsBannerExternal {
     margin: auto;
+}
+
+.trailersContainer > div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.movieCardTrailerExternal {
+    margin-bottom: 15px;
 }
