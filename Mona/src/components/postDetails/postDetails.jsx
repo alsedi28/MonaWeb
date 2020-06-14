@@ -56,10 +56,7 @@ class PostDetails extends React.Component {
     }
 
     updatePost(eventId, movieId) {
-        let callback = (item) => {
-            this.setState({ post: item });
-            this.updateEventHandler();
-        };
+        let callback = () => this.updateEventHandler();
 
         DataService.getPost(eventId, movieId, callback);
     }
@@ -71,11 +68,12 @@ class PostDetails extends React.Component {
                 isLoading: false,
                 comments: commentsList
             });
+
             this.updateEventHandler();
         };
 
-        let eventId = this.props.post.EventId
-        let movieId = this.props.post.MovieId
+        let eventId = this.props.post.EventId;
+        let movieId = this.props.post.MovieId;
         DataService.getPostComments(eventId, movieId, callback);
     }
 
@@ -83,13 +81,13 @@ class PostDetails extends React.Component {
         const {name, value} = event.target;
         this.setState({
             [name]: value
-        })
+        });
     }
 
     handleInputHeightChange(height) {
         this.setState({
             paddingForInputField: height
-        })
+        });
     }
 
     clickPublishComment(eventId, movieId) {

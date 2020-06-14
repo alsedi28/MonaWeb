@@ -109,6 +109,7 @@ class MovieCardPage extends React.Component {
         this.hideModalTrailerViewer = this.hideModalTrailerViewer.bind(this);
         this.showPostDetails = this.showPostDetails.bind(this);
         this.hidePostDetails = this.hidePostDetails.bind(this);
+        this.updatePost = this.updatePost.bind(this);
         this.clickTab = this.clickTab.bind(this);
     }
 
@@ -310,6 +311,19 @@ class MovieCardPage extends React.Component {
         });
     }
 
+    updatePost(eventId, movieId) {
+        let callback = (item) => {
+            this.setState({
+                postDetails: {
+                    ...this.state.postDetails,
+                    post: item
+                }
+            });
+        };
+
+        DataService.getPost(eventId, movieId, callback);
+    }
+
     clickTab(tabNumber) {
         this.setState({ tabNumberActive: tabNumber });
     }
@@ -364,7 +378,7 @@ class MovieCardPage extends React.Component {
                                 isDisplay={this.state.postDetails.show}
                                 post={this.state.postDetails.post}
                                 clickClose={this.hidePostDetails}
-                                handlerExternal={() => ({})}
+                                handlerExternal={this.updatePost.bind(this, this.state.postDetails.post.EventId, this.state.postDetails.post.MovieId)}
                             />}
                     </div>
                     <div className={`${styles.tabData}`} style={{ display: this.state.tabNumberActive === 3 ? "block" : "none" }}>
