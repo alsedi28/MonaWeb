@@ -21,9 +21,7 @@
     width: 90vw;
     max-width: 900px;
     min-width: 540px;
-    max-height: 512px;
-    min-height: 350px;
-    height: 100%;
+    height: 512px;
     margin: 0 auto;
 }
 

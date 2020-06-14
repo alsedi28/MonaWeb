@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { RemoveScroll } from 'react-remove-scroll';
 
 import ModalDialog from '../modalDialog/modalDialog';
 import PostButtonBar from './postButtonBar/postButtonBar';
@@ -284,25 +283,21 @@ class Post extends React.Component {
                     handleClick={this.state.handleClickPublishComment.bind(this, post.EventId, post.MovieId)}
                 />
 
-                <RemoveScroll enabled={this.state.showAllComments}>
-                    <PostDetails
-                        isDisplay={this.state.showAllComments}
-                        post={this.state.post}
-                        clickClose={this.hidePostDetails}
-                        handlerExternal={this.updatePost.bind(this, post.EventId, post.MovieId)}
-                    />
-                </RemoveScroll>
+                <PostDetails
+                    isDisplay={this.state.showAllComments}
+                    post={this.state.post}
+                    clickClose={this.hidePostDetails}
+                    handlerExternal={this.updatePost.bind(this, post.EventId, post.MovieId)}
+                />
 
-                <RemoveScroll enabled={this.state.modalDialog.show}>
-                    <ModalDialog
-                        show={this.state.modalDialog.show}
-                        title={this.state.modalDialog.title}
-                        isLoading={this.state.modalDialog.isLoading}
-                        items={this.state.modalDialog.items}
-                        clickClose={this.hideModalDialog}
-                        handlerExternal={handlerExternal}
-                    />
-                </RemoveScroll>
+                <ModalDialog
+                    show={this.state.modalDialog.show}
+                    title={this.state.modalDialog.title}
+                    isLoading={this.state.modalDialog.isLoading}
+                    items={this.state.modalDialog.items}
+                    clickClose={this.hideModalDialog}
+                    handlerExternal={handlerExternal}
+                />
             </article>
         );
     }

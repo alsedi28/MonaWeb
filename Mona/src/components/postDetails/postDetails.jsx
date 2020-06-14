@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { RemoveScroll } from 'react-remove-scroll';
 
 import styles from './postDetails.module.css';
 
@@ -10,6 +9,7 @@ import PostDetailsInfo from './postDetailsInfo/postDetailsInfo';
 import ModalDialog from '../modalDialog/modalDialog';
 import Loader from '../loader/loader';
 import UserAvatar from '../userAvatar/userAvatar';
+import ModalDialogBackground from '../modalDialogBackground/modalDialogBackground';
 import { getStatusString } from '../../helpers/eventHelper';
 import { getPosterPath, getBackdropUrl } from '../../helpers/imagePathHelper';
 import { DataService } from '../../dataService';
@@ -190,17 +190,6 @@ class PostDetails extends React.Component {
         });
     }
 
-    clickBackground(event) {
-        let target = event.target;
-
-        if (target.closest(".dialog-ev")) {
-            event.stopPropagation();
-            return;
-        }
-
-        this.props.clickClose();
-    }
-
     render() {
         let post = this.props.post;
 
@@ -217,83 +206,77 @@ class PostDetails extends React.Component {
         let scrollHeightForComments = containerHeight - 58 - postDetailsHeight - paddingBottomHeight - 8;
 
         return (
-            <React.Fragment>
-                <div id="myModal" className={styles.modal} style={{ display: this.props.isDisplay ? "block" : "none" }} onClick={this.clickBackground.bind(this)}>
+            <ModalDialogBackground show={this.props.isDisplay} clickClose={this.props.clickClose} >
+                <arcticle>
+                    <div className={`${styles.modalContent} ${`dialog-ev`}`} ref={(elem) => this.containerRef = elem}>
 
-                    <arcticle>
-                        <div className={`${styles.modalContent} ${`dialog-ev`}`} ref={(elem) => this.containerRef = elem}>
-
-                            <div className={styles.posterBox} style={{ background: `${getBackdropUrl(post.MovieBackdropPath)}` }}>
-                                <div>
-                                    <Link to={`/movies/${post.MovieId}`}>
-                                        <div className={styles.poster}>
-                                            <img src={getPosterPath(post.MoviePosterPath)} className={styles.posterImage} />
-                                        </div>
-                                    </Link>
-                                </div>
-                            </div>
-
-                            <div className={styles.rightSideBox}>
-                                <header className={styles.infoBox}>
-                                    <div className={styles.iconWithInfoContainer}>
-                                        <div className={styles.userIcon}>
-                                            <Link to={`/profile/${post.UserId}`}>
-                                                <UserAvatar avatar={post.AvatarPath} size={32} />
-                                            </Link>
-                                        </div>
-                                        <div className={styles.userInfo}>
-                                            <span className={styles.userLink}><Link to={`/profile/${post.UserId}`}>{post.Login}</Link></span>
-                                            <span> {getStatusString(post.EventType)} </span>
-                                            <span className={styles.userLink}><Link to={`/movies/${post.MovieId}`}>{post.MovieTitle}</Link></span>
-                                        </div>
+                        <div className={styles.posterBox} style={{ background: `${getBackdropUrl(post.MovieBackdropPath)}` }}>
+                            <div>
+                                <Link to={`/movies/${post.MovieId}`}>
+                                    <div className={styles.poster}>
+                                        <img src={getPosterPath(post.MoviePosterPath)} className={styles.posterImage} />
                                     </div>
-                                </header>
-
-                                <div className={styles.commentsDiv}>
-                                    <ul className={styles.commentsSection} style={{ height: `${scrollHeightForComments}px` }}>
-                                        {commentsBlock}
-                                    </ul>
-                                </div>
-
-                                <PostDetailsInfo
-                                    componentRef={(elem) => this.postDetailsRef = elem}
-                                    isLiked={post.IsCurrentUserLiked}
-                                    clickLike={this.state.handleClickLike.bind(this, post.EventId, post.MovieId)}
-                                    userInfoWhoLikesEvent={post.UserInfoWhoLikesEvent}
-                                    amountEventLikes={post.AmountEventLikes}
-                                    clickShowUsersWhoLikesPost={this.clickShowUsersWhoLikesPost.bind(this, post.EventId, post.MovieId)}
-                                    dateOfCreation={post.DateOfCreation}
-                                    paddingBottom={this.state.paddingForInputField}
-                                />
-
-                                <PostDetailsInputField
-                                    id={post.EventId}
-                                    value={this.state.inputComment}
-                                    handleChange={this.handleInputCommentChange}
-                                    handleClick={this.state.handleClickPublishComment.bind(this, post.EventId, post.MovieId)}
-                                    handleHeightChange={this.handleInputHeightChange.bind(this)}
-                                />
-
+                                </Link>
                             </div>
-
-                            <RemoveScroll enabled={this.state.modalDialog.show}>
-                                <ModalDialog
-                                    show={this.state.modalDialog.show}
-                                    title={this.state.modalDialog.title}
-                                    isLoading={this.state.modalDialog.isLoading}
-                                    items={this.state.modalDialog.items}
-                                    clickClose={this.hideModalDialog}/>
-                            </RemoveScroll>
                         </div>
 
-                    </arcticle>
+                        <div className={styles.rightSideBox}>
+                            <header className={styles.infoBox}>
+                                <div className={styles.iconWithInfoContainer}>
+                                    <div className={styles.userIcon}>
+                                        <Link to={`/profile/${post.UserId}`}>
+                                            <UserAvatar avatar={post.AvatarPath} size={32} />
+                                        </Link>
+                                    </div>
+                                    <div className={styles.userInfo}>
+                                        <span className={styles.userLink}><Link to={`/profile/${post.UserId}`}>{post.Login}</Link></span>
+                                        <span> {getStatusString(post.EventType)} </span>
+                                        <span className={styles.userLink}><Link to={`/movies/${post.MovieId}`}>{post.MovieTitle}</Link></span>
+                                    </div>
+                                </div>
+                            </header>
 
-                    <div>
-                        <span className={styles.close} onClick={this.props.clickClose}>&times;</span>
+                            <div className={styles.commentsDiv}>
+                                <ul className={styles.commentsSection} style={{ height: `${scrollHeightForComments}px` }}>
+                                    {commentsBlock}
+                                </ul>
+                            </div>
+
+                            <PostDetailsInfo
+                                componentRef={(elem) => this.postDetailsRef = elem}
+                                isLiked={post.IsCurrentUserLiked}
+                                clickLike={this.state.handleClickLike.bind(this, post.EventId, post.MovieId)}
+                                userInfoWhoLikesEvent={post.UserInfoWhoLikesEvent}
+                                amountEventLikes={post.AmountEventLikes}
+                                clickShowUsersWhoLikesPost={this.clickShowUsersWhoLikesPost.bind(this, post.EventId, post.MovieId)}
+                                dateOfCreation={post.DateOfCreation}
+                                paddingBottom={this.state.paddingForInputField}
+                            />
+
+                            <PostDetailsInputField
+                                id={post.EventId}
+                                value={this.state.inputComment}
+                                handleChange={this.handleInputCommentChange}
+                                handleClick={this.state.handleClickPublishComment.bind(this, post.EventId, post.MovieId)}
+                                handleHeightChange={this.handleInputHeightChange.bind(this)}
+                            />
+
+                        </div>
+
+                        <ModalDialog
+                            show={this.state.modalDialog.show}
+                            title={this.state.modalDialog.title}
+                            isLoading={this.state.modalDialog.isLoading}
+                            items={this.state.modalDialog.items}
+                            clickClose={this.hideModalDialog} />
                     </div>
 
+                </arcticle>
+
+                <div>
+                    <span className={styles.close} onClick={this.props.clickClose}>&times;</span>
                 </div>
-            </React.Fragment>
+            </ModalDialogBackground>
         );
     }
 }

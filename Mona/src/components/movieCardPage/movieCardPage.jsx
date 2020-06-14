@@ -1,5 +1,4 @@
 import React from 'react';
-import { RemoveScroll } from 'react-remove-scroll';
 import InfiniteScroll from "react-infinite-scroll-component";
 
 import Header from '../header/header';
@@ -361,14 +360,12 @@ class MovieCardPage extends React.Component {
                             </InfiniteScroll>
                         </div>
                         {this.state.postDetails.post !== null &&
-                            <RemoveScroll enabled={this.state.postDetails.show}>
-                                <PostDetails
-                                    isDisplay={this.state.postDetails.show}
-                                    post={this.state.postDetails.post}
-                                    clickClose={this.hidePostDetails}
-                                    handlerExternal={() => ({})}
-                                />
-                            </RemoveScroll>}
+                            <PostDetails
+                                isDisplay={this.state.postDetails.show}
+                                post={this.state.postDetails.post}
+                                clickClose={this.hidePostDetails}
+                                handlerExternal={() => ({})}
+                            />}
                     </div>
                     <div className={`${styles.tabData}`} style={{ display: this.state.tabNumberActive === 3 ? "block" : "none" }}>
                         <div className={styles.trailersContainer} style={{ display: this.state.movie.Videos.length > 0 ? "block" : "none" }}>
@@ -376,9 +373,7 @@ class MovieCardPage extends React.Component {
                             <div>
                                 {this.state.movie.Videos.map(i => <MovieCardTrailer videoInfo={i} clickPlay={this.showModalTrailerViewer.bind(this, i.Key)} externalClass={styles.movieCardTrailerExternal} />)}
 
-                                <RemoveScroll enabled={this.state.modalTrailerViewer.show}>
-                                    <MovieCardTrailerModalViewer videoKey={this.state.modalTrailerViewer.videoKey} show={this.state.modalTrailerViewer.show} clickClose={this.hideModalTrailerViewer} />
-                                </RemoveScroll>
+                                <MovieCardTrailerModalViewer videoKey={this.state.modalTrailerViewer.videoKey} show={this.state.modalTrailerViewer.show} clickClose={this.hideModalTrailerViewer} />
                             </div>
                         </div>
                         <div style={{ display: this.state.movie.Backdrops.length > 0 ? "block" : "none" }}>
@@ -387,15 +382,13 @@ class MovieCardPage extends React.Component {
                         </div>
                     </div>
 
-                    <RemoveScroll enabled={this.state.modalDialog.show}>
-                        <ModalDialog
-                            show={this.state.modalDialog.show}
-                            title={this.state.modalDialog.title}
-                            isLoading={this.state.modalDialog.isLoading}
-                            items={this.state.modalDialog.items}
-                            clickClose={this.hideModalDialog}
-                        />
-                    </RemoveScroll>
+                    <ModalDialog
+                        show={this.state.modalDialog.show}
+                        title={this.state.modalDialog.title}
+                        isLoading={this.state.modalDialog.isLoading}
+                        items={this.state.modalDialog.items}
+                        clickClose={this.hideModalDialog}
+                    />
                 </div>
                 <Footer externalClass="footer-external" />
             </React.Fragment>
