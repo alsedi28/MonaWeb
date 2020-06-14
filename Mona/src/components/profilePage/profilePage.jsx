@@ -286,7 +286,6 @@ class ProfilePage extends React.Component {
     }
 
     changedSortType(selectedFilter) {
-        console.error(selectedFilter);
         if (this.state.tabNumberActive === 2) {
             this.setState({
                 ...this.state,
@@ -318,12 +317,12 @@ class ProfilePage extends React.Component {
         const { location } = this.props;
 
         let currentUserId = getMainUserId();
-        let displaySortViewBlock = ""
+        let displaySortViewBlock = "";
 
         if (this.state.tabNumberActive === 2) {
-            displaySortViewBlock = { display: this.state.moviesWillWatch.items.lenght > 0 ? "block" : "none" }
+            displaySortViewBlock = { display: this.state.moviesWillWatch.items.lenght > 0 ? "block" : "none" };
         }  else if (this.state.tabNumberActive === 3) {
-            displaySortViewBlock = { display: this.state.moviesViewed.items.lenght > 0 ? "block" : "none" }
+            displaySortViewBlock = { display: this.state.moviesViewed.items.lenght > 0 ? "block" : "none" };
         }
 
         return (

@@ -372,9 +372,8 @@ class MovieCardPage extends React.Component {
                             <p className={styles.title}>Видео</p>
                             <div>
                                 {this.state.movie.Videos.map(i => <MovieCardTrailer videoInfo={i} clickPlay={this.showModalTrailerViewer.bind(this, i.Key)} externalClass={styles.movieCardTrailerExternal} />)}
-
-                                <MovieCardTrailerModalViewer videoKey={this.state.modalTrailerViewer.videoKey} show={this.state.modalTrailerViewer.show} clickClose={this.hideModalTrailerViewer} />
                             </div>
+                            <MovieCardTrailerModalViewer videoKey={this.state.modalTrailerViewer.videoKey} show={this.state.modalTrailerViewer.show} clickClose={this.hideModalTrailerViewer} />
                         </div>
                         <div style={{ display: this.state.movie.Backdrops.length > 0 ? "block" : "none" }}>
                             <p className={styles.title}>Фотографии</p>
