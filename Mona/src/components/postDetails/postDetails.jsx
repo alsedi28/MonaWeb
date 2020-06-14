@@ -56,9 +56,7 @@ class PostDetails extends React.Component {
     }
 
     updatePost(eventId, movieId) {
-        let callback = () => this.updateEventHandler();
-
-        DataService.getPost(eventId, movieId, callback);
+        this.updateEventHandler();
     }
 
     updateCommentsList() {
