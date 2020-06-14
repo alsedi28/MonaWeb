@@ -1,5 +1,4 @@
 import React from 'react';
-import { RemoveScroll } from 'react-remove-scroll';
 import InfiniteScroll from "react-infinite-scroll-component";
 
 import Header from '../header/header';
@@ -14,6 +13,8 @@ import MovieCardMiniMovie from './movieCardMiniMovie/movieCardMiniMovie';
 import MovieCardSideBarInfo from './movieCardSideBarInfo/movieCardSideBarInfo';
 import MovieCardComment from './movieCardComment/movieCardComment';
 import MovieCardNotCommentsBanner from './movieCardNotCommentsBanner/movieCardNotCommentsBanner';
+import MovieCardTrailer from './movieCardTrailer/movieCardTrailer';
+import MovieCardTrailerModalViewer from './movieCardTrailerModalViewer/movieCardTrailerModalViewer';
 import PostDetails from '../postDetails/postDetails';
 import PhotoGallery from '../photoGallery/photoGallery';
 import { DataService } from '../../dataService';
@@ -56,7 +57,8 @@ class MovieCardPage extends React.Component {
                 Tags: [],
                 MoviesOfTopActors: [],
                 MoviesOfCurrentDirector: [],
-                Backdrops: []
+                Backdrops: [],
+                Videos: []
             },
             comments: {
                 items: [],
@@ -75,6 +77,10 @@ class MovieCardPage extends React.Component {
                 isLoading: false, // Отображать Loader в модальном окне или нет
                 title: "", // Заголовок модального окна
                 items: [] // Данные, которые необходимо отобразить в модальном окне
+            },
+            modalTrailerViewer: {
+                show: false, // Показывать или нет проиграватель
+                videoKey: null // Ключ видео
             },
             tabSettings: [
                 {
@@ -99,6 +105,8 @@ class MovieCardPage extends React.Component {
         this.setModalDialogState = this.setModalDialogState.bind(this);
         this.showModalDialog = this.showModalDialog.bind(this);
         this.hideModalDialog = this.hideModalDialog.bind(this);
+        this.showModalTrailerViewer = this.showModalTrailerViewer.bind(this);
+        this.hideModalTrailerViewer = this.hideModalTrailerViewer.bind(this);
         this.showPostDetails = this.showPostDetails.bind(this);
         this.hidePostDetails = this.hidePostDetails.bind(this);
         this.clickTab = this.clickTab.bind(this);
@@ -131,6 +139,9 @@ class MovieCardPage extends React.Component {
                     Width: 61,
                     Offset: 223
                 });
+
+            // Оставляем только трейлеры с YouTube
+            movie.Videos = movie.Videos.filter(i => i.Site === "YouTube");
 
             this.setState({
                 movie,
@@ -242,6 +253,26 @@ class MovieCardPage extends React.Component {
         this.setModalDialogState(false, false, "", []);
     }
 
+    showModalTrailerViewer(videoKey) {
+        this.setState({
+            ...this.state,
+            modalTrailerViewer: {
+                show: true,
+                videoKey
+            }
+        });
+    }
+
+    hideModalTrailerViewer() {
+        this.setState({
+            ...this.state,
+            modalTrailerViewer: {
+                show: false,
+                videoKey: null
+            }
+        });
+    }
+
     setModalDialogState(show, isLoading, title, items) {
         this.setState({
             ...this.state,
@@ -315,7 +346,7 @@ class MovieCardPage extends React.Component {
                     <div className={`${styles.tabData} ${styles.tabComments}`} style={{ display: this.state.tabNumberActive === 2 ? "block" : "none" }}>
                         <MovieCardNotCommentsBanner show={this.state.comments.items.length === 0} externalClass={styles.movieCardNotCommentsBannerExternal} />
                         <div style={{ display: this.state.comments.items.length > 0 ? "block" : "none" }}>
-                            <p className={styles.titleComments}>Всего отзывов: {this.state.movie.CommentsAmount}</p>
+                            <p className={styles.title}>Всего отзывов: {this.state.movie.CommentsAmount}</p>
 
                             <InfiniteScroll
                                 dataLength={this.state.comments.items.length}
@@ -329,28 +360,35 @@ class MovieCardPage extends React.Component {
                             </InfiniteScroll>
                         </div>
                         {this.state.postDetails.post !== null &&
-                            <RemoveScroll enabled={this.state.postDetails.show}>
-                                <PostDetails
-                                    isDisplay={this.state.postDetails.show}
-                                    post={this.state.postDetails.post}
-                                    clickClose={this.hidePostDetails}
-                                    handlerExternal={() => ({})}
-                                />
-                            </RemoveScroll>}
+                            <PostDetails
+                                isDisplay={this.state.postDetails.show}
+                                post={this.state.postDetails.post}
+                                clickClose={this.hidePostDetails}
+                                handlerExternal={() => ({})}
+                            />}
                     </div>
                     <div className={`${styles.tabData}`} style={{ display: this.state.tabNumberActive === 3 ? "block" : "none" }}>
-                        <PhotoGallery photos={this.state.movie.Backdrops} />
+                        <div className={styles.trailersContainer} style={{ display: this.state.movie.Videos.length > 0 ? "block" : "none" }}>
+                            <p className={styles.title}>Видео</p>
+                            <div>
+                                {this.state.movie.Videos.map(i => <MovieCardTrailer videoInfo={i} clickPlay={this.showModalTrailerViewer.bind(this, i.Key)} externalClass={styles.movieCardTrailerExternal} />)}
+
+                                <MovieCardTrailerModalViewer videoKey={this.state.modalTrailerViewer.videoKey} show={this.state.modalTrailerViewer.show} clickClose={this.hideModalTrailerViewer} />
+                            </div>
+                        </div>
+                        <div style={{ display: this.state.movie.Backdrops.length > 0 ? "block" : "none" }}>
+                            <p className={styles.title}>Фотографии</p>
+                            <PhotoGallery photos={this.state.movie.Backdrops} />
+                        </div>
                     </div>
 
-                    <RemoveScroll enabled={this.state.modalDialog.show}>
-                        <ModalDialog
-                            show={this.state.modalDialog.show}
-                            title={this.state.modalDialog.title}
-                            isLoading={this.state.modalDialog.isLoading}
-                            items={this.state.modalDialog.items}
-                            clickClose={this.hideModalDialog}
-                        />
-                    </RemoveScroll>
+                    <ModalDialog
+                        show={this.state.modalDialog.show}
+                        title={this.state.modalDialog.title}
+                        isLoading={this.state.modalDialog.isLoading}
+                        items={this.state.modalDialog.items}
+                        clickClose={this.hideModalDialog}
+                    />
                 </div>
                 <Footer externalClass="footer-external" />
             </React.Fragment>

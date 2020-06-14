@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 import FollowButton from '../../buttons/followButton/followButton';
 import UserAvatar from '../../userAvatar/userAvatar';
-import Constants from '../../../constants';
 import { getMainUserId } from '../../../helpers/cookieHelper';
 
 import styles from './profileUserInfo.module.css';

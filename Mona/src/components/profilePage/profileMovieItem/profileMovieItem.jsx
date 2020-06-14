@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { RemoveScroll } from 'react-remove-scroll';
 
 import ModalDialog from '../../modalDialog/modalDialog';
 import { DataService } from '../../../dataService';
@@ -120,17 +119,14 @@ class ProfileMovieItem extends React.Component {
                     </div>
                 </div>
 
-                <RemoveScroll enabled={this.state.modalDialog.show}>
-                    <ModalDialog
-                        show={this.state.modalDialog.show}
-                        title={this.state.modalDialog.title}
-                        isLoading={this.state.modalDialog.isLoading}
-                        items={this.state.modalDialog.items}
-                        clickClose={this.hideModalDialog}
-                        handlerExternal={handlerExternal}
-                    />
-                </RemoveScroll>
-
+                <ModalDialog
+                    show={this.state.modalDialog.show}
+                    title={this.state.modalDialog.title}
+                    isLoading={this.state.modalDialog.isLoading}
+                    items={this.state.modalDialog.items}
+                    clickClose={this.hideModalDialog}
+                    handlerExternal={handlerExternal}
+                />
             </article>
         );
     }
