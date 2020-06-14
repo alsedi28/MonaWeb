@@ -7,7 +7,7 @@ function PostCommentInput(props) {
 
     useEffect(() => {
             textareaRef.current.style.height = "0px";
-            const scrollHeight = textareaRef.current.scrollHeight + 1;
+            const scrollHeight = textareaRef.current.scrollHeight + 2;
             textareaRef.current.style.height = scrollHeight + "px";
     }, [props.value]);
 
