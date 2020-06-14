@@ -5,8 +5,6 @@ import Footer from '../../footer/footer';
 import IntroPageBanner from './introPageBanner/introPageBanner';
 import IntroPageDescription from './introPageDescription/introPageDescription';
 
-import styles from './introPage.module.css';
-
 function IntroPage(props) {
 
     return (

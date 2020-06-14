@@ -84,22 +84,22 @@
 }
 
 .formInput {
-  width: 100%;
-  padding: 12px 16px;
-  margin-bottom: 24px;
-  display: inline-block;
-  border: 2px solid rgb(255, 202, 183);
-  border-radius: 6px;
-  box-sizing: border-box;
-  font-size: 14px;
-  font-weight: normal;
-  font-family: "Montserrat";
-  color: rgb(49, 54, 60);
+    width: 100%;
+    padding: 12px 16px;
+    margin-bottom: 24px;
+    display: inline-block;
+    border: 2px solid rgb(255, 202, 183);
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 14px;
+    font-weight: normal;
+    font-family: "Montserrat";
+    color: rgb(49, 54, 60);
 }
 
 .formInput:focus {
-  outline: none;
-  box-shadow: none;
+    outline: none;
+    box-shadow: none;
 }
 
 .linkBlock {
