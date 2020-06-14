@@ -18,6 +18,7 @@ import NotMoviesWillWatchInMyOwnProfileBanner from './profileBanners/notMoviesWi
 import NotMoviesViewedBanner from './profileBanners/notMoviesViewedBanner/notMoviesViewedBanner';
 import NotMoviesViewedInMyOwnProfileBanner from './profileBanners/notMoviesViewedInMyOwnProfileBanner/notMoviesViewedInMyOwnProfileBanner';
 import ProfileMoviesSort from './profileMoviesSort/profileMoviesSort';
+import Constants from '../../constants';
 import { DataService } from '../../dataService';
 import { getMainUserId } from '../../helpers/cookieHelper';
 
