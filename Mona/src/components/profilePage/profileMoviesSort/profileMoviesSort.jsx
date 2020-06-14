@@ -47,11 +47,11 @@ function ProfileMoviesSort(props) {
                             <p>От старого к новому</p>
                             <img src={selectionCheckmark} style={{ display: props.selectedSort === Constants.MOVIES_SORT_TYPE_DATE ? "block" : "none" }} width="16px" height="12px" />
                         </li>
-                        <li className={styles.dropdownContent} style={{ display: props.movieType === Constants.MOVIE_STATUS_VIEWED ? "block" : "none" }} onClick={() => handleSortChange(Constants.MOVIES_SORT_TYPE_RATING_DESC)}>
+                        <li className={styles.dropdownContent} style={{ display: props.movieType === Constants.MOVIE_STATUS_VIEWED ? "flex" : "none" }} onClick={() => handleSortChange(Constants.MOVIES_SORT_TYPE_RATING_DESC)}>
                             <p>По убыванию оценки</p>
                             <img src={selectionCheckmark} style={{ display: props.selectedSort === Constants.MOVIES_SORT_TYPE_RATING_DESC ? "block" : "none" }} width="16px" height="12px" />
                         </li>
-                        <li className={styles.dropdownContent} style={{ display: props.movieType === Constants.MOVIE_STATUS_VIEWED ? "block" : "none" }} onClick={() => handleSortChange(Constants.MOVIES_SORT_TYPE_RATING)}>
+                        <li className={styles.dropdownContent} style={{ display: props.movieType === Constants.MOVIE_STATUS_VIEWED ? "flex" : "none" }} onClick={() => handleSortChange(Constants.MOVIES_SORT_TYPE_RATING)}>
                             <p>По возрастанию оценки</p>
                             <img src={selectionCheckmark} style={{ display: props.selectedSort === Constants.MOVIES_SORT_TYPE_RATING ? "block" : "none" }} width="16px" height="12px" />
                         </li>

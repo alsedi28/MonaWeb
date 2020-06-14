@@ -153,11 +153,11 @@
     color: rgb(255, 86, 26);
 }
 
-ul li ul li:hover {
+.buttonsWithIconsNav ul li ul li:hover {
   background: rgb(250, 233, 227);
 }
 
-ul li ul.dropdown {
+.buttonsWithIconsNav ul li ul.dropdown {
     min-width: 200px;
     display: none;
     position: absolute;
@@ -168,9 +168,9 @@ ul li ul.dropdown {
     padding-left: 0px;
     box-shadow: 0px 16px 24px 0px rgba(161, 164, 184, 0.35);
 }
-ul li:hover ul.dropdown{
+.buttonsWithIconsNav ul li:hover ul.dropdown{
     display: block;
 }
-ul li ul.dropdown li {
+.buttonsWithIconsNav ul li ul.dropdown li {
     display: block;
 }
