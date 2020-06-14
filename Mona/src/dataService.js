@@ -78,8 +78,8 @@ export class DataService {
         this._get(url, callback);
     }
 
-    static getWillWatchMovies(userId, pageNumber, callback) {
-        let url = `${Constants.DOMAIN}/api/users/${userId}/willwatchmovies?page=${pageNumber}&sortedBy=DateDesc`;
+    static getWillWatchMovies(userId, pageNumber, sortType, callback) {
+        let url = `${Constants.DOMAIN}/api/users/${userId}/willwatchmovies?page=${pageNumber}&sortedBy=${sortType}`;
 
         this._get(url, callback);
     }
@@ -90,8 +90,8 @@ export class DataService {
         this._get(url, callback);
     }
 
-    static getViewedMovies(userId, pageNumber, callback) {
-        let url = `${Constants.DOMAIN}/api/users/${userId}/viewedmovies?page=${pageNumber}&sortedBy=DateDesc`;
+    static getViewedMovies(userId, pageNumber, sortType, callback) {
+        let url = `${Constants.DOMAIN}/api/users/${userId}/viewedmovies?page=${pageNumber}&sortedBy=${sortType}`;
 
         this._get(url, callback);
     }

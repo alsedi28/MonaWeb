@@ -8,7 +8,11 @@ const Constants = {
     MOVIE_STATUS_VIEWED: "Viewed",
     MAX_INPUT_FIELD_HEIGHT: 80,
     IOS_APP_LINK: "https://apps.apple.com/ru/app/mona-социальная-сеть-про-кино/id1227526659",
-    MIN_PASSWORD_LENGTH: 8
+    MIN_PASSWORD_LENGTH: 8,
+    MOVIES_SORT_TYPE_DATE: "Date",
+    MOVIES_SORT_TYPE_DATE_DESC: "DateDesc",
+    MOVIES_SORT_TYPE_RATING: "UserRaiting",
+    MOVIES_SORT_TYPE_RATING_DESC: "UserRaitingDesc"
 };
 
 export default Constants;

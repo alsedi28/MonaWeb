@@ -24,17 +24,17 @@ const ProfileUserInfo = ({ profile, clickFollowButton, externalClass = "" }) => 
             </div>
             <p className={styles.userName}>{profile.name}</p>
             <div className={styles.userCounters}>
-                <Link to={`/profile/${profile.id}/followers`}>
-                    <div>
-                        <p>{profile.amountFollowers}</p>
-                        <p>подписчик</p>
-                        <img src={shapeDark} width="35px" />
-                    </div>
-                </Link>
                 <Link to={`/profile/${profile.id}/following`}>
                     <div>
                         <p>{profile.amountFollowing}</p>
                         <p>подписок</p>
+                        <img src={shapeDark} width="35px" />
+                    </div>
+                </Link>
+                <Link to={`/profile/${profile.id}/followers`}>
+                    <div>
+                        <p>{profile.amountFollowers}</p>
+                        <p>подписчик</p>
                         <img src={shapeDark} width="35px" />
                     </div>
                 </Link>

@@ -17,6 +17,7 @@ import NotMoviesWillWatchBanner from './profileBanners/notMoviesWillWatchBanner/
 import NotMoviesWillWatchInMyOwnProfileBanner from './profileBanners/notMoviesWillWatchInMyOwnProfileBanner/notMoviesWillWatchInMyOwnProfileBanner';
 import NotMoviesViewedBanner from './profileBanners/notMoviesViewedBanner/notMoviesViewedBanner';
 import NotMoviesViewedInMyOwnProfileBanner from './profileBanners/notMoviesViewedInMyOwnProfileBanner/notMoviesViewedInMyOwnProfileBanner';
+import ProfileMoviesSort from './profileMoviesSort/profileMoviesSort';
 import { DataService } from '../../dataService';
 import Constants from '../../constants';
 import { getMainUserId } from '../../helpers/cookieHelper';
@@ -48,12 +49,14 @@ class ProfilePage extends React.Component {
             moviesWillWatch: {
                 items: [],
                 hasMore: false, // Флаг, который показывает есть ли еще фильмы для загрузки
-                page: 1 // Номер страницы
+                page: 1, // Номер страницы
+                sortType: Constants.MOVIES_SORT_TYPE_DATE_DESC // Тип сортировки, по умолчанию по дате убывания
             },
             moviesViewed: {
                 items: [],
                 hasMore: false, // Флаг, который показывает есть ли еще фильмы для загрузки
-                page: 1 // Номер страницы
+                page: 1, // Номер страницы
+                sortType: Constants.MOVIES_SORT_TYPE_DATE_DESC // Тип фильтра, по умолчанию по дате убывания
             },
             tabNumberActive: 1, // Номер Tab'а, который активный. 1 - Tab "Публикации", 2 - Tab "В закладках", 3 - Tab "Просмотрено"
             handleClickFollowUser: this.clickFollowUser, // Обработчик события click по кнопке Подписаться/Подписки
@@ -84,6 +87,7 @@ class ProfilePage extends React.Component {
         this.clickFollowUser = this.clickFollowUser.bind(this);
         this.clickTab = this.clickTab.bind(this);
         this.renderMoviesForView = this.renderMoviesForView.bind(this);
+        this.changedSortType = this.changedSortType.bind(this);
     }
 
     componentDidMount() {
@@ -188,7 +192,8 @@ class ProfilePage extends React.Component {
                     moviesWillWatch: {
                         ...this.state.moviesWillWatch,
                         hasMore: false,
-                        isLoading: false
+                        isLoading: false,
+                        sortType: this.state.moviesWillWatch.sortType
                     }
                 });
                 return;
@@ -200,12 +205,13 @@ class ProfilePage extends React.Component {
                     page: this.state.moviesWillWatch.page + 1,
                     items: this.state.moviesWillWatch.items.concat(items),
                     hasMore: true,
-                    isLoading: false
+                    isLoading: false,
+                    sortType: this.state.moviesWillWatch.sortType
                 }
             });
         };
 
-        DataService.getWillWatchMovies(this.state.profile.id, this.state.moviesWillWatch.page, callback);
+        DataService.getWillWatchMovies(this.state.profile.id, this.state.moviesWillWatch.page, this.state.moviesWillWatch.sortType, callback);
     }
 
     getViewedMovies() {
@@ -216,7 +222,8 @@ class ProfilePage extends React.Component {
                     moviesViewed: {
                         ...this.state.moviesViewed,
                         hasMore: false,
-                        isLoading: false
+                        isLoading: false,
+                        sortType: this.state.moviesViewed.sortType
                     }
                 });
                 return;
@@ -228,12 +235,13 @@ class ProfilePage extends React.Component {
                     page: this.state.moviesViewed.page + 1,
                     items: this.state.moviesViewed.items.concat(items),
                     hasMore: true,
-                    isLoading: false
+                    isLoading: false,
+                    sortType: this.state.moviesViewed.sortType
                 }
             });
         };
 
-        DataService.getViewedMovies(this.state.profile.id, this.state.moviesViewed.page, callback);
+        DataService.getViewedMovies(this.state.profile.id, this.state.moviesViewed.page, this.state.moviesViewed.sortType, callback);
     }
 
     clickFollowUser() {
@@ -277,10 +285,46 @@ class ProfilePage extends React.Component {
         return result;
     }
 
+    changedSortType(selectedFilter) {
+        console.error(selectedFilter);
+        if (this.state.tabNumberActive === 2) {
+            this.setState({
+                ...this.state,
+                moviesWillWatch: {
+                    items: [],
+                    hasMore: true,
+                    page: 1,
+                    sortType: selectedFilter
+                }
+            }, () => {
+                this.getWillWatchMovies();
+            });
+        } else if (this.state.tabNumberActive === 3) {
+            this.setState({
+                ...this.state,
+                moviesViewed: {
+                    items: [],
+                    hasMore: true,
+                    page: 1,
+                    sortType: selectedFilter
+                }
+            }, () => {
+                this.getViewedMovies();
+            });
+        }
+    }
+
     render() {
         const { location } = this.props;
 
         let currentUserId = getMainUserId();
+        let displaySortViewBlock = ""
+
+        if (this.state.tabNumberActive === 2) {
+            displaySortViewBlock = { display: this.state.moviesWillWatch.items.lenght > 0 ? "block" : "none" }
+        }  else if (this.state.tabNumberActive === 3) {
+            displaySortViewBlock = { display: this.state.moviesViewed.items.lenght > 0 ? "block" : "none" }
+        }
 
         return (
             <React.Fragment>
@@ -292,6 +336,14 @@ class ProfilePage extends React.Component {
                             clickFollowers={this.clickShowFollowers} clickFollowing={this.clickShowFollowing} style={{ display: this.state.isLoading ? "none" : "block" }} />
                     </div>
                     <HorizontalTabs tabsSettings={this.state.tabSettings} tabNumberActive={this.state.tabNumberActive} clickTab={this.clickTab} externalClass={styles.tabsExternal} />
+                    <div className={`${styles.tabDataContainer} ${styles.tabMovies}`} style={{ display: (this.state.tabNumberActive === 2 || this.state.tabNumberActive === 3)  ? "block" : "none" }}>
+                        <ProfileMoviesSort
+                            style={displaySortViewBlock}
+                            selectedSort={this.state.tabNumberActive === 2 ? this.state.moviesWillWatch.sortType : this.state.moviesViewed.sortType}
+                            movieType={this.state.tabNumberActive === 2 ? Constants.MOVIE_STATUS_WILL_WATCH : Constants.MOVIE_STATUS_VIEWED}
+                            onSortTypeSelect={this.changedSortType}
+                        />
+                    </div>
                     <div className={styles.tabDataContainer} style={{ display: this.state.tabNumberActive === 1 ? "block" : "none" }}>
                         <NotPostsBanner username={this.state.profile.login} show={currentUserId !== this.state.profile.id && this.state.profile.amountPosts === 0} externalClass={styles.bannerExternal} />
                         <NotPostsInMyOwnProfileBanner show={currentUserId === this.state.profile.id && this.state.profile.amountPosts === 0} externalClass={styles.bannerExternal} />
