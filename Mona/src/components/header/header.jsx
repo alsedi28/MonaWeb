@@ -18,7 +18,7 @@ const Header = ({ location = "", externalClass = "", children, onSignIn, onSignU
     let userId = getMainUserId();
     let userAvatar = getMainUserAvatar();
 
-    let isCurrentProfileUser = location.startsWith(`/profile/${userId}`);
+    let isCurrentProfileUser = location.endsWith(`/profile/${userId}`);
 
     function refreshPageIfNeeded() {
         if (isCurrentProfileUser) {
