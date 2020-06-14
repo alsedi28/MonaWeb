@@ -32,11 +32,13 @@
     text-align: left;
     float: left;
     margin-left: 16px;
+    margin-top: 13px;
+    margin-bottom: 0px;
     color: rgb(49, 54, 60);
 }
 .sortContainer div > img {
     float: right;
-    margin-top: 22px;
+    margin-top: 19px;
     margin-right: 16px;
 }
 
