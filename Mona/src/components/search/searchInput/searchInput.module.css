@@ -1,0 +1,42 @@
+.container {
+    height: 45px;
+    width: 340px;
+    border: 1px solid rgb(237, 237, 237);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.container input {
+    background-color: rgb(250, 250, 250);
+    border: 0px;
+    color: rgb(173, 175, 177);
+    height: 100%;
+    width: 349px;
+    outline: 0;
+    margin-left: -1px;
+    padding-left: 42px;
+    font-size: 14px;
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: normal;
+}
+
+.container input:focus {
+    background-color: rgb(255, 255, 255);
+    border: 0px;
+    color: rgb(49, 54, 60);
+    outline: 0;
+}
+
+.container input::placeholder, .container input:focus::placeholder {
+    color: rgb(173, 175, 177);
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: normal;
+}
+
+.container img {
+    position: relative;
+    top: -33px;
+    left: 11px;
+}

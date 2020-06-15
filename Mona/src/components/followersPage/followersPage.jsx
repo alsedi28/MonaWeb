@@ -2,7 +2,7 @@ import React from 'react';
 
 import Header from '../header/header';
 import Footer from '../footer/footer';
-import SearchInput from '../searchInput/searchInput';
+import FollowersSearchInput from './followersSearchInput/followersSearchInput';
 import FollowersSearchUsersResult from './followersSearchUsersResult/followersSearchUsersResult';
 import { DataService } from '../../dataService';
 
@@ -198,7 +198,7 @@ class FollowersPage extends React.Component {
                     {titleBlock}
 
                     <div className={styles.searchUsers}>
-                        <SearchInput inputValue={this.state.inputSearchValue} handleInputChange={this.searchUsers} />
+                        <FollowersSearchInput inputValue={this.state.inputSearchValue} handleInputChange={this.searchUsers} />
                         <FollowersSearchUsersResult isLoading={this.state.isLoading} users={this.state.users} />
                         {usersNotFoundBlock}
                     </div>
