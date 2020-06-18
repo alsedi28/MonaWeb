@@ -7,3 +7,7 @@
 .searchResultExternal {
     margin-top: 10px;
 }
+
+.searchResultExternal:hover {
+    display: block !important;
+}
