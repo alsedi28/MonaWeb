@@ -90,6 +90,18 @@ export class DataService {
         this._get(url, callback);
     }
 
+    static searchMovies(title, callback) {
+        let url = `${Constants.DOMAIN}/api/movies?title=${title}`;
+
+        this._get(url, callback);
+    }
+
+    static search(text, quantity, callback) {
+        let url = `${Constants.DOMAIN}/api/search?text=${text}&quantity=${quantity}`;
+
+        this._get(url, callback);
+    }
+
     static getViewedMovies(userId, pageNumber, sortType, callback) {
         let url = `${Constants.DOMAIN}/api/users/${userId}/viewedmovies?page=${pageNumber}&sortedBy=${sortType}`;
 

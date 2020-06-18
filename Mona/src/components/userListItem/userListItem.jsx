@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import FollowButton from '../buttons/followButton/followButton';
 import UserAvatar from '../userAvatar/userAvatar';
 import { DataService } from '../../dataService';
-import Constants from '../../constants';
 import { getMainUserId } from '../../helpers/cookieHelper';
 
 import styles from './userListItem.module.css';

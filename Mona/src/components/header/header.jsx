@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import UserAvatar from '../userAvatar/userAvatar';
 import { resetUserCookie, getMainUserId, getMainUserAvatar } from '../../helpers/cookieHelper';
 import CommonButton from '../buttons/commonButton/commonButton';
-import SearchInput from '../search/searchInput/searchInput';
+import Search from '../search/search';
 
 import styles from './header.module.css';
 
@@ -73,7 +73,7 @@ const Header = ({ location = "", externalClass = "", children, onSignIn, onSignU
                         </li>
                     </ul>
                 </nav>
-                <SearchInput externalClass={`${styles.searchInputExternal} ${userId ? styles.show : styles.hide}`} />
+                <Search externalClass={`${styles.searchExternal} ${userId ? styles.show : styles.hide}`} />
             </div>
             {children}
         </header>
