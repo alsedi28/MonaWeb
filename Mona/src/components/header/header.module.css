@@ -6,6 +6,7 @@
 }
 
 .centerContainer {
+    position: relative;
     max-width: 790px;
     min-width: 650px;
     height: 60px;
