@@ -47,7 +47,7 @@ class Search extends React.Component {
         if (value.length < 2) { // Для поиска фильма необходимо как минимум 2 символа
             this.setState({
                 isLoading: true,
-                showResult: false,
+                showResult: true,
                 searchResult: {
                     movies: [],
                     users: []
