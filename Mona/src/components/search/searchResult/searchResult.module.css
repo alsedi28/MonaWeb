@@ -1,0 +1,88 @@
+.container {
+    height: auto;
+    width: 340px;
+    border-radius: 6px;
+    background-color: white;
+    padding-bottom: 5px;
+    box-shadow: 0px 4px 24px 0px rgba(161, 164, 184, 0.35);
+}
+
+.title {
+    font-size: 10px;
+    color: rgb(49, 54, 60);
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 300;
+    padding-left: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin: 0px;
+}
+
+.notFound p {
+    text-align: center;
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: normal;
+    padding: 7px;
+    margin: 0px;
+}
+
+.notFound p:first-of-type {
+    font-size: 14px;
+    color: rgb(49, 54, 60);
+    padding-bottom: 0px;
+}
+
+.notFound p:last-of-type {
+    font-size: 12px;
+    color: rgb(193, 194, 196);
+}
+
+/* BEGIN --- Стили для блока с информацией о пользователе UserListItem */
+.userListItemExternal {
+    height: 43px !important;
+}
+
+.userListItemExternal > div:nth-child(1) {
+    margin-left: auto !important;
+}
+
+.userListItemExternal > div:nth-child(1) div {
+    width: 32px !important;
+    height: 32px !important;
+    margin-top: 5px !important;
+}
+
+.userListItemExternal > div:nth-child(2) {
+    width: 137px !important;
+    padding-left: 10px !important;
+}
+
+.userListItemExternal > div:nth-child(2) p {
+    width: 165px !important;
+    font-size: 10px !important;
+}
+
+.userListItemExternal > div:nth-child(2) p:first-of-type {
+    padding-top: 5px !important;
+}
+
+.userListItemExternal > div:nth-child(3) {
+    margin-top: 9px !important;
+    width: 120px !important;
+    height: 24px !important;
+    font-size: 10px !important;
+}
+
+.userListItemExternal > div:nth-child(3) > p {
+    line-height: 25px !important;
+}
+
+.userListItemExternal > div:nth-child(3) > img {
+    width: 10px !important;
+    height: 10px !important;
+    margin-top: 7px !important;
+}
+
+/* END --- Стили для блока с информацией о пользователе UserListItem */

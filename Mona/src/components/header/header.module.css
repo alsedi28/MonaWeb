@@ -6,6 +6,7 @@
 }
 
 .centerContainer {
+    position: relative;
     max-width: 790px;
     min-width: 650px;
     height: 60px;
@@ -177,9 +178,12 @@
     display: block;
 }
 
-.searchInputExternal {
+.searchExternal {
     float: right;
     margin-top: 6px;
+    position: absolute; /* Это необходимо, чтобы выпадающий список не сдвигал табы ленты в хедере*/
+    left: 30%;
+    z-index: 250;
 }
 
 .show {

@@ -5,10 +5,7 @@
     overflow: hidden;
 }
 
-.loader {
-    margin-top: 20px;
-}
-
+/* BEGIN --- Стили для блока с информацией о пользователе UserListItem */
 .userListItemExternal {
     height: 130px !important;
     border-bottom: 1px solid rgba(41, 42, 44, 0.1);
@@ -40,3 +37,4 @@
 .userListItemExternal > div:nth-child(3) {
     margin-top: 43px !important;
 }
+/* END --- Стили для блока с информацией о пользователе UserListItem */

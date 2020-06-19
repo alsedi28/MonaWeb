@@ -1,0 +1,13 @@
+.container {
+    width: 345px;
+    height: auto;
+    margin: auto;
+}
+
+.searchResultExternal {
+    margin-top: 10px;
+}
+
+.searchResultExternal:hover {
+    display: block !important;
+}
