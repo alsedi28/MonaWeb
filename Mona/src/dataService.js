@@ -160,6 +160,36 @@ export class DataService {
         this._post(url, callback, request);
     }
 
+    static addMovieToWillWatch(movieId, callback) {
+        let url = `${Constants.DOMAIN}/api/user/willwatchmovies`;
+        let request = { MovieId: movieId };
+
+        this._post(url, callback, request);
+    }
+
+    static deleteMovieFromWillWatch(movieId, callback) {
+        let url = `${Constants.DOMAIN}/api/user/willwatchmovies/${movieId}`;
+
+        this._delete(url, callback);
+    }
+
+    static addMovieToViewed(movieId, rating, tags, callback) {
+        let url = `${Constants.DOMAIN}/api/user/viewedmovies`;
+        let request = {
+            MovieId: movieId,
+            Raiting: rating,
+            Tags: tags
+        };
+        
+        this._post(url, callback, request);
+    }
+
+    static deleteMovieFromViewed(movieId, callback) {
+        let url = `${Constants.DOMAIN}/api/user/viewedmovies/${movieId}`;
+
+        this._delete(url, callback);
+    }
+
     static login(login, password, successCallback, failedCallback) {
         let url = `${Constants.DOMAIN}/token`;
 
