@@ -181,6 +181,9 @@
 .searchExternal {
     float: right;
     margin-top: 6px;
+    position: absolute; /* Это необходимо, чтобы выпадающий список не сдвигал табы ленты в хедере*/
+    left: 30%;
+    z-index: 250;
 }
 
 .show {

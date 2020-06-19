@@ -6,9 +6,6 @@
 
 .searchResultExternal {
     margin-top: 10px;
-    position: absolute;
-    left: 30%;
-    z-index: 250;
 }
 
 .searchResultExternal:hover {
