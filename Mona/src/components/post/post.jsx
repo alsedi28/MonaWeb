@@ -6,7 +6,7 @@ import PostButtonBar from './postButtonBar/postButtonBar';
 import PostHeader from './postHeader/postHeader';
 import PostComment from './postComment/postComment';
 import PostCommentInput from './postCommentInput/postCommentInput';
-import PostWatchStatusButtons from '../postWatchStatusButtons/postWatchStatusButtons';
+import MovieStatusButtons from '../movieStatusButtons/movieStatusButtons';
 import PostDetails from '../postDetails/postDetails';
 import PostTotalLikes from '../postTotalLikes/postTotalLikes';
 import { DataService } from '../../dataService';
@@ -233,7 +233,11 @@ class Post extends React.Component {
                         <div className={styles.movieInfoBlock}>
                             <p className={styles.movieTitle}><Link to={`/movies/${post.MovieId}`}>{post.MovieTitle}</Link> {blockMovieReleaseDate}</p>
 
-                            <PostWatchStatusButtons status={post.StatusOfMovieForUser}/>
+                            <MovieStatusButtons
+                                status={post.StatusOfMovieForUser}
+                                movieId={post.MovieId}
+                                handlerExternal={this.updatePost.bind(this, post.EventId, post.MovieId)}
+                            />
 
                             <p className={styles.userRaiting} style={displayBookmarkIconBlock}>Оценка: <span>{userRaiting}</span></p>
                             <div className={styles.movieRaiting}>

@@ -79,6 +79,12 @@ html, body {
     color: rgb(49, 54, 60);
 }
 
+.createEventButton {
+    width: 280px;
+    margin-top: 32px;
+    margin-bottom: 24px;
+}
+
 @font-face {
     font-family: "Montserrat";
     src: url("../fonts/Montserrat-Light.ttf") format("truetype"),

@@ -12,7 +12,13 @@ const Constants = {
     MOVIES_SORT_TYPE_DATE: "Date",
     MOVIES_SORT_TYPE_DATE_DESC: "DateDesc",
     MOVIES_SORT_TYPE_RATING: "UserRaiting",
-    MOVIES_SORT_TYPE_RATING_DESC: "UserRaitingDesc"
+    MOVIES_SORT_TYPE_RATING_DESC: "UserRaitingDesc",
+    MOVIE_WATCHED_EVENT_TYPE: 0,
+    MOVIE_WILL_WATCH_EVENT_TYPE: 2,
+    MOVIE_MOVE_TO_WATCHED: "moveToWatched",
+    MOVIE_DELETE_FROM_WATCHED: "deleteFromWatched",
+    MOVIE_MOVE_TO_WILL_WATCH: "moveToWillWatch",
+    MOVIE_DELETE_FROM_WILL_WATCH: "deleteFromWillWatch",
 };
 
 export default Constants;

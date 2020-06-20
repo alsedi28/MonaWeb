@@ -192,7 +192,7 @@ export class DataService {
             Raiting: rating,
             Tags: tags
         };
-        
+
         this._post(url, callback, request);
     }
 
@@ -200,6 +200,18 @@ export class DataService {
         let url = `${Constants.DOMAIN}/api/user/viewedmovies/${movieId}`;
 
         this._delete(url, callback);
+    }
+
+    static createEvent(movieId, comment, rating, eventType, tags, callback) {
+        let url = `${Constants.DOMAIN}/api/movies/${movieId}/events`;
+        let request = {
+            Comment: comment,
+            Raiting: rating,
+            Type: eventType,
+            Tags: tags
+        };
+
+        this._post(url, callback, request);
     }
 
     static login(login, password, successCallback, failedCallback) {

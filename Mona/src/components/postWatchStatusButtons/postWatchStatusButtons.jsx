@@ -6,10 +6,6 @@ import checkMarkIcon from '../../../public/icons/checkMark.png';
 
 function PostWatchStatusButtons(props) {
 
-    function handleChangeStatusAction(newStatus) {
-
-    }
-
     let statusBlock = "";
     switch (props.status) {
         case Constants.MOVIE_STATUS_WILL_WATCH:
@@ -23,10 +19,10 @@ function PostWatchStatusButtons(props) {
                     </div>
 
                     <ul className={styles.sortDropdown}>
-                        <li className={styles.dropdownContent} onClick={() => handleChangeStatusAction(Constants.MOVIES_SORT_TYPE_DATE_DESC)}>
+                        <li className={styles.dropdownContent} onClick={() => props.handleChangeStatusAction(Constants.MOVIE_MOVE_TO_WATCHED)}>
                             <p>Переместить в просмотренные</p>
                         </li>
-                        <li className={`${styles.dropdownContent} ${styles.deleteAction}`} onClick={() => handleChangeStatusAction(Constants.MOVIES_SORT_TYPE_DATE)}>
+                        <li className={`${styles.dropdownContent} ${styles.deleteAction}`} onClick={() => props.handleChangeStatusAction(Constants.MOVIE_DELETE_FROM_WILL_WATCH)}>
                             <p>Удалить из закладок</p>
                         </li>
                     </ul>
@@ -42,10 +38,10 @@ function PostWatchStatusButtons(props) {
                         </p>
                     </div>
                     <ul className={styles.sortDropdown}>
-                        <li className={styles.dropdownContent} onClick={() => handleChangeStatusAction(Constants.MOVIES_SORT_TYPE_RATING_DESC)}>
+                        <li className={styles.dropdownContent} onClick={() => props.handleChangeStatusAction(Constants.MOVIE_MOVE_TO_WILL_WATCH)}>
                             <p>Переместить в закладки</p>
                         </li>
-                        <li className={`${styles.dropdownContent} ${styles.deleteAction}`} onClick={() => handleChangeStatusAction(Constants.MOVIES_SORT_TYPE_RATING)}>
+                        <li className={`${styles.dropdownContent} ${styles.deleteAction}`} onClick={() => props.handleChangeStatusAction(Constants.MOVIE_DELETE_FROM_WATCHED)}>
                             <p>Удалить из просмотренных</p>
                         </li>
                     </ul>
@@ -59,10 +55,10 @@ function PostWatchStatusButtons(props) {
         <div className={`${styles.box} ${props.externalClass}`}>
             {statusBlock}
 
-            <div className={`${styles.unselected} ${styles.common}`} style={noViewedStatus}>
+            <div className={`${styles.unselected} ${styles.common}`} style={noViewedStatus} onClick={() => props.handleChangeStatusAction(Constants.MOVIE_MOVE_TO_WILL_WATCH)}>
                 <p>Буду смотреть</p>
             </div>
-            <div className={`${styles.selected} ${styles.common}`} style={noViewedStatus}>
+            <div className={`${styles.selected} ${styles.common}`} style={noViewedStatus} onClick={() => props.handleChangeStatusAction(Constants.MOVIE_MOVE_TO_WATCHED)}>
                 <p>Уже смотрел</p>
             </div>
         </div>

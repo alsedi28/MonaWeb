@@ -25,23 +25,6 @@
     margin: 0 auto;
 }
 
-/* The Close Button */
-.close {
-  color: #ffffff;
-  float: right;
-  font-size: 40px;
-  font-weight: bold;
-  position: absolute;
-  right: 44px;
-  top: 44px;
-}
-
-.close:hover, .close:focus {
-  color: #31363c;
-  text-decoration: none;
-  cursor: pointer;
-}
-
 /* Left side */
 
 .posterBox {

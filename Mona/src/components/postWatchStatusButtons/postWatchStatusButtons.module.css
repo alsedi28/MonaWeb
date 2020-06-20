@@ -102,4 +102,5 @@
 
 .sortDropdown li:hover {
     background: rgb(250, 233, 227);
+    cursor: pointer;
 }
