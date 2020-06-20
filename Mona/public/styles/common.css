@@ -81,6 +81,7 @@ html, body {
 
 .createEventButton {
     width: 280px;
+    height: 56px;
     margin-top: 32px;
     margin-bottom: 24px;
 }

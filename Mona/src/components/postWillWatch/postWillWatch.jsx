@@ -3,95 +3,98 @@ import { Link } from 'react-router-dom';
 
 import styles from './postWillWatch.module.css';
 
+import Constants from '../../constants';
 import CloseButton from '../buttons/closeButton/closeButton';
 import CommonButton from '../buttons/commonButton/commonButton';
 import ModalDialogBackground from '../modalDialogBackground/modalDialogBackground';
 import { getPosterPath } from '../../helpers/imagePathHelper';
 
-class PostWillWatch extends React.Component {
+function PostWillWatch(props) {
 
-    constructor(props) {
-        super(props);
+    function handleInputChange(event) {
+        const {name, value, type, checked} = event.target;
+        if (type === "checkbox") {
+            props.handleChange(name, checked);
+        } else {
+            props.handleChange(name, value);
+        }
 
-        this.state = {
-            inputComment: "", // Комментарий к событию
-            isEventPublic: true // Флаг является ли публикация публичной или приватной
-        };
     }
 
-    handleInputCommentChange(event) {
-        const {name, value} = event.target;
-        console.error(value);
-        this.setState({
-            [name]: value
-        });
+    let isCreateEnabled = true;
+    if (props.isPublic === true && props.comment.length === 0) {
+        isCreateEnabled = false;
     }
 
-    handlePublicEventChange(event) {
-        const {name, value} = event.target;
-        console.error(name, value);
+    let buttonTitle = "Опубликовать";
+    if (!props.isPublic) {
+        buttonTitle = "Добавить в закладки"
     }
 
-    render() {
-        return (
-            <ModalDialogBackground show={this.props.isDisplay} clickClose={this.props.clickClose} >
+    let displayCommentBlock = { display: props.isPublic ? "block" : "none" }
 
-                <article className={`${styles.modalContent} ${`dialog-ev`}`}>
-                    <header className={styles.movieInfo}>
+    return (
+        <ModalDialogBackground show={props.isDisplay} clickClose={props.clickClose} >
 
-                        <div className={styles.poster}>
-                            <img
-                                src="https://avatars.mds.yandex.net/get-pdb/1667260/9fa90477-fcd1-48ff-a505-6566a4614e01/s1200"
-                                className={styles.posterImage}
-                            />
-                        </div>
+            <article className={`${styles.modalContent} ${`dialog-ev`}`}>
+                <header className={styles.movieInfo}>
 
-                        <div className={styles.movieTitles}>
-                            <p className={styles.title}>Movie Title <span>(2019)</span></p>
-                            <p className={styles.subtitle}>USA</p>
-                        </div>
-
-                    </header>
-
-                    <div className={styles.publicSettingContainer}>
-                        <p>Поделиться публикацией с подписчиками</p>
-                        <label className={styles.switch}>
-                            <input
-                                type="checkbox"
-                                id="checkbox"
-                                name="isEventPublic"
-                                checked={this.state.isEventPublic}
-                                onChange={this.handlePublicEventChange}
-                            />
-                            <span className={`${styles.slider} ${styles.round}`}></span>
-                        </label>
-                    </div>
-
-                    <p className={styles.headerTitle}>Отзыв</p>
-
-                    <div className={styles.inputField}>
-                        <textarea
-                            aria-label="Напишите свой отзыв тут…"
-                            placeholder="Напишите свой отзыв тут…"
-                            name="inputComment"
-                            className={styles.textArea}
-                            autocomplete="off"
-                            autocorrect="off"
-                            value={this.state.inputComment}
-                            onChange={this.handleInputCommentChange}
+                    <div className={styles.poster}>
+                        <img
+                            src={getPosterPath(props.movieInfo.posterPath)}
+                            className={styles.posterImage}
                         />
-
                     </div>
 
-                    <CommonButton externalClass="filledButton createEventButton" title="Создать публикацию" />
+                    <div className={styles.movieTitles}>
+                        <p className={styles.title}>{props.movieInfo.title} <span>({props.movieInfo.year})</span></p>
+                        <p className={styles.subtitle}>Рейтинг: {props.movieInfo.rating}</p>
+                    </div>
 
-                </article>
+                </header>
 
-                <CloseButton onClick={this.props.clickClose}/>
-                
-            </ModalDialogBackground>
-        );
-    }
+                <div className={styles.publicSettingContainer}>
+                    <p>Поделиться публикацией с подписчиками</p>
+                    <label className={styles.switch}>
+                        <input
+                            type="checkbox"
+                            id="checkbox"
+                            name="isEventPublic"
+                            checked={props.isPublic}
+                            onChange={handleInputChange}
+                        />
+                        <span className={`${styles.slider} ${styles.round}`}></span>
+                    </label>
+                </div>
+
+                <p className={styles.headerTitle} style={displayCommentBlock}>Комментарий</p>
+
+                <div className={styles.inputField} style={displayCommentBlock}>
+                    <textarea
+                        aria-label="Напишите свой комментарий тут…"
+                        placeholder="Напишите свой комментарий тут…"
+                        name="inputComment"
+                        className={styles.textArea}
+                        autocomplete="off"
+                        autocorrect="off"
+                        value={props.comment}
+                        onChange={handleInputChange}
+                    />
+
+                </div>
+
+                <CommonButton
+                    externalClass="filledButton createEventButton"
+                    title={buttonTitle}
+                    isDisabled={!isCreateEnabled}
+                    onClick={() => props.onEventCreate(Constants.MOVIE_WILL_WATCH_EVENT_TYPE)}
+                />
+
+            </article>
+            <CloseButton onClick={props.clickClose}/>
+
+        </ModalDialogBackground>
+    );
 }
 
 export default PostWillWatch;

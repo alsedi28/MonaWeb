@@ -13,6 +13,8 @@ import { DataService } from '../../dataService';
 import Constants from '../../constants';
 import { getReleaseYear } from '../../helpers/timeHelper';
 import { getPosterPath, getBackdropUrl } from '../../helpers/imagePathHelper';
+import { getMovieInfoFromPost } from '../../helpers/movieInfoHelper';
+import { getMovieRating } from '../../helpers/eventHelper';
 
 import styles from './post.module.css';
 
@@ -199,7 +201,7 @@ class Post extends React.Component {
 
         let post = this.state.post;
 
-        let movieRaiting = post.ImdbRaiting === null ? post.VoteAverage : post.ImdbRaiting;
+        let movieRaiting = getMovieRating(post);
         let userRaiting = post.EventType === 0 ? post.UserRaiting : null;
 
         let movieReleaseDate = getReleaseYear(post.MovieReleaseDate);
@@ -235,7 +237,7 @@ class Post extends React.Component {
 
                             <MovieStatusButtons
                                 status={post.StatusOfMovieForUser}
-                                movieId={post.MovieId}
+                                movieInfo={getMovieInfoFromPost(post)}
                                 handlerExternal={this.updatePost.bind(this, post.EventId, post.MovieId)}
                             />
 
