@@ -1,13 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import styles from './postWillWatch.module.css';
 
-import Constants from '../../constants';
-import CloseButton from '../buttons/closeButton/closeButton';
-import CommonButton from '../buttons/commonButton/commonButton';
-import ModalDialogBackground from '../modalDialogBackground/modalDialogBackground';
-import { getPosterPath } from '../../helpers/imagePathHelper';
+import Constants from '../../../constants';
+import CloseButton from '../../buttons/closeButton/closeButton';
+import CommonButton from '../../buttons/commonButton/commonButton';
+import EventCommentField from '../eventCommentField/eventCommentField';
+import ModalDialogBackground from '../../modalDialogBackground/modalDialogBackground';
+import { getPosterPath } from '../../../helpers/imagePathHelper';
 
 function PostWillWatch(props) {
 
@@ -18,7 +18,6 @@ function PostWillWatch(props) {
         } else {
             props.handleChange(name, value);
         }
-
     }
 
     let isCreateEnabled = true;
@@ -28,7 +27,7 @@ function PostWillWatch(props) {
 
     let buttonTitle = "Опубликовать";
     if (!props.isPublic) {
-        buttonTitle = "Добавить в закладки"
+        buttonTitle = "Добавить в закладки";
     }
 
     let displayCommentBlock = { display: props.isPublic ? "block" : "none" }
@@ -69,19 +68,12 @@ function PostWillWatch(props) {
 
                 <p className={styles.headerTitle} style={displayCommentBlock}>Комментарий</p>
 
-                <div className={styles.inputField} style={displayCommentBlock}>
-                    <textarea
-                        aria-label="Напишите свой комментарий тут…"
-                        placeholder="Напишите свой комментарий тут…"
-                        name="inputComment"
-                        className={styles.textArea}
-                        autocomplete="off"
-                        autocorrect="off"
-                        value={props.comment}
-                        onChange={handleInputChange}
-                    />
-
-                </div>
+                <EventCommentField
+                    placeholder="Напишите свой комментарий тут…"
+                    value={props.comment}
+                    onChange={handleInputChange}
+                    isPublic={props.isPublic}
+                />
 
                 <CommonButton
                     externalClass="filledButton createEventButton"
@@ -91,6 +83,7 @@ function PostWillWatch(props) {
                 />
 
             </article>
+
             <CloseButton onClick={props.clickClose}/>
 
         </ModalDialogBackground>

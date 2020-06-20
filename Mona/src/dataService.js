@@ -185,12 +185,11 @@ export class DataService {
         this._delete(url, callback);
     }
 
-    static addMovieToViewed(movieId, rating, tags, callback) {
+    static addMovieToViewed(movieId, rating, callback) {
         let url = `${Constants.DOMAIN}/api/user/viewedmovies`;
         let request = {
             MovieId: movieId,
-            Raiting: rating,
-            Tags: tags
+            Raiting: rating
         };
 
         this._post(url, callback, request);

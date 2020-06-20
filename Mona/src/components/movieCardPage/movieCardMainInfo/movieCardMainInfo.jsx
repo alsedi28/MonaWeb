@@ -3,7 +3,7 @@ import React from 'react';
 import MovieCardRating from '../movieCardRating/movieCardRating';
 import MovieCardUserRating from '../movieCardUserRating/movieCardUserRating';
 import MovieCardUsersGroup from '../movieCardUsersGroup/movieCardUsersGroup';
-import PostWatchStatusButtons from '../../postWatchStatusButtons/postWatchStatusButtons';
+import PostWatchStatusButtons from '../../movieStatusButtons/postWatchStatusButtons/postWatchStatusButtons';
 import { getReleaseYear, getHumanRuntime } from '../../../helpers/timeHelper';
 import { getPosterPath, getBackdropUrl } from '../../../helpers/imagePathHelper';
 import Constants from '../../../constants';

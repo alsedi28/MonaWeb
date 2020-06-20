@@ -1,8 +1,9 @@
 import React, { useRef } from 'react';
 import Constants from '../../constants';
 
-import PostWillWatch from '../postWillWatch/postWillWatch';
-import PostWatchStatusButtons from '../postWatchStatusButtons/postWatchStatusButtons';
+import PostWatched from './postWatched/postWatched';
+import PostWillWatch from './postWillWatch/postWillWatch';
+import PostWatchStatusButtons from './postWatchStatusButtons/postWatchStatusButtons';
 import { DataService } from '../../dataService';
 
 import styles from './movieStatusButtons.module.css';
@@ -14,16 +15,24 @@ class MovieStatusButtons extends React.Component {
 
         this.state = {
             showWillWatch: false, // Флаг показать ли экран создания события «Буду смотреть»
+            showWatched: false, // Флаг показать ли экран создания события «Уже смотрел»
 
             willWatch: {
                 inputComment: "", // комментарий для события «Буду смотреть»,
                 isEventPublic: true // флаг сделать ли событие «Буду смотреть» видимой для всех
+            },
+
+            watched: {
+                inputComment: "", // комментарий для события «Уже смотрел»,
+                isEventPublic: true // флаг сделать ли событие «Уже смотрел» видимой для всех
             }
         };
 
         this.handleChangeStatusAction = this.handleChangeStatusAction.bind(this);
         this.hideWillWatch = this.hideWillWatch.bind(this);
+        this.hideWatched = this.hideWatched.bind(this);
         this.handleChangeWillWatchData = this.handleChangeWillWatchData.bind(this);
+        this.handleChangeWatchedData = this.handleChangeWatchedData.bind(this);
         this.handleEventCreateAction = this.handleEventCreateAction.bind(this);
     }
 
@@ -35,16 +44,16 @@ class MovieStatusButtons extends React.Component {
 
         switch(newStatus) {
             case Constants.MOVIE_MOVE_TO_WATCHED:
-
+                this.setState({ showWatched: true });
                 break;
             case Constants.MOVIE_DELETE_FROM_WATCHED:
-
+                DataService.deleteMovieFromViewed(this.props.movieInfo.movieId, callback);
                 break;
             case Constants.MOVIE_MOVE_TO_WILL_WATCH:
                 this.setState({ showWillWatch: true });
                 break;
             case Constants.MOVIE_DELETE_FROM_WILL_WATCH:
-                DataService.deleteMovieFromWillWatch(this.props.movieInfo.movieId, callback)
+                DataService.deleteMovieFromWillWatch(this.props.movieInfo.movieId, callback);
                 break;
             default:
                 break;
@@ -55,10 +64,23 @@ class MovieStatusButtons extends React.Component {
         this.setState({ showWillWatch: false });
     }
 
+    hideWatched() {
+        this.setState({ showWatched: false });
+    }
+
     handleChangeWillWatchData(name, value) {
         this.setState({
             willWatch: {
                 ...this.state.willWatch,
+                [name]: value
+            }
+        });
+    }
+
+    handleChangeWatchedData(name, value) {
+        this.setState({
+            watched: {
+                ...this.state.watched,
                 [name]: value
             }
         });
@@ -71,9 +93,11 @@ class MovieStatusButtons extends React.Component {
 
             switch(eventType) {
                 case Constants.MOVIE_WATCHED_EVENT_TYPE:
+                    this.hideWatched();
                     break;
                 case Constants.MOVIE_WILL_WATCH_EVENT_TYPE:
                     this.hideWillWatch();
+                    break;
                 default:
                     break;
             }
@@ -107,6 +131,15 @@ class MovieStatusButtons extends React.Component {
                     comment={this.state.willWatch.inputComment}
                     isPublic={this.state.willWatch.isEventPublic}
                     handleChange={this.handleChangeWillWatchData}
+                    onEventCreate={this.handleEventCreateAction}
+                />
+                <PostWatched
+                    movieInfo={this.props.movieInfo}
+                    isDisplay={this.state.showWatched}
+                    clickClose={this.hideWatched}
+                    comment={this.state.watched.inputComment}
+                    isPublic={this.state.watched.isEventPublic}
+                    handleChange={this.handleChangeWatchedData}
                     onEventCreate={this.handleEventCreateAction}
                 />
             </React.Fragment>
