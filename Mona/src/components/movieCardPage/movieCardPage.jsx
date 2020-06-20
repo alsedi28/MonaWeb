@@ -151,7 +151,7 @@ class MovieCardPage extends React.Component {
                     items: movie.Comments,
                     hasMore: true
                 },
-                tabSettings: tabs, 
+                tabSettings: tabs,
                 isLoading: false
             });
         };
@@ -336,7 +336,7 @@ class MovieCardPage extends React.Component {
                 <Header externalClass="header-external" location={location.pathname} />
                 <div className={styles.container}>
                     <Loader show={this.state.isLoading} externalClass={styles.loader} />
-                    <MovieCardMainInfo movie={this.state.movie} clickUsersWhoWillWatchMovie={this.clickShowUsersWhoWillWatchMovie} clickUsersWhoViewedMovie={this.clickShowUsersWhoViewedMovie} externalClass={`${this.state.isLoading ? styles.hideBlock : ''}`} />
+                    <MovieCardMainInfo movie={this.state.movie} clickUsersWhoWillWatchMovie={this.clickShowUsersWhoWillWatchMovie} clickUsersWhoViewedMovie={this.clickShowUsersWhoViewedMovie} requestOnUpdateData={this.getMovieCard} externalClass={`${this.state.isLoading ? styles.hideBlock : ''}`} />
                     <HorizontalTabs tabsSettings={this.state.tabSettings} tabNumberActive={this.state.tabNumberActive} clickTab={this.clickTab} externalClass={styles.tabsExternal} />
                     <div className={`${styles.tabData} ${styles.tabOverview}`} style={{ display: this.state.tabNumberActive === 1 ? "flex" : "none" }}>
                         <div>

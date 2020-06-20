@@ -16,16 +16,17 @@ class MovieStatusButtons extends React.Component {
         this.state = {
             showWillWatch: false, // Флаг показать ли экран создания события «Буду смотреть»
             showWatched: false, // Флаг показать ли экран создания события «Уже смотрел»
-
             willWatch: {
                 inputComment: "", // комментарий для события «Буду смотреть»,
                 isEventPublic: true // флаг сделать ли событие «Буду смотреть» видимой для всех
             },
-
             watched: {
+                rating: 0, // выбранный рейтинг для фильма
                 inputComment: "", // комментарий для события «Уже смотрел»,
-                isEventPublic: true // флаг сделать ли событие «Уже смотрел» видимой для всех
-            }
+                isEventPublic: true, // флаг сделать ли событие «Уже смотрел» видимой для всех
+                selectedTags: [] // выбранные теги (их id)
+            },
+            tags: [] // все теги
         };
 
         this.handleChangeStatusAction = this.handleChangeStatusAction.bind(this);
@@ -34,6 +35,18 @@ class MovieStatusButtons extends React.Component {
         this.handleChangeWillWatchData = this.handleChangeWillWatchData.bind(this);
         this.handleChangeWatchedData = this.handleChangeWatchedData.bind(this);
         this.handleEventCreateAction = this.handleEventCreateAction.bind(this);
+        this.handleRatingChange = this.handleRatingChange.bind(this);
+        this.handleTagSelectionChange = this.handleTagSelectionChange.bind(this);
+    }
+
+    componentDidMount() {
+        let callback = (tags) => {
+            this.setState({
+                ...this.state,
+                tags: tags
+            });
+        };
+        DataService.getMovieTags(callback);
     }
 
     handleChangeStatusAction(newStatus) {
@@ -87,16 +100,29 @@ class MovieStatusButtons extends React.Component {
     }
 
     handleEventCreateAction(eventType) {
-
         let callback = _ => {
             this.props.handlerExternal();
 
             switch(eventType) {
                 case Constants.MOVIE_WATCHED_EVENT_TYPE:
                     this.hideWatched();
+                    this.setState({
+                        watched: {
+                            rating: 0,
+                            inputComment: "",
+                            isEventPublic: true,
+                            selectedTags: []
+                        }
+                    });
                     break;
                 case Constants.MOVIE_WILL_WATCH_EVENT_TYPE:
                     this.hideWillWatch();
+                    this.setState({
+                        willWatch: {
+                            inputComment: "",
+                            isEventPublic: true
+                        }
+                    });
                     break;
                 default:
                     break;
@@ -107,6 +133,12 @@ class MovieStatusButtons extends React.Component {
 
         switch(eventType) {
             case Constants.MOVIE_WATCHED_EVENT_TYPE:
+                if (this.state.watched.isEventPublic) {
+                    console.error(movieId, this.state.watched.inputComment, this.state.watched.rating, eventType, this.state.watched.selectedTags);
+                    DataService.createEvent(movieId, this.state.watched.inputComment, this.state.watched.rating, eventType, this.state.watched.selectedTags, callback);
+                } else {
+                    DataService.addMovieToViewed(movieId, this.state.watched.rating, callback);
+                }
                 break;
             case Constants.MOVIE_WILL_WATCH_EVENT_TYPE:
                 if (this.state.willWatch.isEventPublic) {
@@ -120,10 +152,38 @@ class MovieStatusButtons extends React.Component {
         }
     }
 
+    handleRatingChange(newRating) {
+        this.setState({
+            watched: {
+                ...this.state.watched,
+                rating: newRating
+            }
+        });
+    }
+
+    handleTagSelectionChange(selectedTag) {
+        let currentlySelectedTags = this.state.watched.selectedTags;
+
+        const index = currentlySelectedTags.indexOf(selectedTag);
+
+        if (index === -1) {
+            currentlySelectedTags.push(selectedTag)
+        } else {
+            currentlySelectedTags.splice(index, 1);
+        }
+
+        this.setState({
+            watched: {
+                ...this.state.watched,
+                selectedTags: currentlySelectedTags
+            }
+        });
+    }
+
     render() {
         return (
             <React.Fragment>
-                <PostWatchStatusButtons status={this.props.status} handleChangeStatusAction={this.handleChangeStatusAction} />
+                <PostWatchStatusButtons status={this.props.status} externalClass={this.props.externalClass} handleChangeStatusAction={this.handleChangeStatusAction} />
                 <PostWillWatch
                     movieInfo={this.props.movieInfo}
                     isDisplay={this.state.showWillWatch}
@@ -141,6 +201,11 @@ class MovieStatusButtons extends React.Component {
                     isPublic={this.state.watched.isEventPublic}
                     handleChange={this.handleChangeWatchedData}
                     onEventCreate={this.handleEventCreateAction}
+                    selectedRating={this.state.watched.rating}
+                    handleRatingChange={this.handleRatingChange}
+                    tags={this.state.tags}
+                    selectedTags={this.state.watched.selectedTags}
+                    onTagSelect={this.handleTagSelectionChange}
                 />
             </React.Fragment>
         );

@@ -1,0 +1,61 @@
+.movieInfo {
+    height: 120px;
+    border-bottom: 1px solid #dbdbdb;
+    display: flex;
+}
+
+.poster {
+    position: relative;
+    width: 56px;
+    height: 80px;
+    margin-top: 24px;
+    margin-left: 30px;
+}
+
+.posterImage {
+    width: 80%;
+    height: 80%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 6px;
+    object-fit: cover;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.movieTitles {
+    margin-top: 24px;
+    margin-left: 16px;
+    margin-right: 30px;
+    padding-top: 6px;
+}
+
+.movieTitles p {
+    margin: 0;
+    text-align: left;
+}
+
+.movieTitles p:last-child {
+    margin-top: 4px;
+}
+
+.title {
+    font-family: "Montserrat";
+    font-size: 24px;
+    font-weight: 300;
+    color: rgb(49, 54, 60);
+}
+
+.title>span {
+    font-weight: normal;
+    color: rgb(172, 172, 172);
+}
+
+.subtitle {
+    font-family: "Montserrat";
+    font-size: 12px;
+    font-weight: normal;
+    color: rgb(49, 54, 60);
+}

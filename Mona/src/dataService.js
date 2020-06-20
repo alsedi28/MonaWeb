@@ -213,6 +213,12 @@ export class DataService {
         this._post(url, callback, request);
     }
 
+    static getMovieTags(callback) {
+        let url = `${Constants.DOMAIN}/api/infodata/tags`;
+
+        this._get(url, callback, true);
+    }
+
     static login(login, password, successCallback, failedCallback) {
         let url = `${Constants.DOMAIN}/token`;
 
@@ -257,13 +263,14 @@ export class DataService {
             .catch((error) => failedCallback(error));
     }
 
-    static _get(url, callback) {
+    static _get(url, callback, withCache = false) {
         fetch(url, {
             method: 'GET',
             headers: {
                 Authorization: 'Bearer ' + getUserToken(),
                 'Content-Type': 'application/json'
-            }
+            },
+            cache: withCache ? 'force-cache' : 'default'
         })
             .then(response => {
                 if (response.ok)

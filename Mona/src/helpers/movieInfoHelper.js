@@ -11,3 +11,14 @@ export function getMovieInfoFromPost(post) {
     };
     return movieInfo;
 }
+
+export function getMovieInfoFromMovie(movie) {
+    let movieInfo = {
+        movieId: movie.MovieId,
+        posterPath: movie.PosterPath,
+        title: movie.Title,
+        rating: getMovieRating(movie),
+        year: getReleaseYear(movie.ReleaseDate)
+    };
+    return movieInfo;
+}

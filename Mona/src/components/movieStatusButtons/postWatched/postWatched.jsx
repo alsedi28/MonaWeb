@@ -6,8 +6,10 @@ import Constants from '../../../constants';
 import CloseButton from '../../buttons/closeButton/closeButton';
 import CommonButton from '../../buttons/commonButton/commonButton';
 import EventCommentField from '../eventCommentField/eventCommentField';
+import EventPublicityStatus from '../eventPublicityStatus/eventPublicityStatus';
+import MovieEventHeader from '../movieEventHeader/movieEventHeader';
+import MovieRatingSelection from '../movieRatingSelection/movieRatingSelection';
 import ModalDialogBackground from '../../modalDialogBackground/modalDialogBackground';
-import { getPosterPath } from '../../../helpers/imagePathHelper';
 
 function PostWatched(props) {
 
@@ -20,8 +22,16 @@ function PostWatched(props) {
         }
     }
 
+    function getSelectionStyle(tagId) {
+        if (props.selectedTags.indexOf(tagId) > -1) {
+            return { backgroundColor: 'rgb(255, 86, 26)', color: 'white' };
+        } else {
+            return { backgroundColor: 'white', color: 'rgb(49, 54, 60)' };
+        }
+    }
+
     let isCreateEnabled = true;
-    if (props.isPublic === true && props.comment.length === 0) {
+    if ((props.isPublic === true && props.comment.length === 0) || props.selectedRating === 0) {
         isCreateEnabled = false;
     }
 
@@ -31,44 +41,30 @@ function PostWatched(props) {
     }
 
     let displayCommentBlock = { display: props.isPublic ? "block" : "none" }
+    let displayTagsBlock = { display: props.isPublic ? "flex" : "none" }
+    let minHeightStyleBlock = { minHeight: props.isPublic ? '820px' : '300px' }
 
     return (
-        <ModalDialogBackground show={props.isDisplay} clickClose={props.clickClose} >
+        <ModalDialogBackground show={props.isDisplay} clickClose={props.clickClose}>
 
-            <article className={`${styles.modalContent} ${`dialog-ev`}`}>
-                <header className={styles.movieInfo}>
-
-                    <div className={styles.poster}>
-                        <img
-                            src={getPosterPath(props.movieInfo.posterPath)}
-                            className={styles.posterImage}
-                        />
-                    </div>
-
-                    <div className={styles.movieTitles}>
-                        <p className={styles.title}>{props.movieInfo.title} <span>({props.movieInfo.year})</span></p>
-                        <p className={styles.subtitle}>Рейтинг: {props.movieInfo.rating}</p>
-                    </div>
-
-                </header>
+            <article className={`${styles.modalContent} ${`dialog-ev`}`} style={minHeightStyleBlock}>
+                <MovieEventHeader
+                    movieInfo={props.movieInfo}
+                />
 
                 <p className={styles.headerTitle}>Рейтинг</p>
 
-                <div className={styles.publicSettingContainer}>
-                    <p>Поделиться публикацией с подписчиками</p>
-                    <label className={styles.switch}>
-                        <input
-                            type="checkbox"
-                            id="checkbox"
-                            name="isEventPublic"
-                            checked={props.isPublic}
-                            onChange={handleInputChange}
-                        />
-                        <span className={`${styles.slider} ${styles.round}`}></span>
-                    </label>
-                </div>
+                <MovieRatingSelection
+                    selectedIndex={props.selectedRating}
+                    onChange={props.handleRatingChange}
+                />
 
-                <p className={styles.headerTitle} style={displayCommentBlock}>Отзыв</p>
+                <EventPublicityStatus
+                    checked={props.isPublic}
+                    onChange={handleInputChange}
+                />
+
+                <p className={styles.headerTitle} style={displayCommentBlock}>Комментарий</p>
 
                 <EventCommentField
                     placeholder="Напишите свой отзыв тут…"
@@ -78,6 +74,12 @@ function PostWatched(props) {
                 />
 
                 <p className={styles.headerTitle} style={displayCommentBlock}>Теги</p>
+
+                <div className={styles.tags} style={displayTagsBlock}>
+                    {props.tags.map(tag =>
+                        <span style={getSelectionStyle(tag.TagId)} onClick= {() => props.onTagSelect(tag.TagId)}>{tag.Name}</span>)
+                    }
+                </div>
 
                 <CommonButton
                     externalClass="filledButton createEventButton"

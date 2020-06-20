@@ -6,8 +6,9 @@ import Constants from '../../../constants';
 import CloseButton from '../../buttons/closeButton/closeButton';
 import CommonButton from '../../buttons/commonButton/commonButton';
 import EventCommentField from '../eventCommentField/eventCommentField';
+import EventPublicityStatus from '../eventPublicityStatus/eventPublicityStatus';
+import MovieEventHeader from '../movieEventHeader/movieEventHeader';
 import ModalDialogBackground from '../../modalDialogBackground/modalDialogBackground';
-import { getPosterPath } from '../../../helpers/imagePathHelper';
 
 function PostWillWatch(props) {
 
@@ -36,35 +37,14 @@ function PostWillWatch(props) {
         <ModalDialogBackground show={props.isDisplay} clickClose={props.clickClose} >
 
             <article className={`${styles.modalContent} ${`dialog-ev`}`}>
-                <header className={styles.movieInfo}>
+                <MovieEventHeader
+                    movieInfo={props.movieInfo}
+                />
 
-                    <div className={styles.poster}>
-                        <img
-                            src={getPosterPath(props.movieInfo.posterPath)}
-                            className={styles.posterImage}
-                        />
-                    </div>
-
-                    <div className={styles.movieTitles}>
-                        <p className={styles.title}>{props.movieInfo.title} <span>({props.movieInfo.year})</span></p>
-                        <p className={styles.subtitle}>Рейтинг: {props.movieInfo.rating}</p>
-                    </div>
-
-                </header>
-
-                <div className={styles.publicSettingContainer}>
-                    <p>Поделиться публикацией с подписчиками</p>
-                    <label className={styles.switch}>
-                        <input
-                            type="checkbox"
-                            id="checkbox"
-                            name="isEventPublic"
-                            checked={props.isPublic}
-                            onChange={handleInputChange}
-                        />
-                        <span className={`${styles.slider} ${styles.round}`}></span>
-                    </label>
-                </div>
+                <EventPublicityStatus
+                    checked={props.isPublic}
+                    onChange={handleInputChange}
+                />
 
                 <p className={styles.headerTitle} style={displayCommentBlock}>Комментарий</p>
 
