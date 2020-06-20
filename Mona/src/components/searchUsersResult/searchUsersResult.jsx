@@ -1,11 +1,11 @@
 import React from 'react';
 
-import styles from './followersSearchUsersResult.module.css';
+import styles from './searchUsersResult.module.css';
 
-import UserListItem from '../../userListItem/userListItem';
-import Loader from '../../loader/loader';
+import UserListItem from '../userListItem/userListItem';
+import Loader from '../loader/loader';
 
-const FollowersSearchUsersResult = ({ users, isLoading, externalClass = "" }) => {
+const SearchUsersResult = ({ users, isLoading, externalClass = "" }) => {
 
     return (
         <div className={`${styles.container} ${externalClass}`}>
@@ -16,4 +16,4 @@ const FollowersSearchUsersResult = ({ users, isLoading, externalClass = "" }) =>
     );
 };
 
-export default FollowersSearchUsersResult;
+export default SearchUsersResult;

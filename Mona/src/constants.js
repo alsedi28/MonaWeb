@@ -12,7 +12,8 @@ const Constants = {
     MOVIES_SORT_TYPE_DATE: "Date",
     MOVIES_SORT_TYPE_DATE_DESC: "DateDesc",
     MOVIES_SORT_TYPE_RATING: "UserRaiting",
-    MOVIES_SORT_TYPE_RATING_DESC: "UserRaitingDesc"
+    MOVIES_SORT_TYPE_RATING_DESC: "UserRaitingDesc",
+    MAX_QUANTITY_ITEMS_FOR_SEARCH_RESULT_VIEW: 3
 };
 
 export default Constants;

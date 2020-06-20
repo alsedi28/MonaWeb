@@ -2,8 +2,9 @@ import React from 'react';
 
 import Header from '../header/header';
 import Footer from '../footer/footer';
+import VerticalTabs from '../verticalTabs/verticalTabs';
 import FollowersSearchInput from './followersSearchInput/followersSearchInput';
-import FollowersSearchUsersResult from './followersSearchUsersResult/followersSearchUsersResult';
+import SearchUsersResult from '../searchUsersResult/searchUsersResult';
 import { DataService } from '../../dataService';
 
 import styles from './followersPage.module.css';
@@ -32,6 +33,7 @@ class FollowersPage extends React.Component {
         this.searchFollowers = this.searchFollowers.bind(this);
         this.searchFollowing = this.searchFollowing.bind(this);
         this.mapUsers = this.mapUsers.bind(this);
+        this.clickTab = this.clickTab.bind(this);
     }
 
     componentDidMount() {
@@ -199,20 +201,15 @@ class FollowersPage extends React.Component {
 
                     <div className={styles.searchUsers}>
                         <FollowersSearchInput inputValue={this.state.inputSearchValue} handleInputChange={this.searchUsers} />
-                        <FollowersSearchUsersResult isLoading={this.state.isLoading} users={this.state.users} />
+                        <SearchUsersResult isLoading={this.state.isLoading} users={this.state.users} />
                         {usersNotFoundBlock}
                     </div>
 
-                    <div className={styles.tabs}>
-                        <a className={`${styles.tabFollowing} ${this.state.tabNumberActive === 1 ? styles.active : ''}`} onClick={this.clickTab.bind(this, 1)}>Подписки</a>
-                        <a className={`${styles.tabFollowers} ${this.state.tabNumberActive === 2 ? styles.active : ''}`} onClick={this.clickTab.bind(this, 2)}>Подписчики</a>
-                        <span className={styles.yellowBar}></span>
-                    </div>
-                    <div className={styles.clear}></div>
+                    <VerticalTabs tabNumberActive={this.state.tabNumberActive} clickTab={this.clickTab} tabs={['Подписки', 'Подписчики']} externalClass={styles.tabsExternal} />
 
                     {this.state.globalUsers.length > 0 && <p className={styles.title}>Другие пользователи</p>}
 
-                    <FollowersSearchUsersResult isLoading={false} users={this.state.globalUsers} externalClass={styles.searchGlobalUsersResultExternal} />
+                    <SearchUsersResult isLoading={false} users={this.state.globalUsers} externalClass={styles.searchGlobalUsersResultExternal} />
                 </div>
                 <Footer externalClass="footer-external" />
             </React.Fragment>

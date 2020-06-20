@@ -3,6 +3,7 @@ import React from 'react';
 import SearchInput from './searchInput/searchInput';
 import SearchResult from './searchResult/searchResult';
 import { DataService } from '../../dataService';
+import Constants from '../../constants';
 
 import styles from './search.module.css';
 
@@ -80,7 +81,8 @@ class Search extends React.Component {
             });
         };
 
-        DataService.search(value, 3, callback);
+        // Запрашиваем на 1 элемент больше, чем нужно для вывода, чтобы понять есть еще элементы или нет.
+        DataService.search(value, Constants.MAX_QUANTITY_ITEMS_FOR_SEARCH_RESULT_VIEW + 1, callback);
     }
 
     hideSearchResult() {
@@ -119,7 +121,7 @@ class Search extends React.Component {
         return (
             <div className={`${styles.container} ${externalClass}`}>
                 <SearchInput inputValue={this.state.inputSearchValue} handleInputChange={this.search} handleInputBlur={this.hideSearchResult} handleInputFocus={this.inputFocusEventHandler} />
-                <SearchResult data={this.state.searchResult} isLoading={this.state.isLoading} show={this.state.showResult} externalClass={styles.searchResultExternal} />
+                <SearchResult data={this.state.searchResult} isLoading={this.state.isLoading} show={this.state.showResult} searchText={this.state.inputSearchValue} externalClass={styles.searchResultExternal} />
             </div>
         );
     }
