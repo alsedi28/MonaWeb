@@ -172,6 +172,53 @@ export class DataService {
         this._post(url, callback, request);
     }
 
+    static addMovieToWillWatch(movieId, callback) {
+        let url = `${Constants.DOMAIN}/api/user/willwatchmovies`;
+        let request = { MovieId: movieId };
+
+        this._post(url, callback, request);
+    }
+
+    static deleteMovieFromWillWatch(movieId, callback) {
+        let url = `${Constants.DOMAIN}/api/user/willwatchmovies/${movieId}`;
+
+        this._delete(url, callback);
+    }
+
+    static addMovieToViewed(movieId, rating, callback) {
+        let url = `${Constants.DOMAIN}/api/user/viewedmovies`;
+        let request = {
+            MovieId: movieId,
+            Raiting: rating
+        };
+
+        this._post(url, callback, request);
+    }
+
+    static deleteMovieFromViewed(movieId, callback) {
+        let url = `${Constants.DOMAIN}/api/user/viewedmovies/${movieId}`;
+
+        this._delete(url, callback);
+    }
+
+    static createEvent(movieId, comment, rating, eventType, tags, callback) {
+        let url = `${Constants.DOMAIN}/api/movies/${movieId}/events`;
+        let request = {
+            Comment: comment,
+            Raiting: rating,
+            Type: eventType,
+            Tags: tags
+        };
+
+        this._post(url, callback, request);
+    }
+
+    static getMovieTags(callback) {
+        let url = `${Constants.DOMAIN}/api/infodata/tags`;
+
+        this._get(url, callback, true);
+    }
+
     static login(login, password, successCallback, failedCallback) {
         let url = `${Constants.DOMAIN}/token`;
 
@@ -216,13 +263,14 @@ export class DataService {
             .catch((error) => failedCallback(error));
     }
 
-    static _get(url, callback) {
+    static _get(url, callback, withCache = false) {
         fetch(url, {
             method: 'GET',
             headers: {
                 Authorization: 'Bearer ' + getUserToken(),
                 'Content-Type': 'application/json'
-            }
+            },
+            cache: withCache ? 'force-cache' : 'default'
         })
             .then(response => {
                 if (response.ok)

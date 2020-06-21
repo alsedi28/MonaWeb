@@ -2,7 +2,7 @@ import React from 'react';
 
 import Header from '../../header/header';
 import Footer from '../../footer/footer';
-import CommonButton from '../../buttons/commonButton/commonButton';
+import FormButton from '../../buttons/formButton/formButton';
 import AppLinkComponent from '../../appLinkComponent/appLinkComponent';
 
 import styles from './loginPage.module.css';
@@ -96,8 +96,7 @@ class LoginPage extends React.Component {
 
                                 {/* uncomment when the server will support this functionality <button className={styles.forgotPasswordButton} onClick={this.showAlert}>Забыли пароль?</button> */}
 
-                                <CommonButton
-                                    externalClass="filledButton formButton"
+                                <FormButton
                                     title="Войти"
                                     onClick={this.clickLogin.bind(this)}
                                     isDisabled={isSignInDisabled}

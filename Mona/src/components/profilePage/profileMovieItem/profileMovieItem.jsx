@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import ModalDialog from '../../modalDialog/modalDialog';
+import { getMovieRating } from '../../../helpers/eventHelper';
 import { DataService } from '../../../dataService';
 
 import styles from './profileMovieItem.module.css';
@@ -83,7 +84,7 @@ class ProfileMovieItem extends React.Component {
         const { movie, isViewed, externalClass = "", handlerExternal = () => ({}) } = this.props;
 
         let blockProductionCountry = movie.ProductionCountry ? <p className={styles.productionCountries}>{movie.ProductionCountry}</p> : "";
-        let movieRaiting = movie.ImdbRaiting === null ? movie.VoteAverage : movie.ImdbRaiting;
+        let movieRaiting = getMovieRating(movie);
 
         let movieReleaseDate = movie.ReleaseDate !== null ? new Date(Date.parse(movie.ReleaseDate)) : null;
         let blockMovieReleaseDate = "";

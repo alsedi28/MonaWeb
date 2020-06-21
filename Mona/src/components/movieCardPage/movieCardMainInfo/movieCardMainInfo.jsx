@@ -3,14 +3,15 @@ import React from 'react';
 import MovieCardRating from '../movieCardRating/movieCardRating';
 import MovieCardUserRating from '../movieCardUserRating/movieCardUserRating';
 import MovieCardUsersGroup from '../movieCardUsersGroup/movieCardUsersGroup';
-import PostWatchStatusButtons from '../../postWatchStatusButtons/postWatchStatusButtons';
+import MovieStatusButtons from '../../movieStatusButtons/movieStatusButtons';
 import { getReleaseYear, getHumanRuntime } from '../../../helpers/timeHelper';
 import { getPosterPath, getBackdropUrl } from '../../../helpers/imagePathHelper';
+import { getMovieInfoFromMovie } from '../../../helpers/movieInfoHelper';
 import Constants from '../../../constants';
 
 import styles from './movieCardMainInfo.module.css';
 
-const MovieCardMainInfo = ({ movie, clickUsersWhoWillWatchMovie, clickUsersWhoViewedMovie, externalClass = "" }) => {
+const MovieCardMainInfo = ({ movie, clickUsersWhoWillWatchMovie, clickUsersWhoViewedMovie, requestOnUpdateData, externalClass = "" }) => {
     let backdrop = movie.Backdrops && movie.Backdrops.length > 0 ? movie.Backdrops[0] : null;
 
     let infoJoinPointBlock =
@@ -39,7 +40,7 @@ const MovieCardMainInfo = ({ movie, clickUsersWhoWillWatchMovie, clickUsersWhoVi
                             {userRatingOrUsersWillWatchBlock}
                             <MovieCardUsersGroup users={movie.PeopleViewedMovie.Peoples} totalNumberUsers={movie.PeopleViewedMovie.AmountPeople} click={() => clickUsersWhoViewedMovie(movie.MovieId)} label="посмотрели" />
                         </div>
-                        <PostWatchStatusButtons status={movie.StatusOfMovieForUser} externalClass={styles.postWatchStatusButtonsExternal} />
+                        <MovieStatusButtons status={movie.StatusOfMovieForUser} movieInfo={getMovieInfoFromMovie(movie)} handlerExternal={requestOnUpdateData} externalClass={styles.postWatchStatusButtonsExternal} />
                         <p className={styles.overviewTitle} style={{ display: movie.Overview ? "block" : "none" }}>Описание</p>
                         <p className={styles.overview}>{movie.Overview}</p>
                     </div>

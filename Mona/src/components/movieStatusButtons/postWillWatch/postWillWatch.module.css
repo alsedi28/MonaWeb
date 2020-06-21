@@ -1,0 +1,25 @@
+/* Modal Content */
+.modalContent {
+    background-color: #fefefe;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    width: 90vw;
+    max-width: 680px;
+    min-width: 300px;
+    margin: 0 auto;
+    border-radius: 12px;
+    box-shadow: 0px 4px 24px rgba(49, 54, 60, 0.3);
+}
+
+/* Input field */
+
+.headerTitle {
+    font-family: "Montserrat";
+    font-size: 12px;
+    font-weight: 300;
+    color: rgb(49, 54, 60);
+    text-align: left;
+    margin-left: 30px;
+    margin-right: 30px;
+}

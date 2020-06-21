@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { getReleaseYear } from '../../../helpers/timeHelper';
 import { getPosterPath } from '../../../helpers/imagePathHelper';
+import { getMovieRating } from '../../../helpers/eventHelper';
 
 import styles from './searchMovieItem.module.css';
 
@@ -14,7 +15,7 @@ const SearchMovieItem = ({ movie, externalClass = "" }) => {
 
     let blockProductionCountry = movie.ProductionCountry ? <p className={styles.productionCountry}>{movie.ProductionCountry}</p> : "";
 
-    let movieRating = movie.ImdbRaiting === null ? movie.VoteAverage : movie.ImdbRaiting;
+    let movieRating = getMovieRating(movie);
 
     return (
         <div className={`${styles.container} ${externalClass}`}>

@@ -1,0 +1,26 @@
+.container {
+    margin-left: 30px;
+    margin-right: auto;
+}
+
+.circle {
+    background: white;
+    border-radius: 50%;
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    width: 30px;
+    overflow: hidden;
+    position: relative;
+    background-color: rgb(203, 209, 223);
+    color: white;
+    text-align: center;
+    font-family: "Montserrat";
+    font-size: 16px;
+    font-weight: 300;
+    margin-right: 8px;
+}
+
+.circle:hover {
+    cursor: pointer;
+}

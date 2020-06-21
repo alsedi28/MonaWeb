@@ -8,6 +8,7 @@ import PostDetailsInputField from './postDetailsInputField/postDetailsInputField
 import PostDetailsInfo from './postDetailsInfo/postDetailsInfo';
 import ModalDialog from '../modalDialog/modalDialog';
 import Loader from '../loader/loader';
+import CloseButton from '../buttons/closeButton/closeButton';
 import UserAvatar from '../userAvatar/userAvatar';
 import ModalDialogBackground from '../modalDialogBackground/modalDialogBackground';
 import { getStatusString } from '../../helpers/eventHelper';
@@ -202,7 +203,7 @@ class PostDetails extends React.Component {
         let scrollHeightForComments = containerHeight - 58 - postDetailsHeight - paddingBottomHeight - 8;
 
         return (
-            <ModalDialogBackground show={this.props.isDisplay} clickClose={this.props.clickClose} >
+            <ModalDialogBackground show={this.props.isDisplay} clickClose={this.props.clickClose}>
                 <arcticle>
                     <div className={`${styles.modalContent} ${`dialog-ev`}`} ref={(elem) => this.containerRef = elem}>
 
@@ -269,9 +270,7 @@ class PostDetails extends React.Component {
 
                 </arcticle>
 
-                <div>
-                    <span className={styles.close} onClick={this.props.clickClose}>&times;</span>
-                </div>
+                <CloseButton onClick={this.props.clickClose}/>
             </ModalDialogBackground>
         );
     }

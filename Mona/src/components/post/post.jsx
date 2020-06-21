@@ -6,13 +6,15 @@ import PostButtonBar from './postButtonBar/postButtonBar';
 import PostHeader from './postHeader/postHeader';
 import PostComment from './postComment/postComment';
 import PostCommentInput from './postCommentInput/postCommentInput';
-import PostWatchStatusButtons from '../postWatchStatusButtons/postWatchStatusButtons';
+import MovieStatusButtons from '../movieStatusButtons/movieStatusButtons';
 import PostDetails from '../postDetails/postDetails';
 import PostTotalLikes from '../postTotalLikes/postTotalLikes';
 import { DataService } from '../../dataService';
 import Constants from '../../constants';
 import { getReleaseYear } from '../../helpers/timeHelper';
 import { getPosterPath, getBackdropUrl } from '../../helpers/imagePathHelper';
+import { getMovieInfoFromPost } from '../../helpers/movieInfoHelper';
+import { getMovieRating } from '../../helpers/eventHelper';
 
 import styles from './post.module.css';
 
@@ -199,7 +201,7 @@ class Post extends React.Component {
 
         let post = this.state.post;
 
-        let movieRaiting = post.ImdbRaiting === null ? post.VoteAverage : post.ImdbRaiting;
+        let movieRaiting = getMovieRating(post);
         let userRaiting = post.EventType === 0 ? post.UserRaiting : null;
 
         let movieReleaseDate = getReleaseYear(post.MovieReleaseDate);
@@ -233,7 +235,11 @@ class Post extends React.Component {
                         <div className={styles.movieInfoBlock}>
                             <p className={styles.movieTitle}><Link to={`/movies/${post.MovieId}`}>{post.MovieTitle}</Link> {blockMovieReleaseDate}</p>
 
-                            <PostWatchStatusButtons status={post.StatusOfMovieForUser}/>
+                            <MovieStatusButtons
+                                status={post.StatusOfMovieForUser}
+                                movieInfo={getMovieInfoFromPost(post)}
+                                handlerExternal={this.updatePost.bind(this, post.EventId, post.MovieId)}
+                            />
 
                             <p className={styles.userRaiting} style={displayBookmarkIconBlock}>Оценка: <span>{userRaiting}</span></p>
                             <div className={styles.movieRaiting}>

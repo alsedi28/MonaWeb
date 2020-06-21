@@ -1,6 +1,7 @@
 import React from 'react';
 
-import CommonButton from '../../../buttons/commonButton/commonButton';
+import BorderedButton from '../../../buttons/borderedButton/borderedButton';
+import FilledButton from '../../../buttons/filledButton/filledButton';
 
 import styles from './introPageBanner.module.css';
 
@@ -16,9 +17,9 @@ function IntroPageBanner(props) {
                     <p className={styles.bannerSubtitle}>Добро пожаловать в MONA! Мы — социальная сеть про кино. Ищи фильмы, добавляй в закладки, ставь оценки и обсуждай кино со своими друзьями и подписчиками!</p>
                         <div className={styles.bannerButtonsContainer}>
                             <div className={styles.bannerSignInButtonContainer}>
-                                <CommonButton externalClass="borderedButton" onClick={props.onSignIn} title="Войти" />
+                                <BorderedButton onClick={props.onSignIn} title="Войти" />
                             </div>
-                            <CommonButton externalClass="filledButton" onClick={props.onSignUp} title="Создать аккаунт" />
+                            <FilledButton onClick={props.onSignUp} title="Создать аккаунт" />
                         </div>
                 </div>
 
