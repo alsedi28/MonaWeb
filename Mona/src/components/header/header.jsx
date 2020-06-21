@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 
 import UserAvatar from '../userAvatar/userAvatar';
 import { resetUserCookie, getMainUserId, getMainUserAvatar } from '../../helpers/cookieHelper';
-import CommonButton from '../buttons/commonButton/commonButton';
+import BorderedButton from '../buttons/borderedButton/borderedButton';
+import FilledButton from '../buttons/filledButton/filledButton';
 import Search from '../search/search';
 
 import styles from './header.module.css';
@@ -66,10 +67,10 @@ const Header = ({ location = "", externalClass = "", children, onSignIn, onSignU
                 <nav className={styles.buttonsNav} style={{ display: userId ? "none" : "block" }}>
                     <ul className={styles.buttonsUl}>
                         <li className={styles.buttonsLi} style={{ display: onSignIn ? "block" : "none" }}>
-                            <CommonButton externalClass="borderedButton" title="Войти" onClick={onSignIn} />
+                            <BorderedButton title="Войти" onClick={onSignIn} />
                         </li>
                         <li className={styles.buttonsLi} style={{ display: onSignUp ? "block" : "none" }}>
-                            <CommonButton externalClass="filledButton" title="Создать аккаунт" onClick={onSignUp} />
+                            <FilledButton title="Создать аккаунт" onClick={onSignUp} />
                         </li>
                     </ul>
                 </nav>

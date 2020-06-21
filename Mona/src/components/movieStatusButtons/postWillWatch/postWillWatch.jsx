@@ -4,7 +4,7 @@ import styles from './postWillWatch.module.css';
 
 import Constants from '../../../constants';
 import CloseButton from '../../buttons/closeButton/closeButton';
-import CommonButton from '../../buttons/commonButton/commonButton';
+import CreateEventButton from '../../buttons/createEventButton/createEventButton';
 import EventCommentField from '../eventCommentField/eventCommentField';
 import EventPublicityStatus from '../eventPublicityStatus/eventPublicityStatus';
 import MovieEventHeader from '../movieEventHeader/movieEventHeader';
@@ -55,8 +55,7 @@ function PostWillWatch(props) {
                     isPublic={props.isPublic}
                 />
 
-                <CommonButton
-                    externalClass="filledButton createEventButton"
+                <CreateEventButton
                     title={buttonTitle}
                     isDisabled={!isCreateEnabled}
                     onClick={() => props.onEventCreate(Constants.MOVIE_WILL_WATCH_EVENT_TYPE)}

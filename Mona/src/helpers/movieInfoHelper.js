@@ -9,6 +9,7 @@ export function getMovieInfoFromPost(post) {
         rating: getMovieRating(post),
         year: getReleaseYear(post.MovieReleaseDate)
     };
+
     return movieInfo;
 }
 
@@ -20,5 +21,6 @@ export function getMovieInfoFromMovie(movie) {
         rating: getMovieRating(movie),
         year: getReleaseYear(movie.ReleaseDate)
     };
+    
     return movieInfo;
 }

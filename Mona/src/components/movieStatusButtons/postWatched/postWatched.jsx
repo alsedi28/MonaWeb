@@ -4,7 +4,7 @@ import styles from './postWatched.module.css';
 
 import Constants from '../../../constants';
 import CloseButton from '../../buttons/closeButton/closeButton';
-import CommonButton from '../../buttons/commonButton/commonButton';
+import CreateEventButton from '../../buttons/createEventButton/createEventButton';
 import EventCommentField from '../eventCommentField/eventCommentField';
 import EventPublicityStatus from '../eventPublicityStatus/eventPublicityStatus';
 import MovieEventHeader from '../movieEventHeader/movieEventHeader';
@@ -81,8 +81,7 @@ function PostWatched(props) {
                     }
                 </div>
 
-                <CommonButton
-                    externalClass="filledButton createEventButton"
+                <CreateEventButton
                     title={buttonTitle}
                     isDisabled={!isCreateEnabled}
                     onClick={() => props.onEventCreate(Constants.MOVIE_WATCHED_EVENT_TYPE)}

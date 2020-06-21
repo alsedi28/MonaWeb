@@ -1,0 +1,6 @@
+.borderedButton {
+    background: none;
+    border-width: 3px;
+    border-color: rgb(188, 208, 229);
+    color: rgb(49, 54, 60);
+}

@@ -2,7 +2,7 @@ import React from 'react';
 
 import Header from '../../header/header';
 import Footer from '../../footer/footer';
-import CommonButton from '../../buttons/commonButton/commonButton';
+import FormButton from '../../buttons/formButton/formButton';
 import AppLinkComponent from '../../appLinkComponent/appLinkComponent';
 import Constants from '../../../constants';
 
@@ -155,8 +155,7 @@ class SignUpPage extends React.Component {
                                     <p>Возникла ошибка при регистрации: {registrationErrorText}</p>
                                 </div>
 
-                                <CommonButton
-                                    externalClass="filledButton formButton"
+                                <FormButton
                                     title="Создать аккаунт"
                                     onClick={this.clickRegister.bind(this)}
                                     isDisabled={isSignInDisabled}

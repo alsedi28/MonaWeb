@@ -1,12 +1,10 @@
 import React, { useRef } from 'react';
-import Constants from '../../constants';
 
 import PostWatched from './postWatched/postWatched';
 import PostWillWatch from './postWillWatch/postWillWatch';
 import PostWatchStatusButtons from './postWatchStatusButtons/postWatchStatusButtons';
 import { DataService } from '../../dataService';
-
-import styles from './movieStatusButtons.module.css';
+import Constants from '../../constants';
 
 class MovieStatusButtons extends React.Component {
 
