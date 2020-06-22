@@ -10,7 +10,7 @@ import ProfileUserInfo from './profileUserInfo/profileUserInfo';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import HorizontalTabs from '../horizontalTabs/horizontalTabs';
-import ProfileMovieItem from './profileMovieItem/profileMovieItem';
+import MovieListItem from '../movieListItem/movieListItem';
 import NotPostsBanner from './profileBanners/notPostsBanner/notPostsBanner';
 import NotPostsInMyOwnProfileBanner from './profileBanners/notPostsInMyOwnProfileBanner/notPostsInMyOwnProfileBanner';
 import NotMoviesWillWatchBanner from './profileBanners/notMoviesWillWatchBanner/notMoviesWillWatchBanner';
@@ -273,13 +273,13 @@ class ProfilePage extends React.Component {
             if (i === movies.items.length - 1)
                 result.push(
                     <div className={styles.moviesContainer}>
-                        <ProfileMovieItem movie={movies.items[i]} statusOfMovieForUser={statusOfMovieForUser} externalClass={styles.movieBlockExternal} handlerExternal={this.updatePartlyProfileInfo.bind(this, true)} />
+                        <MovieListItem movie={movies.items[i]} statusOfMovieForUser={statusOfMovieForUser} externalClass={styles.movieBlockExternal} handlerExternal={this.updatePartlyProfileInfo.bind(this, true)} />
                     </div>);
             else
                 result.push(
                     <div className={styles.moviesContainer}>
-                        <ProfileMovieItem movie={movies.items[i]} statusOfMovieForUser={statusOfMovieForUser} externalClass={styles.movieBlockExternal} handlerExternal={this.updatePartlyProfileInfo.bind(this, true)}/>
-                        <ProfileMovieItem movie={movies.items[i + 1]} statusOfMovieForUser={statusOfMovieForUser} externalClass={styles.movieBlockExternal} handlerExternal={this.updatePartlyProfileInfo.bind(this, true)}/>
+                        <MovieListItem movie={movies.items[i]} statusOfMovieForUser={statusOfMovieForUser} externalClass={styles.movieBlockExternal} handlerExternal={this.updatePartlyProfileInfo.bind(this, true)}/>
+                        <MovieListItem movie={movies.items[i + 1]} statusOfMovieForUser={statusOfMovieForUser} externalClass={styles.movieBlockExternal} handlerExternal={this.updatePartlyProfileInfo.bind(this, true)}/>
                     </div>);
         }
 

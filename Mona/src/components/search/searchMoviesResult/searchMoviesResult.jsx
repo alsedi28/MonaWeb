@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from './searchMoviesResult.module.css';
 
-import ProfileMovieItem from '../../profilePage/profileMovieItem/profileMovieItem';
+import MovieListItem from '../../movieListItem/movieListItem';
 import Loader from '../../loader/loader';
 
 const SearchMoviesResult = ({ movies, isLoading, externalClass = "" }) => {
@@ -11,7 +11,7 @@ const SearchMoviesResult = ({ movies, isLoading, externalClass = "" }) => {
         <div className={`${styles.container} ${externalClass}`}>
             <Loader show={isLoading} />
             {movies.map(movie =>
-                <ProfileMovieItem movie={movie} statusOfMovieForUser={movie.StatusOfMovieForUser} externalClass={styles.profileMovieItemExternal}/>)}
+                <MovieListItem movie={movie} statusOfMovieForUser={movie.StatusOfMovieForUser} externalClass={styles.profileMovieItemExternal}/>)}
         </div>
     );
 };

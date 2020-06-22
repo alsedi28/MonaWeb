@@ -1,19 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import ModalDialog from '../../modalDialog/modalDialog';
-import { DataService } from '../../../dataService';
-import Constants from '../../../constants';
+import ModalDialog from '../modalDialog/modalDialog';
+import { DataService } from '../../dataService';
+import Constants from '../../constants';
 
-import styles from './profileMovieItem.module.css';
+import styles from './movieListItem.module.css';
 
-import bookMarkIcon from '../../../../public/icons/bookMark.png';
-import bookMarkMiniIcon from '../../../../public/icons/bookMarkMini.png';
-import viewIcon from '../../../../public/icons/view.png';
-import framePlaceholder from '../../../../public/icons/framePlaceholder.png';
+import bookMarkIcon from '../../../public/icons/bookMark.png';
+import bookMarkMiniIcon from '../../../public/icons/bookMarkMini.png';
+import viewIcon from '../../../public/icons/view.png';
+import framePlaceholder from '../../../public/icons/framePlaceholder.png';
 
 
-class ProfileMovieItem extends React.Component {
+class MovieListItem extends React.Component {
     constructor(props) {
         super(props);
 
@@ -133,4 +133,4 @@ class ProfileMovieItem extends React.Component {
     }
 }
 
-export default ProfileMovieItem;
+export default MovieListItem;
