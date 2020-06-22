@@ -1,19 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import ModalDialog from '../../modalDialog/modalDialog';
-import { getMovieRating } from '../../../helpers/eventHelper';
-import { DataService } from '../../../dataService';
+import ModalDialog from '../modalDialog/modalDialog';
+import { getMovieRating } from '../../helpers/eventHelper';
+import { DataService } from '../../dataService';
+import Constants from '../../constants';
 
-import styles from './profileMovieItem.module.css';
+import styles from './movieListItem.module.css';
 
-import bookMarkIcon from '../../../../public/icons/bookMark.png';
-import bookMarkMiniIcon from '../../../../public/icons/bookMarkMini.png';
-import viewIcon from '../../../../public/icons/view.png';
-import framePlaceholder from '../../../../public/icons/framePlaceholder.png';
+import bookMarkIcon from '../../../public/icons/bookMark.png';
+import bookMarkMiniIcon from '../../../public/icons/bookMarkMini.png';
+import viewIcon from '../../../public/icons/view.png';
+import framePlaceholder from '../../../public/icons/framePlaceholder.png';
 
 
-class ProfileMovieItem extends React.Component {
+class MovieListItem extends React.Component {
     constructor(props) {
         super(props);
 
@@ -81,7 +82,7 @@ class ProfileMovieItem extends React.Component {
     }
 
     render() {
-        const { movie, isViewed, externalClass = "", handlerExternal = () => ({}) } = this.props;
+        const { movie, statusOfMovieForUser, externalClass = "", handlerExternal = () => ({}) } = this.props;
 
         let blockProductionCountry = movie.ProductionCountry ? <p className={styles.productionCountries}>{movie.ProductionCountry}</p> : "";
         let movieRaiting = getMovieRating(movie);
@@ -92,7 +93,7 @@ class ProfileMovieItem extends React.Component {
             blockMovieReleaseDate = <span>({movieReleaseDate.getFullYear()})</span>;
 
         let blockUserRaiting = "";
-        if (isViewed)
+        if (statusOfMovieForUser === Constants.MOVIE_STATUS_VIEWED)
             blockUserRaiting = <p className={styles.userRaiting}>Оценка: <span>{movie.UserRaiting}</span></p>;
 
         return (
@@ -101,7 +102,7 @@ class ProfileMovieItem extends React.Component {
                     <Link to={`/movies/${movie.MovieId}`}>
                         <div>
                             <img src={movie.PosterPath ? `https://image.tmdb.org/t/p/w342${movie.PosterPath}` : framePlaceholder} width="168px" />
-                            <img src={bookMarkIcon} width="34px" style={{ display: isViewed ? "none" : "block" }} />
+                            <img src={bookMarkIcon} width="34px" style={{ display: statusOfMovieForUser === Constants.MOVIE_STATUS_WILL_WATCH ? "block" : "none" }} />
                         </div>
                     </Link>
                 </div>
@@ -133,4 +134,4 @@ class ProfileMovieItem extends React.Component {
     }
 }
 
-export default ProfileMovieItem;
+export default MovieListItem;

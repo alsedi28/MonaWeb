@@ -3,7 +3,6 @@
     width: 340px;
     border-radius: 6px;
     background-color: white;
-    padding-bottom: 5px;
     box-shadow: 0px 4px 24px 0px rgba(161, 164, 184, 0.35);
 }
 
@@ -86,3 +85,33 @@
 }
 
 /* END --- Стили для блока с информацией о пользователе UserListItem */
+
+.showAllResult {
+    height: 39px;
+    background-color: rgb(247, 247, 247);
+    display: flex;
+    justify-content: space-between;
+}
+
+.showAllResult p {
+    padding-left: 15px;
+    font-size: 12px;
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 300;
+    color: rgb(173, 175, 177);
+}
+
+.showAllResult img {
+    margin-top: 14px;
+    margin-right: 17px;
+}
+
+.container > a {
+    text-decoration: none;
+    color: rgb(173, 175, 177);
+}
+
+.container > a:visited {
+    color: rgb(173, 175, 177);
+}

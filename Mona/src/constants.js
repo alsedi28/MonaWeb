@@ -19,6 +19,7 @@ const Constants = {
     MOVIE_DELETE_FROM_WATCHED: "deleteFromWatched",
     MOVIE_MOVE_TO_WILL_WATCH: "moveToWillWatch",
     MOVIE_DELETE_FROM_WILL_WATCH: "deleteFromWillWatch",
+    MAX_QUANTITY_ITEMS_FOR_SEARCH_RESULT_VIEW: 3
 };
 
 export default Constants;
