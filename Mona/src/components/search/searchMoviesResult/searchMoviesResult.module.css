@@ -1,0 +1,32 @@
+.container {
+    height: auto;
+    width: 500px;
+    background-color: white;
+    overflow: hidden;
+}
+
+/* BEGIN --- Стили для блока с информацией о фильме */
+.profileMovieItemExternal {
+    width: 460px !important;
+    padding: 20px;
+    height: 162px !important;
+    border-bottom: 1px solid rgba(41, 42, 44, 0.1);
+}
+
+.profileMovieItemExternal > div:first-of-type div {
+    height: 160px !important;
+    width: 112px !important;
+}
+
+.profileMovieItemExternal > div:first-of-type img:first-of-type {
+    width: 112px !important;
+}
+
+.profileMovieItemExternal > div:first-of-type {
+    width: 135px !important;
+}
+
+.profileMovieItemExternal > div:nth-child(2) {
+    margin-left: 135px !important;
+}
+/* END --- Стили для блока с информацией о фильме */

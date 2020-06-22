@@ -2,8 +2,8 @@ import React from 'react';
 
 import styles from './searchUsersResult.module.css';
 
-import UserListItem from '../userListItem/userListItem';
-import Loader from '../loader/loader';
+import UserListItem from '../../userListItem/userListItem';
+import Loader from '../../loader/loader';
 
 const SearchUsersResult = ({ users, isLoading, externalClass = "" }) => {
 

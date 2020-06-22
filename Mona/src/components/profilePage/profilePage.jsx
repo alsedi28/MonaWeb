@@ -266,19 +266,20 @@ class ProfilePage extends React.Component {
 
     renderMoviesForView(movies, isViewed) {
         let result = [];
+        let statusOfMovieForUser = isViewed ? Constants.MOVIE_STATUS_VIEWED : Constants.MOVIE_STATUS_WILL_WATCH;
 
         // Группируем фильмы в блок по два для вывода на страницу
         for (var i = 0; i < movies.items.length; i += 2) {
             if (i === movies.items.length - 1)
                 result.push(
                     <div className={styles.moviesContainer}>
-                        <ProfileMovieItem movie={movies.items[i]} isViewed={isViewed} externalClass={styles.movieBlockExternal} handlerExternal={this.updatePartlyProfileInfo.bind(this, true)} />
+                        <ProfileMovieItem movie={movies.items[i]} statusOfMovieForUser={statusOfMovieForUser} externalClass={styles.movieBlockExternal} handlerExternal={this.updatePartlyProfileInfo.bind(this, true)} />
                     </div>);
             else
                 result.push(
                     <div className={styles.moviesContainer}>
-                        <ProfileMovieItem movie={movies.items[i]} isViewed={isViewed} externalClass={styles.movieBlockExternal} handlerExternal={this.updatePartlyProfileInfo.bind(this, true)}/>
-                        <ProfileMovieItem movie={movies.items[i + 1]} isViewed={isViewed} externalClass={styles.movieBlockExternal} handlerExternal={this.updatePartlyProfileInfo.bind(this, true)}/>
+                        <ProfileMovieItem movie={movies.items[i]} statusOfMovieForUser={statusOfMovieForUser} externalClass={styles.movieBlockExternal} handlerExternal={this.updatePartlyProfileInfo.bind(this, true)}/>
+                        <ProfileMovieItem movie={movies.items[i + 1]} statusOfMovieForUser={statusOfMovieForUser} externalClass={styles.movieBlockExternal} handlerExternal={this.updatePartlyProfileInfo.bind(this, true)}/>
                     </div>);
         }
 

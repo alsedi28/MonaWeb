@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import ModalDialog from '../../modalDialog/modalDialog';
 import { DataService } from '../../../dataService';
+import Constants from '../../../constants';
 
 import styles from './profileMovieItem.module.css';
 
@@ -80,7 +81,7 @@ class ProfileMovieItem extends React.Component {
     }
 
     render() {
-        const { movie, isViewed, externalClass = "", handlerExternal = () => ({}) } = this.props;
+        const { movie, statusOfMovieForUser, externalClass = "", handlerExternal = () => ({}) } = this.props;
 
         let blockProductionCountry = movie.ProductionCountry ? <p className={styles.productionCountries}>{movie.ProductionCountry}</p> : "";
         let movieRaiting = movie.ImdbRaiting === null ? movie.VoteAverage : movie.ImdbRaiting;
@@ -91,7 +92,7 @@ class ProfileMovieItem extends React.Component {
             blockMovieReleaseDate = <span>({movieReleaseDate.getFullYear()})</span>;
 
         let blockUserRaiting = "";
-        if (isViewed)
+        if (statusOfMovieForUser === Constants.MOVIE_STATUS_VIEWED)
             blockUserRaiting = <p className={styles.userRaiting}>Оценка: <span>{movie.UserRaiting}</span></p>;
 
         return (
@@ -100,7 +101,7 @@ class ProfileMovieItem extends React.Component {
                     <Link to={`/movies/${movie.MovieId}`}>
                         <div>
                             <img src={movie.PosterPath ? `https://image.tmdb.org/t/p/w342${movie.PosterPath}` : framePlaceholder} width="168px" />
-                            <img src={bookMarkIcon} width="34px" style={{ display: isViewed ? "none" : "block" }} />
+                            <img src={bookMarkIcon} width="34px" style={{ display: statusOfMovieForUser === Constants.MOVIE_STATUS_WILL_WATCH ? "block" : "none" }} />
                         </div>
                     </Link>
                 </div>

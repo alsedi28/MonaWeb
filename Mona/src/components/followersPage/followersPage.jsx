@@ -4,7 +4,7 @@ import Header from '../header/header';
 import Footer from '../footer/footer';
 import VerticalTabs from '../verticalTabs/verticalTabs';
 import FollowersSearchInput from './followersSearchInput/followersSearchInput';
-import SearchUsersResult from '../searchUsersResult/searchUsersResult';
+import SearchUsersResult from '../search/searchUsersResult/searchUsersResult';
 import { DataService } from '../../dataService';
 
 import styles from './followersPage.module.css';

@@ -3,7 +3,8 @@ import React from 'react';
 import Header from '../../header/header';
 import Footer from '../../footer/footer';
 import VerticalTabs from '../../verticalTabs/verticalTabs';
-import SearchUsersResult from '../../searchUsersResult/searchUsersResult';
+import SearchUsersResult from '../searchUsersResult/searchUsersResult';
+import SearchMoviesResult from '../searchMoviesResult/searchMoviesResult';
 import { DataService } from '../../../dataService';
 
 import styles from './searchPage.module.css';
@@ -102,14 +103,21 @@ class SearchPage extends React.Component {
                 titleBlock = <p className={styles.title}>Найдено {this.state.users.length} пользователя по запросу "{this.state.searchText}"</p>;
         }
 
-        let usersNotFoundBlock = "";
+        let notFoundBlock = "";
 
         if (!this.state.isLoading) {
             if (this.state.tabNumberActive === 1 && this.state.movies.length === 0)
-                usersNotFoundBlock = <p className={styles.usersNotFound}>Фильмов с таким названием не найдено</p>;
+                notFoundBlock = <p className={styles.usersNotFound}>Фильмов с таким названием не найдено</p>;
             else if (this.state.tabNumberActive === 2 && this.state.users.length === 0) 
-                usersNotFoundBlock = <p className={styles.usersNotFound}>Пользователей с таким именем/ником не найдено</p>;
+                notFoundBlock = <p className={styles.usersNotFound}>Пользователей с таким именем/ником не найдено</p>;
         }
+
+        let searchResult = "";
+
+        if (this.state.tabNumberActive === 1)
+            searchResult = <SearchMoviesResult isLoading={this.state.isLoading} movies={this.state.movies} />;
+        else
+            searchResult = <SearchUsersResult isLoading={this.state.isLoading} users={this.state.users} />;
 
         return (
             <React.Fragment>
@@ -117,9 +125,9 @@ class SearchPage extends React.Component {
                 <div className={styles.container}>
                     {titleBlock}
 
-                    <div className={styles.searchUsers}>
-                        <SearchUsersResult isLoading={this.state.isLoading} users={this.state.users} />
-                        {usersNotFoundBlock}
+                    <div className={styles.searchResult}>                       
+                        {searchResult}
+                        {notFoundBlock}
                     </div>
 
                     <VerticalTabs tabNumberActive={this.state.tabNumberActive} clickTab={this.clickTab} tabs={['Фильмы', 'Пользователи']} externalClass={styles.tabsExternal} />
