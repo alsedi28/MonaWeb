@@ -29,27 +29,21 @@
     color: white;
 }
 
-.posterImage {
-    min-width: 100%;
-    max-width: 100%;
-    min-height: 100%;
-    max-height: 100%;
-    object-fit: fill;
-}
-
-.posterBlock div {
-    height: 452px;
-    width: 318px;
-    margin: auto;
+.posterBlock > a > div {
+    position: relative;
     margin-top: 24px;
     margin-bottom: 24px;
-    border-radius: 15px;
-    overflow: hidden;
-    border: 1px black solid;
 }
 
-.posterBlock img:last-of-type{
-    position: relative;
+.posterExternal {
+    border: 1px black solid;
+    margin: auto;
+}
+
+.posterBlock > a > div > img {
+    position: absolute;
+    left: 290px;
+    top: 0px;
 }
 
 .movieTitle {

@@ -9,10 +9,11 @@ import PostCommentInput from './postCommentInput/postCommentInput';
 import MovieStatusButtons from '../movieStatusButtons/movieStatusButtons';
 import PostDetails from '../postDetails/postDetails';
 import PostTotalLikes from '../postTotalLikes/postTotalLikes';
+import MoviePoster from '../moviePoster/moviePoster';
 import { DataService } from '../../dataService';
 import Constants from '../../constants';
 import { getReleaseYear } from '../../helpers/timeHelper';
-import { getPosterPath, getBackdropUrl } from '../../helpers/imagePathHelper';
+import { getBackdropUrl } from '../../helpers/imagePathHelper';
 import { getMovieInfoFromPost } from '../../helpers/movieInfoHelper';
 import { getMovieRating } from '../../helpers/eventHelper';
 
@@ -227,7 +228,7 @@ class Post extends React.Component {
                         <div className={styles.posterBlock}>
                             <Link to={`/movies/${post.MovieId}`}>
                                 <div>
-                                    <img src={getPosterPath(post.MoviePosterPath)} className={styles.posterImage} height="452px" />
+                                    <MoviePoster imageUrl={post.MoviePosterPath} movieTitle={post.MovieTitle} height={452} width={318} borderRadius={15} externalClass={styles.posterExternal} />
                                     <img src={bookMarkIcon} width="50px" style={displayBookmarkBlock} />
                                 </div>
                             </Link>

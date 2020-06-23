@@ -27,20 +27,8 @@
     flex-basis: 0;
 }
 
-.posterBlock > div {
-    height: 400px;
-    width: 288px;
-    border-radius: 15px;
-    overflow: hidden;
+.moviePosterExternal {
     margin-top: 26px;
-}
-
-.posterImage {
-    min-width: 100%;
-    max-width: 100%;
-    min-height: 100%;
-    max-height: 100%;
-    object-fit: fill;
 }
 
 .infoBlock {

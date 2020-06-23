@@ -1,11 +1,12 @@
 import React from 'react';
 
+import MoviePoster from '../../moviePoster/moviePoster';
 import MovieCardRating from '../movieCardRating/movieCardRating';
 import MovieCardUserRating from '../movieCardUserRating/movieCardUserRating';
 import MovieCardUsersGroup from '../movieCardUsersGroup/movieCardUsersGroup';
 import MovieStatusButtons from '../../movieStatusButtons/movieStatusButtons';
 import { getReleaseYear, getHumanRuntime } from '../../../helpers/timeHelper';
-import { getPosterPath, getBackdropUrl } from '../../../helpers/imagePathHelper';
+import { getBackdropUrl } from '../../../helpers/imagePathHelper';
 import { getMovieInfoFromMovie } from '../../../helpers/movieInfoHelper';
 import Constants from '../../../constants';
 
@@ -28,9 +29,7 @@ const MovieCardMainInfo = ({ movie, clickUsersWhoWillWatchMovie, clickUsersWhoVi
             <div>
                 <div className={styles.centerContainer}>
                     <div className={styles.posterBlock}>
-                        <div>
-                            <img src={getPosterPath(movie.PosterPath)} className={styles.posterImage} height="400px" />
-                        </div>
+                        <MoviePoster imageUrl={movie.PosterPath} movieTitle={movie.Title} height={400} width={288} borderRadius={15} externalClass={styles.moviePosterExternal} />
                     </div>
                     <div className={styles.infoBlock}>
                         <p className={styles.title}>{movie.Title}</p>

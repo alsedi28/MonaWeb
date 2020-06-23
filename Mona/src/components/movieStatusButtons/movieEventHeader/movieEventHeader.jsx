@@ -1,19 +1,13 @@
 import React from 'react';
 
-import styles from './movieEventHeader.module.css';
+import MoviePoster from '../../moviePoster/moviePoster';
 
-import { getPosterPath } from '../../../helpers/imagePathHelper';
+import styles from './movieEventHeader.module.css';
 
 function MovieEventHeader(props) {
     return (
         <header className={styles.movieInfo}>
-
-            <div className={styles.poster}>
-                <img
-                    src={getPosterPath(props.movieInfo.posterPath)}
-                    className={styles.posterImage}
-                />
-            </div>
+            <MoviePoster imageUrl={props.movieInfo.posterPath} movieTitle={props.movieInfo.title} height={64} width={45} borderRadius={6} externalClass={styles.posterExternal} />
 
             <div className={styles.movieTitles}>
                 <p className={styles.title}>{props.movieInfo.title} <span>({props.movieInfo.year})</span></p>
