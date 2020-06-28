@@ -21,10 +21,18 @@
 }
 
 .posterBlock {
+    position: relative;
     height: 100%;
     flex-grow: 1;
     flex-shrink: 1;
     flex-basis: 0;
+}
+
+.playVideoMain {
+    position: absolute;
+    top: 337px;
+    left: 199px;
+    cursor: pointer;
 }
 
 .moviePosterExternal {
