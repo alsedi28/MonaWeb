@@ -10,6 +10,7 @@ import FollowersPage from './followersPage/followersPage';
 import MovieCardPage from './movieCardPage/movieCardPage';
 import NotFoundPage from './notFoundPage/notFoundPage';
 import SearchPage from './search/searchPage/searchPage';
+import CreateEventPage from './createEvent/createEventPage/createEventPage';
 import { setUserCookie, getUserToken } from '../helpers/cookieHelper';
 import { DataService } from '../dataService';
 
@@ -188,6 +189,7 @@ class App extends React.Component {
                     <PrivateRoute exact path='/profile/:userId/following' history={history} component={FollowersPage} isAuthenticated={this.state.isAuthenticated} />
                     <PrivateRoute exact path='/movies/:movieId' history={history} component={MovieCardPage} isAuthenticated={this.state.isAuthenticated} />
                     <PrivateRoute exact path='/search/:text' history={history} component={SearchPage} isAuthenticated={this.state.isAuthenticated} />
+                    <PrivateRoute exact path='/create' history={history} component={CreateEventPage} isAuthenticated={this.state.isAuthenticated} />
                     <Route history={history} render={(props) => <NotFoundPage {...props}/>} />
                 </Switch>
             </React.Fragment>

@@ -1,10 +1,10 @@
-import React, { useRef } from 'react';
+import React from 'react';
 
-import PostWatched from './postWatched/postWatched';
-import PostWillWatch from './postWillWatch/postWillWatch';
-import PostWatchStatusButtons from './postWatchStatusButtons/postWatchStatusButtons';
-import { DataService } from '../../dataService';
-import Constants from '../../constants';
+import PostWatched from '../postWatched/postWatched';
+import PostWillWatch from '../postWillWatch/postWillWatch';
+import PostWatchStatusButtons from '../../postWatchStatusButtons/postWatchStatusButtons';
+import { DataService } from '../../../dataService';
+import Constants from '../../../constants';
 
 class MovieStatusButtons extends React.Component {
 

@@ -21,6 +21,18 @@ export function getMovieInfoFromMovie(movie) {
         rating: getMovieRating(movie),
         year: getReleaseYear(movie.ReleaseDate)
     };
-    
+
+    return movieInfo;
+}
+
+export function getEmptyMovieInfo() {
+    let movieInfo = {
+        movieId: 0,
+        posterPath: "",
+        title: "Введите название фильма в поиск",
+        rating: "",
+        year: ""
+    };
+
     return movieInfo;
 }

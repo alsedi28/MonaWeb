@@ -6,7 +6,7 @@ import PostButtonBar from './postButtonBar/postButtonBar';
 import PostHeader from './postHeader/postHeader';
 import PostComment from './postComment/postComment';
 import PostCommentInput from './postCommentInput/postCommentInput';
-import MovieStatusButtons from '../movieStatusButtons/movieStatusButtons';
+import MovieStatusButtons from '../createEvent/movieStatusButtons/movieStatusButtons';
 import PostDetails from '../postDetails/postDetails';
 import PostTotalLikes from '../postTotalLikes/postTotalLikes';
 import { DataService } from '../../dataService';
