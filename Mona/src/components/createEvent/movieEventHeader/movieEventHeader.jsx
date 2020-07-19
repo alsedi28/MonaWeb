@@ -2,6 +2,7 @@ import React from 'react';
 
 import styles from './movieEventHeader.module.css';
 
+import MoviePoster from '../../moviePoster/moviePoster';
 import MovieEventHeaderButtons from './movieEventHeaderButtons/movieEventHeaderButtons';
 import Constants from '../../../Constants';
 import { getPosterPath } from '../../../helpers/imagePathHelper';
@@ -24,12 +25,7 @@ function MovieEventHeader(props) {
     return (
         <header className={styles.movieInfo} style={{ height: height }}>
 
-            <div className={styles.poster}>
-                <img
-                    src={getPosterPath(props.movieInfo.posterPath)}
-                    className={styles.posterImage}
-                />
-            </div>
+            <MoviePoster imageUrl={props.movieInfo.posterPath} movieTitle={props.movieInfo.title} height={64} width={45} borderRadius={6} externalClass={styles.posterExternal} />
 
             <div className={styles.movieTitles}>
                 <p className={styles.title}>{props.movieInfo.title} <span>{spanValue}</span></p>
