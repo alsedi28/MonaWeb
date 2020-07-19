@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import MoviePoster from '../../moviePoster/moviePoster';
 import { getReleaseYear } from '../../../helpers/timeHelper';
-import { getPosterPath } from '../../../helpers/imagePathHelper';
 import { getMovieRating } from '../../../helpers/eventHelper';
 
 import styles from './searchMovieItem.module.css';
@@ -21,9 +21,7 @@ const SearchMovieItem = ({ movie, externalClass = "" }) => {
         <div className={`${styles.container} ${externalClass}`}>
             <div className={styles.posterBlock}>
                 <Link to={`/movies/${movie.MovieId}`}>
-                    <div>
-                        <img src={getPosterPath(movie.PosterPath)} className={styles.posterImage} />
-                    </div>
+                    <MoviePoster imageUrl={movie.PosterPath} movieTitle={movie.Title} height={56} width={39} borderRadius={6}/>
                 </Link>
             </div>
             <div className={styles.infoBlock}>

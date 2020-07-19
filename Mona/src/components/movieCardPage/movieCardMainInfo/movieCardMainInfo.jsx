@@ -1,17 +1,20 @@
 import React from 'react';
 
+import MoviePoster from '../../moviePoster/moviePoster';
 import MovieCardRating from '../movieCardRating/movieCardRating';
 import MovieCardUserRating from '../movieCardUserRating/movieCardUserRating';
 import MovieCardUsersGroup from '../movieCardUsersGroup/movieCardUsersGroup';
 import MovieStatusButtons from '../../createEvent/movieStatusButtons/movieStatusButtons';
 import { getReleaseYear, getHumanRuntime } from '../../../helpers/timeHelper';
-import { getPosterPath, getBackdropUrl } from '../../../helpers/imagePathHelper';
+import { getBackdropUrl } from '../../../helpers/imagePathHelper';
 import { getMovieInfoFromMovie } from '../../../helpers/movieInfoHelper';
 import Constants from '../../../constants';
 
+import playVideoGreyIcon from '../../../../public/icons/playVideoGrey.png';
+
 import styles from './movieCardMainInfo.module.css';
 
-const MovieCardMainInfo = ({ movie, clickUsersWhoWillWatchMovie, clickUsersWhoViewedMovie, requestOnUpdateData, externalClass = "" }) => {
+const MovieCardMainInfo = ({ movie, clickUsersWhoWillWatchMovie, clickUsersWhoViewedMovie, clickPlay, requestOnUpdateData, externalClass = "" }) => {
     let backdrop = movie.Backdrops && movie.Backdrops.length > 0 ? movie.Backdrops[0] : null;
 
     let infoJoinPointBlock =
@@ -28,9 +31,8 @@ const MovieCardMainInfo = ({ movie, clickUsersWhoWillWatchMovie, clickUsersWhoVi
             <div>
                 <div className={styles.centerContainer}>
                     <div className={styles.posterBlock}>
-                        <div>
-                            <img src={getPosterPath(movie.PosterPath)} className={styles.posterImage} height="400px" />
-                        </div>
+                        <MoviePoster imageUrl={movie.PosterPath} movieTitle={movie.Title} height={400} width={288} borderRadius={15} externalClass={styles.moviePosterExternal} />
+                        <img src={playVideoGreyIcon} className={styles.playVideoMain} style={{ display: movie.Videos.length > 0 ? "block" : "none" }} onClick={() => clickPlay(movie.Videos[0].Key)} width="90px" />
                     </div>
                     <div className={styles.infoBlock}>
                         <p className={styles.title}>{movie.Title}</p>

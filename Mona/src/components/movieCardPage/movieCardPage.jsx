@@ -336,7 +336,7 @@ class MovieCardPage extends React.Component {
                 <Header externalClass="header-external" location={location.pathname} />
                 <div className={styles.container}>
                     <Loader show={this.state.isLoading} externalClass={styles.loader} />
-                    <MovieCardMainInfo movie={this.state.movie} clickUsersWhoWillWatchMovie={this.clickShowUsersWhoWillWatchMovie} clickUsersWhoViewedMovie={this.clickShowUsersWhoViewedMovie} requestOnUpdateData={this.getMovieCard} externalClass={`${this.state.isLoading ? styles.hideBlock : ''}`} />
+                    <MovieCardMainInfo movie={this.state.movie} clickUsersWhoWillWatchMovie={this.clickShowUsersWhoWillWatchMovie} clickUsersWhoViewedMovie={this.clickShowUsersWhoViewedMovie} clickPlay={this.showModalTrailerViewer} requestOnUpdateData={this.getMovieCard} externalClass={`${this.state.isLoading ? styles.hideBlock : ''}`} />
                     <HorizontalTabs tabsSettings={this.state.tabSettings} tabNumberActive={this.state.tabNumberActive} clickTab={this.clickTab} externalClass={styles.tabsExternal} />
                     <div className={`${styles.tabData} ${styles.tabOverview}`} style={{ display: this.state.tabNumberActive === 1 ? "flex" : "none" }}>
                         <div>
@@ -387,13 +387,14 @@ class MovieCardPage extends React.Component {
                             <div>
                                 {this.state.movie.Videos.map(i => <MovieCardTrailer videoInfo={i} clickPlay={this.showModalTrailerViewer.bind(this, i.Key)} externalClass={styles.movieCardTrailerExternal} />)}
                             </div>
-                            <MovieCardTrailerModalViewer videoKey={this.state.modalTrailerViewer.videoKey} show={this.state.modalTrailerViewer.show} clickClose={this.hideModalTrailerViewer} />
                         </div>
                         <div style={{ display: this.state.movie.Backdrops.length > 0 ? "block" : "none" }}>
                             <p className={styles.title}>Фотографии</p>
                             <PhotoGallery photos={this.state.movie.Backdrops} />
                         </div>
                     </div>
+
+                    <MovieCardTrailerModalViewer videoKey={this.state.modalTrailerViewer.videoKey} show={this.state.modalTrailerViewer.show} clickClose={this.hideModalTrailerViewer} />
 
                     <ModalDialog
                         show={this.state.modalDialog.show}

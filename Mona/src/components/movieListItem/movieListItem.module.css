@@ -14,22 +14,14 @@
     color: rgb(49, 54, 60);
 }
 
-.posterContainer div {
-    height: 252px;
-    width: 168px;
-    overflow: hidden;
-    border-radius: 8px;
+.posterContainer > a > div {
     position: relative;
 }
 
-.posterContainer img:last-of-type {
+.posterContainer > a > div > img {
     position: absolute;
     left: 125px;
     top: 0px;
-}
-
-.posterContainer img:first-of-type {
-    border-radius: 8px;
 }
 
 .movieTitle {

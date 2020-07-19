@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import ModalDialog from '../modalDialog/modalDialog';
+import MoviePoster from '../moviePoster/moviePoster';
 import { getMovieRating } from '../../helpers/eventHelper';
 import { DataService } from '../../dataService';
 import Constants from '../../constants';
@@ -11,7 +12,6 @@ import styles from './movieListItem.module.css';
 import bookMarkIcon from '../../../public/icons/bookMark.png';
 import bookMarkMiniIcon from '../../../public/icons/bookMarkMini.png';
 import viewIcon from '../../../public/icons/view.png';
-import framePlaceholder from '../../../public/icons/framePlaceholder.png';
 
 
 class MovieListItem extends React.Component {
@@ -101,7 +101,7 @@ class MovieListItem extends React.Component {
                 <div className={styles.posterContainer}>
                     <Link to={`/movies/${movie.MovieId}`}>
                         <div>
-                            <img src={movie.PosterPath ? `https://image.tmdb.org/t/p/w342${movie.PosterPath}` : framePlaceholder} width="168px" />
+                            <MoviePoster imageUrl={movie.PosterPath} movieTitle={movie.Title} height={252} width={168} borderRadius={8}/>
                             <img src={bookMarkIcon} width="34px" style={{ display: statusOfMovieForUser === Constants.MOVIE_STATUS_WILL_WATCH ? "block" : "none" }} />
                         </div>
                     </Link>

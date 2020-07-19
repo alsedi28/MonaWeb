@@ -11,8 +11,9 @@ import Loader from '../loader/loader';
 import CloseButton from '../buttons/closeButton/closeButton';
 import UserAvatar from '../userAvatar/userAvatar';
 import ModalDialogBackground from '../modalDialogBackground/modalDialogBackground';
+import MoviePoster from '../moviePoster/moviePoster';
 import { getStatusString } from '../../helpers/eventHelper';
-import { getPosterPath, getBackdropUrl } from '../../helpers/imagePathHelper';
+import { getBackdropUrl } from '../../helpers/imagePathHelper';
 import { DataService } from '../../dataService';
 
 class PostDetails extends React.Component {
@@ -210,9 +211,7 @@ class PostDetails extends React.Component {
                         <div className={styles.posterBox} style={{ background: `${getBackdropUrl(post.MovieBackdropPath)}` }}>
                             <div>
                                 <Link to={`/movies/${post.MovieId}`}>
-                                    <div className={styles.poster}>
-                                        <img src={getPosterPath(post.MoviePosterPath)} className={styles.posterImage} />
-                                    </div>
+                                    <MoviePoster imageUrl={post.MoviePosterPath} movieTitle={post.MovieTitle} height={0} width={0} borderRadius={12} externalClass={styles.posterExternal} />
                                 </Link>
                             </div>
                         </div>

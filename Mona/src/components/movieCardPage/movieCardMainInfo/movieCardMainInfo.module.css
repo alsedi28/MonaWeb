@@ -21,26 +21,22 @@
 }
 
 .posterBlock {
+    position: relative;
     height: 100%;
     flex-grow: 1;
     flex-shrink: 1;
     flex-basis: 0;
 }
 
-.posterBlock > div {
-    height: 400px;
-    width: 288px;
-    border-radius: 15px;
-    overflow: hidden;
-    margin-top: 26px;
+.playVideoMain {
+    position: absolute;
+    top: 337px;
+    left: 199px;
+    cursor: pointer;
 }
 
-.posterImage {
-    min-width: 100%;
-    max-width: 100%;
-    min-height: 100%;
-    max-height: 100%;
-    object-fit: fill;
+.moviePosterExternal {
+    margin-top: 26px;
 }
 
 .infoBlock {
