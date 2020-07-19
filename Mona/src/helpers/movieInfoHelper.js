@@ -30,7 +30,7 @@ export function getEmptyMovieInfo() {
         movieId: 0,
         posterPath: "",
         title: "Введите название фильма в поиск",
-        rating: "",
+        rating: null,
         year: ""
     };
 

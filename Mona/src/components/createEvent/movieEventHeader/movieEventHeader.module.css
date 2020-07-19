@@ -1,5 +1,5 @@
 .movieInfo {
-    height: 120px;
+    height: 136px;
     border-bottom: 1px solid #dbdbdb;
     display: flex;
 }
@@ -58,4 +58,5 @@
     font-size: 12px;
     font-weight: normal;
     color: rgb(49, 54, 60);
+    padding-top: 8px;
 }

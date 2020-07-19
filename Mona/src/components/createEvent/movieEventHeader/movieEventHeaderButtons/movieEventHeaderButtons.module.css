@@ -1,0 +1,32 @@
+.movieStatuses {
+    margin-top: 16px;
+    display: flex;
+    direction: column;
+}
+
+.movieStatus {
+    border-radius: 12px;
+    height: 30px;
+    margin-right: 12px;
+    width: 132px;
+    cursor: pointer;
+}
+
+.movieStatus p {
+    text-align: center;
+    margin: auto !important;
+    vertical-align: middle;
+    line-height: 30px;
+    font-family: "Montserrat";
+    font-size: 12px;
+    font-weight: normal;
+    color: white;
+}
+
+.movieStatusSelected {
+    background-color: #FF561A;
+}
+
+.movieStatusDeselected {
+    background-color: #CBD1DF;
+}

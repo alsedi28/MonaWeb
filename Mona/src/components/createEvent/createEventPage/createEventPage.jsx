@@ -3,17 +3,15 @@ import React from 'react';
 import styles from './createEventPage.module.css';
 
 import Header from '../../header/header';
-import CreateEventButton from '../../buttons/createEventButton/createEventButton';
-import EventCommentField from '../eventCommentField/eventCommentField';
-import EventPublicityStatus from '../eventPublicityStatus/eventPublicityStatus';
-import MovieEventHeader from '../movieEventHeader/movieEventHeader';
-import MovieRatingSelection from '../movieRatingSelection/movieRatingSelection';
 import FollowersSearchInput from '../../followersPage/followersSearchInput/followersSearchInput';
 import MovieForEventSearchResult from './movieForEventSearchResult/movieForEventSearchResult';
+import PostWillWatchContent from '../postWillWatch/postWillWatchContent/postWillWatchContent';
+import PostWatchedContent from '../postWatched/postWatchedContent/postWatchedContent';
 
 import { DataService } from '../../../dataService';
 import Constants from '../../../constants';
 import { getEmptyMovieInfo, getMovieInfoFromMovie } from '../../../helpers/movieInfoHelper';
+import { debounce } from '../../../helpers/debounce';
 
 class CreateEventPage extends React.Component {
 
@@ -37,8 +35,9 @@ class CreateEventPage extends React.Component {
         this.handleEventCreateAction = this.handleEventCreateAction.bind(this);
         this.handleRatingChange = this.handleRatingChange.bind(this);
         this.handleTagSelectionChange = this.handleTagSelectionChange.bind(this);
-        this.searchMovies = this.searchMovies.bind(this); // Поиск фильмов
         this.handleClickOnMovie = this.handleClickOnMovie.bind(this);
+        this.handleClickOnEventType = this.handleClickOnEventType.bind(this); // Смена типа события
+        this.fetchMoviesWithQuery = debounce(this.fetchMoviesWithQuery, 300); // Запрос поиска фильмов с задержкой 0.3 секунды
     }
 
     componentDidMount() {
@@ -60,47 +59,31 @@ class CreateEventPage extends React.Component {
 
     handleEventCreateAction(eventType) {
         let callback = _ => {
-            this.props.handlerExternal();
-
-            switch(eventType) {
-                case Constants.MOVIE_WATCHED_EVENT_TYPE:
-                    this.hideWatched();
-                    this.setState({
-                        watched: {
-                            rating: 0,
-                            inputComment: "",
-                            isEventPublic: true,
-                            selectedTags: []
-                        }
-                    });
-                    break;
-                case Constants.MOVIE_WILL_WATCH_EVENT_TYPE:
-                    this.hideWillWatch();
-                    this.setState({
-                        willWatch: {
-                            inputComment: "",
-                            isEventPublic: true
-                        }
-                    });
-                    break;
-                default:
-                    break;
-            }
+            this.setState({
+                isLoading: false,
+                movies: [],
+                eventType: Constants.MOVIE_WATCHED_EVENT_TYPE,
+                selectedMovie: null,
+                rating: 0,
+                inputComment: "",
+                isEventPublic: true,
+                selectedTags: [],
+                inputSearchValue: ""
+            });
         };
 
-        let movieId = this.props.movieInfo.movieId;
+        let movieId = this.state.selectedMovie.MovieId;
 
         switch(eventType) {
             case Constants.MOVIE_WATCHED_EVENT_TYPE:
-                if (this.state.watched.isEventPublic) {
-                    console.error(movieId, this.state.inputComment, this.state.watched.rating, eventType, this.state.selectedTags);
-                    DataService.createEvent(movieId, this.state.inputComment, this.state.watched.rating, eventType, this.state.selectedTags, callback);
+                if (this.state.isEventPublic) {
+                    DataService.createEvent(movieId, this.state.inputComment, this.state.rating, eventType, this.state.selectedTags, callback);
                 } else {
                     DataService.addMovieToViewed(movieId, this.state.rating, callback);
                 }
                 break;
             case Constants.MOVIE_WILL_WATCH_EVENT_TYPE:
-                if (this.state.willWatch.isEventPublic) {
+                if (this.state.isEventPublic) {
                     DataService.createEvent(movieId, this.state.inputComment, 0, eventType, [], callback);
                 } else {
                     DataService.addMovieToWillWatch(movieId, callback);
@@ -143,30 +126,36 @@ class CreateEventPage extends React.Component {
         }
     }
 
-    searchMovies(event) {
+    handleSearchMovies(event) {
         const { value } = event.target;
 
         this.setState({ inputSearchValue: value });
-
         if (value.trim().length <= 1) {
             return;
         }
 
+        this.fetchMoviesWithQuery(value);
+    }
+
+    fetchMoviesWithQuery(query) {
         this.setState({ movies: [], isLoading: true });
 
         let callback = (movies) => {
             this.setState({ movies, isLoading: false });
         };
 
-        DataService.searchMovies(value, callback);
+        DataService.searchMovies(query, callback);
     }
 
     handleClickOnMovie(movie) {
         this.setState({ selectedMovie: movie });
     }
 
-    render() {
+    handleClickOnEventType(eventType) {
+        this.setState({ eventType: eventType });
+    }
 
+    render() {
         let isCreateEnabled = true;
         if ((this.state.isEventPublic === true && this.state.inputComment.length === 0) || this.state.rating === 0) {
             isCreateEnabled = false;
@@ -185,12 +174,52 @@ class CreateEventPage extends React.Component {
 
         let movieInfo = this.state.selectedMovie !== null ? getMovieInfoFromMovie(this.state.selectedMovie) : getEmptyMovieInfo();
 
+        let contentBlock = "";
+
+        switch(this.state.eventType) {
+            case Constants.MOVIE_WATCHED_EVENT_TYPE:
+                contentBlock = <PostWatchedContent
+                    isModal={false}
+                    isPublic={this.state.isEventPublic}
+                    comment={this.state.inputComment}
+                    selectedRating={this.state.rating}
+                    selectedTags={this.state.selectedTags}
+                    tags={this.state.tags}
+                    onTagSelect={this.handleTagSelectionChange}
+                    handleChange={this.handleChangeData}
+                    movieInfo={movieInfo}
+                    handleRatingChange={this.handleRatingChange}
+                    onEventCreate={this.handleEventCreateAction}
+                    eventType={this.state.eventType}
+                    handleClickOnEventType={this.handleClickOnEventType}
+                />
+                break;
+            case Constants.MOVIE_WILL_WATCH_EVENT_TYPE:
+                contentBlock = <PostWillWatchContent
+                    isModal={false}
+                    movieInfo={movieInfo}
+                    isPublic={this.state.isEventPublic}
+                    comment={this.state.inputComment}
+                    handleChange={this.handleChangeData}
+                    onEventCreate={this.handleEventCreateAction}
+                    eventType={this.state.eventType}
+                    handleClickOnEventType={this.handleClickOnEventType}
+                />
+                break;
+            default:
+                break;
+        }
+
         return (
             <React.Fragment>
                 <Header externalClass="header-external" />
                 <article className={styles.contentContainer}>
 
-                    <FollowersSearchInput id={searchFieldId} inputValue={this.state.inputSearchValue} handleInputChange={this.searchMovies} />
+                    <FollowersSearchInput
+                        id={searchFieldId}
+                        inputValue={this.state.inputSearchValue}
+                        handleInputChange={this.handleSearchMovies.bind(this)}
+                    />
 
                     <MovieForEventSearchResult
                         movies={this.state.movies}
@@ -199,44 +228,8 @@ class CreateEventPage extends React.Component {
                         searchText={this.state.inputSearchValue}
                         handleClickOnMovie={this.handleClickOnMovie} />
 
-                    <MovieEventHeader
-                        movieInfo={movieInfo}
-                    />
+                    {contentBlock}
 
-                    <p className={styles.headerTitle}>Рейтинг</p>
-
-                    <MovieRatingSelection
-                        selectedIndex={this.state.rating}
-                        onChange={this.handleRatingChange}
-                    />
-
-                    <EventPublicityStatus
-                        checked={this.isEventPublic}
-                        onChange={this.handleChangeData}
-                    />
-
-                    <p className={styles.headerTitle} style={displayCommentBlock}>Комментарий</p>
-
-                    <EventCommentField
-                        placeholder="Напишите свой отзыв тут…"
-                        value={this.state.inputComment}
-                        onChange={this.handleChangeData}
-                        isPublic={this.state.isEventPublic}
-                    />
-
-                    <p className={styles.headerTitle} style={displayCommentBlock}>Теги</p>
-
-                    <div className={styles.tags} style={displayTagsBlock}>
-                        {this.state.tags.map(tag =>
-                            <span style={this.getSelectionStyle(tag.TagId)} onClick= {() => this.handleTagSelectionChange(tag.TagId)}>{tag.Name}</span>)
-                        }
-                    </div>
-
-                    <CreateEventButton
-                        title={buttonTitle}
-                        isDisabled={!isCreateEnabled}
-                        onClick={() => this.handleEventCreateAction(Constants.MOVIE_WATCHED_EVENT_TYPE)}
-                    />
                 </article>
             </React.Fragment>
         );

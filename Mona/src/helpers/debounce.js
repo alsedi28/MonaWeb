@@ -1,9 +1,10 @@
-function debounce(fn, bufferIntervalInSeconds) {
-  var timeout;
-
-  return function () {
-    clearTimeout(timeout);
-    timeout = setTimeout(fn.apply.bind(fn, this, arguments), bufferIntervalInSeconds * 1000);
-  };
-
+export const debounce = (fn, delay) => {
+      let timer = null;
+      return function (...args) {
+          const context = this;
+          timer && clearTimeout(timer);
+          timer = setTimeout(() => {
+              fn.apply(context, args);
+          }, delay);
+      };
 }

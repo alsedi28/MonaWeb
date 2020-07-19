@@ -132,7 +132,6 @@ class MovieStatusButtons extends React.Component {
         switch(eventType) {
             case Constants.MOVIE_WATCHED_EVENT_TYPE:
                 if (this.state.watched.isEventPublic) {
-                    console.error(movieId, this.state.watched.inputComment, this.state.watched.rating, eventType, this.state.watched.selectedTags);
                     DataService.createEvent(movieId, this.state.watched.inputComment, this.state.watched.rating, eventType, this.state.watched.selectedTags, callback);
                 } else {
                     DataService.addMovieToViewed(movieId, this.state.watched.rating, callback);
