@@ -1,8 +1,8 @@
 import React, { useRef } from 'react';
-import Constants from '../../../constants';
+import Constants from '../../constants';
 
 import styles from './postWatchStatusButtons.module.css';
-import checkMarkIcon from '../../../../public/icons/checkMark.png';
+import checkMarkIcon from '../../../public/icons/checkMark.png';
 
 function PostWatchStatusButtons(props) {
 

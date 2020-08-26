@@ -37,7 +37,7 @@
 .buttonsWithIconsNav {
     float: right;
     height: 100%;
-    width: 205px;
+    width: 160px;
 }
 
 .buttonsWithIconsUl {
@@ -50,17 +50,6 @@
 
 .buttonsWithIconsLi {
     display: inline;
-}
-
-.buttonsWithIconsLi span {
-    color: rgb(49, 54, 60);
-    font-weight: 300;
-    font-size: 14px;
-    padding-left: 10px;
-    padding-top: 2px;
-    width: 50px;
-    float: left;
-    font-family: "Montserrat";
 }
 
 .buttonsWithIconsLi a {
@@ -113,6 +102,10 @@
 .buttonsLi {
     float: left;
     padding-left: 24px;
+}
+
+.buttonsLi img {
+    padding-top: 4px;
 }
 
 /* Dropdown Menu */
@@ -181,7 +174,7 @@
 .searchExternal {
     float: right;
     margin-top: 6px;
-    position: absolute; /* Это необходимо, чтобы выпадающий список не сдвигал табы ленты в хедере*/
+    position: absolute; /* пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ*/
     left: 30%;
     z-index: 250;
 }

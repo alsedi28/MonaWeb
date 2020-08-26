@@ -1,17 +1,15 @@
 import React from 'react';
 
-import styles from './postWatched.module.css';
+import styles from './createEventItem.module.css';
 
 import Constants from '../../../constants';
-import CloseButton from '../../buttons/closeButton/closeButton';
 import CreateEventButton from '../../buttons/createEventButton/createEventButton';
 import EventCommentField from '../eventCommentField/eventCommentField';
 import EventPublicityStatus from '../eventPublicityStatus/eventPublicityStatus';
 import MovieEventHeader from '../movieEventHeader/movieEventHeader';
 import MovieRatingSelection from '../movieRatingSelection/movieRatingSelection';
-import ModalDialogBackground from '../../modalDialogBackground/modalDialogBackground';
 
-function PostWatched(props) {
+function CreateEventItem(props) {
 
     function handleInputChange(event) {
         const {name, value, type, checked} = event.target;
@@ -45,8 +43,7 @@ function PostWatched(props) {
     let minHeightStyleBlock = { minHeight: props.isPublic ? '820px' : '300px' }
 
     return (
-        <ModalDialogBackground show={props.isDisplay} clickClose={props.clickClose}>
-
+        <React.Fragment>
             <article className={`${styles.modalContent} ${`dialog-ev`}`} style={minHeightStyleBlock}>
                 <MovieEventHeader
                     movieInfo={props.movieInfo}
@@ -88,11 +85,8 @@ function PostWatched(props) {
                 />
 
             </article>
-
-            <CloseButton onClick={props.clickClose}/>
-
-        </ModalDialogBackground>
+        </React.Fragment>
     );
 }
 
-export default PostWatched;
+export default CreateEventItem;

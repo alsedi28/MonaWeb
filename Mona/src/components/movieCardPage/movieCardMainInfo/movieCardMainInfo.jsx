@@ -4,7 +4,7 @@ import MoviePoster from '../../moviePoster/moviePoster';
 import MovieCardRating from '../movieCardRating/movieCardRating';
 import MovieCardUserRating from '../movieCardUserRating/movieCardUserRating';
 import MovieCardUsersGroup from '../movieCardUsersGroup/movieCardUsersGroup';
-import MovieStatusButtons from '../../movieStatusButtons/movieStatusButtons';
+import MovieStatusButtons from '../../createEvent/movieStatusButtons/movieStatusButtons';
 import { getReleaseYear, getHumanRuntime } from '../../../helpers/timeHelper';
 import { getBackdropUrl } from '../../../helpers/imagePathHelper';
 import { getMovieInfoFromMovie } from '../../../helpers/movieInfoHelper';

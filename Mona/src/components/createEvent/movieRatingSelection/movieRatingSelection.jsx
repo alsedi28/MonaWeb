@@ -5,7 +5,7 @@ import styles from './movieRatingSelection.module.css';
 function MovieRatingSelection(props) {
 
     function getSelectionStyle(index) {
-        if (props.selectedIndex === index) {
+        if (props.selectedIndex >= index) {
             return { backgroundColor: 'rgb(255, 86, 26)' };
         } else {
             return { backgroundColor: 'rgb(203, 209, 223)' };

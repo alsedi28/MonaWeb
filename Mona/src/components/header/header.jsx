@@ -8,10 +8,13 @@ import FilledButton from '../buttons/filledButton/filledButton';
 import Search from '../search/search';
 
 import styles from './header.module.css';
+plusNavActive
 
 import appIconNav from '../../../public/icons/appIconNav.png';
 import feedIconNav from '../../../public/icons/feedIconNav.png';
 import feedIconNavActive from '../../../public/icons/feedIconNavActive.png';
+import plusNav from '../../../public/icons/plusNav.png';
+import plusNavActive from '../../../public/icons/plusNavActive.png';
 
 const Header = ({ location = "", externalClass = "", children, onSignIn, onSignUp }) => {
     let scrollPageUp = () => window.scrollTo(0, 0);
@@ -38,6 +41,16 @@ const Header = ({ location = "", externalClass = "", children, onSignIn, onSignU
                 <p>MONA</p>
                 <nav className={styles.buttonsWithIconsNav} style={{ display: userId ? "block" : "none" }}>
                     <ul className={styles.buttonsWithIconsUl}>
+                        <li className={styles.buttonsLi}>
+                            <Link to="/feed">
+                                <img src={location === '/feed' ? feedIconNavActive : feedIconNav} width="24px" />
+                            </Link>
+                        </li>
+                        <li className={styles.buttonsLi}>
+                            <Link to="/create">
+                                <img src={location === '/create' ? plusNavActive : plusNav} width="24px" />
+                            </Link>
+                        </li>
                         <li className={styles.buttonsWithIconsLi}>
                             <UserAvatar avatar={userAvatar} size={30} withGrayBorder={!isCurrentProfileUser} withOrangeBorder={isCurrentProfileUser} externalClass={`${styles.userAvatarExternal}`} />
                             <ul className={styles.dropdown}>
@@ -53,14 +66,6 @@ const Header = ({ location = "", externalClass = "", children, onSignIn, onSignU
                                     </Link>
                                 </li>
                             </ul>
-                        </li>
-                        <li className={styles.buttonsWithIconsLi}>
-                            <Link to="/feed">
-                                <div>
-                                    <img src={location === '/feed' ? feedIconNavActive : feedIconNav} width="20px" />
-                                    <span>Лента</span>
-                                </div>
-                            </Link>
                         </li>
                     </ul>
                 </nav>

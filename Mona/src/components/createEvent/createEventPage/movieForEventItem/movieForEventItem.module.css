@@ -1,0 +1,80 @@
+.container {
+    height: 70px;
+    display: flex;
+    cursor: pointer;
+    padding-top: 8px;
+}
+
+.posterBlock {
+    margin-left: 15px;
+    margin-right: 10px;
+}
+
+.posterBlock div {
+    height: 56px;
+    width: 39px;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.posterImage {
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 100%;
+    max-height: 100%;
+    object-fit: fill;
+}
+
+.infoBlock {
+    width: 235px;
+}
+
+.title {
+    margin: 0px;
+    font-size: 12px;
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 300;
+    color: rgb(49, 54, 60);
+}
+
+.title > span {
+    color: rgb(193, 194, 196);
+}
+
+.title a {
+    text-decoration: none;
+    color: rgb(49, 54, 60);
+}
+
+.title a:visited {
+    color: rgb(49, 54, 60);
+}
+
+.productionCountry {
+    margin: 0px;
+    margin-top: 5px;
+    font-size: 10px;
+    color: rgb(49, 54, 60);
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: normal;
+}
+
+.rating {
+    color: white;
+    font-size: 10px;
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 300;
+    background-color: rgb(193, 205, 222);
+    width: 24px;
+    height: 24px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 18px;
+}
