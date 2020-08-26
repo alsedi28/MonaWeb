@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from './movieEventHeaderButtons.module.css';
 
-import Constants from '../../../../Constants';
+import Constants from '../../../../constants';
 
 function MovieEventHeaderButtons(props) {
 

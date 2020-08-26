@@ -156,19 +156,6 @@ class CreateEventPage extends React.Component {
     }
 
     render() {
-        let isCreateEnabled = true;
-        if ((this.state.isEventPublic === true && this.state.inputComment.length === 0) || this.state.rating === 0) {
-            isCreateEnabled = false;
-        }
-
-        let buttonTitle = "Опубликовать";
-        if (!this.state.isEventPublic) {
-            buttonTitle = "Добавить в просмотренные";
-        }
-
-        let displayCommentBlock = { display: this.state.isEventPublic ? "block" : "none" }
-        let displayTagsBlock = { display: this.state.isEventPublic ? "flex" : "none" }
-
         let searchFieldId = "MovieForEventSearchField";
         let showSearchResults = document.activeElement.id === searchFieldId;
 
