@@ -11,8 +11,14 @@ import MovieCardPage from './movieCardPage/movieCardPage';
 import NotFoundPage from './notFoundPage/notFoundPage';
 import SearchPage from './search/searchPage/searchPage';
 import CreateEventPage from './createEvent/createEventPage/createEventPage';
+
 import { setUserCookie, getUserToken } from '../helpers/cookieHelper';
 import { DataService } from '../dataService';
+
+import { firebaseConfig } from '../firebaseConfig';
+import { logEventWithoutParameters } from '../helpers/analyticsHelper';
+import firebase from 'firebase/app';
+import 'firebase/analytics';
 
 class App extends React.Component {
     constructor(props) {
@@ -44,6 +50,9 @@ class App extends React.Component {
         this.register = this.register.bind(this);
         this.signInClick = this.signInClick.bind(this);
         this.signUpClick = this.signUpClick.bind(this);
+
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
     }
 
     componentDidMount() {
@@ -69,6 +78,10 @@ class App extends React.Component {
             this.props.history.push("/feed");
             this.getPosts();
             this.getPopularPosts();
+
+            if (isFromRegistration === false) {
+                logEventWithoutParameters(EVENTS.AUTHORIZATION);
+            }
         };
 
         let failedCallback = (error) => {
@@ -85,6 +98,8 @@ class App extends React.Component {
     register(email, nickname, name, password) {
         let successCallback = (response) => {
             this.login(nickname, password, true);
+
+            logEventWithoutParameters(EVENTS.REGISTRATION);
         };
 
         let failedCallback = (error) => {
