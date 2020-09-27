@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack -p",
+    "dev": "webpack --mode=development",
     "watch": "webpack --watch"
   },
   "repository": {
