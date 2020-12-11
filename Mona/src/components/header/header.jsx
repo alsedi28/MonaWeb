@@ -8,7 +8,6 @@ import FilledButton from '../buttons/filledButton/filledButton';
 import Search from '../search/search';
 
 import styles from './header.module.css';
-plusNavActive
 
 import appIconNav from '../../../public/icons/appIconNav.png';
 import feedIconNav from '../../../public/icons/feedIconNav.png';
@@ -17,12 +16,12 @@ import plusNav from '../../../public/icons/plusNav.png';
 import plusNavActive from '../../../public/icons/plusNavActive.png';
 
 const Header = ({ location = "", externalClass = "", children, onSignIn, onSignUp }) => {
-    let scrollPageUp = () => window.scrollTo(0, 0);
+    const scrollPageUp = () => window.scrollTo(0, 0);
 
-    let userId = getMainUserId();
-    let userAvatar = getMainUserAvatar();
+    const userId = getMainUserId();
+    const userAvatar = getMainUserAvatar();
 
-    let isCurrentProfileUser = location.endsWith(`/profile/${userId}`);
+    const isCurrentProfileUser = location.endsWith(`/profile/${userId}`);
 
     function refreshPageIfNeeded() {
         if (isCurrentProfileUser) {

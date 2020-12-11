@@ -11,6 +11,6 @@ function CommonButton(props) {
             type="button">{props.title}
         </button>
     );
-};
+}
 
 export default CommonButton;

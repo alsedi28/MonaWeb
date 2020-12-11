@@ -8,14 +8,14 @@ import { getMovieRating } from '../../../helpers/eventHelper';
 import styles from './searchMovieItem.module.css';
 
 const SearchMovieItem = ({ movie, externalClass = "" }) => {
-    let movieReleaseDate = getReleaseYear(movie.ReleaseDate);
+    const movieReleaseDate = getReleaseYear(movie.ReleaseDate);
     let blockMovieReleaseDate = "";
     if (movieReleaseDate !== null)
         blockMovieReleaseDate = <span>({movieReleaseDate})</span>;
 
-    let blockProductionCountry = movie.ProductionCountry ? <p className={styles.productionCountry}>{movie.ProductionCountry}</p> : "";
+    const blockProductionCountry = movie.ProductionCountry ? <p className={styles.productionCountry}>{movie.ProductionCountry}</p> : "";
 
-    let movieRating = getMovieRating(movie);
+    const movieRating = getMovieRating(movie);
 
     return (
         <div className={`${styles.container} ${externalClass}`}>

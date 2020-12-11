@@ -15,9 +15,9 @@ import playVideoGreyIcon from '../../../../public/icons/playVideoGrey.png';
 import styles from './movieCardMainInfo.module.css';
 
 const MovieCardMainInfo = ({ movie, clickUsersWhoWillWatchMovie, clickUsersWhoViewedMovie, clickPlay, requestOnUpdateData, externalClass = "" }) => {
-    let backdrop = movie.Backdrops && movie.Backdrops.length > 0 ? movie.Backdrops[0] : null;
+    const backdrop = movie.Backdrops && movie.Backdrops.length > 0 ? movie.Backdrops[0] : null;
 
-    let infoJoinPointBlock =
+    const infoJoinPointBlock =
         [getReleaseYear(movie.ReleaseDate), getHumanRuntime(movie.Runtime), movie.ProductionCountry].filter(i => i !== null).join(" • ");
 
     let userRatingOrUsersWillWatchBlock = "";

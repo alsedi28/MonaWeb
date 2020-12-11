@@ -35,13 +35,13 @@ class MovieListItem extends React.Component {
     }
 
     clickShowUsersWhoWillWatchMovie(movieId) {
-        let title = "Будут смотреть";
+        const title = "Будут смотреть";
 
         this.showModalDialog(title, DataService.getUsersWhoWillWatchMovie.bind(DataService), movieId);
     }
 
     clickShowUsersWhoViewedMovie(movieId) {
-        let title = "Уже смотрели";
+        const title = "Уже смотрели";
 
         this.showModalDialog(title, DataService.getUsersWhoViewedMovie.bind(DataService), movieId);
     }
@@ -49,7 +49,7 @@ class MovieListItem extends React.Component {
     showModalDialog(title, getter, ...args) {
         this.setModalDialogState(true, true, title, []);
 
-        let callback = (response) => {
+        const callback = (response) => {
             let items = response.map(item => ({
                 id: item.UserId,
                 icon: item.AvatarPath,
@@ -84,10 +84,10 @@ class MovieListItem extends React.Component {
     render() {
         const { movie, statusOfMovieForUser, externalClass = "", handlerExternal = () => ({}) } = this.props;
 
-        let blockProductionCountry = movie.ProductionCountry ? <p className={styles.productionCountries}>{movie.ProductionCountry}</p> : "";
-        let movieRaiting = getMovieRating(movie);
+        const blockProductionCountry = movie.ProductionCountry ? <p className={styles.productionCountries}>{movie.ProductionCountry}</p> : "";
+        const movieRaiting = getMovieRating(movie);
 
-        let movieReleaseDate = movie.ReleaseDate !== null ? new Date(Date.parse(movie.ReleaseDate)) : null;
+        const movieReleaseDate = movie.ReleaseDate !== null ? new Date(Date.parse(movie.ReleaseDate)) : null;
         let blockMovieReleaseDate = "";
         if (movieReleaseDate !== null)
             blockMovieReleaseDate = <span>({movieReleaseDate.getFullYear()})</span>;

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import styles from './filledButton.module.css';
-
 import CommonButton from '../commonButton/commonButton';
+
+import styles from './filledButton.module.css';
 
 function FilledButton(props) {
     return (
@@ -13,6 +13,6 @@ function FilledButton(props) {
             onClick={props.onClick}
         />
     );
-};
+}
 
 export default FilledButton;

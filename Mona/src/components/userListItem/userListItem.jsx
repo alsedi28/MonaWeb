@@ -27,7 +27,7 @@ class UserListItem extends React.Component {
         // Снимаем обработчик click, пока не обновится состояние после текущего клика
         this.setState({ clickFollowButton: () => ({}) });
 
-        let callback = _ => this.updateInfoAboutFollowing();
+        const callback = _ => this.updateInfoAboutFollowing();
 
         if (this.state.isFollowing)
             DataService.deleteFollowing(this.state.userId, callback);
@@ -36,7 +36,7 @@ class UserListItem extends React.Component {
     }
 
     updateInfoAboutFollowing() {
-        let callback = (profile) => {
+        const callback = (profile) => {
             this.setState({
                 isFollowing: profile.IsFollowing,
                 // Возвращаем обработчик click

@@ -1,37 +1,37 @@
 import React from 'react';
 
-import styles from './postWillWatchContent.module.css';
-
 import Constants from '../../../../constants';
 import CreateEventButton from '../../../buttons/createEventButton/createEventButton';
 import EventCommentField from '../../eventCommentField/eventCommentField';
 import EventPublicityStatus from '../../eventPublicityStatus/eventPublicityStatus';
 import MovieEventHeader from '../../movieEventHeader/movieEventHeader';
 
+import styles from './postWillWatchContent.module.css';
+
 function PostWillWatchContent(props) {
 
     function handleInputChange(event) {
-        const {name, value, type, checked} = event.target;
-        if (type === "checkbox") {
+        const { name, value, type, checked } = event.target;
+
+        if (type === "checkbox")
             props.handleChange(name, checked);
-        } else {
+        else
             props.handleChange(name, value);
-        }
     }
 
     let isCreateEnabled = props.movieInfo.movieId !== 0;
-    if (props.isPublic === true && props.comment.length === 0) {
+
+    if (props.isPublic === true && props.comment.length === 0)
         isCreateEnabled = false;
-    }
 
     let buttonTitle = "Опубликовать";
-    if (!props.isPublic) {
+
+    if (!props.isPublic)
         buttonTitle = "Добавить в закладки";
-    }
 
-    let displayCommentBlock = { display: props.isPublic ? "block" : "none" }
+    const displayCommentBlock = { display: props.isPublic ? "block" : "none" }
 
-    let articleStyle = props.isModal ?  `${`${styles.modalContent} ${`dialog-ev`}`}` : ""
+    const articleStyle = props.isModal ?  `${`${styles.modalContent} ${`dialog-ev`}`}` : ""
 
     return (
         <article className={articleStyle}>

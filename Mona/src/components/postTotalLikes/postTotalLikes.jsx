@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import styles from './postTotalLikes.module.css';
 
 function PostTotalLikes(props) {
-    let userInfoWhoLikesPost = props.userInfoWhoLikesEvent !== null ? props.userInfoWhoLikesEvent.split('#') : null;
+    const userInfoWhoLikesPost = props.userInfoWhoLikesEvent !== null ? props.userInfoWhoLikesEvent.split('#') : null;
 
     let blockWithInfoAboutLikes = "";
     if (userInfoWhoLikesPost !== null) {

@@ -41,12 +41,13 @@ class CreateEventPage extends React.Component {
     }
 
     componentDidMount() {
-        let callback = (tags) => {
+        const callback = (tags) => {
             this.setState({
                 ...this.state,
                 tags: tags
             });
         };
+
         DataService.getMovieTags(callback);
     }
 
@@ -58,7 +59,7 @@ class CreateEventPage extends React.Component {
     }
 
     handleEventCreateAction(eventType) {
-        let callback = _ => {
+        const callback = _ => {
             this.setState({
                 isLoading: false,
                 movies: [],
@@ -72,7 +73,7 @@ class CreateEventPage extends React.Component {
             });
         };
 
-        let movieId = this.state.selectedMovie.MovieId;
+        const movieId = this.state.selectedMovie.MovieId;
 
         switch(eventType) {
             case Constants.MOVIE_WATCHED_EVENT_TYPE:
@@ -106,11 +107,10 @@ class CreateEventPage extends React.Component {
 
         const index = currentlySelectedTags.indexOf(selectedTag);
 
-        if (index === -1) {
-            currentlySelectedTags.push(selectedTag)
-        } else {
+        if (index === -1)
+            currentlySelectedTags.push(selectedTag);
+        else
             currentlySelectedTags.splice(index, 1);
-        }
 
         this.setState({
             ...this.state,
@@ -119,20 +119,19 @@ class CreateEventPage extends React.Component {
     }
 
     getSelectionStyle(tagId) {
-        if (this.state.selectedTags.indexOf(tagId) > -1) {
+        if (this.state.selectedTags.indexOf(tagId) > -1)
             return { backgroundColor: 'rgb(255, 86, 26)', color: 'white' };
-        } else {
+        else
             return { backgroundColor: 'white', color: 'rgb(49, 54, 60)' };
-        }
     }
 
     handleSearchMovies(event) {
         const { value } = event.target;
 
         this.setState({ inputSearchValue: value });
-        if (value.trim().length <= 1) {
+
+        if (value.trim().length <= 1)
             return;
-        }
 
         this.fetchMoviesWithQuery(value);
     }
@@ -140,7 +139,7 @@ class CreateEventPage extends React.Component {
     fetchMoviesWithQuery(query) {
         this.setState({ movies: [], isLoading: true });
 
-        let callback = (movies) => {
+        const callback = (movies) => {
             this.setState({ movies, isLoading: false });
         };
 
@@ -156,10 +155,10 @@ class CreateEventPage extends React.Component {
     }
 
     render() {
-        let searchFieldId = "MovieForEventSearchField";
-        let showSearchResults = document.activeElement.id === searchFieldId;
+        const searchFieldId = "MovieForEventSearchField";
+        const showSearchResults = document.activeElement.id === searchFieldId;
 
-        let movieInfo = this.state.selectedMovie !== null ? getMovieInfoFromMovie(this.state.selectedMovie) : getEmptyMovieInfo();
+        const movieInfo = this.state.selectedMovie !== null ? getMovieInfoFromMovie(this.state.selectedMovie) : getEmptyMovieInfo();
 
         let contentBlock = "";
 

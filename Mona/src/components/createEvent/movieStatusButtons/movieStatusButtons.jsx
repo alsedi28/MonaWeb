@@ -38,18 +38,18 @@ class MovieStatusButtons extends React.Component {
     }
 
     componentDidMount() {
-        let callback = (tags) => {
+        const callback = (tags) => {
             this.setState({
                 ...this.state,
                 tags: tags
             });
         };
+
         DataService.getMovieTags(callback);
     }
 
     handleChangeStatusAction(newStatus) {
-
-        let callback = _ => {
+        const callback = _ => {
             this.props.handlerExternal();
         };
 
@@ -98,7 +98,7 @@ class MovieStatusButtons extends React.Component {
     }
 
     handleEventCreateAction(eventType) {
-        let callback = _ => {
+        const callback = _ => {
             this.props.handlerExternal();
 
             switch(eventType) {
@@ -127,7 +127,7 @@ class MovieStatusButtons extends React.Component {
             }
         };
 
-        let movieId = this.props.movieInfo.movieId;
+        const movieId = this.props.movieInfo.movieId;
 
         switch(eventType) {
             case Constants.MOVIE_WATCHED_EVENT_TYPE:
@@ -164,7 +164,7 @@ class MovieStatusButtons extends React.Component {
         const index = currentlySelectedTags.indexOf(selectedTag);
 
         if (index === -1) {
-            currentlySelectedTags.push(selectedTag)
+            currentlySelectedTags.push(selectedTag);
         } else {
             currentlySelectedTags.splice(index, 1);
         }

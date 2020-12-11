@@ -6,7 +6,7 @@ import styles from './modalDialogBackground.module.css';
 const ModalDialogBackground = ({ show, children, clickClose = () => ({}) }) => {
 
     function clickBackground(event) {
-        let target = event.target;
+        const target = event.target;
 
         if (target.closest(".dialog-ev")) {
             event.stopPropagation();

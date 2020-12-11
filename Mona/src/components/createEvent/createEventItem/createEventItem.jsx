@@ -1,7 +1,5 @@
 import React from 'react';
 
-import styles from './createEventItem.module.css';
-
 import Constants from '../../../constants';
 import CreateEventButton from '../../buttons/createEventButton/createEventButton';
 import EventCommentField from '../eventCommentField/eventCommentField';
@@ -9,38 +7,39 @@ import EventPublicityStatus from '../eventPublicityStatus/eventPublicityStatus';
 import MovieEventHeader from '../movieEventHeader/movieEventHeader';
 import MovieRatingSelection from '../movieRatingSelection/movieRatingSelection';
 
+import styles from './createEventItem.module.css';
+
 function CreateEventItem(props) {
 
     function handleInputChange(event) {
-        const {name, value, type, checked} = event.target;
-        if (type === "checkbox") {
+        const { name, value, type, checked } = event.target;
+
+        if (type === "checkbox")
             props.handleChange(name, checked);
-        } else {
+        else
             props.handleChange(name, value);
-        }
     }
 
     function getSelectionStyle(tagId) {
-        if (props.selectedTags.indexOf(tagId) > -1) {
+        if (props.selectedTags.indexOf(tagId) > -1)
             return { backgroundColor: 'rgb(255, 86, 26)', color: 'white' };
-        } else {
+        else
             return { backgroundColor: 'white', color: 'rgb(49, 54, 60)' };
-        }
     }
 
     let isCreateEnabled = true;
-    if ((props.isPublic === true && props.comment.length === 0) || props.selectedRating === 0) {
+
+    if ((props.isPublic === true && props.comment.length === 0) || props.selectedRating === 0)
         isCreateEnabled = false;
-    }
 
     let buttonTitle = "Опубликовать";
-    if (!props.isPublic) {
-        buttonTitle = "Добавить в просмотренные";
-    }
 
-    let displayCommentBlock = { display: props.isPublic ? "block" : "none" }
-    let displayTagsBlock = { display: props.isPublic ? "flex" : "none" }
-    let minHeightStyleBlock = { minHeight: props.isPublic ? '820px' : '300px' }
+    if (!props.isPublic)
+        buttonTitle = "Добавить в просмотренные";
+
+    const displayCommentBlock = { display: props.isPublic ? "block" : "none" }
+    const displayTagsBlock = { display: props.isPublic ? "flex" : "none" }
+    const minHeightStyleBlock = { minHeight: props.isPublic ? '820px' : '300px' }
 
     return (
         <React.Fragment>

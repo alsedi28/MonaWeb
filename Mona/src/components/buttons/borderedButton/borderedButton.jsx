@@ -1,8 +1,8 @@
 import React from 'react';
 
-import styles from './borderedButton.module.css';
-
 import CommonButton from '../commonButton/commonButton';
+
+import styles from './borderedButton.module.css';
 
 function BorderedButton(props) {
     return (
@@ -13,6 +13,6 @@ function BorderedButton(props) {
             onClick={props.onClick}
         />
     );
-};
+}
 
 export default BorderedButton;

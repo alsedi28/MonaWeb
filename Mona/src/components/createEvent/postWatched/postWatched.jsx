@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Constants from '../../../constants';
 import CloseButton from '../../buttons/closeButton/closeButton';
 import ModalDialogBackground from '../../modalDialogBackground/modalDialogBackground';
 import PostWatchedContent from './postWatchedContent/postWatchedContent';

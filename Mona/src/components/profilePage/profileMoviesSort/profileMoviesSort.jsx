@@ -17,16 +17,12 @@ function ProfileMoviesSort(props) {
         switch(props.selectedSort) {
             case Constants.MOVIES_SORT_TYPE_DATE_DESC:
                 return "От нового к старому";
-                break;
             case Constants.MOVIES_SORT_TYPE_DATE:
                 return "От старого к новому";
-                break;
             case Constants.MOVIES_SORT_TYPE_RATING_DESC:
                 return "По убыванию оценки";
-                break;
             case Constants.MOVIES_SORT_TYPE_RATING:
                 return "По возрастанию оценки";
-                break;
             default:
                 return "";
         }

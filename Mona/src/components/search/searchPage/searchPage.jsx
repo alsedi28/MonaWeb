@@ -45,7 +45,7 @@ class SearchPage extends React.Component {
     searchMovies(text) {
         this.setState({ movies: [], isLoading: true });
 
-        let callback = (movies) => {
+        const callback = (movies) => {
             this.setState({ movies, isLoading: false });
         };
 
@@ -55,8 +55,9 @@ class SearchPage extends React.Component {
     searchUsers(text) {
         this.setState({ users: [], isLoading: true });
 
-        let callback = (response) => {
-            let users = this.mapUsers(response);
+        const callback = (response) => {
+            const users = this.mapUsers(response);
+
             this.setState({ users: users, isLoading: false });
         };
 
@@ -64,7 +65,7 @@ class SearchPage extends React.Component {
     }
 
     mapUsers(response) {
-        let users = response.map(user => ({
+        const users = response.map(user => ({
             id: user.UserId,
             icon: user.AvatarPath,
             login: user.Login,

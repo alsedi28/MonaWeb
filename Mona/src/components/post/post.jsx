@@ -64,15 +64,16 @@ class Post extends React.Component {
     }
 
     clickPublishComment(eventId, movieId) {
-        let comment = this.state.inputComment;
-        let trimmedValue = comment.trim();
+        const comment = this.state.inputComment;
+        const trimmedValue = comment.trim();
+
         if (!trimmedValue.length)
             return;
 
         // Снимаем обработчик click, пока не обновится состояние после текущего клика
         this.setState({ handleClickPublishComment: () => ({})});
 
-        let callback = _ => {
+        const callback = _ => {
             this.updatePost(eventId, movieId);
             // Возвращаем обработчик click
             this.setState({
@@ -80,23 +81,24 @@ class Post extends React.Component {
                 inputComment: ""
             });
         };
+
         DataService.addCommentToEvent(eventId, movieId, comment, callback);
     }
 
     clickShowUsersWhoLikesPost(eventId, movieId) {
-        let title = "Лайкнули публикацию";
+        const title = "Лайкнули публикацию";
 
         this.showModalDialog(title, DataService.getUsersWhoLikesPost.bind(DataService), eventId, movieId);
     }
 
     clickShowUsersWhoWillWatchMovie(movieId) {
-        let title = "Будут смотреть";
+        const title = "Будут смотреть";
 
         this.showModalDialog(title, DataService.getUsersWhoWillWatchMovie.bind(DataService), movieId);
     }
 
     clickShowUsersWhoViewedMovie(movieId) {
-        let title = "Уже смотрели";
+        const title = "Уже смотрели";
 
         this.showModalDialog(title, DataService.getUsersWhoViewedMovie.bind(DataService), movieId);
     }
@@ -105,7 +107,7 @@ class Post extends React.Component {
         // Снимаем обработчик click, пока не обновится состояние после текущего клика
         this.setState({ handleClickLike: () => ({})});
 
-        let callback = _ => {
+        const callback = _ => {
             this.updatePost(eventId, movieId);
             // Возвращаем обработчик click
             this.setState({ handleClickLike: this.clickLikePost });
@@ -121,25 +123,24 @@ class Post extends React.Component {
         // Снимаем обработчик click, пока не обновится состояние после текущего клика
         this.setState({ handleClickLikeComment: () => ({}) });
 
-        let callback = _ => {
+        const callback = _ => {
             this.updatePost(eventId, movieId);
             // Возвращаем обработчик click
             this.setState({ handleClickLikeComment: this.clickLikeComment });
         };
 
-        let comment = this.state.post.Comments.find(item => item.CommentId === commentId);
+        const comment = this.state.post.Comments.find(item => item.CommentId === commentId);
 
         if (comment !== null) {
-            if (comment.IsCurrentUserLiked) {
+            if (comment.IsCurrentUserLiked)
                 DataService.deleteLikeFromComment(eventId, movieId, commentId, callback);
-            } else {
+            else
                 DataService.addLikeToComment(eventId, movieId, commentId, callback);
-            }
         }
     }
 
     updatePost(eventId, movieId) {
-        let callback = (item) => {
+        const callback = (item) => {
             this.setState({ post: item });
         };
 
@@ -149,7 +150,7 @@ class Post extends React.Component {
     showModalDialog(title, getter, ...args) {
         this.setModalDialogState(true, true, title, []);
 
-        let callback = (response) => {
+        const callback = (response) => {
             let items = response.map(item => ({
                 id: item.UserId,
                 icon: item.AvatarPath,
@@ -200,25 +201,25 @@ class Post extends React.Component {
     render() {
         const { externalClass = "", handlerExternal = () => ({}) } = this.props;
 
-        let post = this.state.post;
+        const post = this.state.post;
 
-        let movieRaiting = getMovieRating(post);
-        let userRaiting = post.EventType === 0 ? post.UserRaiting : null;
+        const movieRaiting = getMovieRating(post);
+        const userRaiting = post.EventType === 0 ? post.UserRaiting : null;
 
-        let movieReleaseDate = getReleaseYear(post.MovieReleaseDate);
+        const movieReleaseDate = getReleaseYear(post.MovieReleaseDate);
         let blockMovieReleaseDate = "";
         if (movieReleaseDate !== null)
             blockMovieReleaseDate = <span>({movieReleaseDate})</span>;
 
-        let comment = post.Comments.length > 0 ? post.Comments[0] : null;
+        const comment = post.Comments.length > 0 ? post.Comments[0] : null;
         let blockWithMainComment = "";
         if (comment !== null)
             blockWithMainComment = <PostComment comment={comment} clickLike={this.state.handleClickLikeComment.bind(this, post.EventId, post.MovieId, comment.CommentId)} />
 
-        let commentsExcludingMain = post.Comments.filter((comment, i) => i !== 0).map(comment => <PostComment comment={comment} clickLike={this.state.handleClickLikeComment.bind(this, post.EventId, post.MovieId, comment.CommentId)} />);
-        let displayBookmarkBlock = { display: post.StatusOfMovieForUser === Constants.MOVIE_STATUS_WILL_WATCH ? "block" : "none" };
-        let displayBookmarkIconBlock = { display: userRaiting === null ? "none" : "block" };
-        let displayAllCommentsBlock = { display: post.AmountEventComments > 1 ? "block" : "none" };
+        const commentsExcludingMain = post.Comments.filter((comment, i) => i !== 0).map(comment => <PostComment comment={comment} clickLike={this.state.handleClickLikeComment.bind(this, post.EventId, post.MovieId, comment.CommentId)} />);
+        const displayBookmarkBlock = { display: post.StatusOfMovieForUser === Constants.MOVIE_STATUS_WILL_WATCH ? "block" : "none" };
+        const displayBookmarkIconBlock = { display: userRaiting === null ? "none" : "block" };
+        const displayAllCommentsBlock = { display: post.AmountEventComments > 1 ? "block" : "none" };
 
         return (
             <article className={`${styles.container} ${externalClass}`} id={`post-${post.EventId}`}>

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import styles from './createEventButton.module.css';
-
 import FilledButton from '../filledButton/filledButton';
+
+import styles from './createEventButton.module.css';
 
 function CreateEventButton(props) {
     return (
@@ -13,6 +13,6 @@ function CreateEventButton(props) {
             onClick={props.onClick}
         />
     );
-};
+}
 
 export default CreateEventButton;

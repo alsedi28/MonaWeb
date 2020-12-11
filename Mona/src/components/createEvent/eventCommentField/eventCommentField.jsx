@@ -4,7 +4,7 @@ import styles from './eventCommentField.module.css';
 
 function EventCommentField(props) {
 
-    let displayCommentBlock = { display: props.isPublic ? "block" : "none" }
+    const displayCommentBlock = { display: props.isPublic ? "block" : "none" };
 
     return (
         <div className={styles.inputField} style={displayCommentBlock}>

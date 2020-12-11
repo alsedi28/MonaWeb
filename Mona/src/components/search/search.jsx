@@ -66,7 +66,7 @@ class Search extends React.Component {
             }
         });
 
-        let callback = (response) => {
+        const callback = (response) => {
             // Текущий ответ уже не актуален. Значение в поле ввода изменилось и уже ушел новый запрос.
             if (response.TextOfSearchQuery !== this.state.inputSearchValue)
                 return;
@@ -104,7 +104,7 @@ class Search extends React.Component {
     }
 
     mapUsers(response) {
-        let users = response.map(user => ({
+        const users = response.map(user => ({
             id: user.UserId,
             icon: user.AvatarPath,
             login: user.Login,

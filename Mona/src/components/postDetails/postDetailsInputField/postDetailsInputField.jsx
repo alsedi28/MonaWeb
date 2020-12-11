@@ -20,7 +20,7 @@ function PostDetailsInputField(props) {
             props.handleHeightChange(height);
     }, [props.value]);
 
-    let trimmedValue = props.value.trim();
+    const trimmedValue = props.value.trim();
     const isDisabled = !(trimmedValue.length > 0);
 
     return (

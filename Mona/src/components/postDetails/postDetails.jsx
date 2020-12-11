@@ -62,7 +62,7 @@ class PostDetails extends React.Component {
     }
 
     updateCommentsList() {
-        let callback = (commentsList) => {
+        const callback = (commentsList) => {
             this.setState({
                 ...this.state,
                 isLoading: false,
@@ -72,13 +72,15 @@ class PostDetails extends React.Component {
             this.updateEventHandler();
         };
 
-        let eventId = this.props.post.EventId;
-        let movieId = this.props.post.MovieId;
+        const eventId = this.props.post.EventId;
+        const movieId = this.props.post.MovieId;
+
         DataService.getPostComments(eventId, movieId, callback);
     }
 
     handleInputCommentChange(event) {
-        const {name, value} = event.target;
+        const { name, value } = event.target;
+
         this.setState({
             [name]: value
         });
@@ -91,15 +93,16 @@ class PostDetails extends React.Component {
     }
 
     clickPublishComment(eventId, movieId) {
-        let comment = this.state.inputComment;
-        let trimmedValue = comment.trim();
+        const comment = this.state.inputComment;
+        const trimmedValue = comment.trim();
+
         if (!trimmedValue.length)
             return;
 
         // Снимаем обработчик click, пока не обновится состояние после текущего клика
         this.setState({ handleClickPublishComment: () => ({})});
 
-        let callback = _ => {
+        const callback = _ => {
             this.updateCommentsList();
             // Возвращаем обработчик click
             this.setState({
@@ -107,11 +110,12 @@ class PostDetails extends React.Component {
                 inputComment: ""
             });
         };
+
         DataService.addCommentToEvent(eventId, movieId, comment, callback);
     }
 
     clickShowUsersWhoLikesPost(eventId, movieId) {
-        let title = "Лайкнули публикацию";
+        const title = "Лайкнули публикацию";
 
         this.showModalDialog(title, DataService.getUsersWhoLikesPost.bind(DataService), eventId, movieId);
     }
@@ -120,7 +124,7 @@ class PostDetails extends React.Component {
         // Снимаем обработчик click, пока не обновится состояние после текущего клика
         this.setState({ handleClickLike: () => ({})});
 
-        let callback = _ => {
+        const callback = _ => {
             this.updatePost(eventId, movieId);
             // Возвращаем обработчик click
             this.setState({ handleClickLike: this.clickLikePost });
@@ -136,28 +140,27 @@ class PostDetails extends React.Component {
         // Снимаем обработчик click, пока не обновится состояние после текущего клика
         this.setState({ handleClickLikeComment: () => ({}) });
 
-        let callback = _ => {
+        const callback = _ => {
             this.updateCommentsList();
             // Возвращаем обработчик click
             this.setState({ handleClickLikeComment: this.clickLikeComment });
         };
 
-        let comment = this.state.comments.find(item => item.CommentId === commentId);
+        const comment = this.state.comments.find(item => item.CommentId === commentId);
 
         if (comment !== null) {
-            if (comment.IsCurrentUserLiked) {
+            if (comment.IsCurrentUserLiked)
                 DataService.deleteLikeFromComment(eventId, movieId, commentId, callback);
-            } else {
+            else
                 DataService.addLikeToComment(eventId, movieId, commentId, callback);
-            }
         }
     }
 
     showModalDialog(title, getter, ...args) {
         this.setModalDialogState(true, true, title, []);
 
-        let callback = (response) => {
-            let items = response.map(item => ({
+        const callback = (response) => {
+            const items = response.map(item => ({
                 id: item.UserId,
                 icon: item.AvatarPath,
                 login: item.Login,
@@ -189,7 +192,7 @@ class PostDetails extends React.Component {
     }
 
     render() {
-        let post = this.props.post;
+        const post = this.props.post;
 
         let commentsBlock = "";
         if (this.state.isLoading) {

@@ -19,9 +19,9 @@ function PostDetailsInfo(props) {
         setTimeout(() => imgLike.current.classList.remove(styles.likeClickActive), 1000);
     }
 
-    let correctedBottomInset = props.paddingBottom > defaultBottomInset ? props.paddingBottom : defaultBottomInset;
-    let correctedMaxInset =  Constants.MAX_INPUT_FIELD_HEIGHT + defaultBottomInset;
-    let bottomInsetStyle = { bottom: correctedBottomInset < correctedMaxInset ? `${correctedBottomInset}px` : `${correctedMaxInset}px` };
+    const correctedBottomInset = props.paddingBottom > defaultBottomInset ? props.paddingBottom : defaultBottomInset;
+    const correctedMaxInset =  Constants.MAX_INPUT_FIELD_HEIGHT + defaultBottomInset;
+    const bottomInsetStyle = { bottom: correctedBottomInset < correctedMaxInset ? `${correctedBottomInset}px` : `${correctedMaxInset}px` };
 
     return (
         <div className={styles.postInfoContainer} style={bottomInsetStyle} ref={props.componentRef}>

@@ -130,7 +130,7 @@ class MovieCardPage extends React.Component {
     }
 
     getMovieCard() {
-        let callback = (movie) => {
+        const callback = (movie) => {
             let tabs = [...this.state.tabSettings];
 
             // Добавляем вкладку "Медиа", если есть хотя бы один кадр фильма.
@@ -160,7 +160,7 @@ class MovieCardPage extends React.Component {
     }
 
     getMoviesComments() {
-        let callback = (items) => {
+        const callback = (items) => {
             if (items.length === 0) {
                 this.setState({
                     ...this.state,
@@ -190,8 +190,8 @@ class MovieCardPage extends React.Component {
         // Снимаем обработчик click, пока не обновится состояние после текущего клика
         this.setState({ handleClickLikeComment: () => ({}) });
 
-        let callback = _ => {
-            let commentIndex = this.state.comments.items.findIndex(item => item.CommentId === commentId);
+        const callback = _ => {
+            const commentIndex = this.state.comments.items.findIndex(item => item.CommentId === commentId);
             let comments = [...this.state.comments.items]; // Копируем текущий массив комментариев, чтобы изменить состояние конкретного
 
             // Обновляем состояние комментария в локальной модели. Мб позже будем использовать запрос для обновления данных о комментарии.
@@ -209,25 +209,24 @@ class MovieCardPage extends React.Component {
             });
         };
 
-        let comment = this.state.comments.items.find(item => item.CommentId === commentId);
+        const comment = this.state.comments.items.find(item => item.CommentId === commentId);
 
         if (comment !== null) {
-            if (comment.IsCurrentUserLikeComment) {
+            if (comment.IsCurrentUserLikeComment)
                 DataService.deleteLikeFromComment(eventId, movieId, commentId, callback);
-            } else {
+            else
                 DataService.addLikeToComment(eventId, movieId, commentId, callback);
-            }
         }
     }
 
     clickShowUsersWhoWillWatchMovie(movieId) {
-        let title = "Будут смотреть";
+        const title = "Будут смотреть";
 
         this.showModalDialog(title, DataService.getUsersWhoWillWatchMovie.bind(DataService), movieId);
     }
 
     clickShowUsersWhoViewedMovie(movieId) {
-        let title = "Уже смотрели";
+        const title = "Уже смотрели";
 
         this.showModalDialog(title, DataService.getUsersWhoViewedMovie.bind(DataService), movieId);
     }
@@ -235,7 +234,7 @@ class MovieCardPage extends React.Component {
     showModalDialog(title, getter, ...args) {
         this.setModalDialogState(true, true, title, []);
 
-        let callback = (response) => {
+        const callback = (response) => {
             let items = response.map(item => ({
                 id: item.UserId,
                 icon: item.AvatarPath,
@@ -288,7 +287,7 @@ class MovieCardPage extends React.Component {
     }
 
     showPostDetails(eventId, movieId) {
-        let callback = (item) => {
+        const callback = (item) => {
             this.setState({
                 postDetails: {
                     ...this.state.postDetails,
@@ -312,7 +311,7 @@ class MovieCardPage extends React.Component {
     }
 
     updatePost(eventId, movieId) {
-        let callback = (item) => {
+        const callback = (item) => {
             this.setState({
                 postDetails: {
                     ...this.state.postDetails,

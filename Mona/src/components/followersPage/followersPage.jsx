@@ -13,7 +13,7 @@ class FollowersPage extends React.Component {
     constructor(props) {
         super(props);
 
-        let isFollowingPage = props.location.pathname.endsWith('following');
+        const isFollowingPage = props.location.pathname.endsWith('following');
 
         this.state = {
             userId: props.match.params.userId,
@@ -46,7 +46,7 @@ class FollowersPage extends React.Component {
     getFollowers() {
         this.setState({ isLoading: true, users: [] });
 
-        let callback = (response) => {
+        const callback = (response) => {
             let users = this.mapUsers(response);
             this.setState({ users, globalUsers: [], numberOfRecordsFound: null, isLoading: false });
         };
@@ -57,7 +57,7 @@ class FollowersPage extends React.Component {
     getFollowing() {
         this.setState({ isLoading: true, users: [] });
 
-        let callback = (response) => {
+        const callback = (response) => {
             let users = this.mapUsers(response);
             this.setState({ users, globalUsers: [], numberOfRecordsFound: null, isLoading: false });
         };
@@ -68,8 +68,8 @@ class FollowersPage extends React.Component {
     searchFollowers(name) {
         this.setState({ isLoading: true, users: [] });
 
-        let callback = (response) => {
-            let users = this.mapUsers(response);
+        const callback = (response) => {
+            const users = this.mapUsers(response);
 
             let stateIsLoading = false;
 
@@ -90,8 +90,8 @@ class FollowersPage extends React.Component {
     searchFollowing(name) {
         this.setState({ isLoading: true, users: [] });
 
-        let callback = (response) => {
-            let users = this.mapUsers(response);
+        const callback = (response) => {
+            const users = this.mapUsers(response);
 
             let stateIsLoading = false;
 
@@ -127,7 +127,7 @@ class FollowersPage extends React.Component {
     }
 
     searchUsersGlobal(name) {
-        let callback = (response) => {
+        const callback = (response) => {
             let users = this.mapUsers(response);
             this.setState({ globalUsers: users, isLoading: false });
         };
@@ -136,7 +136,7 @@ class FollowersPage extends React.Component {
     }
 
     mapUsers(response){
-        let users = response.map(user => ({
+        const users = response.map(user => ({
             id: user.UserId,
             icon: user.AvatarPath,
             login: user.Login,

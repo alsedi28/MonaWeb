@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 import styles from './postDetailsComment.module.css';
-import { getTimeAgoString } from '../../../helpers/timeHelper'
+import { getTimeAgoString } from '../../../helpers/timeHelper';
 
 import heartIcon from '../../../../public/icons/heart.png';
 import heartFilledIcon from '../../../../public/icons/heartFilled.png';

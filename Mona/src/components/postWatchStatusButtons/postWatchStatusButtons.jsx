@@ -49,7 +49,7 @@ function PostWatchStatusButtons(props) {
             break;
     }
 
-    let noViewedStatus = { display: props.status === Constants.MOVIE_STATUS_NO_VIEWED ? "block" : "none" };
+    const noViewedStatus = { display: props.status === Constants.MOVIE_STATUS_NO_VIEWED ? "block" : "none" };
 
     return (
         <div className={`${styles.box} ${props.externalClass}`}>

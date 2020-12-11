@@ -12,6 +12,7 @@ class SignUpPage extends React.Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
             email: "",
             nickname: "",
@@ -20,33 +21,34 @@ class SignUpPage extends React.Component {
             emailValid: false,
             passwordValid: false,
             formValid: false
-        }
+        };
+
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleKeyPress = this.handleKeyPress.bind(this);
     }
 
     clickRegister() {
-        if (!this.state.formValid) {
+        if (!this.state.formValid)
             return;
-        }
+
         this.props.register(this.state.email, this.state.nickname, this.state.name, this.state.password);
     }
 
     handleKeyPress(event) {
-        if (event.key === 'Enter') {
-            this.clickRegister()
-        }
+        if (event.key === 'Enter')
+            this.clickRegister();
     }
 
     handleInputChange() {
-        const {name, value} = event.target;
-        this.setState({[name]: value},
-                () => { this.validateField(name, value) });
+        const { name, value } = event.target;
+
+        this.setState({[name]: value}, () => this.validateField(name, value));
     }
 
     validateField(fieldName, value) {
         let emailValid = this.state.emailValid;
         let passwordValid = this.state.passwordValid;
+
         switch(fieldName) {
             case 'email':
                 emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
@@ -57,6 +59,7 @@ class SignUpPage extends React.Component {
             default:
                 break;
         }
+
         this.setState({
             emailValid: emailValid,
             passwordValid: passwordValid
@@ -75,10 +78,10 @@ class SignUpPage extends React.Component {
     render() {
         const isSignInDisabled = !this.state.formValid;
 
-        let displayEmailError = { display: !this.state.emailValid && this.state.email.length > 0 ? "block" : "none" };
-        let displayPasswordError = { display: !this.state.passwordValid && this.state.password.length > 0 ? "block" : "none" };
-        let displayRegistrationError = { display: this.props.registrationError != null ? "block" : "none"  };
-        let registrationErrorText = this.props.registrationError != null ? this.props.registrationError.toString() : "неизвестная ошибка";
+        const displayEmailError = { display: !this.state.emailValid && this.state.email.length > 0 ? "block" : "none" };
+        const displayPasswordError = { display: !this.state.passwordValid && this.state.password.length > 0 ? "block" : "none" };
+        const displayRegistrationError = { display: this.props.registrationError !== null ? "block" : "none"  };
+        const registrationErrorText = this.props.registrationError !== null ? this.props.registrationError.toString() : "неизвестная ошибка";
 
         return (
             <React.Fragment>

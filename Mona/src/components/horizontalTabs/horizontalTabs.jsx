@@ -3,7 +3,7 @@ import React from 'react';
 import styles from './horizontalTabs.module.css';
 
 const HorizontalTabs = ({ tabsSettings, clickTab, tabNumberActive, externalClass = "" }) => {
-    let tabs = tabsSettings.map((tab, i) =>
+    const tabs = tabsSettings.map((tab, i) =>
         <a className={`${tabNumberActive === i + 1 ? styles.active : ''}`} onClick={() => clickTab(i + 1)}>{tab.Title}</a>);
 
     return (

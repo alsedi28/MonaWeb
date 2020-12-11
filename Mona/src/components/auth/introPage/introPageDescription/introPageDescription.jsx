@@ -6,7 +6,7 @@ import styles from './introPageDescription.module.css';
 
 import appStoreIcon from '../../../../../public/icons/appStore.png';
 
-function IntroPageDescription(props) {
+function IntroPageDescription() {
     return (
         <div className={styles.descriptionContainer}>
 

@@ -109,7 +109,7 @@ class ProfilePage extends React.Component {
     }
 
     getProfileInfo() {
-        let callback = (profile) => {
+        const callback = (profile) => {
             this.setState({
                 ...this.state,
                 isLoading: false,
@@ -137,7 +137,7 @@ class ProfilePage extends React.Component {
     }
 
     updatePartlyProfileInfo(callFromModalDialog = false) {
-        let callback = (profile) => {
+        const callback = (profile) => {
             this.setState({
                 ...this.state,
                 profile: {
@@ -157,7 +157,7 @@ class ProfilePage extends React.Component {
     }
 
     getUsersPosts() {
-        let callback = (items) => {
+        const callback = (items) => {
             if (items.length === 0) {
                 this.setState({
                     ...this.state,
@@ -185,7 +185,7 @@ class ProfilePage extends React.Component {
     }
 
     getWillWatchMovies() {
-        let callback = (items) => {
+        const callback = (items) => {
             if (items.length === 0) {
                 this.setState({
                     ...this.state,
@@ -215,7 +215,7 @@ class ProfilePage extends React.Component {
     }
 
     getViewedMovies() {
-        let callback = (items) => {
+        const callback = (items) => {
             if (items.length === 0) {
                 this.setState({
                     ...this.state,
@@ -248,7 +248,7 @@ class ProfilePage extends React.Component {
         // Снимаем обработчик click, пока не обновится состояние после текущего клика
         this.setState({ handleClickFollowUser: () => ({}) });
 
-        let callback = _ => {
+        const callback = _ => {
             this.updatePartlyProfileInfo();
             // Возвращаем обработчик click
             this.setState({ handleClickFollowUser: this.clickFollowUser });
@@ -266,7 +266,7 @@ class ProfilePage extends React.Component {
 
     renderMoviesForView(movies, isViewed) {
         let result = [];
-        let statusOfMovieForUser = isViewed ? Constants.MOVIE_STATUS_VIEWED : Constants.MOVIE_STATUS_WILL_WATCH;
+        const statusOfMovieForUser = isViewed ? Constants.MOVIE_STATUS_VIEWED : Constants.MOVIE_STATUS_WILL_WATCH;
 
         // Группируем фильмы в блок по два для вывода на страницу
         for (var i = 0; i < movies.items.length; i += 2) {
@@ -317,7 +317,7 @@ class ProfilePage extends React.Component {
     render() {
         const { location } = this.props;
 
-        let currentUserId = getMainUserId();
+        const currentUserId = getMainUserId();
         let displaySortViewBlock = "";
 
         if (this.state.tabNumberActive === 2) {

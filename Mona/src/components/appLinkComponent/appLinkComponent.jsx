@@ -6,7 +6,7 @@ import styles from './appLinkComponent.module.css';
 
 import appStoreIcon from '../../../public/icons/appStore.png';
 
-function AppLinkComponent(props) {
+function AppLinkComponent() {
     return (
         <div className={styles.linkBlock}>
             <p className={styles.helpText}>Скачать приложение</p>

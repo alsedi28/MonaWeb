@@ -16,7 +16,7 @@ class LoginPage extends React.Component {
 
         this.state = {
             nickname: "",
-            password: "",
+            password: ""
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -24,9 +24,9 @@ class LoginPage extends React.Component {
     }
 
     clickLogin() {
-        if (!this.canBeSubmitted()) {
+        if (!this.canBeSubmitted())
             return;
-        }
+
         this.props.login(this.state.nickname, this.state.password);
     }
 
@@ -36,15 +36,16 @@ class LoginPage extends React.Component {
     }
 
     handleInputChange() {
-        const {name, value} = event.target;
+        const { name, value } = event.target;
+
         this.setState({
             [name]: value
-        })
+        });
     }
 
     handleKeyPress(event) {
         if (event.key === 'Enter') {
-            this.clickLogin()
+            this.clickLogin();
         }
     }
 
@@ -110,6 +111,6 @@ class LoginPage extends React.Component {
                 <Footer externalClass="footer-external" />
             </React.Fragment>);
     }
-};
+}
 
 export default LoginPage;

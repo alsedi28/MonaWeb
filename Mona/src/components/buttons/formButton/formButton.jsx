@@ -1,8 +1,8 @@
 import React from 'react';
 
-import styles from './formButton.module.css';
-
 import FilledButton from '../filledButton/filledButton';
+
+import styles from './formButton.module.css';
 
 function FormButton(props) {
     return (
@@ -13,6 +13,6 @@ function FormButton(props) {
             onClick={props.onClick}
         />
     );
-};
+}
 
 export default FormButton;

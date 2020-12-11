@@ -69,7 +69,7 @@ class App extends React.Component {
     }
 
     login(login, password, isFromRegistration = false) {
-        let successCallback = (response) => {
+        const successCallback = (response) => {
             this.userHasAuthenticated(true);
             setUserCookie(response.access_token, response.userId, response.userAvatar);
 
@@ -84,25 +84,25 @@ class App extends React.Component {
             }
         };
 
-        let failedCallback = (error) => {
+        const failedCallback = (error) => {
             if (isFromRegistration) {
                 this.setState({ registrationError: error });
             } else {
                 this.showLoginError(true);
             }
-        }
+        };
 
         DataService.login(login, password, successCallback, failedCallback);
     }
 
     register(email, nickname, name, password) {
-        let successCallback = (response) => {
+        const successCallback = (response) => {
             this.login(nickname, password, true);
 
             logEventWithoutParameters(EVENTS.REGISTRATION);
         };
 
-        let failedCallback = (error) => {
+        const failedCallback = (error) => {
             this.setState({ registrationError: error });
         };
 
@@ -116,7 +116,7 @@ class App extends React.Component {
             return;
         }
 
-        let callback = (items) => {
+        const callback = (items) => {
             if (items.length === 0) {
                 this.setState({
                     ...this.state,
@@ -150,7 +150,7 @@ class App extends React.Component {
             return;
         }
 
-        let callback = (items) => {
+        const callback = (items) => {
             if (items.length === 0) {
                 this.setState({
                     ...this.state,
